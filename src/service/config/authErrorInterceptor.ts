@@ -5,7 +5,9 @@ import { useAuthStore } from '@/store/auth'
 import { AUTHORIZATION_API, BACKEND_API } from './index'
 
 const authErrorInterceptor = async (error: AxiosError) => {
-  const { setAccessToken, clearAccessToken, accessToken } = useAuthStore()
+  const accessToken = useAuthStore.getState().accessToken
+  const setAccessToken = useAuthStore.getState().setAccessToken
+  const clearAccessToken = useAuthStore.getState().clearAccessToken
 
   if (error.response) {
     const status = error.response.status
@@ -33,10 +35,6 @@ const authErrorInterceptor = async (error: AxiosError) => {
 
         return Promise.reject(reissueError)
       }
-    }
-
-    if (status === 404) {
-      clearAccessToken()
     }
   }
 
