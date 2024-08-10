@@ -1,21 +1,52 @@
 'use client'
 
+import { useEffect, useState } from 'react'
+
+import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { useGetBoardsPaging } from '@/service/data/boards'
+import { getBoardsPaging } from '@/service/server/board'
 
 import { useActivityStore } from '~activity/_store/activity'
 
 import { BoardList } from './BoardList/indext'
+import { BoardPaginationButton } from './BoardPaginationButton'
 
 export const BoardSection = () => {
   const currentActivity = useActivityStore((state) => state.currentActivity)
+
   if (!currentActivity) return <div>에러 처리하기</div>
 
-  const { boards, status } = useGetBoardsPaging({
+  const [page, setPage] = useState(0)
+
+  const { data, status, isPlaceholderData } = useGetBoardsPaging({
     activityId: currentActivity.activityId,
+    page,
   })
 
-  if (status === 'pending') return <div>loading...</div>
-  if (!boards?.length) return <div>게시판이 없습니다.</div>
+  useEffect(() => {
+    if (!isPlaceholderData && data?.nextPageToken) {
+      queryClient.prefetchQuery({
+        queryKey: ['boards', currentActivity, page + 1],
+        queryFn: () =>
+          getBoardsPaging({
+            activityId: currentActivity.activityId,
+            page: page + 1,
+          }),
+      })
+    }
+  }, [data, isPlaceholderData, page, queryClient])
 
-  return <BoardList boards={boards} />
+  if (status === 'pending') return <div>loading...</div>
+  if (!data?.boards?.length) return <div>게시판이 없습니다.</div>
+
+  return (
+    <div className="flex flex-col gap-6">
+      <BoardList boards={data.boards} />
+      <BoardPaginationButton
+        boardData={data}
+        currentPage={page}
+        setCurrentPage={setPage}
+      />
+    </div>
+  )
 }
