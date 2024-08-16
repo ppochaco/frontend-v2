@@ -1,5 +1,3 @@
-'use client'
-
 import { useEffect } from 'react'
 
 import { useSearchParams } from 'next/navigation'
@@ -7,28 +5,30 @@ import { useSearchParams } from 'next/navigation'
 import { PaginationButtons } from '@/components/PaginationButtons'
 import { PostTable } from '@/components/Table/PostTable'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
-import { useGetPostsPaging } from '@/service/data/post'
-import { getPostsPaging } from '@/service/server/post'
+import { useGetActivityPostsPaging } from '@/service/data/post'
+import { getActivityPostsPaging } from '@/service/server/post'
 
-export const EventPostSection = () => {
-  const postType = 'EVENT'
+type ActivityPostSectionProps = {
+  boardId: number
+}
 
+export const ActivityPostSection = ({ boardId }: ActivityPostSectionProps) => {
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams)
 
   const page =
     Number(params.get('page')) > 0 ? Number(params.get('page')) - 1 : 0
 
-  const { data, status, isPlaceholderData } = useGetPostsPaging({
-    postType,
+  const { data, status, isPlaceholderData } = useGetActivityPostsPaging({
+    boardId,
     page,
   })
 
   useEffect(() => {
     if (!isPlaceholderData && data?.nextPageToken) {
       queryClient.prefetchQuery({
-        queryKey: ['posts', postType, page],
-        queryFn: () => getPostsPaging({ postType, page }),
+        queryKey: ['posts', boardId, page],
+        queryFn: () => getActivityPostsPaging({ boardId, page }),
       })
     }
   }, [data, isPlaceholderData, page, queryClient])
