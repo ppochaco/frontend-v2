@@ -21,13 +21,12 @@ type SelectMemberFieldProps = {
 }
 
 export const SelectMemberField = ({ name, label }: SelectMemberFieldProps) => {
-  const { users, status } = useGetUsers()
+  const { users } = useGetUsers()
 
   const form = useFormContext()
   const [selectedMember, setSelectedMember] = useState<User[]>([])
 
-  if (status === 'pending') return <div>loading...</div>
-  if (!users) return <div>?</div>
+  if (!users) return <div>유저가 없습니다.</div>
 
   return (
     <FormField
@@ -35,8 +34,8 @@ export const SelectMemberField = ({ name, label }: SelectMemberFieldProps) => {
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <div className="flex flex-col md:flex-row md:items-center">
-            <Label className="text-md w-40">{label}</Label>
+          <div className="flex h-full flex-col md:flex-row md:items-start">
+            <Label className="text-md w-40 pt-2">{label}</Label>
             <FormControl className="h-8 cursor-pointer">
               <MultipleMemberSelect
                 options={users}
