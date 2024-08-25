@@ -14,3 +14,10 @@ export type PostSlider = {
   postTitle: string
   postImageUrl: string
 }
+
+export type PostView = Post & {
+  postContent: string
+  postImageUrl: string
+  boardId: number
+  boardName: string
+}

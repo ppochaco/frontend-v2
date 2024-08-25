@@ -1,3 +1,5 @@
+'use client'
+
 import { CreateEventPostForm } from './_components/CreateEventPostForm'
 import { CreateEventPostHero } from './_components/CreateEventPostHero'
 
