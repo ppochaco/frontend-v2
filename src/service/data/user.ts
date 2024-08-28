@@ -1,6 +1,6 @@
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { queryOptions, useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
-import { getUsers } from '@/service/server/user'
+import { getAdminUsers, getUsers } from '@/service/server/user'
 
 export const useGetUsers = () => {
   const {
@@ -13,4 +13,24 @@ export const useGetUsers = () => {
   })
 
   return { users, status, error }
+}
+
+export const activeUsersQuery = () =>
+  queryOptions({
+    queryKey: ['admin', 'users', 'active'],
+    queryFn: () => getAdminUsers({ isActive: true }),
+  })
+
+export const useGetActiveUsers = () => {
+  return useQuery(activeUsersQuery())
+}
+
+export const inActiveUsersQuery = () =>
+  queryOptions({
+    queryKey: ['admin', 'users', 'inactive'],
+    queryFn: () => getAdminUsers({ isActive: false }),
+  })
+
+export const useGetInActiveUsers = () => {
+  return useQuery(inActiveUsersQuery())
 }
