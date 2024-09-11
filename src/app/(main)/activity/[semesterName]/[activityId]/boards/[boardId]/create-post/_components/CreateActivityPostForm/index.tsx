@@ -38,7 +38,6 @@ export const CreateActivityPostForm = ({
       boardId,
       postTitle: '',
       postContent: '',
-      imageFile: new File([], ''),
       activityDate: {
         start: undefined,
         end: undefined,
@@ -47,20 +46,17 @@ export const CreateActivityPostForm = ({
   })
 
   useEffect(() => {
-    const handleSuccess = async () => {
-      if (result.data?.isSuccess) {
-        toast({
-          title: result.data.message,
-          duration: 3000,
-        })
+    if (result.data?.isSuccess) {
+      toast({
+        title: result.data.message,
+        duration: 3000,
+      })
 
-        await queryClient.invalidateQueries({ queryKey: ['posts', boardId] })
+      queryClient.invalidateQueries({ queryKey: ['posts', 'ACTIVITY'] })
+      router.push(basePath)
 
-        router.push(basePath)
-      }
+      return
     }
-
-    handleSuccess()
 
     if (result.data?.message) {
       toast({
@@ -71,10 +67,11 @@ export const CreateActivityPostForm = ({
   }, [result, basePath, boardId, router, toast])
 
   return (
-    <CreatePostForm<CreateActivityPost>
+    <CreatePostForm
       form={form}
       onSubmit={(values) => createPost(values)}
       isExecuting={isExecuting}
+      isImageRequired={false}
     />
   )
 }

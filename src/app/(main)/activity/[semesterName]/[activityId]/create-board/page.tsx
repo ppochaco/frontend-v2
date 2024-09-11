@@ -1,11 +1,12 @@
 'use client'
 
-import { useCurrentActivity } from '@/service/data/activity'
+import { useGetActivities } from '@/service/data/activity'
 import { useCurrentSemester } from '@/service/data/semester'
 
 import { CreateBoardDetail } from './_components/CreateBoardDetail'
 import { CreateBoardForm } from './_components/CreateBoardForm'
 import { CreateBoardHero } from './_components/CreateBoardHero'
+import { CreateBoardSkeleton } from './_components/Skeleton'
 
 type CreateBoardPageParams = {
   params: {
@@ -16,12 +17,16 @@ type CreateBoardPageParams = {
 
 const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
   const currentSemester = useCurrentSemester(params.semesterName)
-  const currentActivity = useCurrentActivity(
-    currentSemester.semesterId,
-    Number(params.activityId),
+
+  const { data: activities } = useGetActivities(currentSemester?.semesterId)
+
+  if (!activities) return <CreateBoardSkeleton />
+
+  const currentActivity = activities?.find(
+    (activity) => activity.activityId === Number(params.activityId),
   )
 
-  if (!currentActivity) return <div>loading...</div>
+  if (!currentActivity) return <CreateBoardSkeleton />
 
   return (
     <div className="w-full pt-10">

@@ -7,13 +7,17 @@ import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
+import { Skeleton } from '@/components/ui/skeleton'
 
 import { PostFormField } from './PostFormField'
 import { ActivityDateFieldDialog } from './PostFormField/ActivityDateFieldDialog'
 
 const PostContentFieldEditor = dynamic(
   () => import('./PostFormField/PostContentFieldEditor'),
-  { ssr: false },
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
+  },
 )
 
 type CreatePostFormProps<T extends FieldValues> = {
@@ -44,11 +48,13 @@ export const CreatePostForm = <T extends FieldValues>({
         <Separator />
         <div>게시글 내용 작성하기</div>
         <PostContentFieldEditor />
-        <Separator />
         {isImageRequired && (
-          <PostFormField name="imageFile" label="게시글 대표 사진">
-            {(field) => <ImageInput field={field} />}
-          </PostFormField>
+          <div className="flex flex-col gap-4">
+            <Separator />
+            <PostFormField name="imageFile" label="게시글 대표 사진">
+              {(field) => <ImageInput field={field} />}
+            </PostFormField>
+          </div>
         )}
         <div className="flex justify-end">
           <Button type="submit" disabled={isExecuting}>
