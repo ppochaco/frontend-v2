@@ -1,25 +1,26 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
+import { kstFormat } from '@toss/date'
 
-import { useGetActiveUsers } from '@/service/data/user'
-import { ActiveUser } from '@/types/user'
+import { useGetInActiveUsers } from '@/service/data/user'
+import { InActiveUser } from '@/types/user'
 
 import { MemberTable } from '~admin/_components/MemberTable'
 import { SkeletonTable } from '~admin/_components/SkeletonTable'
 
-import { ExpelMemberDialog } from './ExpelMemberDialog'
+import { ApproveMemberForm } from './Form'
 
-export const ExpelMemberTable = () => {
-  const { data: activeUsers, status, error } = useGetActiveUsers()
+export const ApproveMemberTable = () => {
+  const { data: inActiveUsers, status, error } = useGetInActiveUsers()
 
   if (status === 'pending') return <SkeletonTable />
 
   if (error) return <div>{error.message}</div>
 
-  if (!activeUsers) return <div>멤버가 없습니다.</div>
+  if (!inActiveUsers) return <div>회원 신청이 없습니다.</div>
 
-  const expelMemberColumn: ColumnDef<ActiveUser>[] = [
+  const approveMemberColumn: ColumnDef<InActiveUser>[] = [
     {
       header: '',
       id: 'id',
@@ -44,19 +45,21 @@ export const ExpelMemberTable = () => {
       ),
     },
     {
-      accessorKey: 'role',
-      header: '등급',
+      accessorKey: 'regDate',
+      header: '가입일',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('role')}</div>
+        <div className="text-center">
+          {kstFormat(new Date(row.getValue('regDate')), 'yyyy.LL.dd')}
+        </div>
       ),
     },
     {
-      accessorKey: 'isBanned',
+      accessorKey: 'isAccepted',
       header: '',
       cell: ({ row }) => {
         return (
           <div className="flex justify-center">
-            <ExpelMemberDialog user={row.original} />
+            <ApproveMemberForm userId={row.original.userId} />
           </div>
         )
       },
@@ -65,7 +68,7 @@ export const ExpelMemberTable = () => {
 
   return (
     <div className="flex w-full max-w-screen-lg">
-      <MemberTable data={activeUsers} columns={expelMemberColumn} />
+      <MemberTable data={inActiveUsers} columns={approveMemberColumn} />
     </div>
   )
 }

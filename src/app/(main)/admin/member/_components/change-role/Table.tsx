@@ -1,26 +1,25 @@
 'use client'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { kstFormat } from '@toss/date'
 
-import { useGetInActiveUsers } from '@/service/data/user'
-import { InActiveUser } from '@/types/user'
+import { useGetActiveUsers } from '@/service/data/user'
+import { ActiveUser } from '@/types/user'
 
 import { MemberTable } from '~admin/_components/MemberTable'
 import { SkeletonTable } from '~admin/_components/SkeletonTable'
 
-import { ApproveMemberForm } from './ApproveMemberForm'
+import { ChangeRoleDialog } from './Dialog'
 
-export const ApproveMemberTable = () => {
-  const { data: inActiveUsers, status, error } = useGetInActiveUsers()
+export const ChangeRoleTable = () => {
+  const { data: activeUsers, status, error } = useGetActiveUsers()
 
   if (status === 'pending') return <SkeletonTable />
 
   if (error) return <div>{error.message}</div>
 
-  if (!inActiveUsers) return <div>회원 신청이 없습니다.</div>
+  if (!activeUsers) return <div>멤버가 없습니다.</div>
 
-  const approveMemberColumn: ColumnDef<InActiveUser>[] = [
+  const changeRoleColumn: ColumnDef<ActiveUser>[] = [
     {
       header: '',
       id: 'id',
@@ -45,21 +44,14 @@ export const ApproveMemberTable = () => {
       ),
     },
     {
-      accessorKey: 'regDate',
-      header: '가입일',
-      cell: ({ row }) => (
-        <div className="text-center">
-          {kstFormat(new Date(row.getValue('regDate')), 'yyyy.LL.dd')}
-        </div>
-      ),
-    },
-    {
-      accessorKey: 'isAccepted',
-      header: '',
+      accessorKey: 'role',
+      header: '등급',
       cell: ({ row }) => {
+        const user = row.original
+
         return (
           <div className="flex justify-center">
-            <ApproveMemberForm userId={row.original.userId} />
+            <ChangeRoleDialog user={user} />
           </div>
         )
       },
@@ -68,7 +60,7 @@ export const ApproveMemberTable = () => {
 
   return (
     <div className="flex w-full max-w-screen-lg">
-      <MemberTable data={inActiveUsers} columns={approveMemberColumn} />
+      <MemberTable data={activeUsers} columns={changeRoleColumn} />
     </div>
   )
 }

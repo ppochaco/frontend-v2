@@ -2,9 +2,11 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 
 import { SectionWithTitle } from '~admin/_components/SectionWithTitle'
 
-import { ApproveMemberTable } from './_components/ApproveMemberTable'
-import { ChangeRoleTable } from './_components/ChangeRoleTable'
-import { ExpelMemberTable } from './_components/ExpelMemeberTable'
+import {
+  ApproveMemberTable,
+  ChangeRoleTable,
+  ExpelMemberTable,
+} from './_components'
 
 const AdminMemberPage = () => {
   return (

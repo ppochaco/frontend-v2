@@ -8,9 +8,9 @@ import { ActiveUser } from '@/types/user'
 import { MemberTable } from '~admin/_components/MemberTable'
 import { SkeletonTable } from '~admin/_components/SkeletonTable'
 
-import { ChangeRoleDialog } from './ChangeRoleDialog'
+import { ExpelMemberDialog } from './Dialog'
 
-export const ChangeRoleTable = () => {
+export const ExpelMemberTable = () => {
   const { data: activeUsers, status, error } = useGetActiveUsers()
 
   if (status === 'pending') return <SkeletonTable />
@@ -19,7 +19,7 @@ export const ChangeRoleTable = () => {
 
   if (!activeUsers) return <div>멤버가 없습니다.</div>
 
-  const changeRoleColumn: ColumnDef<ActiveUser>[] = [
+  const expelMemberColumn: ColumnDef<ActiveUser>[] = [
     {
       header: '',
       id: 'id',
@@ -46,12 +46,17 @@ export const ChangeRoleTable = () => {
     {
       accessorKey: 'role',
       header: '등급',
+      cell: ({ row }) => (
+        <div className="text-center">{row.getValue('role')}</div>
+      ),
+    },
+    {
+      accessorKey: 'isBanned',
+      header: '',
       cell: ({ row }) => {
-        const user = row.original
-
         return (
           <div className="flex justify-center">
-            <ChangeRoleDialog user={user} />
+            <ExpelMemberDialog user={row.original} />
           </div>
         )
       },
@@ -60,7 +65,7 @@ export const ChangeRoleTable = () => {
 
   return (
     <div className="flex w-full max-w-screen-lg">
-      <MemberTable data={activeUsers} columns={changeRoleColumn} />
+      <MemberTable data={activeUsers} columns={expelMemberColumn} />
     </div>
   )
 }

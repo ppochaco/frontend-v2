@@ -16,7 +16,7 @@ import { activeUsersQuery } from '@/service/data/user'
 import { changeUserRoleAction } from '@/service/server/user/change-user-role'
 import { ActiveUser } from '@/types/user'
 
-import { RoleRadioGroup } from './RoleRiadoGroup'
+import { RoleRadioGroup } from './RoleRadioGroup'
 
 type ChangeRoleDialogFormProps = {
   user: ActiveUser
