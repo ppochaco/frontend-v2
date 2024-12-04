@@ -1,0 +1,29 @@
+name: ESLint & Build Test
+
+on:
+  pull_request:
+    branches:
+      - develop
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Install NodeJs
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Lint Code
+        run: npm run lint
+
+      - name: Build Test
+        run: npm run build

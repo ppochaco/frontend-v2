@@ -3,12 +3,14 @@ import { useAuthStore } from '@/store/auth'
 import authErrorInterceptor from './authErrorInterceptor'
 import { initInstance } from './instance'
 
+const BASE_URL = 'http://3.39.251.254:8080/api'
+
 export const BACKEND_API = initInstance({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: BASE_URL,
 })
 
 const AUTHORIZATION_API = initInstance({
-  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+  baseURL: BASE_URL,
   withCredentials: true,
 })
 
