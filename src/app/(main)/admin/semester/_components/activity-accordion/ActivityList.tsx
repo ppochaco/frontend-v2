@@ -2,11 +2,11 @@
 
 import { useEffect } from 'react'
 
-import { ActivitySkeleton } from '@/app/(main)/activity/[semesterName]/_components/ActivitySkeleton'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
+import { ActivitySkeleton } from '@/components/feature'
 import { ToastAction } from '@/components/ui/toast'
 import { useToast } from '@/components/ui/use-toast'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'

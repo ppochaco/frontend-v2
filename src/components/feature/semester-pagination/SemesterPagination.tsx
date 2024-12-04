@@ -1,27 +1,30 @@
 'use client'
 
+import { ActivitySemesterSkeleton } from '@/components/feature'
 import {
   Pagination,
   PaginationContent,
   PaginationItem,
+  PaginationLink,
   PaginationNext,
   PaginationPrevious,
 } from '@/components/ui/pagination'
-import { useCurrentSemester, useGetSemesters } from '@/service/data/semester'
+import { cn } from '@/lib/utils'
 import { Semester } from '@/types/activity'
 
-import { SemesterSkeleton } from '../../../_components/SemesterSkeleton'
-import { SemesterButton } from './SemesterButton'
-
-type SemesterSectionProps = {
+type SemesterPaginationProps = {
   semesterName: string
+  semesters: Semester[]
 }
 
-export const SemesterSection = ({ semesterName }: SemesterSectionProps) => {
-  const { semesters } = useGetSemesters()
-  const currentSemester = useCurrentSemester(semesterName)
-
-  if (!currentSemester) return <SemesterSkeleton />
+export const SemesterPagination = ({
+  semesterName,
+  semesters,
+}: SemesterPaginationProps) => {
+  const currentSemester = semesters.find(
+    (semester) => semester.semesterName === semesterName,
+  )
+  if (!currentSemester) return <ActivitySemesterSkeleton />
 
   const previousIndex = Math.max((currentSemester.index ?? 0) - 1, 0)
   const nextIndex = Math.min(
@@ -41,13 +44,21 @@ export const SemesterSection = ({ semesterName }: SemesterSectionProps) => {
           />
         </PaginationItem>
         <PaginationItem>
-          {visibleSemesters?.map((semester) => (
-            <SemesterButton
-              key={semester.semesterId}
-              semester={semester}
-              currentSemester={currentSemester}
-            />
-          ))}
+          {visibleSemesters?.map((semester) => {
+            const isActive =
+              currentSemester?.semesterName === semester.semesterName
+
+            return (
+              <PaginationLink
+                key={semester.semesterId}
+                href={`/activity/${semester.semesterName}`}
+                isActive={isActive}
+                className={cn(!isActive && 'text-primary/60')}
+              >
+                {semester.semesterName}
+              </PaginationLink>
+            )
+          })}
         </PaginationItem>
         <PaginationItem>
           <PaginationNext

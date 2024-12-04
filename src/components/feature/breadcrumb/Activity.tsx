@@ -1,3 +1,5 @@
+'use client'
+
 import { usePathname } from 'next/navigation'
 
 import { NavLink, PageBreadcrumb } from '@/components/PageBreadcrumb'

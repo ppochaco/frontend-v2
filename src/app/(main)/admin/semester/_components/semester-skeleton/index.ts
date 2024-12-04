@@ -1,1 +1,0 @@
-export { SemesterSkeleton } from './SemesterSkeleton'

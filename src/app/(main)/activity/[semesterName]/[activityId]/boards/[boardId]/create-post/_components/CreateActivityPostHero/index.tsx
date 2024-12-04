@@ -4,11 +4,10 @@ import { useQuery } from '@tanstack/react-query'
 import { usePathname } from 'next/navigation'
 
 import { NavLink } from '@/components/PageBreadcrumb'
+import { ActivityBreadcrumb } from '@/components/feature'
 import { Separator } from '@/components/ui/separator'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { boardDetailQuery } from '@/service/data/boards'
-
-import { ActivityBreadcrumb } from '~activity/_components/ActivityBreadcrumb'
 
 type CreateActivityPostHeroProps = {
   activityId: number

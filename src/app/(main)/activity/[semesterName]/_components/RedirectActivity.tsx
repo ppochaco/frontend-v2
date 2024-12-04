@@ -1,11 +1,12 @@
+'use client'
+
 import { useEffect } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
+import { ActivitySkeleton } from '@/components/feature'
 import { useGetActivities } from '@/service/data/activity'
 import { Semester } from '@/types/activity'
-
-import { ActivitySkeleton } from '../../../_components/ActivitySkeleton'
 
 type RedirectActivityProps = {
   semester: Semester
