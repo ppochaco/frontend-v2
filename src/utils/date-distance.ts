@@ -1,6 +1,6 @@
 import { getDateDistance, kstFormat } from '@toss/date'
 
-export const formatDateDistanceFromToday = (date: Date) => {
+export default function formatDateDistanceFromToday(date: Date) {
   const today = new Date()
   const distance = getDateDistance(date, today)
 
