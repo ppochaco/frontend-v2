@@ -1,2 +1,3 @@
-export * from './board'
-export * from './post'
+export { BoardHero } from './BoardHero'
+export { CreatePostButton } from './CreateButton'
+export { ActivityPostListSection } from './PostList'

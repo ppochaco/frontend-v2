@@ -1,3 +1,3 @@
-export * from './activity'
-export * from './error-fallback'
-export * from './board-list'
+export { ActivityList } from './ActivityList'
+export { ActivityBoardList } from './BoardList'
+export { default as ActivityErrorFallback } from './ErrorFallback'
