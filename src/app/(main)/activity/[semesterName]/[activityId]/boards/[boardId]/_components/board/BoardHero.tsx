@@ -4,7 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { ActivityBreadcrumb } from '@/components/feature'
+import { ActivityBreadcrumb, BoardHeroSkeleton } from '@/components/feature'
+import { BoardDetail } from '@/components/feature/board'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
@@ -13,9 +14,6 @@ import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { boardDetailQuery } from '@/service/data/boards'
 import { deleteBoardAction } from '@/service/server/board/delete-board'
 import { useMyInfoStore } from '@/store/myInfo'
-
-import { BoardDetail } from './BoardDetail'
-import { BoardHeroSkeleton } from './BoardHeroSkeleton'
 
 type BoardHeroProps = {
   activityId: number
