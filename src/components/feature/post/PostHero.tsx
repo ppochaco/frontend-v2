@@ -1,35 +1,22 @@
 'use client'
 
-import { useSuspenseQuery } from '@tanstack/react-query'
 import { usePathname } from 'next/navigation'
 
 import { ActivityBreadcrumb } from '@/components/feature'
 import { Separator } from '@/components/ui/separator'
-import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
-import { boardDetailQuery } from '@/service/data/boards'
 
 type ActivityPostHeroProps = {
-  activityId: number
-  boardId: number
+  boardName: string
 }
 
-export const ActivityPostHero = ({
-  activityId,
-  boardId,
-}: ActivityPostHeroProps) => {
+export const ActivityPostHero = ({ boardName }: ActivityPostHeroProps) => {
   const pathName = usePathname()
   const basePath = pathName.split('/').slice(0, -2).join('/')
-
-  const { data: boardDetail } = useSuspenseQuery(
-    boardDetailQuery(activityId, boardId),
-  )
-
-  if (!boardDetail) throw new Error(DATA_ERROR_MESSAGES.BOARD_DETAIL_NOT_FOUND)
 
   const navLinks = [
     {
       link: `${basePath}`,
-      name: `${boardDetail.boardName} 게시판`,
+      name: `${boardName} 게시판`,
     },
   ]
 
