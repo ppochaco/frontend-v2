@@ -1,24 +1,25 @@
-import { FieldValues, UseFormReturn } from 'react-hook-form'
+import {
+  ControllerRenderProps,
+  FieldValues,
+  UseFormReturn,
+} from 'react-hook-form'
 
 import dynamic from 'next/dynamic'
 
 import { ImageInput } from '@/components/ImageInput'
+import { PostFormField } from '@/components/feature'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 
-import { PostFormField } from './PostFormField'
-import { ActivityDateFieldDialog } from './PostFormField/ActivityDateFieldDialog'
+import { ActivityDateFieldDialog } from './activity-date-dialog'
 
-const PostContentFieldEditor = dynamic(
-  () => import('./PostFormField/PostContentFieldEditor'),
-  {
-    ssr: false,
-    loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
-  },
-)
+const PostContentFieldEditor = dynamic(() => import('./editor/EditorField'), {
+  ssr: false,
+  loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
+})
 
 type CreatePostFormProps<T extends FieldValues> = {
   form: UseFormReturn<T>
@@ -42,7 +43,7 @@ export const CreatePostForm = <T extends FieldValues>({
         className="flex flex-col gap-4"
       >
         <PostFormField name="postTitle" label="게시글 제목">
-          {(field) => <Input {...field} />}
+          {(field: ControllerRenderProps) => <Input {...field} />}
         </PostFormField>
         {isActivityDateRequired && <ActivityDateFieldDialog />}
         <Separator />

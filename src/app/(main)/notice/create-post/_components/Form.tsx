@@ -7,7 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { CreatePostForm } from '@/components/CreatePostForm'
+import { CreatePostForm } from '@/components/feature'
 import { useToast } from '@/components/ui/use-toast'
 import { CreateNoticePost, CreateNoticePostSchema } from '@/schema/post'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'

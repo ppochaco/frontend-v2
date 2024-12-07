@@ -1,3 +1,5 @@
+'use client'
+
 import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useFormContext } from 'react-hook-form'
@@ -19,7 +21,7 @@ import { FormField, FormItem, FormMessage } from '@/components/ui/form'
 import { Label } from '@/components/ui/label'
 import { CreatePost } from '@/schema/post'
 
-import { DateDialogTriggerButton } from './DateDialogTriggerButton'
+import { DateDialogTriggerButton } from './trigger-button'
 
 export const ActivityDateFieldDialog = () => {
   const { control, setValue } = useFormContext<CreatePost>()
