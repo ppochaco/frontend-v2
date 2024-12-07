@@ -4,17 +4,17 @@ import { useForm } from 'react-hook-form'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
+  Input,
+  ToastAction,
+  useToast,
+} from '@/components/ui'
 import { AddActivity } from '@/schema/admin'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { activitiesQuery } from '@/service/data/activity'

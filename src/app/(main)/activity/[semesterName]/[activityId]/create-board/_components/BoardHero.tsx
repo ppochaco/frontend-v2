@@ -1,5 +1,5 @@
 import { ActivityBreadcrumb } from '@/components/feature'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/components/ui'
 
 export const CreateBoardHero = () => {
   return (

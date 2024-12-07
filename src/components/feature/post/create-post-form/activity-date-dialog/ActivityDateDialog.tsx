@@ -6,9 +6,9 @@ import { useFormContext } from 'react-hook-form'
 
 import { getDateDistance } from '@toss/date'
 
-import { Button } from '@/components/ui/button'
-import { Calendar } from '@/components/ui/calendar'
 import {
+  Button,
+  Calendar,
   Dialog,
   DialogClose,
   DialogContent,
@@ -16,9 +16,11 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { FormField, FormItem, FormMessage } from '@/components/ui/form'
-import { Label } from '@/components/ui/label'
+  FormField,
+  FormItem,
+  FormMessage,
+  Label,
+} from '@/components/ui'
 import { CreatePost } from '@/schema/post'
 
 import { DateDialogTriggerButton } from './trigger-button'

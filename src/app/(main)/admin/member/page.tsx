@@ -1,5 +1,5 @@
 import { SectionWithTitle } from '@/components/feature'
-import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui'
 
 import {
   ApproveMemberTable,

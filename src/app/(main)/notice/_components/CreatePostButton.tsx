@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 
 import { usePathname, useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { useMyInfoStore } from '@/store/myInfo'
 
 export const CreateNoticePostButton = () => {

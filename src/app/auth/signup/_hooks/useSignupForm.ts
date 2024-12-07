@@ -6,7 +6,7 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui'
 import { Signup, SignupSchema } from '@/schema/auth'
 import { signupAction } from '@/service/server/signup'
 

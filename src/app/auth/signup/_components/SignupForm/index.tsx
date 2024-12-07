@@ -2,8 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
+import { Button, Form } from '@/components/ui'
 
 import { SignupSuccessDialog } from '~auth/signup/_components/SignupSuccessDialog'
 import { useSignupForm } from '~auth/signup/_hooks/useSignupForm'

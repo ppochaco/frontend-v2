@@ -13,7 +13,7 @@ import {
   TableHead,
   TableHeader,
   TableRow,
-} from '@/components/ui/table'
+} from '@/components/ui'
 import { Post } from '@/types/post'
 
 interface PostTableContentProps extends HTMLAttributes<HTMLTableElement> {

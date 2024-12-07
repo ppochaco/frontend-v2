@@ -3,17 +3,17 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
-} from '@/components/ui/dialog'
-import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
+  ToastAction,
+  useToast,
+} from '@/components/ui'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { semesterQuery } from '@/service/data/semester'
 import { DeleteSemesterAction } from '@/service/server/semester/delete-semester'

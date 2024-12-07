@@ -1,7 +1,7 @@
 import { PersonIcon } from '@radix-ui/react-icons'
 import { type VariantProps, cva } from 'class-variance-authority'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui'
 
 const UserAvatarVariants = cva('', {
   variants: {

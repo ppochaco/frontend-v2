@@ -6,8 +6,8 @@ import {
   FormField,
   FormItem,
   FormMessage,
-} from '@/components/ui/form'
-import { Label } from '@/components/ui/label'
+  Label,
+} from '@/components/ui'
 
 type PostFormFieldProps = {
   name: string

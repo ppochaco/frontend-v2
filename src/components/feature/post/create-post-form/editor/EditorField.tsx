@@ -6,7 +6,7 @@ import { BlockNoteView } from '@blocknote/mantine'
 import '@blocknote/mantine/style.css'
 import { useCreateBlockNote } from '@blocknote/react'
 
-import { FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { FormField, FormItem, FormMessage } from '@/components/ui'
 import { CreatePost } from '@/schema/post'
 
 const PostContentFieldEditor = () => {

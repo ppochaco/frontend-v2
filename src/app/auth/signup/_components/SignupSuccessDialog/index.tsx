@@ -3,15 +3,15 @@
 import { DialogTitle } from '@radix-ui/react-dialog'
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogClose,
   DialogContent,
   DialogDescription,
   DialogFooter,
   DialogHeader,
-} from '@/components/ui/dialog'
+} from '@/components/ui'
 
 type SignupSuccessDialogProps = {
   open: boolean

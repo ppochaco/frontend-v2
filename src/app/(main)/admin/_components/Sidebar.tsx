@@ -4,7 +4,7 @@ import { PersonIcon, RocketIcon } from '@radix-ui/react-icons'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { Sidebar, SidebarItem } from '@/components/ui/sidebar'
+import { Sidebar, SidebarItem } from '@/components/ui'
 
 export const AdminSidebar = () => {
   const pathname = usePathname()

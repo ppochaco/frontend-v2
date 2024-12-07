@@ -8,16 +8,16 @@ import { useFormContext } from 'react-hook-form'
 
 import * as CheckboxPrimitive from '@radix-ui/react-checkbox'
 
-import { Checkbox } from '@/components/ui/checkbox'
 import {
+  Checkbox,
   FormControl,
   FormDescription,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
+  Input,
+} from '@/components/ui'
 import { CheckRespose } from '@/service/server/signup'
 
 import { CheckStudentNumberButton, CheckUserIdButton } from './CheckButton'

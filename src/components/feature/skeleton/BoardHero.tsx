@@ -1,6 +1,6 @@
 import { ChevronRightIcon } from '@radix-ui/react-icons'
 
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/components/ui'
 
 export const BoardHeroSkeleton = () => {
   return (

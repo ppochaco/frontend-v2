@@ -4,8 +4,7 @@ import { Dispatch, SetStateAction, useEffect } from 'react'
 
 import { useAction } from 'next-safe-action/hooks'
 
-import { Button } from '@/components/ui/button'
-import { useFormField } from '@/components/ui/form'
+import { Button, useFormField } from '@/components/ui'
 import {
   CheckRespose,
   checkStudentNumberAction,

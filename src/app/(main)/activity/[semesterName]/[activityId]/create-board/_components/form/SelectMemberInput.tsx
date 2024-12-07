@@ -2,7 +2,7 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
-import { Skeleton } from '@/components/ui/skeleton'
+import { Skeleton } from '@/components/ui'
 import { useGetUsers } from '@/service/data/user'
 import { User } from '@/types/user'
 

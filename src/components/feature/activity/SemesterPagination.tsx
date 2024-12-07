@@ -8,7 +8,7 @@ import {
   PaginationLink,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { Semester } from '@/types/activity'
 

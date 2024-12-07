@@ -7,25 +7,23 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Form,
   FormControl,
   FormField,
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import {
+  Input,
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select'
-import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
+  ToastAction,
+  useToast,
+} from '@/components/ui'
 import { AddSemester, AddSemesterSchema } from '@/schema/admin'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { semesterQuery } from '@/service/data/semester'

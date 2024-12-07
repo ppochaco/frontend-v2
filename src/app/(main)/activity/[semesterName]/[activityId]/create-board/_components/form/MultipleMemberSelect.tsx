@@ -5,14 +5,14 @@ import { useState } from 'react'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { Command as CommandPrimitive } from 'cmdk'
 
-import { Badge } from '@/components/ui/badge'
-import { Button } from '@/components/ui/button'
 import {
+  Badge,
+  Button,
   Command,
   CommandGroup,
   CommandItem,
   CommandList,
-} from '@/components/ui/command'
+} from '@/components/ui'
 import { User } from '@/types/user'
 
 type MultipleMemberSelectProps = {

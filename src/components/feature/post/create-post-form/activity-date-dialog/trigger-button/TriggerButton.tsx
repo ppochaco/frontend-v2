@@ -1,8 +1,6 @@
 import { kstFormat } from '@toss/date'
 
-import { Button } from '@/components/ui/button'
-import { DialogTrigger } from '@/components/ui/dialog'
-import { FormControl } from '@/components/ui/form'
+import { Button, DialogTrigger, FormControl } from '@/components/ui'
 
 interface DateDialogTriggerButtonProps {
   startDate?: Date

@@ -1,5 +1,4 @@
-import { Separator } from '@/components/ui/separator'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Separator, Skeleton } from '@/components/ui'
 
 export const SkeletonTable = () => {
   return (

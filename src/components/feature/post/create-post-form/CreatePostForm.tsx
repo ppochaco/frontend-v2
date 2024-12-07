@@ -7,11 +7,7 @@ import {
 import dynamic from 'next/dynamic'
 
 import { ImageInput, PostFormField } from '@/components/feature'
-import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Separator } from '@/components/ui/separator'
-import { Skeleton } from '@/components/ui/skeleton'
+import { Button, Form, Input, Separator, Skeleton } from '@/components/ui'
 
 import { ActivityDateFieldDialog } from './activity-date-dialog'
 

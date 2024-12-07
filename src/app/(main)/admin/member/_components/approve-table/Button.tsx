@@ -3,9 +3,7 @@ import { useEffect } from 'react'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
-import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
+import { Button, ToastAction, useToast } from '@/components/ui'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import {
   approveMemberAction,

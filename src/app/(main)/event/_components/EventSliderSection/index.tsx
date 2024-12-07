@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { useGetPostsSlider } from '@/service/data/post'
 
 import { CardSkeleton } from './CardSkeleton'

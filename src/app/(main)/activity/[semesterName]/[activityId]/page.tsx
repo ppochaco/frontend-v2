@@ -7,7 +7,7 @@ import {
   ActivitySemesterSkeleton,
   SemesterPagination,
 } from '@/components/feature'
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 import { useGetSemesters } from '@/service/data/semester'
 import { useMyInfoStore } from '@/store/myInfo'
 

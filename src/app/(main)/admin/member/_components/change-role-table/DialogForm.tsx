@@ -5,11 +5,16 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
-import { DialogFooter } from '@/components/ui/dialog'
-import { Form, FormControl, FormField, FormItem } from '@/components/ui/form'
-import { ToastAction } from '@/components/ui/toast'
-import { useToast } from '@/components/ui/use-toast'
+import {
+  Button,
+  DialogFooter,
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  ToastAction,
+  useToast,
+} from '@/components/ui'
 import { ChangeRole, ChangeRoleSchema } from '@/schema/admin'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { activeUsersQuery } from '@/service/data/user'

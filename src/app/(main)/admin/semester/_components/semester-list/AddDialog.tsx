@@ -4,15 +4,15 @@ import { useState } from 'react'
 
 import { PlusIcon } from '@radix-ui/react-icons'
 
-import { Button } from '@/components/ui/button'
 import {
+  Button,
   Dialog,
   DialogContent,
   DialogDescription,
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog'
+} from '@/components/ui'
 
 import { AddSemesterDialogForm } from './AddDialogForm'
 

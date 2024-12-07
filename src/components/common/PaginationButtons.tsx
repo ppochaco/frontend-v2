@@ -10,7 +10,7 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination'
+} from '@/components/ui'
 import { Paging } from '@/service/types/paging'
 
 type PaginationButtonsProps<T extends Paging> = {

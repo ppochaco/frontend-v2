@@ -1,5 +1,5 @@
 import { NavLink, PageBreadcrumb } from '@/components/common'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/components/ui'
 
 export const NoticePostHero = () => {
   return (

@@ -1,5 +1,5 @@
 import { PageBreadcrumb } from '@/components/common'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/components/ui'
 
 export const NoticeBoardHero = () => {
   return (

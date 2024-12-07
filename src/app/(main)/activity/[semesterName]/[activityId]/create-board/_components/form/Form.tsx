@@ -11,11 +11,7 @@ import {
   PostFormField as BoardFormField,
   ImageInput,
 } from '@/components/feature'
-import { Button } from '@/components/ui/button'
-import { Form } from '@/components/ui/form'
-import { Input } from '@/components/ui/input'
-import { Textarea } from '@/components/ui/textarea'
-import { useToast } from '@/components/ui/use-toast'
+import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { createBoardAction } from '@/service/server/board/create-board'

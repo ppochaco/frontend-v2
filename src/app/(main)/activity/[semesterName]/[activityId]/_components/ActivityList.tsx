@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { ActivitySkeleton } from '@/components/feature'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { useGetActivities } from '@/service/data/activity'
 

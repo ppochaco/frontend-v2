@@ -2,9 +2,9 @@
 
 import { usePathname } from 'next/navigation'
 
-import { NavLink } from '@/components/PageBreadcrumb'
+import { NavLink } from '@/components/common'
 import { ActivityBreadcrumb } from '@/components/feature'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/components/ui'
 
 type CreateActivityPostHeroProps = {
   boardName: string

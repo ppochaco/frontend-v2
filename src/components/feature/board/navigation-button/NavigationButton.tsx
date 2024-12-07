@@ -3,7 +3,7 @@
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { Button } from '@/components/ui/button'
+import { Button } from '@/components/ui'
 
 export const BoardNavigationButton = () => {
   const router = useRouter()

@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 
 import { ActivityBreadcrumb } from '@/components/feature'
-import { Separator } from '@/components/ui/separator'
+import { Separator } from '@/components/ui'
 
 type ActivityPostHeroProps = {
   boardName: string

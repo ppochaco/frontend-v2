@@ -3,7 +3,7 @@
 import { MagnifyingGlassIcon } from '@radix-ui/react-icons'
 import { Table } from '@tanstack/react-table'
 
-import { Input } from '@/components/ui/input'
+import { Input } from '@/components/ui'
 
 interface TableFilterProps<T> {
   table: Table<T>

@@ -9,7 +9,7 @@ import {
   PaginationItem,
   PaginationNext,
   PaginationPrevious,
-} from '@/components/ui/pagination'
+} from '@/components/ui'
 import { cn } from '@/lib/utils'
 
 interface TablePaginationProps<T> {

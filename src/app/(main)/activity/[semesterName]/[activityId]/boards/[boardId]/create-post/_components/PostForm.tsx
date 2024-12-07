@@ -8,7 +8,7 @@ import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { CreatePostForm } from '@/components/feature'
-import { useToast } from '@/components/ui/use-toast'
+import { useToast } from '@/components/ui'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { createActivityPostAction } from '@/service/server/post/create-post'

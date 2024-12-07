@@ -1,5 +1,5 @@
 import { NameLabel } from '@/components/feature'
-import { Label } from '@/components/ui/label'
+import { Label } from '@/components/ui'
 
 type CreateBoardDetailProps = {
   semesterName: string
