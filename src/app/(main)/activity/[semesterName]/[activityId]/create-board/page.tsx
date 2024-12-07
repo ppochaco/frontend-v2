@@ -1,7 +1,7 @@
 'use client'
 
 import { useGetActivities } from '@/service/data/activity'
-import { useCurrentSemester } from '@/service/data/semester'
+import { useGetSemesters } from '@/service/data/semester'
 
 import { CreateBoardDetail } from './_components/CreateBoardDetail'
 import { CreateBoardForm } from './_components/CreateBoardForm'
@@ -16,11 +16,14 @@ type CreateBoardPageParams = {
 }
 
 const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
-  const currentSemester = useCurrentSemester(params.semesterName)
+  const { semesters, status } = useGetSemesters()
+  const currentSemester = semesters.find(
+    (semester) => semester.semesterName === params.semesterName,
+  )
 
   const { data: activities } = useGetActivities(currentSemester?.semesterId)
 
-  if (!activities) return <CreateBoardSkeleton />
+  if (status === 'pending' || !activities) return <CreateBoardSkeleton />
 
   const currentActivity = activities?.find(
     (activity) => activity.activityId === Number(params.activityId),
