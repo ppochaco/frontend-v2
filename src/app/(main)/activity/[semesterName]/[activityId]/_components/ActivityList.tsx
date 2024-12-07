@@ -3,8 +3,9 @@
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { ActiveButton } from '@/components/ActiveButton'
 import { ActivitySkeleton } from '@/components/feature'
+import { Button, buttonVariants } from '@/components/ui/button'
+import { cn } from '@/lib/utils'
 import { useGetActivities } from '@/service/data/activity'
 
 type ActivityListProps = {
@@ -28,12 +29,17 @@ export const ActivityList = ({ semesterId, activityId }: ActivityListProps) => {
           key={activity.activityId}
           href={`${basePath}/${activity.activityId}`}
         >
-          <ActiveButton
-            isActive={activityId === activity.activityId}
-            className="h-3 rounded-full p-4"
+          <Button
+            className={cn(
+              buttonVariants({
+                variant:
+                  activityId === activity.activityId ? 'default' : 'secondary',
+              }),
+              'h-3 rounded-full p-4',
+            )}
           >
             {activity.activityName}
-          </ActiveButton>
+          </Button>
         </Link>
       ))}
     </div>
