@@ -1,4 +1,4 @@
-import { PageBreadcrumb } from '@/components/PageBreadcrumb'
+import { PageBreadcrumb } from '@/components/common'
 import { Separator } from '@/components/ui/separator'
 
 export const NoticeBoardHero = () => {

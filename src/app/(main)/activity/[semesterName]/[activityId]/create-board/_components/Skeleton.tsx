@@ -1,4 +1,4 @@
-import { Spinner } from '@/components/Spinner'
+import { Spinner } from '@/components/common'
 import { Separator } from '@/components/ui/separator'
 import { Skeleton } from '@/components/ui/skeleton'
 
@@ -10,9 +10,7 @@ export const CreateBoardSkeleton = () => {
         <Skeleton className="my-4 h-5 w-full" />
         <Separator variant="dark" />
       </div>
-      <div className="flex w-full justify-center pt-6">
-        <Spinner />
-      </div>
+      <Spinner />
     </div>
   )
 }

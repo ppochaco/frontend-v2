@@ -2,7 +2,7 @@
 
 import { usePathname } from 'next/navigation'
 
-import { NavLink, PageBreadcrumb } from '@/components/PageBreadcrumb'
+import { NavLink, PageBreadcrumb } from '@/components/common'
 
 type ActivityBreadcrumbProps = {
   navLinks: NavLink[]

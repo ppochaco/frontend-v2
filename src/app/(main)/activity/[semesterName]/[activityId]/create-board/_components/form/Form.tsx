@@ -7,8 +7,10 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { ImageInput } from '@/components/ImageInput'
-import { PostFormField as BoardFormField } from '@/components/feature'
+import {
+  PostFormField as BoardFormField,
+  ImageInput,
+} from '@/components/feature'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'

@@ -1,7 +1,7 @@
 import { useSearchParams } from 'next/navigation'
 
-import { PaginationButtons } from '@/components/PaginationButtons'
-import { PostTable } from '@/components/PostTable'
+import { PaginationButtons } from '@/components/common'
+import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { useGetActivityPostsPaging } from '@/service/data/post'
 

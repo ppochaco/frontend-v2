@@ -4,8 +4,11 @@ import { useQuery } from '@tanstack/react-query'
 import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { NameLabel } from '@/components/NameLabel'
-import { ActivityBreadcrumb, BoardHeroSkeleton } from '@/components/feature'
+import {
+  ActivityBreadcrumb,
+  BoardHeroSkeleton,
+  NameLabel,
+} from '@/components/feature'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'

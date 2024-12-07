@@ -4,9 +4,8 @@ import { useEffect } from 'react'
 
 import { useSearchParams } from 'next/navigation'
 
-import { PaginationButtons } from '@/components/PaginationButtons'
-import { PostTable } from '@/components/PostTable'
-import { Spinner } from '@/components/Spinner'
+import { PaginationButtons, Spinner } from '@/components/common'
+import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { useGetPostsPaging } from '@/service/data/post'
@@ -35,12 +34,7 @@ export const NoticePostListSection = () => {
     }
   }, [data, isPlaceholderData, page])
 
-  if (status === 'pending')
-    return (
-      <div className="flex w-full justify-center">
-        <Spinner />
-      </div>
-    )
+  if (status === 'pending') return <Spinner />
 
   if (!data) {
     throw new Error(DATA_ERROR_MESSAGES.POST_NOT_FOUND)

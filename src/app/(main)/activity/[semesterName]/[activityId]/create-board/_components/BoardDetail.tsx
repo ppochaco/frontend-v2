@@ -1,4 +1,4 @@
-import { NameLabel } from '@/components/NameLabel'
+import { NameLabel } from '@/components/feature'
 import { Label } from '@/components/ui/label'
 
 type CreateBoardDetailProps = {

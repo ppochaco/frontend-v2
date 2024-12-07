@@ -6,13 +6,10 @@ interface ContentProps extends HTMLAttributes<HTMLDivElement> {}
 
 export const Content = ({ className, children }: ContentProps) => {
   return (
-    <div
-      className={cn(
-        'mx-auto flex h-full max-w-screen-2xl justify-center',
-        className,
-      )}
-    >
-      {children}
+    <div className={cn('w-full', className)}>
+      <div className="mx-auto flex h-full max-w-screen-2xl justify-center">
+        {children}
+      </div>
     </div>
   )
 }

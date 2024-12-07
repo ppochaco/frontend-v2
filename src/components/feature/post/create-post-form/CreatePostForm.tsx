@@ -6,8 +6,7 @@ import {
 
 import dynamic from 'next/dynamic'
 
-import { ImageInput } from '@/components/ImageInput'
-import { PostFormField } from '@/components/feature'
+import { ImageInput, PostFormField } from '@/components/feature'
 import { Button } from '@/components/ui/button'
 import { Form } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'

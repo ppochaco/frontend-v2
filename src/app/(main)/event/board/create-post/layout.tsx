@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 
 import { useRouter } from 'next/navigation'
 
-import MainErrorFallback from '@/components/MainErrorFallback'
+import { MainErrorFallback } from '@/components/common'
 import ErrorBoundary from '@/service/components/error-boundary'
 
 const CreateEvnetPostLayout = ({ children }: { children: ReactNode }) => {

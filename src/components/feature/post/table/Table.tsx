@@ -8,7 +8,7 @@ import {
 
 import { Post } from '@/types/post'
 
-import { PostTableContent } from './PostTableContent'
+import { PostTableContent } from './TableContent'
 
 type PostTableProps = {
   posts: Post[]
