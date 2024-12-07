@@ -4,16 +4,18 @@ import { Label } from '@/components/ui/label'
 type CreateBoardDetailProps = {
   semesterName: string
   activityName: string
+  userName: string
 }
 
 export const CreateBoardDetail = ({
   semesterName,
   activityName,
+  userName,
 }: CreateBoardDetailProps) => {
   const detailData = [
     { index: 0, label: '학기', name: semesterName },
     { index: 1, label: '활동명', name: activityName },
-    { index: 2, label: '생성자', name: '테스트' },
+    { index: 2, label: '생성자', name: userName },
   ]
 
   return (
