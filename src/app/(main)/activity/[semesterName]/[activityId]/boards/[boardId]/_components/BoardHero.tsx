@@ -4,8 +4,8 @@ import { useQuery } from '@tanstack/react-query'
 import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
+import { NameLabel } from '@/components/NameLabel'
 import { ActivityBreadcrumb, BoardHeroSkeleton } from '@/components/feature'
-import { BoardDetail } from '@/components/feature/board'
 import { Button } from '@/components/ui/button'
 import { Separator } from '@/components/ui/separator'
 import { useToast } from '@/components/ui/use-toast'
@@ -60,7 +60,15 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
         navLinks={[]}
         pageName={`${boardDetail.boardName} 게시판`}
       />
-      <BoardDetail board={boardDetail} />
+      <div className="flex flex-col gap-1 pl-1 text-primary">
+        <div className="text-2xl font-semibold">{boardDetail.boardName}</div>
+        <div className="flex flex-wrap gap-2">
+          {boardDetail.participants?.map((user) => (
+            <NameLabel key={user.participantId} name={user.userName} />
+          ))}
+        </div>
+        <div className="py-3 text-primary/70">{boardDetail.boardIntro}</div>
+      </div>
       {role === '해구르르' && (
         <div className="flex justify-end">
           <Button

@@ -1,1 +1,0 @@
-export { BoardDetail } from './BoardDetail'
