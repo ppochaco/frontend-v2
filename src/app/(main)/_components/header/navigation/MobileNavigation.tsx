@@ -10,7 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui'
 
-import { navigationLinks } from '../Navigation'
+import { navigationLinks } from './Navigation'
 
 export const MobileNavigation = () => {
   return (

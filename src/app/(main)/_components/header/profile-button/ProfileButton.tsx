@@ -6,8 +6,8 @@ import Link from 'next/link'
 
 import { useAuthStore } from '@/store/auth'
 
-import { ProfileDropdownMenu } from './ProfileDropdownMenu'
 import { UserAvatar } from './UserAvatar'
+import { ProfileDropdownMenu } from './dropdown-menu'
 
 export const ProfileButton = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false)

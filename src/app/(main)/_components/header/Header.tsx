@@ -1,8 +1,7 @@
 import { Logo } from '@/components/common'
 
-import { MobileNavigation } from './MobileNavigation'
-import { Navigation } from './Navigation'
-import { ProfileButton } from './ProfileButton/inex'
+import { MobileNavigation, Navigation } from './navigation'
+import { ProfileButton } from './profile-button'
 
 export const Header = () => {
   return (
