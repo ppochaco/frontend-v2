@@ -2,9 +2,8 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { BoardNavigationButton } from '@/components/PostView/BoardNavigationButton'
-import PostContent from '@/components/PostView/PostContent'
 import { Spinner } from '@/components/common'
+import { BoardNavigationButton, PostContent } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { boardDetailQuery } from '@/service/data/boards'
 import { useGetPost } from '@/service/data/post'

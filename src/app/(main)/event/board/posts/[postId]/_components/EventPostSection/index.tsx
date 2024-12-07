@@ -1,8 +1,7 @@
 'use client'
 
-import { BoardNavigationButton } from '@/components/PostView/BoardNavigationButton'
-import PostContent from '@/components/PostView/PostContent'
 import { Spinner } from '@/components/common'
+import { BoardNavigationButton, PostContent } from '@/components/feature'
 import { useGetPost } from '@/service/data/post'
 
 import { EventPostDetail } from './EventPostDetail'
