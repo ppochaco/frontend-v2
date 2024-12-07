@@ -14,19 +14,19 @@ export const Navigation = () => {
 
 export const navigationLinks = [
   {
-    name: 'Activity',
+    name: '활동',
     href: '/activity/init',
   },
   {
-    name: 'Event',
+    name: '행사',
     href: '/event',
   },
   {
-    name: 'Notice',
+    name: '공지',
     href: '/notice',
   },
   {
-    name: 'Recruit',
+    name: '모집',
     href: '/recruit',
   },
 ] as const
