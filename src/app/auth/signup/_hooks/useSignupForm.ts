@@ -8,7 +8,7 @@ import { useAction } from 'next-safe-action/hooks'
 
 import { useToast } from '@/components/ui'
 import { Signup, SignupSchema } from '@/schema/auth'
-import { signupAction } from '@/service/server/signup'
+import { signupAction } from '@/service/server/auth/signup'
 
 import { useSignupCheckStore } from '~auth/signup/_stores/signup-check'
 

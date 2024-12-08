@@ -9,7 +9,7 @@ import {
   CheckRespose,
   checkStudentNumberAction,
   checkUserIdAction,
-} from '@/service/server/signup'
+} from '@/service/server/auth/signup'
 
 import { useSignupCheckStore } from '~auth/signup/_stores/signup-check'
 

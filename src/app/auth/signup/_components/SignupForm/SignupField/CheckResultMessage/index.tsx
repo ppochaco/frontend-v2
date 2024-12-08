@@ -1,5 +1,5 @@
 import { cn } from '@/lib/utils'
-import { CheckRespose } from '@/service/server/signup'
+import { CheckRespose } from '@/service/server/auth/signup'
 
 type CheckResultMessageProps = {
   checkResult: CheckRespose

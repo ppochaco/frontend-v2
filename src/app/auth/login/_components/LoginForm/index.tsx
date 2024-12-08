@@ -7,8 +7,8 @@ import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
 import { Button, Input, Label } from '@/components/ui'
-import { getMyInfo } from '@/service/server'
-import { loginAction } from '@/service/server/login'
+import { loginAction } from '@/service/server/auth/login'
+import { getMyInfo } from '@/service/server/user'
 import { useAuthStore } from '@/store/auth'
 import { useMyInfoStore } from '@/store/myInfo'
 

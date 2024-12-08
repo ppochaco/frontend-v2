@@ -18,7 +18,7 @@ import {
   FormMessage,
   Input,
 } from '@/components/ui'
-import { CheckRespose } from '@/service/server/signup'
+import { CheckRespose } from '@/service/server/auth/signup'
 
 import { CheckStudentNumberButton, CheckUserIdButton } from './CheckButton'
 import { CheckResultMessage } from './CheckResultMessage'
