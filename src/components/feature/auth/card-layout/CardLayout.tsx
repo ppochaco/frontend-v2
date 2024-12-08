@@ -2,13 +2,17 @@ import { ReactNode } from 'react'
 
 import { cn } from '@/lib/utils'
 
-interface AuthCardProps {
+interface AuthCardLayoutProps {
   title: string
   children: ReactNode
   className?: string
 }
 
-export const AuthCard = ({ title, children, className }: AuthCardProps) => {
+export const AuthCardLayout = ({
+  title,
+  children,
+  className,
+}: AuthCardLayoutProps) => {
   return (
     <div
       className={cn(

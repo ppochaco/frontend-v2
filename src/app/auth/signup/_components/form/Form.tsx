@@ -4,10 +4,10 @@ import { useEffect, useState } from 'react'
 
 import { Button, Form } from '@/components/ui'
 
-import { SignupSuccessDialog } from '~auth/signup/_components/SignupSuccessDialog'
 import { useSignupForm } from '~auth/signup/_hooks/useSignupForm'
 
-import { SignupCheckboxField, SignupInputField } from './SignupField'
+import { SignupCheckboxField, SignupInputField } from './field'
+import { SignupSuccessDialog } from './success-dialog'
 
 export const SignupForm = () => {
   const { form, isExecuting, onSubmit, isSuccessSignup } = useSignupForm()

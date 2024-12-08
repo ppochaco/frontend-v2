@@ -12,7 +12,7 @@ import { getMyInfo } from '@/service/server/user'
 import { useAuthStore } from '@/store/auth'
 import { useMyInfoStore } from '@/store/myInfo'
 
-import { LoginErrorMessage } from '~auth/login/_components/LoginErrorMesage'
+import { LoginErrorMessage } from './ErrorMessageBox'
 
 type LoginSchema = {
   userId: string
