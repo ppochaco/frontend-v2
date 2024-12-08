@@ -1,9 +1,9 @@
+'use client'
+
 import Image from 'next/image'
-import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
 import {
-  Button,
   Card,
   CardContent,
   Carousel,
@@ -13,14 +13,14 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui'
-import { PostSlider } from '@/types/post'
+import { useGetPostsSlider } from '@/service/data/post'
 
-type EventCarouselProps = {
-  posts: PostSlider[]
-}
-
-export function EventCarousel({ posts }: EventCarouselProps) {
+export const EventCarousel = () => {
   const router = useRouter()
+
+  const { data, status } = useGetPostsSlider({})
+
+  if (status === 'pending' || !data?.posts.length) return <CarouselSkeleton />
 
   return (
     <Carousel
@@ -28,7 +28,7 @@ export function EventCarousel({ posts }: EventCarouselProps) {
       className="w-full max-w-52 xs:max-w-sm sm:max-w-xl"
     >
       <CarouselContent>
-        {posts.map((post) => (
+        {data.posts.map((post) => (
           <CarouselItem key={post.postId}>
             <div className="p-1">
               <Card
@@ -56,15 +56,21 @@ export function EventCarousel({ posts }: EventCarouselProps) {
         ))}
       </CarouselContent>
       <CarouselDots className="pt-2" />
-      <div className="flex w-full justify-end pr-4">
-        <Link href="/event/board">
-          <Button variant="link" className="h-fit p-0 text-primary/60">
-            더보기
-          </Button>
-        </Link>
-      </div>
       <CarouselPrevious />
       <CarouselNext />
     </Carousel>
+  )
+}
+
+const CarouselSkeleton = () => {
+  return (
+    <div className="flex justify-center pb-7">
+      <Card className="w-full max-w-52 overflow-hidden xs:max-w-sm sm:max-w-xl">
+        <CardContent className="flex aspect-video flex-col p-0">
+          <div className="w-screen flex-1 animate-pulse bg-slate-50"></div>
+          <div className="h-20 w-full bg-slate-100 p-4"></div>
+        </CardContent>
+      </Card>
+    </div>
   )
 }
