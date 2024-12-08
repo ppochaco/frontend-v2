@@ -19,7 +19,7 @@ export const ActivityBreadcrumb = ({
   const activityNav: NavLink = {
     index: 0,
     link: activityPath,
-    name: 'activity',
+    name: '활동',
   }
   const finalNavLinks: NavLink[] = navLinks.map((link, index) => ({
     ...link,
