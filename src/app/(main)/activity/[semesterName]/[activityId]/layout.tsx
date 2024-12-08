@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 
+import { ErrorHandlingWrapper } from '@/components/common'
 import { SemesterPagination } from '@/components/feature'
-import ErrorHandlingWrapper from '@/service/components/error-boundary/ErrorHandlingWrapper'
 
 import { ActivityErrorFallback } from './_components'
 

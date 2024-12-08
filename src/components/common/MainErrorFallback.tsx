@@ -4,7 +4,8 @@ import { useRouter } from 'next/navigation'
 
 import { Button } from '@/components/ui'
 import { ACCESS_ERROR_MESSAGE } from '@/constant/errorMessage'
-import { FallbackProps } from '@/service/components/error-boundary'
+
+import { FallbackProps } from './error-boundary'
 
 const MainErrorFallback = ({ error, resetErrorBoundary }: FallbackProps) => {
   const router = useRouter()

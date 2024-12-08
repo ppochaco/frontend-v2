@@ -2,7 +2,7 @@ import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 
 import { Toaster } from '@/components/ui'
-import { ReactQueryClientProvider } from '@/service/components/ReactQueryClientProvider'
+import { ReactQueryClientProvider } from '@/lib/query-client'
 
 import './globals.css'
 

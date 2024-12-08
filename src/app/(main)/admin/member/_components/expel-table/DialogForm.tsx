@@ -4,7 +4,7 @@ import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
 import { Button, ToastAction, useToast } from '@/components/ui'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
+import { queryClient } from '@/lib/query-client'
 import { activeUsersQuery } from '@/service/data/user'
 import { expelMemberAction } from '@/service/server/user/expel-member'
 

@@ -5,7 +5,7 @@ import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { Button, Separator, ToastAction, useToast } from '@/components/ui'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
+import { queryClient } from '@/lib/query-client'
 import { deleteActivityPostAction } from '@/service/server/post/delete-post'
 import { useMyInfoStore } from '@/store/myInfo'
 import { PostView } from '@/types/post'

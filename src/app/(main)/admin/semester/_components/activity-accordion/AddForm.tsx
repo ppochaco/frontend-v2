@@ -15,8 +15,8 @@ import {
   ToastAction,
   useToast,
 } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import { AddActivity } from '@/schema/admin'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { activitiesQuery } from '@/service/data/activity'
 import { AddActivityAction } from '@/service/server/activity/add-activity'
 

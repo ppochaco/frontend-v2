@@ -14,7 +14,7 @@ import {
   ToastAction,
   useToast,
 } from '@/components/ui'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
+import { queryClient } from '@/lib/query-client'
 import { semesterQuery } from '@/service/data/semester'
 import { DeleteSemesterAction } from '@/service/server/semester/delete-semester'
 import { Semester } from '@/types/activity'

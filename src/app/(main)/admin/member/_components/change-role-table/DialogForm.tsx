@@ -15,8 +15,8 @@ import {
   ToastAction,
   useToast,
 } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import { ChangeRole, ChangeRoleSchema } from '@/schema/admin'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { activeUsersQuery } from '@/service/data/user'
 import { changeUserRoleAction } from '@/service/server/user/change-user-role'
 import { ActiveUser } from '@/types/user'

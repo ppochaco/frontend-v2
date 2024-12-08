@@ -24,8 +24,8 @@ import {
   ToastAction,
   useToast,
 } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import { AddSemester, AddSemesterSchema } from '@/schema/admin'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { semesterQuery } from '@/service/data/semester'
 import { AddSemesterAction } from '@/service/server/semester/add-semester'
 

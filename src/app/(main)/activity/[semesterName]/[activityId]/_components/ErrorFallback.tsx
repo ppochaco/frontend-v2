@@ -2,9 +2,9 @@
 
 import { useRouter } from 'next/navigation'
 
+import { FallbackProps } from '@/components/common'
 import { Button } from '@/components/ui'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
-import { FallbackProps } from '@/service/components/error-boundary'
 
 const ActivityErrorFallback = ({
   error,

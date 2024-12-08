@@ -9,8 +9,8 @@ import { usePathname, useRouter } from 'next/navigation'
 
 import { CreatePostForm } from '@/components/feature'
 import { useToast } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { createActivityPostAction } from '@/service/server/post/create-post'
 
 type CreateActivityPostFormProps = {

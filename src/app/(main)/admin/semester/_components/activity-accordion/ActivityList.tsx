@@ -8,7 +8,7 @@ import { useRouter } from 'next/navigation'
 
 import { ActivitySkeleton } from '@/components/feature'
 import { ToastAction, useToast } from '@/components/ui'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
+import { queryClient } from '@/lib/query-client'
 import { activitiesQuery, useGetActivities } from '@/service/data/activity'
 import { DeleteAcivityAction } from '@/service/server/activity/delete-activity'
 import { Semester } from '@/types/activity'

@@ -7,7 +7,7 @@ import { useSearchParams } from 'next/navigation'
 import { PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
+import { queryClient } from '@/lib/query-client'
 import { useGetPostsPaging } from '@/service/data/post'
 import { getPostsPaging } from '@/service/server/post'
 

@@ -12,8 +12,8 @@ import {
   ImageInput,
 } from '@/components/feature'
 import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
 import { createBoardAction } from '@/service/server/board/create-board'
 import { User } from '@/types/user'
 

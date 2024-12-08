@@ -4,7 +4,7 @@ import { ComponentType, ReactNode, Suspense } from 'react'
 
 import { QueryErrorResetBoundary } from '@tanstack/react-query'
 
-import ErrorBoundary, { FallbackProps } from './index'
+import ErrorBoundary, { FallbackProps } from './error-boundary/Errorboundary'
 
 interface PropsType {
   children: React.ReactNode

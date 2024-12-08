@@ -9,7 +9,7 @@ import { usePathname, useSearchParams } from 'next/navigation'
 import { PaginationButtons } from '@/components/common'
 import { BoardSkeleton, NameLabel } from '@/components/feature'
 import { Card, CardContent, CardTitle } from '@/components/ui'
-import { queryClient } from '@/service/components/ReactQueryClientProvider'
+import { queryClient } from '@/lib/query-client'
 import { useGetBoardsPaging } from '@/service/data/boards'
 import { getBoardsPaging } from '@/service/server/board'
 
