@@ -7,7 +7,7 @@ import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { useGetPostsPaging } from '@/service/data/post'
 
-export const EventPostListSection = () => {
+export const EventPostList = () => {
   const postType = 'EVENT'
 
   const searchParams = useSearchParams()
