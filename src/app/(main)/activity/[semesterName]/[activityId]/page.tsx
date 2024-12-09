@@ -11,7 +11,7 @@ import { Button } from '@/components/ui'
 import { useGetSemesters } from '@/service/data/semester'
 import { useMyInfoStore } from '@/store/myInfo'
 
-import { ActivityBoardList, ActivityList } from './_components'
+import { ActivityBoardList, ActivityHero, ActivityList } from './_components'
 
 type ActivityPageParams = {
   params: {
@@ -30,14 +30,15 @@ const ActivityPage = ({ params }: ActivityPageParams) => {
   const semester = semesters.find(
     (semester) => semester.semesterName === params.semesterName,
   )
-  if (!semester) return <ActivitySemesterSkeleton />
+  if (!semester) return <ActivitiyPageSkeleton />
 
-  if (status === 'pending') return <ActivitySemesterSkeleton />
+  if (status === 'pending') return <ActivitiyPageSkeleton />
 
   return (
     <div className="flex flex-col items-center gap-2">
+      <ActivityHero />
       <SemesterPagination
-        semesterName={params.semesterName}
+        semesterName={semester.semesterName}
         semesters={semesters}
       />
       <div className="flex w-full flex-col items-center gap-6">
@@ -61,3 +62,12 @@ const ActivityPage = ({ params }: ActivityPageParams) => {
 }
 
 export default ActivityPage
+
+const ActivitiyPageSkeleton = () => {
+  return (
+    <div className="flex flex-col items-center gap-2">
+      <ActivityHero />
+      <ActivitySemesterSkeleton />
+    </div>
+  )
+}
