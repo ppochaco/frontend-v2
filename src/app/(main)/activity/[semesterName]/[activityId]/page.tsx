@@ -3,6 +3,7 @@
 import { useCurrentSemester } from '@/service/data/semester'
 
 import { SemesterSkeleton } from '../_components/SemesterSkeleton'
+import { ActivityHero } from './_components/ActivityHero/ActivityHero'
 import { ActivitySection } from './_components/ActivitySection'
 import { BoardSection } from './_components/BoardSection'
 import { CreateBoardButton } from './_components/CreateBoardButton'
@@ -22,6 +23,7 @@ const ActivityPage = ({ params }: ActivityPageParams) => {
 
   return (
     <div className="flex flex-col items-center gap-2">
+      <ActivityHero />
       <SemesterSection semesterName={params.semesterName} />
       <div className="flex w-full flex-col items-center gap-6">
         <ActivitySection
