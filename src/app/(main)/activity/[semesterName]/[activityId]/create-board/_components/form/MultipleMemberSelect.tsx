@@ -27,6 +27,7 @@ export const MultipleMemberSelect = ({
   onChange,
 }: MultipleMemberSelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('') // Input 값 상태
 
   const selectMember = (member: User) => {
     if (value.includes(member)) {
@@ -34,6 +35,7 @@ export const MultipleMemberSelect = ({
     } else {
       onChange([...value, member])
     }
+    setInputValue('') // 멤버 선택 후 Input의 값 초기화
   }
 
   return (
@@ -57,6 +59,8 @@ export const MultipleMemberSelect = ({
             </Badge>
           ))}
           <CommandPrimitive.Input
+            value={inputValue}
+            onValueChange={(value) => setInputValue(value)}
             onBlur={() => setIsOpen(false)}
             onClick={() => setIsOpen((prev) => !prev)}
             placeholder="게시판 이용자를 입력해주세요."
