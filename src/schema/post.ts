@@ -6,7 +6,7 @@ export const CreatePostSchema = z.object({
   postTitle: z
     .string()
     .min(1, { message: '게시글 제목을 입력해주세요.' })
-    .max(50, { message: '게시글 제목은 50자 이내이어야 합니다.' }),
+    .max(50, { message: '게시글 제목은 50자 이내여야 합니다.' }),
   postContent: z.string().min(1, { message: '게시글 내용을 입력해주세요.' }),
   imageFile: z
     .instanceof(File)
@@ -38,7 +38,7 @@ export const CreateNoticePostSchema = z.object({
   postTitle: z
     .string()
     .min(1, { message: '게시글 제목을 입력해주세요.' })
-    .max(50, { message: '게시글 제목은 50자 이내이어야 합니다.' }),
+    .max(50, { message: '게시글 제목은 50자 이내여야 합니다.' }),
   postContent: z.string().min(1, { message: '게시글 제목을 입력해주세요.' }),
 })
 

@@ -99,7 +99,7 @@ export const checkUserIdAction = actionClient
 
 const StudentNumberSchema = z.object({
   studentNumber: z.string().regex(/^[0-9]{10}$/, {
-    message: '학번은 10글자 이어야 합니다.',
+    message: '학번은 10자여야 합니다.',
   }),
 })
 
