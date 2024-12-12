@@ -46,14 +46,17 @@ export const MultipleMemberSelect = ({
             <Badge
               key={member.userId}
               variant="secondary"
-              onClick={(e) => {
-                e.stopPropagation()
-                selectMember(member)
-              }}
               className="flex w-fit gap-1 rounded-full"
             >
               <div>{member.userName}</div>
-              <Button variant="ghost" className="h-fit px-0 py-1">
+              <Button
+                variant="ghost"
+                className="h-fit px-0 py-1"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  selectMember(member)
+                }}
+              >
                 <Cross2Icon />
               </Button>
             </Badge>
