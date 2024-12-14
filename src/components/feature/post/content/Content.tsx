@@ -11,7 +11,7 @@ type PostContentProps = {
 }
 
 const PostContent = ({ content }: PostContentProps) => {
-  const initialContent = (JSON.parse(content) as PartialBlock[]) ?? undefined
+  const initialContent = JSON.parse(content) as PartialBlock[]
 
   const editor = BlockNoteEditor.create({ initialContent })
 

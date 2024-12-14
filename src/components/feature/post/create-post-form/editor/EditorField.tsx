@@ -12,7 +12,7 @@ import { CreatePost } from '@/schema/post'
 const PostContentFieldEditor = () => {
   const { control } = useFormContext<CreatePost>()
 
-  const editor = useCreateBlockNote({ initialContent: [{}] })
+  const editor = useCreateBlockNote()
 
   return (
     <FormField
