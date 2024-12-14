@@ -75,6 +75,9 @@ const config = {
       screens: {
         xs: '340px',
       },
+      aspectRatio: {
+        '4/3': '4 / 3',
+      },
     },
   },
   plugins: [require('tailwindcss-animate'), require('tailwind-scrollbar-hide')],
