@@ -9,7 +9,7 @@ export default function MemberPage() {
       <div className="text-md text-primary/60">
         해달과 123명의 부원들이 함께 하고 있어요
       </div>
-      <div className="grid w-full max-w-[400px] grid-cols-2 place-items-center gap-6 pt-6 sm:max-w-[520px] sm:grid-cols-3 md:max-w-[680px] lg:max-w-[920px] lg:grid-cols-4">
+      <div className="grid w-full max-w-[320px] grid-cols-2 place-items-center gap-6 pt-6 sm:max-w-[520px] sm:grid-cols-3 md:max-w-[680px] lg:max-w-[920px] lg:grid-cols-4">
         {memberMockData.map((user) => {
           return (
             <MemberCard
