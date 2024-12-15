@@ -29,7 +29,7 @@ const SignupSchema = z
 
 export const signupAction = actionClient
   .schema(SignupSchema, {
-    handleValidationErrorsShape: (ve) =>
+    handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
   .action(

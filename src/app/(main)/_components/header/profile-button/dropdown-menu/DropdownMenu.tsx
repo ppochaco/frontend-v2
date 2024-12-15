@@ -18,7 +18,7 @@ export const ProfileDropdownMenu = () => {
   const { role } = useMyInfoStore((state) => state.getMyInfo())
 
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger>
         <UserAvatar />
         {/* <UserAvatar userImage={userImageUrl} /> */}
