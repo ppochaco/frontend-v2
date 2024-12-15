@@ -15,7 +15,7 @@ const LoginServerSchema = z.object({
 
 export const loginAction = actionClient
   .schema(LoginServerSchema, {
-    handleValidationErrorsShape: (ve) =>
+    handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
   .action(async ({ parsedInput: { userId, password } }) => {

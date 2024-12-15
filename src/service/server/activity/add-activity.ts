@@ -16,7 +16,7 @@ const AddActivitySchema = z.object({
 
 export const AddActivityAction = actionClient
   .schema(AddActivitySchema, {
-    handleValidationErrorsShape: (ve) =>
+    handleValidationErrorsShape: async (ve) =>
       flattenValidationErrors(ve).fieldErrors,
   })
   .action(async ({ parsedInput: { semesterId, activityName } }) => {
