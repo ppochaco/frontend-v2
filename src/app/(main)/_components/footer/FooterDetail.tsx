@@ -20,17 +20,13 @@ export const FooterDetail = () => {
 const footerDetailData: FooterDetailData[] = [
   {
     id: 0,
-    label: 'Location',
-    content: '대구광역시 북구 대학로 80 경북대학교 IT 대학 1호관 108A',
+    label: '주소',
+    content:
+      '대구광역시 북구 대학로 80 (산격동, 경북대학교) IT대학 1호관 108A (41566)',
   },
   {
     id: 1,
-    label: 'Made by',
-    content: 'dkwls0234@gmail.com',
-  },
-  {
-    id: 2,
-    label: 'Contact to',
+    label: '대표 연락처',
     content: 'tfer2442@gmail.com',
   },
 ]
