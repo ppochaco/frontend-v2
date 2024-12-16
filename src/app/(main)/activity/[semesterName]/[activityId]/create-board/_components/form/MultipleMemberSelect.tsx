@@ -27,7 +27,7 @@ export const MultipleMemberSelect = ({
   onChange,
 }: MultipleMemberSelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
-  const [inputValue, setInputValue] = useState('') // Input 값 상태
+  const [inputValue, setInputValue] = useState('')
 
   const selectMember = (member: User) => {
     if (value.includes(member)) {
@@ -35,7 +35,7 @@ export const MultipleMemberSelect = ({
     } else {
       onChange([...value, member])
     }
-    setInputValue('') // 멤버 선택 후 Input의 값 초기화
+    setInputValue('')
   }
 
   return (
