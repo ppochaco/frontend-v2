@@ -1,1 +1,1 @@
-export * from './feature'
+export { default as UserImgSection } from './UserImgSection'
