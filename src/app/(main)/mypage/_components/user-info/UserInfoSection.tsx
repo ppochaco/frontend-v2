@@ -1,5 +1,4 @@
-import { useState } from 'react'
-
+// import { useState } from 'react'
 import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons'
 
 import WriteInfo from './WriteInfo'
@@ -15,8 +14,8 @@ const UserInfoSection = ({
   instagramInfo,
   profileIntro,
 }: UserInfoSectionProps) => {
-  const [editProfileIntro, setEditProfileIntro] = useState<boolean>(false)
-  const [editSocialIntro, setEditSocialIntro] = useState<boolean>(false)
+  // const [editProfileIntro, setEditProfileIntro] = useState<boolean>(false)
+  // const [editSocialIntro, setEditSocialIntro] = useState<boolean>(false)
 
   return (
     <section className="mt-10 flex h-full w-full flex-col space-y-5">
@@ -24,7 +23,6 @@ const UserInfoSection = ({
         title="한 줄 소개"
         description="멤버 페이지에서 보이는 정보입니다."
         actionText="수정"
-        onClick={() => setEditProfileIntro(!editProfileIntro)}
         division
       >
         <div className="text-md">{profileIntro}</div>
@@ -32,7 +30,6 @@ const UserInfoSection = ({
       <WriteInfo
         title="소셜 정보"
         actionText="수정"
-        onClick={() => setEditSocialIntro(!editSocialIntro)}
         description="멤버 페이지에서 보이는 정보입니다."
         division
       >
