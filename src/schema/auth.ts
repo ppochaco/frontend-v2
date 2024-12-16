@@ -19,12 +19,12 @@ export const SignupSchema = z.object({
     }),
   confirmPassword: z.string(),
   studentNumber: z.string().regex(/^[0-9]{10}$/, {
-    message: '학번은 10글자 이어야 합니다.',
+    message: '학번은 10자여야 합니다.',
   }),
   userName: z
     .string()
-    .min(2, { message: '이름은 2글자 이상 이어야 합니다.' })
-    .max(5, { message: '이름은 5글자 이하 이어야 합니다.' }),
+    .min(2, { message: '이름은 2자 이상이어야 합니다.' })
+    .max(5, { message: '이름은 5자 이하이어야 합니다.' }),
   checked: z.literal<boolean>(true, {
     errorMap: () => ({
       message: '안내 문구를 확인해주세요.',

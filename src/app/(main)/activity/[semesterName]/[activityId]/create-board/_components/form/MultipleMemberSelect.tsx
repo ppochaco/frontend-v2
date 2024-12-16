@@ -27,6 +27,7 @@ export const MultipleMemberSelect = ({
   onChange,
 }: MultipleMemberSelectProps) => {
   const [isOpen, setIsOpen] = useState(false)
+  const [inputValue, setInputValue] = useState('')
 
   const selectMember = (member: User) => {
     if (value.includes(member)) {
@@ -34,6 +35,7 @@ export const MultipleMemberSelect = ({
     } else {
       onChange([...value, member])
     }
+    setInputValue('')
   }
 
   return (
@@ -44,19 +46,24 @@ export const MultipleMemberSelect = ({
             <Badge
               key={member.userId}
               variant="secondary"
-              onClick={(e) => {
-                e.stopPropagation()
-                selectMember(member)
-              }}
               className="flex w-fit gap-1 rounded-full"
             >
               <div>{member.userName}</div>
-              <Button variant="ghost" className="h-fit px-0 py-1">
+              <Button
+                variant="ghost"
+                className="h-fit px-0 py-1"
+                onClick={(e) => {
+                  e.stopPropagation()
+                  selectMember(member)
+                }}
+              >
                 <Cross2Icon />
               </Button>
             </Badge>
           ))}
           <CommandPrimitive.Input
+            value={inputValue}
+            onValueChange={(value) => setInputValue(value)}
             onBlur={() => setIsOpen(false)}
             onClick={() => setIsOpen((prev) => !prev)}
             placeholder="게시판 이용자를 입력해주세요."
