@@ -26,6 +26,10 @@ export const navigationLinks = [
     href: '/notice',
   },
   {
+    name: '멤버',
+    href: '/member',
+  },
+  {
     name: '모집',
     href: '/recruit',
   },
