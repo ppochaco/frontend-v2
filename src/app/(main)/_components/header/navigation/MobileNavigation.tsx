@@ -14,7 +14,7 @@ import { navigationLinks } from './Navigation'
 
 export const MobileNavigation = () => {
   return (
-    <DropdownMenu>
+    <DropdownMenu modal={false}>
       <DropdownMenuTrigger>
         <HamburgerMenuIcon className="h-auto w-6" />
       </DropdownMenuTrigger>
