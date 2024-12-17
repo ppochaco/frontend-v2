@@ -26,7 +26,7 @@ const footerDetailData: FooterDetailData[] = [
   },
   {
     id: 1,
-    label: '대표 연락처',
+    label: '연락처',
     content: 'tfer2442@gmail.com',
   },
 ]
