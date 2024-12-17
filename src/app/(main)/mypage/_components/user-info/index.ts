@@ -1,1 +1,1 @@
-export { default as UserInfoSection } from './UserInfoSection'
+export { UserInfoSection } from './UserInfoSection'

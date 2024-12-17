@@ -1,1 +1,1 @@
-export { default as UserImgSection } from './UserImgSection'
+export { UserImgSection } from './UserImgSection'

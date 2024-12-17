@@ -7,7 +7,7 @@ interface UserImgSectionProps {
   profileImage?: string
 }
 
-const UserImgSection = ({
+export const UserImgSection = ({
   name,
   role,
   studentId,
@@ -50,5 +50,3 @@ const UserImgSection = ({
     </section>
   )
 }
-
-export default UserImgSection

@@ -10,7 +10,7 @@ interface UserInfoSectionProps {
   profileIntro: string
 }
 
-const UserInfoSection = ({
+export const UserInfoSection = ({
   githubInfo: initialGithubInfo,
   instagramInfo: initialInstagramInfo,
   profileIntro: initialProfileIntro,
@@ -148,5 +148,3 @@ const UserInfoSection = ({
     </section>
   )
 }
-
-export default UserInfoSection
