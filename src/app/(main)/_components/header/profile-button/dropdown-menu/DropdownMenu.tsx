@@ -33,6 +33,9 @@ export const ProfileDropdownMenu = () => {
           </DropdownMenuItem>
         )}
         <DropdownMenuItem>
+          <Link href={'/mypage'}>마이페이지</Link>
+        </DropdownMenuItem>
+        <DropdownMenuItem>
           <LogoutButton />
         </DropdownMenuItem>
       </DropdownMenuContent>
