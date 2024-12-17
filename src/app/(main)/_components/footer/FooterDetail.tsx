@@ -6,9 +6,9 @@ type FooterDetailData = {
 
 export const FooterDetail = () => {
   return (
-    <div className="flex flex-col justify-end gap-6 text-sm sm:flex-row sm:gap-10">
+    <div className="flex flex-col justify-start gap-6 text-sm sm:flex-col sm:gap-2">
       {footerDetailData.map((detail) => (
-        <div key={detail.id} className="flex flex-col gap-2">
+        <div key={detail.id} className="flex flex-row gap-4">
           <div className="font-semibold">{detail.label}</div>
           <div>{detail.content}</div>
         </div>

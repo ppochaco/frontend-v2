@@ -1,14 +1,28 @@
+import Image from 'next/image'
+
 import { FooterDetail } from './FooterDetail'
 import { LinkIcon } from './LinkIcon'
 
 export const Footer = () => {
   return (
-    <div className="flex w-full flex-col gap-16 px-12 py-8">
-      <div className="flex justify-end gap-4">
-        <div className="font-medium">KNU HAEDAL</div>
-        <LinkIcon />
+    <div className="relative flex w-full flex-col gap-8 px-12 py-8">
+      <div className="flex w-full flex-col items-start gap-2">
+        <Image
+          width={0}
+          height={0}
+          src="/logo-dark.svg"
+          alt="logo-dark"
+          sizes="100vw"
+          priority
+          className="w-32"
+        />
+        <p className="text-sm font-semibold">
+          경북대학교 IT대학 학술동아리 해달
+        </p>
       </div>
       <FooterDetail />
+      <p className="text-xs">© 2024 해달. All rights reserved.</p>
+      <LinkIcon />
     </div>
   )
 }
