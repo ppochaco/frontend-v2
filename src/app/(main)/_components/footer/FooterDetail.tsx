@@ -27,6 +27,6 @@ const footerDetailData: FooterDetailData[] = [
   {
     id: 1,
     label: '연락처',
-    content: 'tfer2442@gmail.com',
+    content: 'knu.haedal@gmail.com',
   },
 ]
