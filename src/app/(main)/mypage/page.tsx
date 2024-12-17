@@ -9,7 +9,7 @@ import { CreateMypage, CreateMypageSchema } from '@/schema/mypage'
 
 import { UserImgSection, UserInfoSection } from './_components'
 
-export const MyPage = () => {
+const MyPage = () => {
   const form = useForm({
     resolver: zodResolver(CreateMypageSchema),
     defaultValues: {
@@ -48,6 +48,8 @@ export const MyPage = () => {
     </Form>
   )
 }
+
+export default MyPage
 
 const mypageMockData = {
   introduction: '도비는 자유에요!',
