@@ -2,11 +2,13 @@
 // import { Button } from '@/components/ui'
 // import { EventCarousel, EventHero } from './_components'
 import { EventHero } from './_components'
+import { EventBoardHero } from './board/_components'
 
 const EventPage = () => {
   return (
     <div className="flex h-full w-full flex-1 flex-col items-center pb-20">
       <EventHero />
+      <EventBoardHero />
       {/* <div className="flex w-full flex-col px-20">
         <EventCarousel />
         <div className="flex justify-end">
