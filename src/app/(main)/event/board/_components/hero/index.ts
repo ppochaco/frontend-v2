@@ -1,1 +1,1 @@
-export { EventBoardHero } from './Hero'
+export { EventBoardHero } from './EventBoardHero'
