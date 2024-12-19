@@ -1,25 +1,23 @@
-import Image from 'next/image'
+import {
+  EnvelopeClosedIcon,
+  GitHubLogoIcon,
+  InstagramLogoIcon,
+} from '@radix-ui/react-icons'
 import Link from 'next/link'
 
 type LinkIconData = {
   id: number
   href: string
-  src: string
+  icon: JSX.Element
   alt: string
 }
 
 export const LinkIcon = () => {
   return (
-    <div className="absolute bottom-8 right-12 flex gap-4">
+    <div className="flex gap-2">
       {linkIconData.map((linkIcon) => (
         <Link href={linkIcon.href} key={linkIcon.id}>
-          <Image
-            className="h-auto w-6"
-            src={linkIcon.src}
-            alt={linkIcon.alt}
-            width={0}
-            height={0}
-          />
+          {linkIcon.icon}
         </Link>
       ))}
     </div>
@@ -30,19 +28,19 @@ const linkIconData: LinkIconData[] = [
   {
     id: 0,
     href: 'mailto:knu.haedal@gmail.com',
-    src: '/asset/icon/Email.svg',
+    icon: <EnvelopeClosedIcon className="h-6 w-6" />,
     alt: 'HAEDAL Email Link',
   },
   {
     id: 1,
     href: 'https://github.com/KNU-HAEDAL',
-    src: '/asset/icon/Github.svg',
+    icon: <GitHubLogoIcon className="h-6 w-6" />,
     alt: 'HAEDAL Github Link',
   },
   {
     id: 2,
     href: 'https://www.instagram.com/knu.haedal/',
-    src: '/asset/icon/Instagram.svg',
+    icon: <InstagramLogoIcon className="h-6 w-6" />,
     alt: 'HAEDAL Instagram Link',
   },
 ]
