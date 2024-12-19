@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "swagger-typescript-api": "swagger-typescript-api -p https://www.knu-haedal.com/api/v3/api-docs -r -o ./src/models --modular -d --extract-request-body --extract-response-body --extract-response-error --axios"
   },
   "dependencies": {
     "@blocknote/core": "^0.21.0",
