@@ -1,4 +1,4 @@
-import { Login, LoginRequestDto, Reissue } from '@/models'
+import { Join, JoinRequestDto, Login, LoginRequestDto, Reissue } from '@/models'
 
 import { useAuthStore } from '@/store/auth'
 
@@ -24,4 +24,38 @@ export const reissue = async () => {
   setAccessToken(newAccessToken)
 
   return newAccessToken
+}
+
+const signupApi = new Join({})
+
+export const signup = async ({
+  userId,
+  password,
+  email,
+  studentNumber,
+  userName,
+}: JoinRequestDto) => {
+  const response = await signupApi.resisterUser({
+    userId,
+    password,
+    email,
+    studentNumber: Number(studentNumber),
+    userName,
+  })
+
+  return { status: response.status, message: response.data.message }
+}
+
+export const checkUserId = async (userId: string) => {
+  const response = await signupApi.checkUserIdDuplicate({ userId })
+
+  return response.data
+}
+
+export const checkStudentNumber = async (studentNumber: number) => {
+  const response = await signupApi.checkStudentNumberDuplicate({
+    studentNumber,
+  })
+
+  return response.data
 }
