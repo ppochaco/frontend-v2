@@ -3,14 +3,6 @@ import { useAuthStore } from '@/store/auth'
 
 import authErrorInterceptor from './auth-error-interceptor'
 
-export const BACKEND_API = new HttpClient({
-  baseURL: 'https://www.knu-haedal.com/api',
-  headers: {
-    'Content-Type': 'application/json',
-  },
-  withCredentials: true,
-})
-
 export const AUTHORIZATION_API = new HttpClient({
   baseURL: 'https://www.knu-haedal.com/api',
   headers: {

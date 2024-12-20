@@ -10,29 +10,14 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { AxiosInstance } from 'axios'
+import { CustomHttpClient } from '@/servicetest/config'
 
 import { LoginRequestDto, SignIn1Data } from './data-contracts'
-import {
-  ApiConfig,
-  ContentType,
-  HttpClient,
-  RequestParams,
-} from './http-client'
+import { ContentType, RequestParams } from './http-client'
 
 export class Login<
   SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
-  private axiosInstance: AxiosInstance
-
-  constructor({
-    axiosInstance,
-    ...config
-  }: { axiosInstance: AxiosInstance } & ApiConfig<SecurityDataType>) {
-    super(config)
-    this.axiosInstance = axiosInstance
-  }
-
+> extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
