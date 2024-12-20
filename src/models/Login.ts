@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,11 +10,29 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+import { AxiosInstance } from 'axios'
 
 import { LoginRequestDto, SignIn1Data } from './data-contracts'
-import { ContentType, HttpClient, RequestParams } from './http-client'
+import {
+  ApiConfig,
+  ContentType,
+  HttpClient,
+  RequestParams,
+} from './http-client'
 
-export class Login<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Login<
+  SecurityDataType = unknown,
+> extends HttpClient<SecurityDataType> {
+  private axiosInstance: AxiosInstance
+
+  constructor({
+    axiosInstance,
+    ...config
+  }: { axiosInstance: AxiosInstance } & ApiConfig<SecurityDataType>) {
+    super(config)
+    this.axiosInstance = axiosInstance
+  }
+
   /**
    * No description
    *

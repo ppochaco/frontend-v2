@@ -170,7 +170,7 @@ export interface CreateBoardRequestDto {
    * 참여 인원 ID
    * @uniqueItems true
    */
-  participants?: 'haedal1234' | 'good1234'
+  participants?: string[]
 }
 
 export interface UpdateRoleRequestDto {
