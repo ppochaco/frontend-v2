@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,11 +10,19 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+import { CustomHttpClient } from '@/servicetest/config'
 
-import { AddPostData, CreatePostRequestDto, DeletePostData, GetActivityPosts1Data } from './data-contracts'
-import { ContentType, HttpClient, RequestParams } from './http-client'
+import {
+  AddPostData,
+  CreatePostRequestDto,
+  DeletePostData,
+  GetActivityPosts1Data,
+} from './data-contracts'
+import { ContentType, RequestParams } from './http-client'
 
-export class Boards<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Boards<
+  SecurityDataType = unknown,
+> extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -62,7 +72,11 @@ export class Boards<SecurityDataType = unknown> extends HttpClient<SecurityDataT
    * @response `400` `void`
    * @response `404` `void`
    */
-  addPost = (boardId: number, data: CreatePostRequestDto, params: RequestParams = {}) =>
+  addPost = (
+    boardId: number,
+    data: CreatePostRequestDto,
+    params: RequestParams = {},
+  ) =>
     this.request<AddPostData, void>({
       path: `/boards/${boardId}/posts`,
       method: 'POST',

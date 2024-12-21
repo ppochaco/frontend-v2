@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,6 +10,7 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+import { CustomHttpClient } from '@/servicetest/config'
 
 import {
   AddNoticePostData,
@@ -16,9 +19,11 @@ import {
   GetActivityPostsData,
   GetPostData,
 } from './data-contracts'
-import { ContentType, HttpClient, RequestParams } from './http-client'
+import { ContentType, RequestParams } from './http-client'
 
-export class Posts<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Posts<
+  SecurityDataType = unknown,
+> extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *

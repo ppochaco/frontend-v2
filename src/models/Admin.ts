@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,6 +10,7 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+import { CustomHttpClient } from '@/servicetest/config'
 
 import {
   ApproveUserData,
@@ -23,9 +26,11 @@ import {
   RemoveSemesterData,
   UpdateRoleRequestDto,
 } from './data-contracts'
-import { ContentType, HttpClient, RequestParams } from './http-client'
+import { ContentType, RequestParams } from './http-client'
 
-export class Admin<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Admin<
+  SecurityDataType = unknown,
+> extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -38,7 +43,10 @@ export class Admin<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @response `201` `void`
    * @response `409` `void`
    */
-  registerSemester = (data: CreateSemesterRequestDto, params: RequestParams = {}) =>
+  registerSemester = (
+    data: CreateSemesterRequestDto,
+    params: RequestParams = {},
+  ) =>
     this.request<RegisterSemesterData, void>({
       path: `/admin/semesters`,
       method: 'POST',
@@ -59,7 +67,11 @@ export class Admin<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @response `201` `void`
    * @response `404` `void`
    */
-  registerActivity = (semesterId: number, data: CreateActivityRequestDto, params: RequestParams = {}) =>
+  registerActivity = (
+    semesterId: number,
+    data: CreateActivityRequestDto,
+    params: RequestParams = {},
+  ) =>
     this.request<RegisterActivityData, void>({
       path: `/admin/semesters/${semesterId}/activities`,
       method: 'POST',
@@ -79,7 +91,11 @@ export class Admin<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @response `200` `ChangeUserRoleData`
    * @response `404` `void`
    */
-  changeUserRole = (userId: string, data: UpdateRoleRequestDto, params: RequestParams = {}) =>
+  changeUserRole = (
+    userId: string,
+    data: UpdateRoleRequestDto,
+    params: RequestParams = {},
+  ) =>
     this.request<ChangeUserRoleData, void>({
       path: `/admin/users/${userId}/role`,
       method: 'PATCH',
@@ -202,7 +218,11 @@ export class Admin<SecurityDataType = unknown> extends HttpClient<SecurityDataTy
    * @response `404` `void`
    * @response `409` `void`
    */
-  removeActivity = (semesterId: number, activityId: number, params: RequestParams = {}) =>
+  removeActivity = (
+    semesterId: number,
+    activityId: number,
+    params: RequestParams = {},
+  ) =>
     this.request<RemoveActivityData, void>({
       path: `/admin/semesters/${semesterId}/activities/${activityId}`,
       method: 'DELETE',

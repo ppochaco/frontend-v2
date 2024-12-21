@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,11 +10,14 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+import { CustomHttpClient } from '@/servicetest/config'
 
 import { GetMeData } from './data-contracts'
-import { HttpClient, RequestParams } from './http-client'
+import { RequestParams } from './http-client'
 
-export class Users<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Users<
+  SecurityDataType = unknown,
+> extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *

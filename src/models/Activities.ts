@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 /* tslint:disable */
+
 /*
  * ---------------------------------------------------------------
  * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
@@ -8,6 +10,7 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
+import { CustomHttpClient } from '@/servicetest/config'
 
 import {
   AddBoardData,
@@ -20,9 +23,11 @@ import {
   UpdateBoardImagePayload,
   UpdateBoardRequestDto,
 } from './data-contracts'
-import { ContentType, HttpClient, RequestParams } from './http-client'
+import { ContentType, RequestParams } from './http-client'
 
-export class Activities<SecurityDataType = unknown> extends HttpClient<SecurityDataType> {
+export class Activities<
+  SecurityDataType = unknown,
+> extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
@@ -71,7 +76,11 @@ export class Activities<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @response `201` `void`
    * @response `404` `void`
    */
-  addBoard = (activityId: number, data: CreateBoardRequestDto, params: RequestParams = {}) =>
+  addBoard = (
+    activityId: number,
+    data: CreateBoardRequestDto,
+    params: RequestParams = {},
+  ) =>
     this.request<AddBoardData, void>({
       path: `/activities/${activityId}/boards`,
       method: 'POST',
@@ -91,7 +100,11 @@ export class Activities<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @response `200` `GetBoardData` OK
    * @response `404` `void`
    */
-  getBoard = (activityId: number, boardId: number, params: RequestParams = {}) =>
+  getBoard = (
+    activityId: number,
+    boardId: number,
+    params: RequestParams = {},
+  ) =>
     this.request<GetBoardData, void>({
       path: `/activities/${activityId}/boards/${boardId}`,
       method: 'GET',
@@ -110,7 +123,11 @@ export class Activities<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @response `403` `void`
    * @response `404` `void`
    */
-  deleteBoard = (activityId: number, boardId: number, params: RequestParams = {}) =>
+  deleteBoard = (
+    activityId: number,
+    boardId: number,
+    params: RequestParams = {},
+  ) =>
     this.request<DeleteBoardData, void>({
       path: `/activities/${activityId}/boards/${boardId}`,
       method: 'DELETE',
@@ -130,7 +147,12 @@ export class Activities<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @response `403` `void`
    * @response `404` `void`
    */
-  updateBoard = (activityId: number, boardId: number, data: UpdateBoardRequestDto, params: RequestParams = {}) =>
+  updateBoard = (
+    activityId: number,
+    boardId: number,
+    data: UpdateBoardRequestDto,
+    params: RequestParams = {},
+  ) =>
     this.request<UpdateBoardData, void>({
       path: `/activities/${activityId}/boards/${boardId}`,
       method: 'PATCH',
@@ -152,7 +174,12 @@ export class Activities<SecurityDataType = unknown> extends HttpClient<SecurityD
    * @response `403` `void`
    * @response `404` `void`
    */
-  updateBoardImage = (activityId: number, boardId: number, data: UpdateBoardImagePayload, params: RequestParams = {}) =>
+  updateBoardImage = (
+    activityId: number,
+    boardId: number,
+    data: UpdateBoardImagePayload,
+    params: RequestParams = {},
+  ) =>
     this.request<UpdateBoardImageData, void>({
       path: `/activities/${activityId}/boards/${boardId}/image`,
       method: 'PATCH',
