@@ -24,7 +24,7 @@ export const ProfileDropdownMenu = () => {
         {/* <UserAvatar userImage={userImageUrl} /> */}
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mt-4">
-        {role === '해구르르' && (
+        {(role === '해구르르' || role === '관리자') && (
           <DropdownMenuItem>
             <Link href={'/admin/member'} className="flex items-center gap-2">
               <GearIcon />

@@ -4,7 +4,7 @@ export type User = {
   userName: string
 }
 
-export type Role = '해구르르' | '팀장' | '일반'
+export type Role = '관리자' | '해구르르' | '팀장' | '일반'
 
 export type ActiveUser = User & {
   role: Role
