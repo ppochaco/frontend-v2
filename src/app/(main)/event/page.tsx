@@ -2,8 +2,7 @@
 
 import { useState } from 'react'
 
-import { EventGallery, EventHero } from './_components'
-import { EventBoardHero } from './board/_components'
+import { EventBoardHero, EventGallery, EventHero } from './_components'
 
 // import Link from 'next/link'
 // import { Button } from '@/components/ui'
