@@ -1,9 +1,17 @@
+import { initInstance } from '@/lib/axios-instance'
 import { HttpClient } from '@/lib/http-client'
 import { useAuthStore } from '@/store/auth'
 
 import authErrorInterceptor from './auth-error-interceptor'
 
-export const AUTHORIZATION_API = new HttpClient({
+const BACKEND_API = initInstance({
+  baseURL: 'https://www.knu-haedal.com/api',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+})
+
+const AUTHORIZATION_API = initInstance({
   baseURL: 'https://www.knu-haedal.com/api',
   headers: {
     'Content-Type': 'application/json',
@@ -11,7 +19,7 @@ export const AUTHORIZATION_API = new HttpClient({
   withCredentials: true,
 })
 
-AUTHORIZATION_API.instance.interceptors.request.use(
+AUTHORIZATION_API.interceptors.request.use(
   (request) => {
     const accessToken = useAuthStore.getState().accessToken
 
@@ -24,7 +32,9 @@ AUTHORIZATION_API.instance.interceptors.request.use(
   (error) => error,
 )
 
-AUTHORIZATION_API.instance.interceptors.response.use(
+AUTHORIZATION_API.interceptors.response.use(
   (response) => response,
   authErrorInterceptor,
 )
+
+export { BACKEND_API, AUTHORIZATION_API }

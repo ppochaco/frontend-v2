@@ -2,8 +2,10 @@ import { Join, JoinRequestDto, Login, LoginRequestDto, Reissue } from '@/models'
 
 import { useAuthStore } from '@/store/auth'
 
+import { BACKEND_API } from '../config'
+
 export const login = async ({ userId, password }: LoginRequestDto) => {
-  const loginApi = new Login({})
+  const loginApi = new Login(BACKEND_API)
   const response = await loginApi.signIn1({ userId, password })
 
   const accessToken = response.headers['authorization']
@@ -15,7 +17,7 @@ export const reissue = async () => {
   const accessToken = useAuthStore.getState().accessToken
   const setAccessToken = useAuthStore.getState().setAccessToken
 
-  const reissueApi = new Reissue({})
+  const reissueApi = new Reissue(BACKEND_API)
   const response = await reissueApi.reissue({
     headers: { Authorization: accessToken },
   })
@@ -26,8 +28,6 @@ export const reissue = async () => {
   return newAccessToken
 }
 
-const signupApi = new Join({})
-
 export const signup = async ({
   userId,
   password,
@@ -35,6 +35,7 @@ export const signup = async ({
   studentNumber,
   userName,
 }: JoinRequestDto) => {
+  const signupApi = new Join(BACKEND_API)
   const response = await signupApi.resisterUser({
     userId,
     password,
@@ -47,12 +48,14 @@ export const signup = async ({
 }
 
 export const checkUserId = async (userId: string) => {
+  const signupApi = new Join(BACKEND_API)
   const response = await signupApi.checkUserIdDuplicate({ userId })
 
   return response.data
 }
 
 export const checkStudentNumber = async (studentNumber: number) => {
+  const signupApi = new Join(BACKEND_API)
   const response = await signupApi.checkStudentNumberDuplicate({
     studentNumber,
   })

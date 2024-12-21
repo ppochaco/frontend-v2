@@ -47,7 +47,7 @@ const authErrorInterceptor = async (error: AxiosError) => {
         .then((token) => {
           if (token && originalRequest) {
             originalRequest.headers['Authorization'] = `${token}`
-            return AUTHORIZATION_API.instance(originalRequest)
+            return AUTHORIZATION_API(originalRequest)
           }
         })
         .catch((queueError) => {

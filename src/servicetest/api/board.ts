@@ -3,7 +3,7 @@ import { BoardResponseDto } from '@/models/data-contracts'
 
 import { Paging } from '@/service/types/paging'
 
-const boardsApi = new Activities()
+import { BACKEND_API } from '../config'
 
 export interface BoardsResponse extends Paging {
   boards?: BoardResponseDto[]
@@ -14,6 +14,7 @@ export const getBoardsPaging = async (
   page?: number,
   size?: number,
 ): Promise<BoardsResponse> => {
+  const boardsApi = new Activities(BACKEND_API)
   const response = await boardsApi.getBoards(activityId, { page, size })
 
   const { data } = response
@@ -26,9 +27,9 @@ export const getBoardsPaging = async (
         ? (data.pageable?.pageNumber + 1).toString()
         : undefined,
     pageInfo: {
-      totalPages: data.totalPages,
-      totalElements: data.totalElements,
-      pageSize: data.pageable?.pageSize,
+      totalPages: data.totalPages ?? 0,
+      totalElements: data.totalElements ?? 0,
+      pageSize: data.pageable?.pageSize ?? 0,
     },
   }
 }
