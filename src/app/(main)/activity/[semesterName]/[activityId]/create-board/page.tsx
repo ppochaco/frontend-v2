@@ -1,7 +1,9 @@
 'use client'
 
+import { semesterQueries } from '@/servicetest/api/semester'
+import { useQuery } from '@tanstack/react-query'
+
 import { useGetActivities } from '@/service/data/activity'
-import { useGetSemesters } from '@/service/data/semester'
 import { useMyInfoStore } from '@/store/myInfo'
 
 import {
@@ -21,8 +23,9 @@ type CreateBoardPageParams = {
 const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
   const { userName } = useMyInfoStore((state) => state.getMyInfo())
 
-  const { semesters, status } = useGetSemesters()
-  const currentSemester = semesters.find(
+  const { data: semesters, status } = useQuery(semesterQueries.list())
+
+  const currentSemester = semesters?.find(
     (semester) => semester.semesterName === params.semesterName,
   )
 

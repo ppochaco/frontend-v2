@@ -16,8 +16,8 @@ import {
   GetActivitiesData,
   GetSemesterData,
   GetSemestersData,
-} from './data-contracts'
-import { RequestParams } from './http-client'
+} from '../../models/data-contracts'
+import { RequestParams } from '../../models/http-client'
 
 export class Semesters<
   SecurityDataType = unknown,

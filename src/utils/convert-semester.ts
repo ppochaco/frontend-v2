@@ -1,26 +1,10 @@
 import { SemesterResponseDto } from '@/models'
-import { queryOptions, useQuery } from '@tanstack/react-query'
 
-import { getSemesters } from '@/service/server/semester'
 import { Semester } from '@/types/activity'
 
-export const semesterQuery = () =>
-  queryOptions({
-    queryKey: ['semesters'],
-    queryFn: async () => getSemesters(),
-  })
-
-export const useGetSemesters = () => {
-  const { data, status } = useQuery(semesterQuery())
-
-  const semesters = data ? convertSemesterFormat(data) : []
-
-  return { semesters, status }
-}
-
-const convertSemesterFormat = (
+export default function convertSemesterFormat(
   semesters: SemesterResponseDto[],
-): Semester[] => {
+): Semester[] {
   return semesters.map((semester, index) => {
     const year = semester.semesterName?.slice(0, 4)
     const term = semester.semesterName?.slice(4)

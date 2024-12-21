@@ -1,12 +1,13 @@
 'use client'
 
+import { semesterQueries } from '@/servicetest/api/semester'
+import { useQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
 import {
   ActivitySemesterSkeleton,
   SemesterPagination,
 } from '@/components/feature'
-import { useGetSemesters } from '@/service/data/semester'
 
 import { RedirectActivity } from './_components'
 
@@ -16,12 +17,17 @@ type RedirectActivityParams = {
 
 const RedirectSemesterPage = ({ params }: RedirectActivityParams) => {
   const router = useRouter()
-  const { semesters, status } = useGetSemesters()
+  const { data: semesters, status } = useQuery(semesterQueries.list())
+
+  if (status === 'pending') return <ActivitySemesterSkeleton />
+
+  if (!semesters) return <div>학기가 없습니다.</div>
+
   const currentSemester = semesters.find(
     (semester) => semester.semesterName === params.semesterName,
   )
 
-  if (status === 'pending') return <ActivitySemesterSkeleton />
+  if (!currentSemester) return <div>학기가 없습니다.</div>
 
   if (params.semesterName === 'init') {
     const lastSemester = semesters[semesters.length - 1].semesterName
@@ -29,8 +35,6 @@ const RedirectSemesterPage = ({ params }: RedirectActivityParams) => {
     router.push(`/activity/${lastSemester}`)
     return
   }
-
-  if (!currentSemester) return <div>학기가 없습니다.</div>
 
   return (
     <div className="flex flex-col items-center gap-2">

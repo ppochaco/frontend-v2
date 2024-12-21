@@ -1,5 +1,7 @@
 'use client'
 
+import { semesterQueries } from '@/servicetest/api/semester'
+import { useQuery } from '@tanstack/react-query'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
@@ -8,7 +10,6 @@ import {
   SemesterPagination,
 } from '@/components/feature'
 import { Button } from '@/components/ui'
-import { useGetSemesters } from '@/service/data/semester'
 import { useMyInfoStore } from '@/store/myInfo'
 
 import { ActivityBoardList, ActivityHero, ActivityList } from './_components'
@@ -26,13 +27,16 @@ const ActivityPage = ({ params }: ActivityPageParams) => {
 
   const { role } = useMyInfoStore((state) => state.getMyInfo())
 
-  const { semesters, status } = useGetSemesters()
-  const semester = semesters.find(
+  const { data: semesters, status } = useQuery(semesterQueries.list())
+
+  if (status === 'pending') return <ActivitiyPageSkeleton />
+
+  if (!semesters) return <div>학기가 없습니다.</div>
+
+  const semester = semesters?.find(
     (semester) => semester.semesterName === params.semesterName,
   )
   if (!semester) return <ActivitiyPageSkeleton />
-
-  if (status === 'pending') return <ActivitiyPageSkeleton />
 
   return (
     <div className="flex flex-col items-center gap-2">
