@@ -238,9 +238,9 @@ export interface SemesterResponseDto {
    * 학기 id
    * @format int64
    */
-  semesterId?: number
+  semesterId: number
   /** 학기명 */
-  semesterName?: string
+  semesterName: string
 }
 
 export interface ActivityResponseDto {
@@ -248,14 +248,14 @@ export interface ActivityResponseDto {
    * 활동 id
    * @format int64
    */
-  activityId?: number
+  activityId: number
   /** 활동명 */
-  activityName?: string
+  activityName: string
   /**
    * 학기 id
    * @format int64
    */
-  semesterId?: number
+  semesterId: number
 }
 
 export interface UserSummaryResponseDto {

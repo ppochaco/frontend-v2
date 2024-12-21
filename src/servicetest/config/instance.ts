@@ -1,5 +1,4 @@
 import { initInstance } from '@/lib/axios-instance'
-import { HttpClient } from '@/lib/http-client'
 import { useAuthStore } from '@/store/auth'
 
 import authErrorInterceptor from './auth-error-interceptor'
