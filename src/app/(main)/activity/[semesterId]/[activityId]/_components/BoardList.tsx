@@ -2,6 +2,8 @@
 
 import { useEffect } from 'react'
 
+import { boardQueries } from '@/servicetest/api/board'
+import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
 import { usePathname, useSearchParams } from 'next/navigation'
@@ -10,8 +12,6 @@ import { PaginationButtons } from '@/components/common'
 import { BoardSkeleton, NameLabel } from '@/components/feature'
 import { Card, CardContent, CardTitle } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { useGetBoardsPaging } from '@/service/data/boards'
-import { getBoardsPaging } from '@/service/server/board'
 
 type ActivityBoardListProps = {
   activityId: number
@@ -25,17 +25,13 @@ export const ActivityBoardList = ({ activityId }: ActivityBoardListProps) => {
   const page =
     Number(params.get('page')) > 0 ? Number(params.get('page')) - 1 : 0
 
-  const { data, status, isPlaceholderData } = useGetBoardsPaging({
-    activityId: activityId,
-    page,
-  })
+  const { data, status, isPlaceholderData } = useQuery(
+    boardQueries.list({ activityId, page }),
+  )
 
   useEffect(() => {
     if (!isPlaceholderData && data?.nextPageToken) {
-      queryClient.prefetchQuery({
-        queryKey: ['boards', activityId, page],
-        queryFn: () => getBoardsPaging({ activityId, page }),
-      })
+      queryClient.prefetchQuery(boardQueries.list({ activityId, page }))
     }
   }, [data, isPlaceholderData, page, activityId])
 

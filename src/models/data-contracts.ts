@@ -301,9 +301,9 @@ export interface PageableObject {
   offset?: number
   sort?: SortObject[]
   /** @format int32 */
-  pageNumber?: number
+  pageNumber: number
   /** @format int32 */
-  pageSize?: number
+  pageSize: number
   paged?: boolean
   unpaged?: boolean
 }
@@ -424,36 +424,36 @@ export interface BoardResponseDto {
    * 게시판 id
    * @format int64
    */
-  boardId?: number
+  boardId: number
   /** 게시판 이름 */
-  boardName?: string
+  boardName: string
   /** 게시판 소개 */
-  boardIntro?: string
+  boardIntro: string
   /** 게시판 대표 이미지 파일 Url */
-  boardImageUrl?: string
+  boardImageUrl: string
   /** 참여 인원 목록 */
-  participants?: ParticipantResponseDto[]
+  participants: ParticipantResponseDto[]
   /**
    * 활동 id
    * @format int64
    */
-  activityId?: number
+  activityId: number
 }
 
 export interface PageBoardResponseDto {
   /** @format int32 */
-  totalPages?: number
+  totalPages: number
   /** @format int64 */
-  totalElements?: number
+  totalElements: number
   /** @format int32 */
-  size?: number
-  content?: BoardResponseDto[]
+  size: number
+  content: BoardResponseDto[]
   /** @format int32 */
   number?: number
   sort?: SortObject[]
   /** @format int32 */
   numberOfElements?: number
-  pageable?: PageableObject
+  pageable: PageableObject
   first?: boolean
   last?: boolean
   empty?: boolean
@@ -462,9 +462,9 @@ export interface PageBoardResponseDto {
 /** 참여 인원 목록 */
 export interface ParticipantResponseDto {
   /** @format int64 */
-  participantId?: number
-  userId?: string
-  userName?: string
+  participantId: number
+  userId: string
+  userName: string
 }
 
 export type ReissueData = any

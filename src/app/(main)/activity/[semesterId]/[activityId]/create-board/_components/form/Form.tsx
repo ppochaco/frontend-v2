@@ -1,10 +1,11 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { addBoard, boardQueries } from '@/servicetest/api/board'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAction } from 'next-safe-action/hooks'
+import { useMutation } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
 import {
@@ -14,7 +15,6 @@ import {
 import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
-import { createBoardAction } from '@/service/server/board/create-board'
 import { User } from '@/types/user'
 
 import { SelectMemberInput } from './SelectMemberInput'
@@ -29,11 +29,10 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
 
   const basePath = pathName.split('/').slice(0, -1).join('/')
 
-  const {
-    execute: createBoard,
-    result,
-    isExecuting,
-  } = useAction(createBoardAction)
+  const { mutate, isPending } = useMutation({
+    mutationFn: addBoard,
+    onSuccess: (data) => onSuccess(data.message),
+  })
   const { toast } = useToast()
 
   const form = useForm<CreateBoard>({
@@ -42,26 +41,23 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
       activityId,
       boardName: '',
       boardIntro: '',
-      imageFile: new File([], ''),
       participants: [],
     },
   })
   const [selectedMember, setSelectedMember] = useState<User[]>([])
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 3000,
-      })
-
-      queryClient.invalidateQueries({ queryKey: ['boards', activityId] })
-      router.push(basePath)
-    }
-  }, [result, activityId, basePath, router, toast])
-
   const onSubmit = (form: CreateBoard) => {
-    createBoard(form)
+    mutate(form)
+  }
+
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
+
+    queryClient.invalidateQueries({ queryKey: boardQueries.lists(activityId) })
+    router.push(basePath)
   }
 
   return (
@@ -95,7 +91,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
         <div className="flex justify-end">
           <Button
             type="submit"
-            disabled={isExecuting}
+            disabled={isPending}
             onClick={() =>
               form.setValue(
                 'participants',

@@ -1,11 +1,11 @@
 'use client'
 
+import { boardQueries } from '@/servicetest/api/board'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
-import { boardDetailQuery } from '@/service/data/boards'
 import { useGetPost } from '@/service/data/post'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
@@ -20,7 +20,10 @@ type PostPageParams = {
 
 const PostPage = ({ params }: PostPageParams) => {
   const { data: board } = useSuspenseQuery(
-    boardDetailQuery(Number(params.activityId), Number(params.boardId)),
+    boardQueries.detail({
+      activityId: Number(params.activityId),
+      boardId: Number(params.boardId),
+    }),
   )
   const { data: post, status } = useGetPost({ postId: Number(params.postId) })
 

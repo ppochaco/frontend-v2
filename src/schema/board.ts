@@ -11,14 +11,14 @@ export const CreateBoardSchema = z.object({
   boardIntro: z
     .string()
     .max(50, { message: '게시판 소개글은 50자 이내여야 합니다.' }),
-  imageFile: z
-    .instanceof(File)
-    .refine((f) => f.size < 5000000, {
-      message: '이미지 파일 크기는 5MB 이하만 가능합니다.',
-    })
-    .refine((f) => !!f.name, {
-      message: '게시판 대표 사진을 선택해주세요.',
-    }),
+  // imageFile: z
+  //   .instanceof(File)
+  //   .refine((f) => f.size < 5000000, {
+  //     message: '이미지 파일 크기는 5MB 이하만 가능합니다.',
+  //   })
+  //   .refine((f) => !!f.name, {
+  //     message: '게시판 대표 사진을 선택해주세요.',
+  //   }),
   participants: z.string().array(),
 })
 

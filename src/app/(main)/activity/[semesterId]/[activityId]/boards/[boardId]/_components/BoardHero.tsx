@@ -1,7 +1,5 @@
-import { useEffect } from 'react'
-
-import { useQuery } from '@tanstack/react-query'
-import { useAction } from 'next-safe-action/hooks'
+import { boardQueries, deleteBoard } from '@/servicetest/api/board'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
 import {
@@ -12,8 +10,6 @@ import {
 import { Button, Separator, useToast } from '@/components/ui'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
-import { boardDetailQuery } from '@/service/data/boards'
-import { deleteBoardAction } from '@/service/server/board/delete-board'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type BoardHeroProps = {
@@ -23,32 +19,31 @@ type BoardHeroProps = {
 
 export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
   const { role } = useMyInfoStore((state) => state.getMyInfo())
+
   const { data: boardDetail, status } = useQuery(
-    boardDetailQuery(activityId, boardId),
+    boardQueries.detail({ activityId, boardId }),
   )
 
-  const {
-    execute: deleteBoard,
-    result,
-    isExecuting,
-  } = useAction(deleteBoardAction)
+  const { mutate, isPending } = useMutation({
+    mutationFn: deleteBoard,
+    onSuccess: (data) => onSuccess(data.message),
+  })
+
   const router = useRouter()
   const pathName = usePathname()
-  const activityPath = pathName.split('/').slice(0, 4).join('/')
   const { toast } = useToast()
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 2000,
-      })
+  const onSuccess = (message: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
 
-      queryClient.invalidateQueries({ queryKey: ['boards', activityId] })
-      router.push(activityPath)
-      return
-    }
-  }, [result, router, toast, activityPath, activityId])
+    queryClient.invalidateQueries({ queryKey: boardQueries.all() })
+
+    const activityPath = pathName.split('/').slice(0, 4).join('/')
+    router.push(activityPath)
+  }
 
   if (status === 'pending') return <BoardHeroSkeleton />
 
@@ -75,8 +70,8 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
           <Button
             variant="link"
             className="text-primary/60"
-            onClick={() => deleteBoard({ boardId, activityId })}
-            disabled={isExecuting}
+            onClick={() => mutate({ boardId, activityId })}
+            disabled={isPending}
           >
             게시판 삭제하기
           </Button>
