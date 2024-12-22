@@ -1,16 +1,15 @@
 'use client'
 
-import { useState } from 'react'
+import { Suspense, useState } from 'react'
 
 import {
+  CreateEventPostButton,
   EventBoardHero,
   EventGallery,
   EventHero,
+  EventPostList,
   EventViewSelector,
 } from './_components'
-
-// import Link from 'next/link'
-// import { Button } from '@/components/ui'
 
 type View = '갤러리' | '리스트'
 
@@ -24,7 +23,14 @@ const EventPage = () => {
         <EventBoardHero />
         <EventViewSelector view={view} setView={setView} />
         {view === '갤러리' && <EventGallery />}
-        {view === '리스트' && <></>}
+        {view === '리스트' && (
+          <Suspense>
+            <EventPostList />
+          </Suspense>
+        )}
+        <div className="flex w-full justify-end">
+          <CreateEventPostButton />
+        </div>
       </div>
     </div>
   )
