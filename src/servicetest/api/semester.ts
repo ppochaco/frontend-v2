@@ -1,6 +1,6 @@
 import { Semesters } from '@/models'
 import convertSemesterFormat from '@/utils/convert-semester'
-import { queryOptions } from '@tanstack/react-query'
+import { queryOptions, skipToken } from '@tanstack/react-query'
 
 import { BACKEND_API } from '../config'
 

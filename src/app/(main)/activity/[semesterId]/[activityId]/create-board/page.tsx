@@ -15,7 +15,7 @@ import {
 
 type CreateBoardPageParams = {
   params: {
-    semesterName: string
+    semesterId: string
     activityId: string
   }
 }
@@ -23,28 +23,32 @@ type CreateBoardPageParams = {
 const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
   const { userName } = useMyInfoStore((state) => state.getMyInfo())
 
-  const { data: semesters, status } = useQuery(semesterQueries.list())
-
-  const currentSemester = semesters?.find(
-    (semester) => semester.semesterName === params.semesterName,
-  )
-
+  const {
+    data: semester,
+    status,
+    error,
+  } = useQuery(semesterQueries.detail(Number(params.semesterId)))
   const { data: activities } = useQuery(
-    activityQueries.list(currentSemester?.semesterId),
+    activityQueries.list(Number(params.semesterId)),
   )
 
   const currentActivity = activities?.find(
     (activity) => activity.activityId === Number(params.activityId),
   )
 
-  if (status === 'pending' || !currentActivity?.activityName)
+  if (!currentActivity?.activityName) return <CreateBoardSkeleton />
+
+  if (status === 'pending') {
     return <CreateBoardSkeleton />
+  }
+
+  if (error) return <div>{error.message}</div>
 
   return (
     <div className="w-full pt-10">
       <CreateBoardHero />
       <CreateBoardDetail
-        semesterName={params.semesterName}
+        semesterName={semester.semesterName}
         activityName={currentActivity.activityName}
         userName={userName}
       />

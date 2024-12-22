@@ -1,6 +1,5 @@
 'use client'
 
-import { ActivitySemesterSkeleton } from '@/components/feature'
 import {
   Pagination,
   PaginationContent,
@@ -12,58 +11,49 @@ import {
 import { cn } from '@/lib/utils'
 import { Semester } from '@/types/activity'
 
-type SemesterPaginationProps = {
-  semesterName: string
+type SemesterListProps = {
+  semester: Semester
   semesters: Semester[]
 }
 
-export const SemesterPagination = ({
-  semesterName,
-  semesters,
-}: SemesterPaginationProps) => {
-  const currentSemester = semesters.find(
-    (semester) => semester.semesterName === semesterName,
-  )
-  if (!currentSemester) return <ActivitySemesterSkeleton />
-
-  const previousIndex = Math.max((currentSemester.index ?? 0) - 1, 0)
+export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
+  const previousIndex = Math.max((semester.index ?? 0) - 1, 0)
   const nextIndex = Math.min(
-    (currentSemester.index ?? semesters.length - 1) + 1,
+    (semester.index ?? semesters.length - 1) + 1,
     semesters.length - 1,
   )
 
-  const visibleSemesters = getVisibleSemesterList(semesters, currentSemester)
+  const visibleSemesters = getVisibleSemesterList(semesters, semester)
 
   return (
     <Pagination className="pt-3">
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={`/activity/${semesters[previousIndex].semesterName}`}
-            disabled={currentSemester?.index === 0}
+            href={`/activity/${semesters[previousIndex].semesterId}/-1`}
+            disabled={semester?.index === 0}
           />
         </PaginationItem>
         <PaginationItem>
-          {visibleSemesters?.map((semester) => {
-            const isActive =
-              currentSemester?.semesterName === semester.semesterName
+          {visibleSemesters?.map((visibleSemester) => {
+            const isActive = semester.semesterId === visibleSemester.semesterId
 
             return (
               <PaginationLink
-                key={semester.semesterId}
-                href={`/activity/${semester.semesterName}`}
+                key={visibleSemester.semesterId}
+                href={`/activity/${visibleSemester.semesterId}/-1`}
                 isActive={isActive}
                 className={cn(!isActive && 'text-primary/60')}
               >
-                {semester.semesterName}
+                {visibleSemester.semesterName}
               </PaginationLink>
             )
           })}
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            href={`/activity/${semesters[nextIndex].semesterName}`}
-            disabled={currentSemester?.index === semesters.length - 1}
+            href={`/activity/${semesters[nextIndex].semesterId}/-1`}
+            disabled={semester.index === semesters.length - 1}
           />
         </PaginationItem>
       </PaginationContent>
