@@ -25,7 +25,6 @@ const EventPage = () => {
         <EventViewSelector view={view} setView={setView} />
         {view === '갤러리' && <EventGallery />}
         {view === '리스트' && <></>}
-        {/* <Link href="/event/board"> */}
       </div>
     </div>
   )
