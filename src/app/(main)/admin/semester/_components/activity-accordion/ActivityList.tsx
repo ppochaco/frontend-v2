@@ -1,16 +1,13 @@
 'use client'
 
-import { useEffect } from 'react'
-
+import { activityQueries } from '@/servicetest/api/activity'
+import { DeleteActivityParams, deleteActivity } from '@/servicetest/api/admin'
 import { Cross2Icon } from '@radix-ui/react-icons'
-import { useAction } from 'next-safe-action/hooks'
-import { useRouter } from 'next/navigation'
+import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { ActivitySkeleton } from '@/components/feature'
-import { ToastAction, useToast } from '@/components/ui'
+import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { activitiesQuery, useGetActivities } from '@/service/data/activity'
-import { DeleteAcivityAction } from '@/service/server/activity/delete-activity'
 import { Semester } from '@/types/activity'
 
 type ActivityListProps = {
@@ -18,46 +15,25 @@ type ActivityListProps = {
 }
 
 export const ActivityList = ({ semester }: ActivityListProps) => {
-  const { data: activities, status } = useGetActivities(semester.semesterId)
+  const { data: activities, status } = useQuery(
+    activityQueries.list(semester.semesterId),
+  )
 
-  const { execute: deleteActivity, result } = useAction(DeleteAcivityAction)
+  const { mutate } = useMutation({
+    mutationFn: ({ semesterId, activityId }: DeleteActivityParams) =>
+      deleteActivity({ semesterId, activityId }),
+    onSuccess: (data) => onSuccess(data.message),
+  })
   const { toast } = useToast()
-  const router = useRouter()
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 2000,
-      })
+  const onSuccess = (message: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
 
-      const { queryKey } = activitiesQuery(semester.semesterId)
-      queryClient.invalidateQueries({ queryKey })
-
-      return
-    }
-
-    if (result.data?.action === 'login') {
-      toast({
-        title: result.data?.message,
-        action: (
-          <ToastAction
-            onClick={() => router.push('/auth/login')}
-            altText="로그인하기"
-          >
-            로그인하기
-          </ToastAction>
-        ),
-      })
-      return
-    }
-
-    if (result.data?.message) {
-      toast({
-        title: result.data.message,
-      })
-    }
-  }, [result, toast, semester.semesterId, router])
+    queryClient.invalidateQueries({ queryKey: activityQueries.all() })
+  }
 
   if (status === 'pending') return <ActivitySkeleton />
 
@@ -72,7 +48,7 @@ export const ActivityList = ({ semester }: ActivityListProps) => {
             <div>{activity.activityName}</div>
             <Cross2Icon
               onClick={() =>
-                deleteActivity({
+                mutate({
                   semesterId: semester.semesterId,
                   activityId: activity.activityId,
                 })

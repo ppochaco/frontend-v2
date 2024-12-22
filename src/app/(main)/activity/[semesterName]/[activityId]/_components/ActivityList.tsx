@@ -1,12 +1,13 @@
 'use client'
 
+import { activityQueries } from '@/servicetest/api/activity'
+import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 import { ActivitySkeleton } from '@/components/feature'
 import { Button, buttonVariants } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import { useGetActivities } from '@/service/data/activity'
 
 type ActivityListProps = {
   semesterId: number
@@ -14,7 +15,9 @@ type ActivityListProps = {
 }
 
 export const ActivityList = ({ semesterId, activityId }: ActivityListProps) => {
-  const { data: activities, status } = useGetActivities(semesterId)
+  const { data: activities, status } = useQuery(
+    activityQueries.list(semesterId),
+  )
 
   const pathName = usePathname()
   const basePath = pathName.split('/').slice(0, -1).join('/')

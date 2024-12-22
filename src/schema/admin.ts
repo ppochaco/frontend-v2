@@ -17,7 +17,7 @@ export const AddSemesterSchema = z.object({
 })
 export type AddSemester = z.infer<typeof AddSemesterSchema>
 
-const AddActivitySchema = z.object({
-  activityName: z.string(),
+export const AddActivitySchema = z.object({
+  activityName: z.string().min(1, { message: '활동명을 입력해주세요.' }),
 })
 export type AddActivity = z.infer<typeof AddActivitySchema>

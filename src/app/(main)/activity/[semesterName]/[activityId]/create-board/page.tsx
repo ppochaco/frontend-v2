@@ -1,9 +1,9 @@
 'use client'
 
+import { activityQueries } from '@/servicetest/api/activity'
 import { semesterQueries } from '@/servicetest/api/semester'
 import { useQuery } from '@tanstack/react-query'
 
-import { useGetActivities } from '@/service/data/activity'
 import { useMyInfoStore } from '@/store/myInfo'
 
 import {
@@ -29,12 +29,16 @@ const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
     (semester) => semester.semesterName === params.semesterName,
   )
 
-  const { data: activities } = useGetActivities(currentSemester?.semesterId)
+  const { data: activities } = useQuery(
+    activityQueries.list(currentSemester?.semesterId),
+  )
+
   const currentActivity = activities?.find(
     (activity) => activity.activityId === Number(params.activityId),
   )
 
-  if (status === 'pending' || !currentActivity) return <CreateBoardSkeleton />
+  if (status === 'pending' || !currentActivity?.activityName)
+    return <CreateBoardSkeleton />
 
   return (
     <div className="w-full pt-10">
