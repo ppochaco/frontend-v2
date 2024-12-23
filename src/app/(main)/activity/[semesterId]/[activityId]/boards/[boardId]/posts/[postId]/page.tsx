@@ -1,12 +1,12 @@
 'use client'
 
 import { boardQueries } from '@/servicetest/api/board'
-import { useSuspenseQuery } from '@tanstack/react-query'
+import { PostQuries } from '@/servicetest/api/post'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
 import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
-import { useGetPost } from '@/service/data/post'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
 
@@ -25,7 +25,9 @@ const PostPage = ({ params }: PostPageParams) => {
       boardId: Number(params.boardId),
     }),
   )
-  const { data: post, status } = useGetPost({ postId: Number(params.postId) })
+  const { data: post, status } = useQuery(
+    PostQuries.detail(Number(params.postId)),
+  )
 
   if (!board) throw new Error(DATA_ERROR_MESSAGES.BOARD_DETAIL_NOT_FOUND)
 

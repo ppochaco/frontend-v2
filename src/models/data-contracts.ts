@@ -279,18 +279,18 @@ export interface UserSummaryResponseDto {
 
 export interface PagePostSummaryResponseDto {
   /** @format int32 */
-  totalPages?: number
+  totalPages: number
   /** @format int64 */
-  totalElements?: number
+  totalElements: number
   /** @format int32 */
   size?: number
-  content?: PostSummaryResponseDto[]
+  content: PostSummaryResponseDto[]
   /** @format int32 */
   number?: number
   sort?: SortObject[]
   /** @format int32 */
   numberOfElements?: number
-  pageable?: PageableObject
+  pageable: PageableObject
   first?: boolean
   last?: boolean
   empty?: boolean
@@ -313,9 +313,9 @@ export interface PostSummaryResponseDto {
    * 게시글 id
    * @format int64
    */
-  postId?: number
+  postId: number
   /** 게시글 제목 */
-  postTitle?: string
+  postTitle: string
   /**
    * 게시글 대표 이미지 파일 Url
    * @format url
@@ -325,7 +325,7 @@ export interface PostSummaryResponseDto {
    * 게시글 조회수
    * @format int64
    */
-  postViews?: number
+  postViews: number
   /**
    * 활동 시작일
    * @format date
@@ -340,24 +340,24 @@ export interface PostSummaryResponseDto {
    * 게시글 생성일
    * @format date-time
    */
-  postCreateDate?: string
+  postCreateDate: string
   /**
    * 유저 아이디
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 유저 이름
    * @example "조대성"
    */
-  userName?: string
+  userName: string
   /**
    * 게시판 id
    * @format int64
    */
-  boardId?: number
+  boardId: number
   /** 게시판 이름 */
-  boardName?: string
+  boardName: string
 }
 
 export interface SortObject {
@@ -373,18 +373,18 @@ export interface PostResponseDto {
    * 게시글 id
    * @format int64
    */
-  postId?: number
+  postId: number
   /** 게시글 제목 */
-  postTitle?: string
+  postTitle: string
   /** 게시글 내용 */
-  postContent?: string
+  postContent: string
   /** 게시글 대표 이미지 파일 Url */
   postImageUrl?: string
   /**
    * 게시글 조회수
    * @format int64
    */
-  postViews?: number
+  postViews: number
   /**
    * 활동 시작일 (이벤트와 활동은 필수, 공지사항은 생략)
    * @format date
@@ -399,17 +399,17 @@ export interface PostResponseDto {
    * 게시글 생성일
    * @format date-time
    */
-  postCreateDate?: string
+  postCreateDate: string
   /**
    * 유저 아이디
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 유저 이름
    * @example "조대성"
    */
-  userName?: string
+  userName: string
   /**
    * 게시판 id
    * @format int64

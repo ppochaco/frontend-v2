@@ -1,9 +1,10 @@
+import { activityPostQuries } from '@/servicetest/api/post'
+import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 
 import { PaginationButtons } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
-import { useGetActivityPostsPaging } from '@/service/data/post'
 
 type ActivityPostListSectionProps = {
   boardId: number
@@ -18,10 +19,7 @@ export const ActivityPostListSection = ({
   const page =
     Number(params.get('page')) > 0 ? Number(params.get('page')) - 1 : 0
 
-  const { data, status } = useGetActivityPostsPaging({
-    boardId,
-    page,
-  })
+  const { data, status } = useQuery(activityPostQuries.list({ boardId, page }))
 
   if (status === 'pending')
     return <div className="flex w-full justify-center">loading...</div>

@@ -1,5 +1,6 @@
 import { useEffect } from 'react'
 
+import { PostResponseDto } from '@/models'
 import { format } from 'date-fns'
 import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
@@ -8,10 +9,9 @@ import { Button, Separator, ToastAction, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { deletePostAction } from '@/service/server/post/delete-post'
 import { useMyInfoStore } from '@/store/myInfo'
-import { PostView } from '@/types/post'
 
 type NoticePostDetailProps = {
-  post: PostView
+  post: PostResponseDto
 }
 
 export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {

@@ -2,14 +2,14 @@
 
 import { useEffect } from 'react'
 
+import { PostQuries } from '@/servicetest/api/post'
+import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 
 import { PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
-import { useGetPostsPaging } from '@/service/data/post'
-import { getPostsPaging } from '@/service/server/post'
 
 export const NoticePostListSection = () => {
   const postType = 'NOTICE'
@@ -20,17 +20,13 @@ export const NoticePostListSection = () => {
   const page =
     Number(params.get('page')) > 0 ? Number(params.get('page')) - 1 : 0
 
-  const { data, status, isPlaceholderData } = useGetPostsPaging({
-    postType,
-    page,
-  })
+  const { data, status, isPlaceholderData } = useQuery(
+    PostQuries.list({ postType, page }),
+  )
 
   useEffect(() => {
     if (!isPlaceholderData && data?.nextPageToken) {
-      queryClient.prefetchQuery({
-        queryKey: ['posts', postType, page],
-        queryFn: () => getPostsPaging({ postType, page }),
-      })
+      queryClient.prefetchQuery(PostQuries.list({ postType, page }))
     }
   }, [data, isPlaceholderData, page])
 

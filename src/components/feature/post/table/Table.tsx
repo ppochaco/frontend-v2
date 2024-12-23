@@ -1,23 +1,22 @@
 'use client'
 
+import { PostSummaryResponseDto } from '@/models'
 import {
   ColumnDef,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 
-import { Post } from '@/types/post'
-
 import { PostTableContent } from './TableContent'
 
 type PostTableProps = {
-  posts: Post[]
+  posts: PostSummaryResponseDto[]
   pageNumber: number
   pageSize: number
 }
 
 export const PostTable = ({ posts, pageNumber, pageSize }: PostTableProps) => {
-  const columns: ColumnDef<Post>[] = [
+  const columns: ColumnDef<PostSummaryResponseDto>[] = [
     {
       header: '번호',
       accessorKey: 'postId',

@@ -2,9 +2,11 @@
 
 import { Suspense } from 'react'
 
+import { PostQuries } from '@/servicetest/api/post'
+import { useQuery } from '@tanstack/react-query'
+
 import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
-import { useGetPost } from '@/service/data/post'
 
 import { EventPostDetail, EventPostHero } from './_components'
 
@@ -15,7 +17,9 @@ type EventPostPageParams = {
 }
 
 const EventPostPage = ({ params }: EventPostPageParams) => {
-  const { data: post, status } = useGetPost({ postId: Number(params.postId) })
+  const { data: post, status } = useQuery(
+    PostQuries.detail(Number(params.postId)),
+  )
 
   if (status === 'pending') return <Spinner />
 

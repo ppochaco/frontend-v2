@@ -2,6 +2,7 @@
 
 import { HTMLAttributes } from 'react'
 
+import { PostSummaryResponseDto } from '@/models'
 import { flexRender, Table as tanskTable } from '@tanstack/react-table'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -14,10 +15,9 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui'
-import { Post } from '@/types/post'
 
 interface PostTableContentProps extends HTMLAttributes<HTMLTableElement> {
-  table: tanskTable<Post>
+  table: tanskTable<PostSummaryResponseDto>
 }
 
 export function PostTableContent({ table }: PostTableContentProps) {
