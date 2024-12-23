@@ -263,18 +263,18 @@ export interface UserSummaryResponseDto {
    * 유저 아이디
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 유저 학번
    * @format int32
    * @example 2024111234
    */
-  studentNumber?: number
+  studentNumber: number
   /**
    * 유저 이름
    * @example "조대성"
    */
-  userName?: string
+  userName: string
 }
 
 export interface PagePostSummaryResponseDto {

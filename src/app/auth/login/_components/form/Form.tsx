@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { login } from '@/servicetest/api/auth'
+import { UserQuries } from '@/servicetest/api/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
@@ -11,8 +12,8 @@ import { useRouter } from 'next/navigation'
 
 import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
+import { queryClient } from '@/lib/query-client'
 import { Login, LoginSchema } from '@/schema/auth'
-import { getMyInfo } from '@/service/server/user'
 import { useAuthStore } from '@/store/auth'
 import { useMyInfoStore } from '@/store/myInfo'
 
@@ -57,17 +58,18 @@ export const LoginForm = () => {
     },
   )
 
-  const onSuccessLogin = (accessToken: string) => {
+  const onSuccessLogin = async (accessToken: string) => {
     setAccessToken(accessToken)
 
-    const fetchAndStoreMyInfo = async () => {
-      const myInfo = await getMyInfo()
-      setMyInfo({ userName: myInfo.userName, role: myInfo.role })
+    try {
+      const myInfo = await queryClient.fetchQuery(UserQuries.me())
+      if (myInfo) {
+        setMyInfo({ userName: myInfo.userName, role: myInfo.role })
+        router.push('/')
+      }
+    } catch (error) {
+      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
     }
-
-    fetchAndStoreMyInfo().then(() => {
-      router.push('/')
-    })
   }
 
   const onErrorLogin = (error: Error) => {
