@@ -7,6 +7,7 @@ import {
   EventBoardHero,
   EventGallery,
   EventHero,
+  EventInstagram,
   EventPostList,
   EventViewSelector,
 } from './_components'
@@ -32,9 +33,7 @@ const EventPage = () => {
           <CreateEventPostButton />
         </div>
       </div>
-      <div className="flex w-full items-center justify-center border-t-2 border-t-slate-100 px-12 py-10">
-        인스타그램 영역
-      </div>
+      <EventInstagram />
     </div>
   )
 }
