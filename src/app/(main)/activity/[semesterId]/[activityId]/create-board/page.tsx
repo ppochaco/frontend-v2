@@ -26,9 +26,11 @@ const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
     data: semester,
     status,
     error,
-  } = useQuery(semesterQueries.detail(Number(params.semesterId)))
+  } = useQuery(
+    semesterQueries.detail({ semesterId: Number(params.semesterId) }),
+  )
   const { data: activities } = useQuery(
-    activityQueries.list(Number(params.semesterId)),
+    activityQueries.list({ semesterId: Number(params.semesterId) }),
   )
 
   const currentActivity = activities?.find(

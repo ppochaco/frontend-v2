@@ -16,7 +16,7 @@ type NoticePostPageParams = {
 
 const NoticePostPage = ({ params }: NoticePostPageParams) => {
   const { data: post, status } = useQuery(
-    PostQuries.detail(Number(params.postId)),
+    PostQuries.detail({ postId: Number(params.postId) }),
   )
 
   if (status === 'pending' || !post) return <Spinner />

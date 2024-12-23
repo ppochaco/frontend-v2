@@ -6,11 +6,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { ActivitySkeleton } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import {
-  DeleteActivityParams,
-  activityQueries,
-  deleteActivity,
-} from '@/service/api'
+import { activityQueries, deleteActivityApi } from '@/service/api'
 import { Semester } from '@/types/activity'
 
 type ActivityListProps = {
@@ -19,12 +15,11 @@ type ActivityListProps = {
 
 export const ActivityList = ({ semester }: ActivityListProps) => {
   const { data: activities, status } = useQuery(
-    activityQueries.list(semester.semesterId),
+    activityQueries.list({ semesterId: semester.semesterId }),
   )
 
-  const { mutate } = useMutation({
-    mutationFn: ({ semesterId, activityId }: DeleteActivityParams) =>
-      deleteActivity({ semesterId, activityId }),
+  const { mutate: deleteActivity } = useMutation({
+    mutationFn: deleteActivityApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
@@ -51,7 +46,7 @@ export const ActivityList = ({ semester }: ActivityListProps) => {
             <div>{activity.activityName}</div>
             <Cross2Icon
               onClick={() =>
-                mutate({
+                deleteActivity({
                   semesterId: semester.semesterId,
                   activityId: activity.activityId,
                 })

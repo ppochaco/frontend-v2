@@ -1,15 +1,15 @@
 import { keepPreviousData, queryOptions } from '@tanstack/react-query'
 
+import { AUTHORIZATION_API, BACKEND_API } from '@/service/config'
+import {
+  Activities,
+  AddBoardRequest,
+  BoardDetailRequest,
+  BoardPagingRequest,
+  BoardResponseDto,
+  DeleteBoardRequest,
+} from '@/service/models'
 import { Paging } from '@/types/paging'
-
-import { AUTHORIZATION_API, BACKEND_API } from '../config'
-import { Activities, BoardResponseDto, CreateBoardRequestDto } from '../models'
-
-type BoardPagingRequest = {
-  activityId: number
-  page: number
-  size?: number
-}
 
 type BoardPagingResponse = {
   boards: BoardResponseDto[]
@@ -18,10 +18,10 @@ type BoardPagingResponse = {
 const getBoardsPaging = async ({
   activityId,
   page,
-  size,
+  size = 10,
 }: BoardPagingRequest): Promise<BoardPagingResponse> => {
-  const boardsApi = new Activities(BACKEND_API)
-  const response = await boardsApi.getBoards(activityId, { page, size })
+  const boardsClient = new Activities(BACKEND_API)
+  const response = await boardsClient.getBoards(activityId, { page, size })
 
   const { data } = response
 
@@ -39,14 +39,9 @@ const getBoardsPaging = async ({
   }
 }
 
-type BoardDetailRequest = {
-  activityId: number
-  boardId: number
-}
-
 const getBoardDetail = async ({ activityId, boardId }: BoardDetailRequest) => {
-  const boardsApi = new Activities(BACKEND_API)
-  const response = await boardsApi.getBoard(activityId, boardId)
+  const boardsClient = new Activities(BACKEND_API)
+  const response = await boardsClient.getBoard(activityId, boardId)
 
   return response.data
 }
@@ -68,37 +63,19 @@ export const boardQueries = {
     }),
 }
 
-type DeleteBoardRequest = {
-  activityId: number
-  boardId: number
-}
-
-export const deleteBoard = async ({
+export const deleteBoardApi = async ({
   activityId,
   boardId,
 }: DeleteBoardRequest) => {
-  const boardsApi = new Activities(AUTHORIZATION_API)
-  const response = await boardsApi.deleteBoard(activityId, boardId)
+  const boardsClient = new Activities(AUTHORIZATION_API)
+  const response = await boardsClient.deleteBoard(activityId, boardId)
 
   return response.data
 }
 
-type AddBoardRequest = {
-  activityId: number
-} & CreateBoardRequestDto
-
-export const addBoard = async ({
-  activityId,
-  boardName,
-  boardIntro,
-  participants,
-}: AddBoardRequest) => {
-  const boardsApi = new Activities(AUTHORIZATION_API)
-  const response = await boardsApi.addBoard(activityId, {
-    boardName,
-    boardIntro,
-    participants,
-  })
+export const addBoardApi = async ({ activityId, data }: AddBoardRequest) => {
+  const boardsClient = new Activities(AUTHORIZATION_API)
+  const response = await boardsClient.addBoard(activityId, data)
 
   return response.data
 }

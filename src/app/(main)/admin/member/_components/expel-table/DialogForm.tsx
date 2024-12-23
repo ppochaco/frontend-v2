@@ -4,7 +4,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { Button, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { AdminUserQuries, expelUser } from '@/service/api'
+import { AdminUserQuries, expelUserApi } from '@/service/api'
 
 type ExpelMemberDialogFormProps = {
   userId: string
@@ -15,8 +15,8 @@ export const ExpelMemberDialogForm = ({
   userId,
   setDialogOpen,
 }: ExpelMemberDialogFormProps) => {
-  const { mutate: expel, isPending } = useMutation({
-    mutationFn: expelUser,
+  const { mutate: expelUser, isPending } = useMutation({
+    mutationFn: expelUserApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -38,7 +38,7 @@ export const ExpelMemberDialogForm = ({
       <Button variant="secondary" onClick={() => setDialogOpen(false)}>
         취소하기
       </Button>
-      <Button onClick={() => expel({ userId })} disabled={isPending}>
+      <Button onClick={() => expelUser({ userId })} disabled={isPending}>
         내보내기
       </Button>
     </div>

@@ -9,7 +9,7 @@ import {
 import { Button, Separator, useToast } from '@/components/ui'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
-import { boardQueries, deleteBoard } from '@/service/api'
+import { boardQueries, deleteBoardApi } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type BoardHeroProps = {
@@ -24,8 +24,8 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
     boardQueries.detail({ activityId, boardId }),
   )
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: deleteBoard,
+  const { mutate: deleteBoard, isPending } = useMutation({
+    mutationFn: deleteBoardApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -70,7 +70,7 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
           <Button
             variant="link"
             className="text-primary/60"
-            onClick={() => mutate({ boardId, activityId })}
+            onClick={() => deleteBoard({ boardId, activityId })}
             disabled={isPending}
           >
             게시판 삭제하기

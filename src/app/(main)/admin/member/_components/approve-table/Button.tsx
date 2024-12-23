@@ -2,20 +2,20 @@ import { useMutation } from '@tanstack/react-query'
 
 import { Button, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { AdminUserQuries, approveUser, rejectUser } from '@/service/api'
+import { AdminUserQuries, approveUserApi, rejectUserApi } from '@/service/api'
 
 type ApproveMemberButtonProps = {
   userId: string
 }
 
 export const ApproveMemberButton = ({ userId }: ApproveMemberButtonProps) => {
-  const { mutate: approve, isPending: isPendingApprove } = useMutation({
-    mutationFn: approveUser,
+  const { mutate: approveUser, isPending: isPendingApprove } = useMutation({
+    mutationFn: approveUserApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
-  const { mutate: reject, isPending: isPendingReject } = useMutation({
-    mutationFn: rejectUser,
+  const { mutate: rejectUser, isPending: isPendingReject } = useMutation({
+    mutationFn: rejectUserApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -33,7 +33,7 @@ export const ApproveMemberButton = ({ userId }: ApproveMemberButtonProps) => {
   return (
     <div className="flex gap-3">
       <Button
-        onClick={() => approve({ userId })}
+        onClick={() => approveUser({ userId })}
         disabled={isPendingApprove || isPendingReject}
         className="h-fit w-14 py-1.5"
       >
@@ -41,7 +41,7 @@ export const ApproveMemberButton = ({ userId }: ApproveMemberButtonProps) => {
       </Button>
       <Button
         variant="secondary"
-        onClick={() => reject({ userId })}
+        onClick={() => rejectUser({ userId })}
         disabled={isPendingApprove || isPendingReject}
         className="h-fit w-14 py-1.5 hover:bg-primary/5"
       >

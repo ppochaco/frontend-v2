@@ -3,7 +3,6 @@
 import { z } from 'zod'
 
 export const CreateBoardSchema = z.object({
-  activityId: z.number(),
   boardName: z
     .string()
     .min(1, { message: '게시판 제목을 입력해주세요.' })

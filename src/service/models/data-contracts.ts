@@ -544,3 +544,113 @@ export type RejectUserData = any
 export type RemoveSemesterData = any
 
 export type RemoveActivityData = any
+
+/** request type */
+export interface GetActivitiesRequest {
+  semesterId: number
+}
+
+export interface DeleteActivityRequest {
+  semesterId: number
+  activityId: number
+}
+
+export interface AddActivityRequest {
+  semesterId: number
+  data: CreateActivityRequestDto
+}
+
+export interface DeleteSemesterRequest {
+  semesterId: number
+}
+
+export interface AddSemesterRequest {
+  semesterName: string
+}
+
+export interface ChangeRoleRequest {
+  userId: string
+  data: UpdateRoleRequestDto
+}
+
+export interface AdminUserRequest {
+  userId: string
+}
+
+export interface GetAdminUsersRequest {
+  active: boolean
+}
+
+export interface LoginRequest {
+  data: LoginRequestDto
+}
+
+export interface SignupRequest {
+  data: JoinRequestDto
+}
+
+export interface CheckUserIdRequest {
+  userId: string
+}
+
+export interface CheckStudentNumberRequest {
+  studentNumber: number
+}
+
+export interface BoardPagingRequest {
+  activityId: number
+  page: number
+  size?: number
+}
+
+export interface BoardDetailRequest {
+  activityId: number
+  boardId: number
+}
+
+export interface DeleteBoardRequest {
+  activityId: number
+  boardId: number
+}
+
+export interface AddBoardRequest {
+  activityId: number
+  data: CreateBoardRequestDto
+}
+
+export interface NoticePostPagingRequest {
+  page: number
+  size?: number
+}
+
+export interface DeleteNoticePostRequest {
+  postId: number
+}
+
+export interface AddNoticePostRequest {
+  data: CreatePostRequestDto
+}
+
+export interface ActivityPostPagingRequest {
+  boardId: number
+  page: number
+  size?: number
+}
+
+export interface DeleteActivityPostRequest {
+  boardId: number
+  postId: number
+}
+
+export interface AddActivityPostRequest {
+  boardId: number
+  data: CreatePostRequestDto
+}
+
+export interface GetPostDetailRequest {
+  postId: number
+}
+
+export interface GetSemesterRequest {
+  semesterId: number
+}

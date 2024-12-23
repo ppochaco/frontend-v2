@@ -38,7 +38,9 @@ const ActivityPage = ({ params, semesters }: ActivityPageProps) => {
     data: semester,
     status,
     error,
-  } = useQuery(semesterQueries.detail(Number(params.semesterId)))
+  } = useQuery(
+    semesterQueries.detail({ semesterId: Number(params.semesterId) }),
+  )
 
   if (status === 'pending') return <ActivitiySkeleton />
 

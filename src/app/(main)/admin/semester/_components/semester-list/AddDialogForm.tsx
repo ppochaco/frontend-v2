@@ -24,7 +24,7 @@ import {
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { AddSemester, AddSemesterSchema } from '@/schema/admin'
-import { addSemester, semesterQueries } from '@/service/api'
+import { addSemesterApi, semesterQueries } from '@/service/api'
 
 type AddSemesterDialogFormProps = {
   setOpen: Dispatch<SetStateAction<boolean>>
@@ -33,8 +33,8 @@ type AddSemesterDialogFormProps = {
 export const AddSemesterDialogForm = ({
   setOpen,
 }: AddSemesterDialogFormProps) => {
-  const { mutate, isPending } = useMutation({
-    mutationFn: addSemester,
+  const { mutate: addSemester, isPending } = useMutation({
+    mutationFn: addSemesterApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
@@ -46,9 +46,9 @@ export const AddSemesterDialogForm = ({
     },
   })
 
-  const onSubmit = (values: AddSemester) => {
-    mutate(values.year + values.term)
-  }
+  const onSubmit = form.handleSubmit((values) => {
+    addSemester({ semesterName: values.year + values.term })
+  })
 
   const onSuccess = (message?: string) => {
     toast({
@@ -63,10 +63,7 @@ export const AddSemesterDialogForm = ({
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6"
-      >
+      <form onSubmit={onSubmit} className="flex flex-col gap-6">
         <div className="flex gap-8">
           <FormField
             control={form.control}

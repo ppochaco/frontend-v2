@@ -16,16 +16,15 @@ import {
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { AddActivity, AddActivitySchema } from '@/schema/admin'
-import { AddActivityRequest, activityQueries, addActivity } from '@/service/api'
+import { activityQueries, addActivityApi } from '@/service/api'
 
 type AddActivityFormProps = {
   semesterId: number
 }
 
 export const AddActivityForm = ({ semesterId }: AddActivityFormProps) => {
-  const { mutate, isPending } = useMutation({
-    mutationFn: ({ params, data }: AddActivityRequest) =>
-      addActivity({ params, data }),
+  const { mutate: addActivity, isPending } = useMutation({
+    mutationFn: addActivityApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
@@ -41,8 +40,8 @@ export const AddActivityForm = ({ semesterId }: AddActivityFormProps) => {
 
   const onSubmit = form.handleSubmit(
     (value: AddActivity) => {
-      mutate({
-        params: { semesterId },
+      addActivity({
+        semesterId,
         data: { activityName: value.activityName },
       })
     },

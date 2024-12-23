@@ -25,7 +25,7 @@ const PostPage = ({ params }: PostPageParams) => {
     }),
   )
   const { data: post, status } = useQuery(
-    PostQuries.detail(Number(params.postId)),
+    PostQuries.detail({ postId: Number(params.postId) }),
   )
 
   if (!board) throw new Error(DATA_ERROR_MESSAGES.BOARD_DETAIL_NOT_FOUND)

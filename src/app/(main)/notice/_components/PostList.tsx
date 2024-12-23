@@ -9,11 +9,9 @@ import { PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
-import { PostQuries } from '@/service/api'
+import { NoticePostQuries } from '@/service/api'
 
 export const NoticePostListSection = () => {
-  const postType = 'NOTICE'
-
   const searchParams = useSearchParams()
   const params = new URLSearchParams(searchParams)
 
@@ -21,12 +19,12 @@ export const NoticePostListSection = () => {
     Number(params.get('page')) > 0 ? Number(params.get('page')) - 1 : 0
 
   const { data, status, isPlaceholderData } = useQuery(
-    PostQuries.list({ postType, page }),
+    NoticePostQuries.list({ page }),
   )
 
   useEffect(() => {
     if (!isPlaceholderData && data?.nextPageToken) {
-      queryClient.prefetchQuery(PostQuries.list({ postType, page }))
+      queryClient.prefetchQuery(NoticePostQuries.list({ page }))
     }
   }, [data, isPlaceholderData, page])
 

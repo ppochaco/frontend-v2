@@ -4,7 +4,7 @@ import { usePathname, useRouter } from 'next/navigation'
 
 import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { activityPostQuries, deleteActivityPost } from '@/service/api'
+import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
 import { PostResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
@@ -19,8 +19,8 @@ export const ActivityPostDetail = ({
 }: ActivityPostDetailProps) => {
   const { userName } = useMyInfoStore((state) => state.getMyInfo())
 
-  const { mutate: deletePost, isPending } = useMutation({
-    mutationFn: deleteActivityPost,
+  const { mutate: deleteActivityPost, isPending } = useMutation({
+    mutationFn: deleteActivityPostApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -48,9 +48,7 @@ export const ActivityPostDetail = ({
       <div className="flex justify-end">
         {userName === post.userName && (
           <Button
-            onClick={() =>
-              deletePost({ boardId: boardId, postId: post.postId })
-            }
+            onClick={() => deleteActivityPost({ boardId, postId: post.postId })}
             disabled={isPending}
             variant="link"
             className="h-fit p-0 text-primary/60 hover:text-primary"

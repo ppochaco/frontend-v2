@@ -16,7 +16,7 @@ import {
 } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { cn } from '@/lib/utils'
-import { checkUserId } from '@/service/api'
+import { checkUserIdApi } from '@/service/api'
 
 import { SignupInputFieldProps } from '../InputField'
 
@@ -38,14 +38,14 @@ export const CheckUserIdField = ({
 
   const [message, setMessage] = useState('')
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: checkUserId,
+  const { mutate: checkUserId, isPending } = useMutation({
+    mutationFn: checkUserIdApi,
     onSuccess: (data) => onSuccess(data.message),
     onError: (error: Error) => onError(error),
   })
 
   const onClick = () => {
-    mutate(form.getValues(name))
+    checkUserId(form.getValues(name))
   }
 
   const onSuccess = (message: string) => {

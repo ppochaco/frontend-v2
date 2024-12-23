@@ -10,15 +10,15 @@ import { CreatePostForm } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateNoticePost, CreateNoticePostSchema } from '@/schema/post'
-import { PostQuries, addNoticePost } from '@/service/api'
+import { NoticePostQuries, addNoticePostApi } from '@/service/api'
 
 export const CreateNoticePostForm = () => {
   const { toast } = useToast()
   const router = useRouter()
   const pathName = usePathname()
 
-  const { mutate: addPost, isPending } = useMutation({
-    mutationFn: addNoticePost,
+  const { mutate: addNoticePost, isPending } = useMutation({
+    mutationFn: addNoticePostApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -37,7 +37,7 @@ export const CreateNoticePostForm = () => {
       duration: 2000,
     })
 
-    queryClient.invalidateQueries({ queryKey: PostQuries.filter('NOTICE') })
+    queryClient.invalidateQueries({ queryKey: NoticePostQuries.all() })
 
     const basePath = pathName.split('/').slice(0, -1).join('/')
     router.push(basePath)
@@ -46,7 +46,7 @@ export const CreateNoticePostForm = () => {
   return (
     <CreatePostForm
       form={form}
-      onSubmit={(values) => addPost(values)}
+      onSubmit={(values) => addNoticePost({ data: values })}
       isExecuting={isPending}
       isActivityDateRequired={false}
       isImageRequired={false}

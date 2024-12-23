@@ -8,7 +8,7 @@ import { useMutation } from '@tanstack/react-query'
 
 import { Button, Form, useToast } from '@/components/ui'
 import { Signup, SignupSchema } from '@/schema/auth'
-import { signup } from '@/service/api'
+import { signupApi } from '@/service/api'
 
 import {
   CheckStudentNumberField,
@@ -19,7 +19,7 @@ import {
 import { SignupSuccessDialog } from './success-dialog'
 
 export const SignupForm = () => {
-  const { mutate, isPending } = useMutation({ mutationFn: signup })
+  const { mutate: signup, isPending } = useMutation({ mutationFn: signupApi })
   const [isValid, setIsValid] = useState({
     userId: false,
     studentNumber: false,
@@ -54,12 +54,14 @@ export const SignupForm = () => {
       const { userId, password, email, studentNumber, userName } =
         form.getValues()
 
-      mutate({
-        userId,
-        password,
-        email,
-        studentNumber: Number(studentNumber),
-        userName,
+      signup({
+        data: {
+          userId,
+          password,
+          email,
+          studentNumber: Number(studentNumber),
+          userName,
+        },
       })
     } catch (error) {
       if (error instanceof Error) {

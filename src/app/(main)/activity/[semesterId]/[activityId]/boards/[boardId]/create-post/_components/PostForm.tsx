@@ -10,7 +10,7 @@ import { CreatePostForm } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
-import { activityPostQuries, addActivityPost } from '@/service/api'
+import { activityPostQuries, addActivityPostApi } from '@/service/api'
 
 type CreateActivityPostFormProps = {
   boardId: number
@@ -23,15 +23,14 @@ export const CreateActivityPostForm = ({
   const router = useRouter()
   const pathName = usePathname()
 
-  const { mutate: addPost, isPending } = useMutation({
-    mutationFn: addActivityPost,
+  const { mutate: addActivityPost, isPending } = useMutation({
+    mutationFn: addActivityPostApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
   const form = useForm<CreateActivityPost>({
     resolver: zodResolver(CreateActivityPostSchema),
     defaultValues: {
-      boardId,
       postTitle: '',
       postContent: '',
       activityDate: {
@@ -59,7 +58,7 @@ export const CreateActivityPostForm = ({
   return (
     <CreatePostForm
       form={form}
-      onSubmit={(values) => addPost(values)}
+      onSubmit={(values) => addActivityPost({ boardId, data: values })}
       isExecuting={isPending}
       isImageRequired={false}
     />

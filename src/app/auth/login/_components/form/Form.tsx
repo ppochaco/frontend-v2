@@ -12,7 +12,7 @@ import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
 import { Login, LoginSchema } from '@/schema/auth'
-import { UserQuries, login } from '@/service/api'
+import { UserQuries, loginApi } from '@/service/api'
 import { useAuthStore } from '@/store/auth'
 import { useMyInfoStore } from '@/store/myInfo'
 
@@ -20,8 +20,8 @@ import { LoginErrorMessage } from './ErrorMessageBox'
 
 export const LoginForm = () => {
   const router = useRouter()
-  const { mutate, isPending } = useMutation({
-    mutationFn: login,
+  const { mutate: login, isPending } = useMutation({
+    mutationFn: loginApi,
     onSuccess: (accessToken) => {
       onSuccessLogin(accessToken)
     },
@@ -45,9 +45,9 @@ export const LoginForm = () => {
   const [message, setMessage] = useState('')
 
   const onSubmit = form.handleSubmit(
-    () => {
-      mutate(form.getValues())
-      form.reset(form.getValues())
+    (values) => {
+      login({ data: values })
+      form.reset(values)
       setMessage('')
     },
     (errors) => {

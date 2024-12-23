@@ -13,7 +13,7 @@ import {
   useToast,
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { deleteSemester, semesterQueries } from '@/service/api'
+import { deleteSemesterApi, semesterQueries } from '@/service/api'
 import { Semester } from '@/types/activity'
 
 type DeleteSemesterDialogProps = {
@@ -27,8 +27,8 @@ export const DeleteSemesterDialog = ({
   setOpen,
   semester,
 }: DeleteSemesterDialogProps) => {
-  const { mutate, isPending } = useMutation({
-    mutationFn: deleteSemester,
+  const { mutate: deleteSemester, isPending } = useMutation({
+    mutationFn: deleteSemesterApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -65,7 +65,7 @@ export const DeleteSemesterDialog = ({
           </Button>
           <Button
             variant="destructive"
-            onClick={() => mutate(semester.semesterId)}
+            onClick={() => deleteSemester({ semesterId: semester.semesterId })}
             disabled={isPending}
           >
             삭제하기

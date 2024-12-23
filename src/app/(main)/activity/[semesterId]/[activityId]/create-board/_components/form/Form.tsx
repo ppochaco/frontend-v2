@@ -14,7 +14,7 @@ import {
 import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
-import { addBoard, boardQueries } from '@/service/api'
+import { addBoardApi, boardQueries } from '@/service/api'
 import { User } from '@/types/user'
 
 import { SelectMemberInput } from './SelectMemberInput'
@@ -29,8 +29,8 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
 
   const basePath = pathName.split('/').slice(0, -1).join('/')
 
-  const { mutate, isPending } = useMutation({
-    mutationFn: addBoard,
+  const { mutate: addBoard, isPending } = useMutation({
+    mutationFn: addBoardApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
@@ -38,7 +38,6 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
   const form = useForm<CreateBoard>({
     resolver: zodResolver(CreateBoardSchema),
     defaultValues: {
-      activityId,
       boardName: '',
       boardIntro: '',
       participants: [],
@@ -47,7 +46,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
   const [selectedMember, setSelectedMember] = useState<User[]>([])
 
   const onSubmit = (form: CreateBoard) => {
-    mutate(form)
+    addBoard({ activityId, data: form })
   }
 
   const onSuccess = (message?: string) => {

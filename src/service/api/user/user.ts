@@ -1,18 +1,18 @@
 import { queryOptions } from '@tanstack/react-query'
 
-import { AUTHORIZATION_API } from '../config'
-import { Private, Users } from '../models'
+import { AUTHORIZATION_API } from '@/service/config'
+import { Private, Users } from '@/service/models'
 
 const getUsers = async () => {
-  const userApi = new Private(AUTHORIZATION_API)
-  const response = await userApi.getUser()
+  const userClient = new Private(AUTHORIZATION_API)
+  const response = await userClient.getUser()
 
   return response.data
 }
 
 const getUsersMe = async () => {
-  const userApi = new Users(AUTHORIZATION_API)
-  const response = await userApi.getMe()
+  const userClient = new Users(AUTHORIZATION_API)
+  const response = await userClient.getMe()
 
   return response.data
 }

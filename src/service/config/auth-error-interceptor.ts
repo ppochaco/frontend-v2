@@ -1,6 +1,6 @@
 import { AxiosError } from 'axios'
 
-import { reissue } from '../api'
+import { reissueApi } from '../api'
 import { AUTHORIZATION_API } from './instance'
 
 let isRefreshing = false
@@ -32,7 +32,7 @@ const authErrorInterceptor = async (error: AxiosError) => {
         if (!isRefreshing) {
           isRefreshing = true
 
-          reissue()
+          reissueApi()
             .then((newAccessToken) => {
               processQueue(null, newAccessToken)
             })

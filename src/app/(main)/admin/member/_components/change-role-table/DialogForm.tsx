@@ -14,7 +14,7 @@ import {
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { ChangeRole, ChangeRoleSchema } from '@/schema/admin'
-import { AdminUserQuries, changeRole } from '@/service/api'
+import { AdminUserQuries, changeRoleApi } from '@/service/api'
 import { UserResponseDto } from '@/service/models'
 
 import { RoleRadioGroup } from './RoleRadioGroup'
@@ -24,17 +24,17 @@ type ChangeRoleDialogFormProps = {
 }
 
 export const ChangeRoleDialogForm = ({ user }: ChangeRoleDialogFormProps) => {
-  const { mutate, isPending } = useMutation({
-    mutationFn: changeRole,
+  const { mutate: changeRole, isPending } = useMutation({
+    mutationFn: changeRoleApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
 
   const form = useForm<ChangeRole>({ resolver: zodResolver(ChangeRoleSchema) })
 
-  const onSubmit = (values: ChangeRole) => {
-    mutate({ userId: user.userId, role: values.role })
-  }
+  const onSubmit = form.handleSubmit((values) => {
+    changeRole({ userId: user.userId, data: { role: values.role } })
+  })
 
   const onSuccess = (message: string) => {
     queryClient.invalidateQueries({
@@ -49,10 +49,7 @@ export const ChangeRoleDialogForm = ({ user }: ChangeRoleDialogFormProps) => {
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col space-y-2 pt-2"
-      >
+      <form onSubmit={onSubmit} className="flex flex-col space-y-2 pt-2">
         <FormField
           control={form.control}
           name="role"

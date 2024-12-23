@@ -3,7 +3,6 @@
 import { z } from 'zod'
 
 export const CreateActivityPostSchema = z.object({
-  boardId: z.number(),
   postTitle: z
     .string()
     .min(1, { message: '게시글 제목을 입력해주세요.' })
@@ -28,7 +27,7 @@ export const CreateNoticePostSchema = z.object({
     .min(1, { message: '게시글 제목을 입력해주세요.' })
     .max(50, { message: '게시글 제목은 50자 이내여야 합니다.' }),
   postContent: z.string().min(1, { message: '게시글 제목을 입력해주세요.' }),
-  postType: z.enum(['ACTIVITY', 'NOTICE']),
+  postType: z.string(),
 })
 
 export type CreateNoticePost = z.infer<typeof CreateNoticePostSchema>

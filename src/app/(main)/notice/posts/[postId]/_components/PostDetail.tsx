@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { PostQuries, deleteNoticePost } from '@/service/api'
+import { NoticePostQuries, deleteNoticePostApi } from '@/service/api'
 import { PostResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
@@ -15,8 +15,8 @@ type NoticePostDetailProps = {
 export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
   const { role } = useMyInfoStore((state) => state.getMyInfo())
 
-  const { mutate: deletePost, isPending } = useMutation({
-    mutationFn: deleteNoticePost,
+  const { mutate: deleteNoticePost, isPending } = useMutation({
+    mutationFn: deleteNoticePostApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -29,7 +29,7 @@ export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
       duration: 2000,
     })
 
-    queryClient.invalidateQueries({ queryKey: PostQuries.filter('NOTICE') })
+    queryClient.invalidateQueries({ queryKey: NoticePostQuries.all() })
     router.push('/notice')
   }
 
@@ -45,7 +45,7 @@ export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
           <div className="text-primary/60">조회 {post.postViews}</div>
           {role === '해구르르' && (
             <Button
-              onClick={() => deletePost(post.postId)}
+              onClick={() => deleteNoticePost({ postId: post.postId })}
               disabled={isPending}
               variant="link"
               className="h-fit p-0 text-primary/60 hover:text-primary"

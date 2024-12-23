@@ -16,7 +16,7 @@ type ActivityListProps = {
 
 export const ActivityList = ({ semesterId, activityId }: ActivityListProps) => {
   const { data: activities, status } = useQuery(
-    activityQueries.list(semesterId),
+    activityQueries.list({ semesterId }),
   )
 
   const pathName = usePathname()
