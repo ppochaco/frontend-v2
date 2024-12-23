@@ -1,9 +1,9 @@
 'use client'
 
-import { semesterQueries } from '@/servicetest/api/semester'
 import { useQuery } from '@tanstack/react-query'
 
 import { AdminSemesterSkeleton, SectionWithTitle } from '@/components/feature'
+import { semesterQueries } from '@/service/api'
 
 import { ActivityAccordion, SemesterList } from './_components'
 

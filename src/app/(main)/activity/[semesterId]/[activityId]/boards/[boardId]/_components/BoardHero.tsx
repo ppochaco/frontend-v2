@@ -1,4 +1,3 @@
-import { boardQueries, deleteBoard } from '@/servicetest/api/board'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -10,6 +9,7 @@ import {
 import { Button, Separator, useToast } from '@/components/ui'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
+import { boardQueries, deleteBoard } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type BoardHeroProps = {

@@ -1,12 +1,11 @@
 'use client'
 
-import { boardQueries } from '@/servicetest/api/board'
-import { PostQuries } from '@/servicetest/api/post'
 import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 
 import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
+import { PostQuries, boardQueries } from '@/service/api'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
 

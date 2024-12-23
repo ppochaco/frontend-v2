@@ -10,27 +10,26 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { CustomHttpClient } from '@/servicetest/config'
-
-import { ReissueData } from './data-contracts'
+import { CustomHttpClient } from '../config'
+import { SignInData } from './data-contracts'
 import { RequestParams } from './http-client'
 
-export class Reissue<
+export class Logout<
   SecurityDataType = unknown,
 > extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
-   * @tags 토큰 재발급
-   * @name Reissue
-   * @summary JWT 재발급
-   * @request POST:/reissue
+   * @tags 로그인 관련 API
+   * @name SignIn
+   * @summary 로그아웃 API
+   * @request POST:/logout
    * @secure
-   * @response `200` `ReissueData`
+   * @response `200` `SignInData`
    */
-  reissue = (params: RequestParams = {}) =>
-    this.request<ReissueData, any>({
-      path: `/reissue`,
+  signIn = (params: RequestParams = {}) =>
+    this.request<SignInData, any>({
+      path: `/logout`,
       method: 'POST',
       secure: true,
       format: 'json',

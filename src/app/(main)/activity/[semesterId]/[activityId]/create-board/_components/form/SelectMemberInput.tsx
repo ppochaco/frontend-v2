@@ -2,10 +2,10 @@
 
 import { Dispatch, SetStateAction } from 'react'
 
-import { UserQuries } from '@/servicetest/api/user'
 import { useQuery } from '@tanstack/react-query'
 
 import { Skeleton } from '@/components/ui'
+import { UserQuries } from '@/service/api'
 import { User } from '@/types/user'
 
 import { MultipleMemberSelect } from './MultipleMemberSelect'

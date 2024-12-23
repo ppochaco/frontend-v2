@@ -1,8 +1,13 @@
-import { Join, JoinRequestDto, Login, LoginRequestDto, Reissue } from '@/models'
-
 import { useAuthStore } from '@/store/auth'
 
 import { BACKEND_API } from '../config'
+import {
+  Join,
+  JoinRequestDto,
+  Login,
+  LoginRequestDto,
+  Reissue,
+} from '../models'
 
 export const login = async ({ userId, password }: LoginRequestDto) => {
   const loginApi = new Login(BACKEND_API)

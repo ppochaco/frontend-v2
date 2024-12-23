@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 
-import { boardQueries } from '@/servicetest/api/board'
 import { useQuery } from '@tanstack/react-query'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -12,6 +11,7 @@ import { PaginationButtons } from '@/components/common'
 import { BoardSkeleton, NameLabel } from '@/components/feature'
 import { Card, CardContent, CardTitle } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
+import { boardQueries } from '@/service/api'
 
 type ActivityBoardListProps = {
   activityId: number

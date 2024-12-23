@@ -1,10 +1,10 @@
 'use client'
 
-import { PostQuries } from '@/servicetest/api/post'
 import { useQuery } from '@tanstack/react-query'
 
 import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
+import { PostQuries } from '@/service/api'
 
 import { NoticePostDetail, NoticePostHero } from './_components'
 

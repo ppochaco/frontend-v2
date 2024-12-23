@@ -1,15 +1,15 @@
-import {
-  Boards,
-  CreatePostRequestDto,
-  PostSummaryResponseDto,
-  Posts,
-} from '@/models'
 import formatDateDistanceFromToday from '@/utils/date-distance'
 import { queryOptions } from '@tanstack/react-query'
 
 import { Paging } from '@/types/paging'
 
 import { AUTHORIZATION_API, BACKEND_API } from '../config'
+import {
+  Boards,
+  CreatePostRequestDto,
+  PostSummaryResponseDto,
+  Posts,
+} from '../models'
 
 type ActivityPostPagingRequest = {
   boardId: number

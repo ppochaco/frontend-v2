@@ -1,12 +1,8 @@
-import {
-  AdminUserQuries,
-  approveUser,
-  rejectUser,
-} from '@/servicetest/api/admin'
 import { useMutation } from '@tanstack/react-query'
 
 import { Button, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
+import { AdminUserQuries, approveUser, rejectUser } from '@/service/api'
 
 type ApproveMemberButtonProps = {
   userId: string

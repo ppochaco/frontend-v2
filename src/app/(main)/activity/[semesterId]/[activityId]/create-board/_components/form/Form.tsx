@@ -3,7 +3,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { addBoard, boardQueries } from '@/servicetest/api/board'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
@@ -15,6 +14,7 @@ import {
 import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
+import { addBoard, boardQueries } from '@/service/api'
 import { User } from '@/types/user'
 
 import { SelectMemberInput } from './SelectMemberInput'

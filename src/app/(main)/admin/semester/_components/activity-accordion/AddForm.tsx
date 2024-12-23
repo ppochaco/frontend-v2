@@ -1,8 +1,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { activityQueries } from '@/servicetest/api/activity'
-import { AddActivityRequest, addActivity } from '@/servicetest/api/admin'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
@@ -18,6 +16,7 @@ import {
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { AddActivity, AddActivitySchema } from '@/schema/admin'
+import { AddActivityRequest, activityQueries, addActivity } from '@/service/api'
 
 type AddActivityFormProps = {
   semesterId: number

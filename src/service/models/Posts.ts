@@ -10,33 +10,33 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { CustomHttpClient } from '@/servicetest/config'
-
+import { CustomHttpClient } from '../config'
 import {
-  AddPostData,
+  AddNoticePostData,
   CreatePostRequestDto,
-  DeletePostData,
-  GetActivityPosts1Data,
+  DeleteNoticePostData,
+  GetActivityPostsData,
+  GetPostData,
 } from './data-contracts'
 import { ContentType, RequestParams } from './http-client'
 
-export class Boards<
+export class Posts<
   SecurityDataType = unknown,
 > extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
    * @tags 게시글 API
-   * @name GetActivityPosts1
-   * @summary 활동 게시글 목록 조회
-   * @request GET:/boards/{boardId}/posts
+   * @name GetActivityPosts
+   * @summary 공지사항, 이벤트 게시글 목록 조회
+   * @request GET:/posts
    * @secure
-   * @response `200` `GetActivityPosts1Data` OK
+   * @response `200` `GetActivityPostsData` OK
    * @response `404` `void`
    */
-  getActivityPosts1 = (
-    boardId: number,
-    query?: {
+  getActivityPosts = (
+    query: {
+      postType: string
       /**
        * 조회 할 page, default: 0
        * @format int32
@@ -52,8 +52,8 @@ export class Boards<
     },
     params: RequestParams = {},
   ) =>
-    this.request<GetActivityPosts1Data, void>({
-      path: `/boards/${boardId}/posts`,
+    this.request<GetActivityPostsData, void>({
+      path: `/posts`,
       method: 'GET',
       query: query,
       secure: true,
@@ -63,22 +63,18 @@ export class Boards<
    * No description
    *
    * @tags 게시글 API
-   * @name AddPost
-   * @summary 활동 게시글 생성
-   * @request POST:/boards/{boardId}/posts
+   * @name AddNoticePost
+   * @summary 공지사항, 이벤트 게시글 생성
+   * @request POST:/posts
    * @secure
-   * @response `200` `AddPostData` OK
+   * @response `200` `AddNoticePostData` OK
    * @response `201` `void`
    * @response `400` `void`
    * @response `404` `void`
    */
-  addPost = (
-    boardId: number,
-    data: CreatePostRequestDto,
-    params: RequestParams = {},
-  ) =>
-    this.request<AddPostData, void>({
-      path: `/boards/${boardId}/posts`,
+  addNoticePost = (data: CreatePostRequestDto, params: RequestParams = {}) =>
+    this.request<AddNoticePostData, void>({
+      path: `/posts`,
       method: 'POST',
       body: data,
       secure: true,
@@ -89,17 +85,34 @@ export class Boards<
    * No description
    *
    * @tags 게시글 API
-   * @name DeletePost
-   * @summary 활동 게시글 삭제
-   * @request DELETE:/boards/{boardId}/posts/{postId}
+   * @name GetPost
+   * @summary 게시글 단일 조회
+   * @request GET:/posts/{postId}
    * @secure
-   * @response `200` `DeletePostData`
-   * @response `403` `void`
+   * @response `200` `GetPostData` OK
    * @response `404` `void`
    */
-  deletePost = (boardId: number, postId: number, params: RequestParams = {}) =>
-    this.request<DeletePostData, void>({
-      path: `/boards/${boardId}/posts/${postId}`,
+  getPost = (postId: number, params: RequestParams = {}) =>
+    this.request<GetPostData, void>({
+      path: `/posts/${postId}`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 게시글 API
+   * @name DeleteNoticePost
+   * @summary 공지사항, 이벤트 게시글 삭제
+   * @request DELETE:/posts/{postId}
+   * @secure
+   * @response `200` `DeleteNoticePostData`
+   * @response `404` `void`
+   */
+  deleteNoticePost = (postId: number, params: RequestParams = {}) =>
+    this.request<DeleteNoticePostData, void>({
+      path: `/posts/${postId}`,
       method: 'DELETE',
       secure: true,
       format: 'json',

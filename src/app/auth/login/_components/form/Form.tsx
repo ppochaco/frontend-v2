@@ -3,8 +3,6 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { login } from '@/servicetest/api/auth'
-import { UserQuries } from '@/servicetest/api/user'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
@@ -14,6 +12,7 @@ import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
 import { Login, LoginSchema } from '@/schema/auth'
+import { UserQuries, login } from '@/service/api'
 import { useAuthStore } from '@/store/auth'
 import { useMyInfoStore } from '@/store/myInfo'
 

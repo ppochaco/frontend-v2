@@ -3,8 +3,6 @@
 import { Dispatch, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { addSemester } from '@/servicetest/api/admin'
-import { semesterQueries } from '@/servicetest/api/semester'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
@@ -26,6 +24,7 @@ import {
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { AddSemester, AddSemesterSchema } from '@/schema/admin'
+import { addSemester, semesterQueries } from '@/service/api'
 
 type AddSemesterDialogFormProps = {
   setOpen: Dispatch<SetStateAction<boolean>>

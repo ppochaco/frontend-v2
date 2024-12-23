@@ -1,10 +1,10 @@
-import { activityPostQuries } from '@/servicetest/api/post'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 
 import { PaginationButtons } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
+import { activityPostQuries } from '@/service/api'
 
 type ActivityPostListSectionProps = {
   boardId: number

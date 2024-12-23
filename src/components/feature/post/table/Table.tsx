@@ -1,11 +1,12 @@
 'use client'
 
-import { PostSummaryResponseDto } from '@/models'
 import {
   ColumnDef,
   getCoreRowModel,
   useReactTable,
 } from '@tanstack/react-table'
+
+import { PostSummaryResponseDto } from '@/service/models'
 
 import { PostTableContent } from './TableContent'
 

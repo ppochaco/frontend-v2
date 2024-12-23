@@ -1,7 +1,5 @@
 import { useForm } from 'react-hook-form'
 
-import { UserResponseDto } from '@/models'
-import { AdminUserQuries, changeRole } from '@/servicetest/api/admin'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
@@ -16,6 +14,8 @@ import {
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { ChangeRole, ChangeRoleSchema } from '@/schema/admin'
+import { AdminUserQuries, changeRole } from '@/service/api'
+import { UserResponseDto } from '@/service/models'
 
 import { RoleRadioGroup } from './RoleRadioGroup'
 

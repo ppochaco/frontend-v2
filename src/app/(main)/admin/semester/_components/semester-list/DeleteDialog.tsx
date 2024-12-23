@@ -1,7 +1,5 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { deleteSemester } from '@/servicetest/api/admin'
-import { semesterQueries } from '@/servicetest/api/semester'
 import { useMutation } from '@tanstack/react-query'
 
 import {
@@ -15,6 +13,7 @@ import {
   useToast,
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
+import { deleteSemester, semesterQueries } from '@/service/api'
 import { Semester } from '@/types/activity'
 
 type DeleteSemesterDialogProps = {

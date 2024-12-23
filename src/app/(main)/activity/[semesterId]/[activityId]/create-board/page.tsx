@@ -1,9 +1,8 @@
 'use client'
 
-import { activityQueries } from '@/servicetest/api/activity'
-import { semesterQueries } from '@/servicetest/api/semester'
 import { useQuery } from '@tanstack/react-query'
 
+import { activityQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 
 import {

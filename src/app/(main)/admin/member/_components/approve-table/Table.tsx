@@ -1,12 +1,12 @@
 'use client'
 
-import { UserResponseDto } from '@/models'
-import { AdminUserQuries } from '@/servicetest/api/admin'
 import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import { kstFormat } from '@toss/date'
 
 import { MemberTable, SkeletonTable } from '@/components/feature'
+import { AdminUserQuries } from '@/service/api'
+import { UserResponseDto } from '@/service/models'
 
 import { ApproveMemberButton } from './Button'
 

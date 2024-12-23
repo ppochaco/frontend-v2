@@ -10,29 +10,33 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { CustomHttpClient } from '@/servicetest/config'
+import { CustomHttpClient } from '../config'
+import { LoginRequestDto, SignIn1Data } from './data-contracts'
+import { ContentType, RequestParams } from './http-client'
 
-import { GetMeData } from './data-contracts'
-import { RequestParams } from './http-client'
-
-export class Users<
+export class Login<
   SecurityDataType = unknown,
 > extends CustomHttpClient<SecurityDataType> {
   /**
    * No description
    *
-   * @tags 유저 API
-   * @name GetMe
-   * @summary User Me 정보 조회
-   * @request GET:/users/me
+   * @tags 로그인 관련 API
+   * @name SignIn1
+   * @summary 로그인 API
+   * @request POST:/login
    * @secure
-   * @response `200` `GetMeData` OK
+   * @response `200` `SignIn1Data`
+   * @response `400` `void`
+   * @response `401` `void`
    */
-  getMe = (params: RequestParams = {}) =>
-    this.request<GetMeData, any>({
-      path: `/users/me`,
-      method: 'GET',
+  signIn1 = (data: LoginRequestDto, params: RequestParams = {}) =>
+    this.request<SignIn1Data, void>({
+      path: `/login`,
+      method: 'POST',
+      body: data,
       secure: true,
+      type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

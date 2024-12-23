@@ -1,7 +1,7 @@
-import { Semesters } from '@/models'
 import { queryOptions, skipToken } from '@tanstack/react-query'
 
 import { BACKEND_API } from '../config'
+import { Semesters } from '../models'
 
 const getActivities = async (semesterId: number) => {
   const semesterApi = new Semesters(BACKEND_API)

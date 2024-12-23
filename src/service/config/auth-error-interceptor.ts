@@ -1,6 +1,6 @@
-import { reissue } from '@/servicetest/api/auth'
 import { AxiosError } from 'axios'
 
+import { reissue } from '../api'
 import { AUTHORIZATION_API } from './instance'
 
 let isRefreshing = false

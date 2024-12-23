@@ -1,13 +1,9 @@
-import { Activities } from '@/models/Activities'
-import {
-  BoardResponseDto,
-  CreateBoardRequestDto,
-} from '@/models/data-contracts'
 import { keepPreviousData, queryOptions } from '@tanstack/react-query'
 
 import { Paging } from '@/types/paging'
 
 import { AUTHORIZATION_API, BACKEND_API } from '../config'
+import { Activities, BoardResponseDto, CreateBoardRequestDto } from '../models'
 
 type BoardPagingRequest = {
   activityId: number

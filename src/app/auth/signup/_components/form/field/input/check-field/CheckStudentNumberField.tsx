@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
-import { checkStudentNumber } from '@/servicetest/api/auth'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 
@@ -17,6 +16,7 @@ import {
 } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { cn } from '@/lib/utils'
+import { checkStudentNumber } from '@/service/api'
 
 import { SignupInputFieldProps } from '../InputField'
 

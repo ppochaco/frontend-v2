@@ -1,10 +1,10 @@
 import { Dispatch, SetStateAction } from 'react'
 
-import { AdminUserQuries, expelUser } from '@/servicetest/api/admin'
 import { useMutation } from '@tanstack/react-query'
 
 import { Button, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
+import { AdminUserQuries, expelUser } from '@/service/api'
 
 type ExpelMemberDialogFormProps = {
   userId: string

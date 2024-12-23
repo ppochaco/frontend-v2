@@ -1,13 +1,16 @@
 'use client'
 
-import { activityQueries } from '@/servicetest/api/activity'
-import { DeleteActivityParams, deleteActivity } from '@/servicetest/api/admin'
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { ActivitySkeleton } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
+import {
+  DeleteActivityParams,
+  activityQueries,
+  deleteActivity,
+} from '@/service/api'
 import { Semester } from '@/types/activity'
 
 type ActivityListProps = {

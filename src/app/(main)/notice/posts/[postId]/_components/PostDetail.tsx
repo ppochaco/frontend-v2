@@ -1,11 +1,11 @@
-import { PostResponseDto } from '@/models'
-import { PostQuries, deleteNoticePost } from '@/servicetest/api/post'
 import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 
 import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
+import { PostQuries, deleteNoticePost } from '@/service/api'
+import { PostResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type NoticePostDetailProps = {

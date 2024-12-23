@@ -2,7 +2,6 @@
 
 import { useForm } from 'react-hook-form'
 
-import { activityPostQuries, addActivityPost } from '@/servicetest/api/post'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
@@ -11,6 +10,7 @@ import { CreatePostForm } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
+import { activityPostQuries, addActivityPost } from '@/service/api'
 
 type CreateActivityPostFormProps = {
   boardId: number

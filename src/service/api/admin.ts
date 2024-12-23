@@ -1,7 +1,11 @@
-import { Admin, CreateActivityRequestDto, UpdateRoleRequestDto } from '@/models'
 import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API } from '../config'
+import {
+  Admin,
+  CreateActivityRequestDto,
+  UpdateRoleRequestDto,
+} from '../models'
 
 export const deleteSemester = async (semesterId: number) => {
   const adminApi = new Admin(AUTHORIZATION_API)

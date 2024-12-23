@@ -1,12 +1,12 @@
 'use client'
 
-import { semesterQueries } from '@/servicetest/api/semester'
 import { useQuery } from '@tanstack/react-query'
 import { usePathname } from 'next/navigation'
 import { useRouter } from 'next/navigation'
 
 import { ActivitySemesterSkeleton } from '@/components/feature'
 import { Button } from '@/components/ui'
+import { semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 import { Semester } from '@/types/activity'
 

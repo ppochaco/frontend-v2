@@ -2,7 +2,6 @@
 
 import { useEffect } from 'react'
 
-import { PostQuries } from '@/servicetest/api/post'
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 
@@ -10,6 +9,7 @@ import { PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
+import { PostQuries } from '@/service/api'
 
 export const NoticePostListSection = () => {
   const postType = 'NOTICE'

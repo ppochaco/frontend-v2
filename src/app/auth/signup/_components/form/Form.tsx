@@ -3,12 +3,12 @@
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { signup } from '@/servicetest/api/auth'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 
 import { Button, Form, useToast } from '@/components/ui'
 import { Signup, SignupSchema } from '@/schema/auth'
+import { signup } from '@/service/api'
 
 import {
   CheckStudentNumberField,

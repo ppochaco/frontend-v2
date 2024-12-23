@@ -1,5 +1,4 @@
-import { SemesterResponseDto } from '@/models'
-
+import { SemesterResponseDto } from '@/service/models'
 import { Semester } from '@/types/activity'
 
 export default function convertSemesterFormat(

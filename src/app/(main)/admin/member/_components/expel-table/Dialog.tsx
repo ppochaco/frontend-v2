@@ -1,7 +1,5 @@
 import { useState } from 'react'
 
-import { UserResponseDto } from '@/models'
-
 import {
   Button,
   Dialog,
@@ -12,6 +10,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
+import { UserResponseDto } from '@/service/models'
 
 import { ExpelMemberDialogForm } from './DialogForm'
 

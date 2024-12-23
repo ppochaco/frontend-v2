@@ -1,6 +1,5 @@
 'use client'
 
-import { activityQueries } from '@/servicetest/api/activity'
 import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -8,6 +7,7 @@ import { usePathname } from 'next/navigation'
 import { ActivitySkeleton } from '@/components/feature'
 import { Button, buttonVariants } from '@/components/ui'
 import { cn } from '@/lib/utils'
+import { activityQueries } from '@/service/api'
 
 type ActivityListProps = {
   semesterId: number

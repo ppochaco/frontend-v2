@@ -2,13 +2,13 @@
 
 import { useEffect } from 'react'
 
-import { boardQueries } from '@/servicetest/api/board'
 import { useQuery } from '@tanstack/react-query'
 
 import {
   ACCESS_ERROR_MESSAGE,
   DATA_ERROR_MESSAGES,
 } from '@/constant/errorMessage'
+import { boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 import { Role } from '@/types/user'
 

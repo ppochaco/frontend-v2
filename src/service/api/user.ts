@@ -1,7 +1,7 @@
-import { Private, Users } from '@/models'
 import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API } from '../config'
+import { Private, Users } from '../models'
 
 const getUsers = async () => {
   const userApi = new Private(AUTHORIZATION_API)

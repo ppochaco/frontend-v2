@@ -10,8 +10,7 @@
  * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
  * ---------------------------------------------------------------
  */
-import { CustomHttpClient } from '@/servicetest/config'
-
+import { CustomHttpClient } from '../config'
 import {
   AddBoardData,
   CreateBoardRequestDto,
