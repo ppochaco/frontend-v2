@@ -1,3 +1,5 @@
+import { UserResponseDto } from '@/models'
+
 import {
   Button,
   Dialog,
@@ -7,12 +9,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
-import { ActiveUser } from '@/types/user'
 
 import { ChangeRoleDialogForm } from './DialogForm'
 
 type ChangeRoleDialogProps = {
-  user: ActiveUser
+  user: UserResponseDto
 }
 
 export const ChangeRoleDialog = ({ user }: ChangeRoleDialogProps) => {

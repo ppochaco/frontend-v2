@@ -1,4 +1,5 @@
-import { Admin, CreateActivityRequestDto } from '@/models'
+import { Admin, CreateActivityRequestDto, UpdateRoleRequestDto } from '@/models'
+import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API } from '../config'
 
@@ -43,4 +44,77 @@ export const addActivity = async ({ params, data }: AddActivityRequest) => {
   const response = await adminApi.registerActivity(params.semesterId, data)
 
   return response.data
+}
+
+export type ChangeRoleRequest = {
+  userId: string
+} & UpdateRoleRequestDto
+
+export const changeRole = async ({ userId, role }: ChangeRoleRequest) => {
+  const adminApi = new Admin(AUTHORIZATION_API)
+  const response = await adminApi.changeUserRole(userId, { role })
+
+  return response.data
+}
+
+type ApproveUserRequest = {
+  userId: string
+}
+
+export const approveUser = async ({ userId }: ApproveUserRequest) => {
+  const adminApi = new Admin(AUTHORIZATION_API)
+  const response = await adminApi.approveUser(userId)
+
+  return response.data
+}
+
+type RejectUserRequest = {
+  userId: string
+}
+
+export const rejectUser = async ({ userId }: RejectUserRequest) => {
+  const adminApi = new Admin(AUTHORIZATION_API)
+  const response = await adminApi.rejectUser(userId)
+
+  return response.data
+}
+
+type ExpelUserRequest = {
+  userId: string
+}
+
+export const expelUser = async ({ userId }: ExpelUserRequest) => {
+  const adminApi = new Admin(AUTHORIZATION_API)
+  const response = await adminApi.expelUser(userId)
+
+  return response.data
+}
+
+type GetAdminUsersRequest = {
+  isActive: boolean
+}
+
+const getAdminUsers = async ({ isActive }: GetAdminUsersRequest) => {
+  const adminApi = new Admin(AUTHORIZATION_API)
+  const response = await adminApi.getUser1({ active: isActive })
+
+  return response.data
+}
+
+export const AdminUserQuries = {
+  all: () => ['admin', 'users'],
+  filter: ({ isActive }: GetAdminUsersRequest) => [
+    ...AdminUserQuries.all(),
+    isActive,
+  ],
+  active: () =>
+    queryOptions({
+      queryKey: [...AdminUserQuries.filter({ isActive: true })],
+      queryFn: () => getAdminUsers({ isActive: true }),
+    }),
+  inactive: () =>
+    queryOptions({
+      queryKey: [...AdminUserQuries.filter({ isActive: false })],
+      queryFn: () => getAdminUsers({ isActive: false }),
+    }),
 }

@@ -1,5 +1,7 @@
 import { useState } from 'react'
 
+import { UserResponseDto } from '@/models'
+
 import {
   Button,
   Dialog,
@@ -10,12 +12,11 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
-import { ActiveUser } from '@/types/user'
 
 import { ExpelMemberDialogForm } from './DialogForm'
 
 type ExpelMemberDialogProps = {
-  user: ActiveUser
+  user: UserResponseDto
 }
 
 export const ExpelMemberDialog = ({ user }: ExpelMemberDialogProps) => {

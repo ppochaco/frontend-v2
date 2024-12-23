@@ -5,10 +5,3 @@ export type User = {
 }
 
 export type Role = '관리자' | '해구르르' | '팀장' | '일반'
-
-export type ActiveUser = User & {
-  role: Role
-  regDate?: string
-}
-
-export type InActiveUser = ActiveUser

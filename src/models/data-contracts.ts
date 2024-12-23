@@ -178,7 +178,7 @@ export interface UpdateRoleRequestDto {
    * 유저 권한
    * @example "(해구르르, 팀장, 일반)"
    */
-  role?: 'ROLE_WEB_MASTER' | 'ROLE_ADMIN' | 'ROLE_TEAM_LEADER' | 'ROLE_MEMBER'
+  role: '해구르르' | '팀장' | '일반'
 }
 
 export interface UpdateBoardRequestDto {
@@ -209,28 +209,28 @@ export interface UserResponseDto {
    * 유저 아이디
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 유저 학번
    * @format int32
    * @example 2024111234
    */
-  studentNumber?: number
+  studentNumber: number
   /**
    * 유저 이름
    * @example "조대성"
    */
-  userName?: string
+  userName: string
   /**
    * 유저 권한
    * @example "(해구르르, 팀장, 일반)"
    */
-  role?: string
+  role: '해구르르' | '팀장' | '일반'
   /**
    * 가입 날짜
    * @format date-time
    */
-  regDate?: string
+  regDate: string
 }
 
 export interface SemesterResponseDto {
