@@ -1,3 +1,5 @@
+import Image from 'next/image'
+
 export const Instagram = () => {
   return (
     <div className="relative flex w-full flex-col items-center justify-center border-t-2 border-t-slate-100 px-12 pb-20 pt-8">
@@ -11,7 +13,7 @@ export const Instagram = () => {
             key={index}
             className="flex aspect-square w-full items-center justify-center border border-gray-200 bg-slate-50"
           >
-            {index + 1}
+            <Image src="" alt="" />
           </div>
         ))}
       </div>
