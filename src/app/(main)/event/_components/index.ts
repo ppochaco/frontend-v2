@@ -1,3 +1,4 @@
+export * from './board-area'
 export * from './board-hero'
 export * from './carousel'
 export * from './create-post-button'
