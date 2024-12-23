@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
+import { OpenInNewWindowIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 
 export const Instagram = () => {
@@ -28,7 +29,15 @@ export const Instagram = () => {
 
   return (
     <div className="relative flex w-full flex-col items-center justify-center border-t-2 border-t-slate-100 px-12 pb-20 pt-8">
-      <p className="text-semibold pointer text-xl leading-10">Instagram</p>
+      <div className="text-semibold pointer flex items-center gap-2 text-xl leading-10">
+        <span>Instagram</span>
+        <OpenInNewWindowIcon
+          className="cursor-pointer text-slate-400"
+          onClick={() =>
+            window.open('https://instagram.com/knu.haedal', '_blank')
+          }
+        />
+      </div>
       <p className="mb-8 text-primary">
         해달 인스타그램을 팔로우하고 다양한 소식을 접하실 수 있어요!
       </p>
