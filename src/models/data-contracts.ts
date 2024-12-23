@@ -16,12 +16,12 @@ export interface CreatePostRequestDto {
    * @maxLength 50
    * @example "게시글1"
    */
-  postTitle?: string
+  postTitle: string
   /**
    * @minLength 1
    * @maxLength 200000
    */
-  postContent?: string
+  postContent: string
   /**
    * 활동 시작일 (이벤트와 활동은 필수, 공지사항은 생략)
    * @example "yyyy-MM-dd (2024-07-24)"
@@ -36,7 +36,7 @@ export interface CreatePostRequestDto {
    * 게시글 타입
    * @example "(ACTIVITY, NOTICE)"
    */
-  postType?: string
+  postType: string
 }
 
 export interface SuccessResponse {

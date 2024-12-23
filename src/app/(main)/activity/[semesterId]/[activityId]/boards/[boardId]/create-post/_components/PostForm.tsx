@@ -1,17 +1,16 @@
 'use client'
 
-import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
+import { activityPostQuries, addActivityPost } from '@/servicetest/api/post'
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAction } from 'next-safe-action/hooks'
+import { useMutation } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { CreatePostForm } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
-import { createActivityPostAction } from '@/service/server/post/create-post'
 
 type CreateActivityPostFormProps = {
   boardId: number
@@ -24,13 +23,10 @@ export const CreateActivityPostForm = ({
   const router = useRouter()
   const pathName = usePathname()
 
-  const basePath = pathName.split('/').slice(0, -1).join('/')
-
-  const {
-    execute: createPost,
-    result,
-    isExecuting,
-  } = useAction(createActivityPostAction)
+  const { mutate: addPost, isPending } = useMutation({
+    mutationFn: addActivityPost,
+    onSuccess: (data) => onSuccess(data.message),
+  })
 
   const form = useForm<CreateActivityPost>({
     resolver: zodResolver(CreateActivityPostSchema),
@@ -42,35 +38,29 @@ export const CreateActivityPostForm = ({
         start: undefined,
         end: undefined,
       },
+      postType: 'ACTIVITY',
     },
   })
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 3000,
-      })
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
 
-      queryClient.invalidateQueries({ queryKey: ['posts', 'ACTIVITY'] })
-      router.push(basePath)
+    queryClient.invalidateQueries({
+      queryKey: activityPostQuries.board(boardId),
+    })
 
-      return
-    }
-
-    if (result.data?.message) {
-      toast({
-        title: result.data.message,
-        duration: 3000,
-      })
-    }
-  }, [result, basePath, boardId, router, toast])
+    const basePath = pathName.split('/').slice(0, -1).join('/')
+    router.push(basePath)
+  }
 
   return (
     <CreatePostForm
       form={form}
-      onSubmit={(values) => createPost(values)}
-      isExecuting={isExecuting}
+      onSubmit={(values) => addPost(values)}
+      isExecuting={isPending}
       isImageRequired={false}
     />
   )

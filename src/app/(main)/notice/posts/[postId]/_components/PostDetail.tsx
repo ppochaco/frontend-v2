@@ -1,13 +1,11 @@
-import { useEffect } from 'react'
-
 import { PostResponseDto } from '@/models'
+import { PostQuries, deleteNoticePost } from '@/servicetest/api/post'
+import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { useAction } from 'next-safe-action/hooks'
 import { useRouter } from 'next/navigation'
 
-import { Button, Separator, ToastAction, useToast } from '@/components/ui'
+import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { deletePostAction } from '@/service/server/post/delete-post'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type NoticePostDetailProps = {
@@ -17,48 +15,23 @@ type NoticePostDetailProps = {
 export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
   const { role } = useMyInfoStore((state) => state.getMyInfo())
 
-  const {
-    execute: deletePost,
-    result,
-    isExecuting,
-  } = useAction(deletePostAction)
+  const { mutate: deletePost, isPending } = useMutation({
+    mutationFn: deleteNoticePost,
+    onSuccess: (data) => onSuccess(data.message),
+  })
 
   const { toast } = useToast()
   const router = useRouter()
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 2000,
-      })
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
 
-      queryClient.invalidateQueries({ queryKey: ['posts', 'NOTICE'] })
-      router.push('/notice')
-      return
-    }
-
-    if (result.data?.action === 'login') {
-      toast({
-        title: result.data?.message,
-        action: (
-          <ToastAction
-            onClick={() => router.push('/auth/login')}
-            altText="로그인하기"
-          >
-            로그인하기
-          </ToastAction>
-        ),
-      })
-      return
-    }
-
-    if (result.data?.message) {
-      toast({
-        title: result.data.message,
-      })
-    }
-  }, [result, toast, router])
+    queryClient.invalidateQueries({ queryKey: PostQuries.filter('NOTICE') })
+    router.push('/notice')
+  }
 
   return (
     <div className="flex flex-col gap-3 py-4 text-primary">
@@ -72,8 +45,8 @@ export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
           <div className="text-primary/60">조회 {post.postViews}</div>
           {role === '해구르르' && (
             <Button
-              onClick={() => deletePost({ postId: post.postId })}
-              disabled={isExecuting}
+              onClick={() => deletePost(post.postId)}
+              disabled={isPending}
               variant="link"
               className="h-fit p-0 text-primary/60 hover:text-primary"
             >

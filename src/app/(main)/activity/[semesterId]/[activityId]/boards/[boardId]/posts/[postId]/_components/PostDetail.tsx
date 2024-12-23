@@ -1,13 +1,11 @@
-import { useEffect } from 'react'
-
 import { PostResponseDto } from '@/models'
+import { activityPostQuries, deleteActivityPost } from '@/servicetest/api/post'
+import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { useAction } from 'next-safe-action/hooks'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { Button, Separator, ToastAction, useToast } from '@/components/ui'
+import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { deleteActivityPostAction } from '@/service/server/post/delete-post'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type ActivityPostDetailProps = {
@@ -21,50 +19,28 @@ export const ActivityPostDetail = ({
 }: ActivityPostDetailProps) => {
   const { userName } = useMyInfoStore((state) => state.getMyInfo())
 
-  const {
-    execute: deletePost,
-    result,
-    isExecuting,
-  } = useAction(deleteActivityPostAction)
+  const { mutate: deletePost, isPending } = useMutation({
+    mutationFn: deleteActivityPost,
+    onSuccess: (data) => onSuccess(data.message),
+  })
 
   const { toast } = useToast()
   const router = useRouter()
   const pathName = usePathname()
-  const boardPath = pathName.split('/').slice(0, -2).join('/')
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 2000,
-      })
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
 
-      queryClient.invalidateQueries({ queryKey: ['posts', 'ACTIVITY'] })
-      router.push(boardPath)
-      return
-    }
+    queryClient.invalidateQueries({
+      queryKey: activityPostQuries.board(boardId),
+    })
 
-    if (result.data?.action === 'login') {
-      toast({
-        title: result.data?.message,
-        action: (
-          <ToastAction
-            onClick={() => router.push('/auth/login')}
-            altText="로그인하기"
-          >
-            로그인하기
-          </ToastAction>
-        ),
-      })
-      return
-    }
-
-    if (result.data?.message) {
-      toast({
-        title: result.data.message,
-      })
-    }
-  }, [result, toast, router, boardPath])
+    const boardPath = pathName.split('/').slice(0, -2).join('/')
+    router.push(boardPath)
+  }
 
   return (
     <div className="flex flex-col gap-3 py-4 text-primary">
@@ -75,7 +51,7 @@ export const ActivityPostDetail = ({
             onClick={() =>
               deletePost({ boardId: boardId, postId: post.postId })
             }
-            disabled={isExecuting}
+            disabled={isPending}
             variant="link"
             className="h-fit p-0 text-primary/60 hover:text-primary"
           >

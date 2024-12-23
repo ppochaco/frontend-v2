@@ -5,7 +5,7 @@ import {
 } from '@/models/data-contracts'
 import { keepPreviousData, queryOptions } from '@tanstack/react-query'
 
-import { Paging } from '@/service/types/paging'
+import { Paging } from '@/types/paging'
 
 import { AUTHORIZATION_API, BACKEND_API } from '../config'
 
