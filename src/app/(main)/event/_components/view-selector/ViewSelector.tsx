@@ -9,7 +9,7 @@ const viewOptions: View[] = ['갤러리', '리스트']
 
 export const ViewSelector = ({ view, setView }: ViewSelectorProps) => {
   return (
-    <div className="flex w-full justify-end gap-3 py-3">
+    <div className="flex w-full justify-end gap-3 py-4">
       {viewOptions.map((item) => (
         <span
           key={item}

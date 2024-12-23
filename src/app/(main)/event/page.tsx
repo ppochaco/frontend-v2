@@ -20,7 +20,7 @@ const EventPage = () => {
   return (
     <div className="flex h-full w-full flex-1 flex-col items-center">
       <EventHero />
-      <div className="flex w-full flex-col px-12 pb-20">
+      <div className="flex w-full flex-col px-12 pb-20 pt-4">
         <EventBoardHero />
         <EventViewSelector view={view} setView={setView} />
         {view === '갤러리' && <EventGallery />}
@@ -29,7 +29,7 @@ const EventPage = () => {
             <EventPostList />
           </Suspense>
         )}
-        <div className="flex w-full justify-end">
+        <div className="mt-8 flex w-full justify-end">
           <CreateEventPostButton />
         </div>
       </div>
