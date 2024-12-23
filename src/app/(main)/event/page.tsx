@@ -7,7 +7,7 @@ import {
   EventBoardHero,
   EventGallery,
   EventHero,
-  EventInstagram,
+  EventInstagramArea,
   EventPostList,
   EventViewSelector,
 } from './_components'
@@ -33,7 +33,7 @@ const EventPage = () => {
           <CreateEventPostButton />
         </div>
       </div>
-      <EventInstagram />
+      <EventInstagramArea />
     </div>
   )
 }

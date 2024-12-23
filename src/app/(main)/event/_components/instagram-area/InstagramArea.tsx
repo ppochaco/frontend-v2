@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import { OpenInNewWindowIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 
-export const Instagram = () => {
+export const InstagramArea = () => {
   const [itemCount, setItemCount] = useState(12)
 
   useEffect(() => {
@@ -17,11 +17,9 @@ export const Instagram = () => {
       }
     }
 
-    // 초기화 및 이벤트 리스너 설정
     updateItemCount()
     window.addEventListener('resize', updateItemCount)
 
-    // 이벤트 리스너 정리
     return () => {
       window.removeEventListener('resize', updateItemCount)
     }
