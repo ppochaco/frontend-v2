@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 
-// import Image from 'next/image'
+import Image from 'next/image'
 
 export const Instagram = () => {
   const [itemCount, setItemCount] = useState(12)
@@ -38,8 +38,7 @@ export const Instagram = () => {
             key={index}
             className="flex aspect-square w-full items-center justify-center border border-gray-200 bg-slate-50"
           >
-            {index + 1}
-            {/* <Image src="" alt="" /> */}
+            <Image src="" alt="" />
           </div>
         ))}
       </div>
