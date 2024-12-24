@@ -8,7 +8,7 @@ import {
 import { IconProps } from '@radix-ui/react-icons/dist/types'
 import Link from 'next/link'
 
-type Channels = {
+type Channel = {
   id: number
   name: string
   href: string
@@ -27,7 +27,7 @@ export const ChannelIcons = () => {
   )
 }
 
-const channels: Channels[] = [
+const channels: Channel[] = [
   {
     id: 0,
     name: 'HAEDAL Email',
