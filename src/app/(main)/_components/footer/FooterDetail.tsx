@@ -6,7 +6,7 @@ type FooterDetailData = {
 
 export const FooterDetail = () => {
   return (
-    <div className="flex flex-col justify-start gap-6 text-sm sm:flex-col sm:gap-2">
+    <div className="flex flex-col justify-start gap-2 text-sm">
       {footerDetailData.map((detail) => (
         <div key={detail.id} className="flex flex-row gap-4">
           <span className="whitespace-nowrap break-keep font-semibold">
