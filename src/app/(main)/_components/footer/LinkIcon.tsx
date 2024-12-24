@@ -17,7 +17,7 @@ type LinkIconData = {
 
 export const LinkIcon = () => {
   return (
-    <div className="absolute bottom-8 right-12 flex gap-4">
+    <div className="bottom-8 right-12 flex gap-4 sm:absolute">
       {linkIconData.map((linkIcon) => (
         <Link href={linkIcon.href} key={linkIcon.id}>
           <linkIcon.icon className="h-6 w-6" />

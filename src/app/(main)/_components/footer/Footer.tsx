@@ -21,7 +21,9 @@ export const Footer = () => {
         </p>
       </div>
       <FooterDetail />
-      <p className="text-xs">© 2024 해달. All rights reserved.</p>
+      <p className="text-xs text-slate-500">
+        © 2024 해달. All rights reserved.
+      </p>
       <LinkIcon />
     </div>
   )
