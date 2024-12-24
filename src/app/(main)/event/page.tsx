@@ -1,5 +1,3 @@
-'use client'
-
 import { Separator } from '@/components/ui'
 
 import { EventBoardArea, EventHero, EventInstagramArea } from './_components'
