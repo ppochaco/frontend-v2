@@ -8,42 +8,42 @@ import {
 import { IconProps } from '@radix-ui/react-icons/dist/types'
 import Link from 'next/link'
 
-type LinkIconData = {
+type Channels = {
   id: number
+  name: string
   href: string
   icon: ComponentType<IconProps>
-  alt: string
 }
 
-export const LinkIcon = () => {
+export const ChannelIcons = () => {
   return (
     <div className="bottom-8 right-12 flex gap-4 sm:absolute">
-      {linkIconData.map((linkIcon) => (
-        <Link href={linkIcon.href} key={linkIcon.id}>
-          <linkIcon.icon className="h-6 w-6" />
+      {channels.map((channel) => (
+        <Link href={channel.href} key={channel.id}>
+          <channel.icon className="h-6 w-6" />
         </Link>
       ))}
     </div>
   )
 }
 
-const linkIconData: LinkIconData[] = [
+const channels: Channels[] = [
   {
     id: 0,
+    name: 'HAEDAL Email',
     href: 'mailto:knu.haedal@gmail.com',
     icon: EnvelopeClosedIcon,
-    alt: 'HAEDAL Email Link',
   },
   {
     id: 1,
+    name: 'HAEDAL GitHub',
     href: 'https://github.com/KNU-HAEDAL',
     icon: GitHubLogoIcon,
-    alt: 'HAEDAL Github Link',
   },
   {
     id: 2,
+    name: 'HAEDAL Instagram',
     href: 'https://www.instagram.com/knu.haedal/',
     icon: InstagramLogoIcon,
-    alt: 'HAEDAL Instagram Link',
   },
 ]

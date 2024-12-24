@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
+import { ChannelIcons } from './ChannelIcons'
 import { FooterDetail } from './FooterDetail'
-import { LinkIcon } from './LinkIcon'
 
 export const Footer = () => {
   return (
@@ -24,26 +24,7 @@ export const Footer = () => {
       <p className="text-xs text-slate-500">
         © 2024 해달. All rights reserved.
       </p>
-      <LinkIcon />
+      <ChannelIcons />
     </div>
   )
 }
-
-// const [itemCount, setItemCount] = useState(12)
-
-// useEffect(() => {
-//   const updateItemCount = () => {
-//     if (window.innerWidth < 640) {
-//       setItemCount(9)
-//     } else {
-//       setItemCount(12)
-//     }
-//   }
-
-//   updateItemCount()
-//   window.addEventListener('resize', updateItemCount)
-
-//   return () => {
-//     window.removeEventListener('resize', updateItemCount)
-//   }
-// }, [])
