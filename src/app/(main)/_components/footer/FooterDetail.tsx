@@ -9,8 +9,10 @@ export const FooterDetail = () => {
     <div className="flex flex-col justify-start gap-6 text-sm sm:flex-col sm:gap-2">
       {footerDetailData.map((detail) => (
         <div key={detail.id} className="flex flex-row gap-4">
-          <div className="font-semibold">{detail.label}</div>
-          <div>{detail.content}</div>
+          <span className="whitespace-nowrap break-keep font-semibold">
+            {detail.label}
+          </span>
+          <span className="break-keep">{detail.content}</span>
         </div>
       ))}
     </div>

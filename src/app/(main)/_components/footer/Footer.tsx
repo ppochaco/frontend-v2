@@ -26,3 +26,22 @@ export const Footer = () => {
     </div>
   )
 }
+
+// const [itemCount, setItemCount] = useState(12)
+
+// useEffect(() => {
+//   const updateItemCount = () => {
+//     if (window.innerWidth < 640) {
+//       setItemCount(9)
+//     } else {
+//       setItemCount(12)
+//     }
+//   }
+
+//   updateItemCount()
+//   window.addEventListener('resize', updateItemCount)
+
+//   return () => {
+//     window.removeEventListener('resize', updateItemCount)
+//   }
+// }, [])
