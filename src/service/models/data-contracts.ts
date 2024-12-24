@@ -737,3 +737,7 @@ export interface GetPostDetailRequest {
 export interface GetSemesterRequest {
   semesterId: number
 }
+
+export interface GetUserRequest {
+  userId: string
+}
