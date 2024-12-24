@@ -65,7 +65,7 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
         </div>
         <div className="py-3 text-primary/70">{boardDetail.boardIntro}</div>
       </div>
-      {role === '해구르르' && (
+      {role === 'ROLE_ADMIN' && (
         <div className="flex justify-end">
           <Button
             variant="link"

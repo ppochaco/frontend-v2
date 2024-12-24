@@ -15,7 +15,7 @@ import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
 import { addBoardApi, boardQueries } from '@/service/api'
-import { User } from '@/types/user'
+import { UserResponseDto } from '@/service/models'
 
 import { SelectMemberInput } from './SelectMemberInput'
 
@@ -41,12 +41,13 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
       boardName: '',
       boardIntro: '',
       participants: [],
+      file: new File([], ''),
     },
   })
-  const [selectedMember, setSelectedMember] = useState<User[]>([])
+  const [selectedMember, setSelectedMember] = useState<UserResponseDto[]>([])
 
   const onSubmit = (form: CreateBoard) => {
-    addBoard({ activityId, data: form })
+    addBoard({ activityId, data: { file: form.file, boardRequestDto: form } })
   }
 
   const onSuccess = (message?: string) => {
@@ -75,7 +76,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
             <Textarea {...field} placeholder="게시판 소개글을 작성해주세요" />
           )}
         </BoardFormField>
-        <BoardFormField name="imageFile" label="게시판 대표 사진">
+        <BoardFormField name="file" label="게시판 대표 사진">
           {(field) => <ImageInput field={field} />}
         </BoardFormField>
         <BoardFormField name="participants" label="게시판 이용자">

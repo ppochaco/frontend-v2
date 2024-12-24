@@ -6,13 +6,13 @@ import { useQuery } from '@tanstack/react-query'
 
 import { Skeleton } from '@/components/ui'
 import { UserQuries } from '@/service/api'
-import { User } from '@/types/user'
+import { UserResponseDto } from '@/service/models'
 
 import { MultipleMemberSelect } from './MultipleMemberSelect'
 
 type SelectMemberInputProps = {
-  selectedMember: User[]
-  setSelectedMember: Dispatch<SetStateAction<User[]>>
+  selectedMember: UserResponseDto[]
+  setSelectedMember: Dispatch<SetStateAction<UserResponseDto[]>>
 }
 
 export const SelectMemberInput = ({

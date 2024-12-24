@@ -43,7 +43,7 @@ export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
             {format(new Date(post.postCreateDate), 'yyyy-MM-dd')}
           </div>
           <div className="text-primary/60">조회 {post.postViews}</div>
-          {role === '해구르르' && (
+          {role === 'ROLE_ADMIN' && (
             <Button
               onClick={() => deleteNoticePost({ postId: post.postId })}
               disabled={isPending}

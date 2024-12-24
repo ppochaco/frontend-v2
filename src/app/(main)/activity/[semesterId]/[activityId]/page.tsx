@@ -60,7 +60,7 @@ const ActivityPage = ({ params, semesters }: ActivityPageProps) => {
           <Button
             className="max-w-fit"
             onClick={() => router.push(`${pathName}/create-board`)}
-            disabled={!(role === '관리자' || '해구르르' || role === '팀장')}
+            disabled={!(role === 'ROLE_ADMIN' || role === 'ROLE_TEAM_LEADER')}
           >
             게시판 생성하기
           </Button>

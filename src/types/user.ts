@@ -4,4 +4,8 @@ export type User = {
   userName: string
 }
 
-export type Role = '관리자' | '해구르르' | '팀장' | '일반'
+export type Role =
+  | 'ROLE_WEB_MASTER'
+  | 'ROLE_ADMIN'
+  | 'ROLE_TEAM_LEADER'
+  | 'ROLE_MEMBER'

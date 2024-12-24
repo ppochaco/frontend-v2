@@ -6,7 +6,7 @@ import { kstFormat } from '@toss/date'
 
 import { MemberTable, SkeletonTable } from '@/components/feature'
 import { AdminUserQuries } from '@/service/api'
-import { UserResponseDto } from '@/service/models'
+import { AdminUserResponseDto } from '@/service/models'
 
 import { ApproveMemberButton } from './Button'
 
@@ -23,7 +23,7 @@ export const ApproveMemberTable = () => {
 
   if (!inActiveUsers) return <div>회원 신청이 없습니다.</div>
 
-  const approveMemberColumn: ColumnDef<UserResponseDto>[] = [
+  const approveMemberColumn: ColumnDef<AdminUserResponseDto>[] = [
     {
       header: '',
       id: 'id',

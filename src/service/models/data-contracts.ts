@@ -9,6 +9,58 @@
  * ---------------------------------------------------------------
  */
 
+export interface ProfileRequestDto {
+  /**
+   * 프로필 소개
+   * @minLength 0
+   * @maxLength 127
+   * @example "안녕하세요 반갑습니다"
+   */
+  profileIntro?: string
+  /**
+   * 깃허브 계정 id
+   * @minLength 0
+   * @maxLength 63
+   */
+  githubAccount?: string
+  /**
+   * 인스타그램 계정 id
+   * @minLength 0
+   * @maxLength 63
+   */
+  instaAccount?: string
+}
+
+export interface SuccessResponse {
+  success?: boolean
+  message?: string
+}
+
+export interface BoardRequestDto {
+  /**
+   * 게시판 이름
+   * @minLength 1
+   * @maxLength 15
+   * @pattern ^[가-힣a-zA-Z0-9\s]*$
+   * @example "게시판1"
+   */
+  boardName: string
+  /**
+   * 게시판 소개
+   * @minLength 0
+   * @maxLength 50
+   * @example "이 게시판에 대한 소개글"
+   */
+  boardIntro?: string
+  /**
+   * 참여 인원 ID
+   * @maxItems 2147483647
+   * @minItems 1
+   * @uniqueItems true
+   */
+  participants: string[]
+}
+
 export interface CreatePostRequestDto {
   /**
    * 게시글 이름
@@ -39,22 +91,17 @@ export interface CreatePostRequestDto {
   postType: string
 }
 
-export interface SuccessResponse {
-  success?: boolean
-  message?: string
-}
-
 export interface LoginRequestDto {
   /**
    * 유저 아이디
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 유저 비밀번호
    * @example "abc1234!"
    */
-  password?: string
+  password: string
 }
 
 export interface JoinRequestDto {
@@ -65,13 +112,13 @@ export interface JoinRequestDto {
    * @pattern ^[A-Za-z0-9]+$
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 유저 비밀번호
    * @pattern ^(?=.*[A-Za-z])(?=.*\d)(?=.*[!@#$%^&*()])[A-Za-z\d!@#$%^&*()]{8,20}$
    * @example "abc1234!"
    */
-  password?: string
+  password: string
   /**
    * 이메일
    * @minLength 0
@@ -86,14 +133,14 @@ export interface JoinRequestDto {
    * @max 2100000000
    * @example 2024111234
    */
-  studentNumber?: number
+  studentNumber: number
   /**
    * 유저 이름
    * @minLength 2
    * @maxLength 5
    * @example "조대성"
    */
-  userName?: string
+  userName: string
 }
 
 export interface EmailVerificationCodeRequestDto {
@@ -111,7 +158,7 @@ export interface EmailVerificationCodeRequestDto {
    * @pattern ^[A-Za-z0-9]+$
    * @example "haedal12"
    */
-  userId?: string
+  userId: string
   /**
    * 인증 코드
    * @minLength 6
@@ -137,7 +184,7 @@ export interface CreateSemesterRequestDto {
    * @pattern ^(20[0-9]{2}[12])$
    * @example "20231"
    */
-  semesterName?: string
+  semesterName: string
 }
 
 export interface CreateActivityRequestDto {
@@ -147,61 +194,15 @@ export interface CreateActivityRequestDto {
    * @maxLength 15
    * @example "트랙"
    */
-  activityName?: string
-}
-
-export interface CreateBoardRequestDto {
-  /**
-   * 게시판 이름
-   * @minLength 1
-   * @maxLength 15
-   * @pattern ^[가-힣a-zA-Z0-9\s]*$
-   * @example "게시판1"
-   */
-  boardName?: string
-  /**
-   * 게시판 소개
-   * @minLength 0
-   * @maxLength 50
-   * @example "이 게시판에 대한 소개글"
-   */
-  boardIntro?: string
-  /**
-   * 참여 인원 ID
-   * @uniqueItems true
-   */
-  participants?: string[]
+  activityName: string
 }
 
 export interface UpdateRoleRequestDto {
   /**
    * 유저 권한
-   * @example "(해구르르, 팀장, 일반)"
+   * @example "(ROLE_ADMIN, ROLE_TEAM_LEADER, ROLE_MEMBER)"
    */
-  role: '해구르르' | '팀장' | '일반'
-}
-
-export interface UpdateBoardRequestDto {
-  /**
-   * 게시판 이름
-   * @minLength 1
-   * @maxLength 15
-   * @pattern ^[가-힣a-zA-Z0-9]*$
-   * @example "게시판1"
-   */
-  boardName?: string
-  /**
-   * 게시판 소개
-   * @minLength 0
-   * @maxLength 50
-   * @example "이 게시판에 대한 소개글"
-   */
-  boardIntro?: string
-  /**
-   * 참여 인원 ID
-   * @uniqueItems true
-   */
-  participants?: 'haedal1234' | 'good1234'
+  role: 'ROLE_WEB_MASTER' | 'ROLE_ADMIN' | 'ROLE_TEAM_LEADER' | 'ROLE_MEMBER'
 }
 
 export interface UserResponseDto {
@@ -223,14 +224,82 @@ export interface UserResponseDto {
   userName: string
   /**
    * 유저 권한
-   * @example "(해구르르, 팀장, 일반)"
+   * @example "(ROLE_WEB_MASTER, ROLE_ADMIN, ROLE_TEAM_LEADER, ROLE_MEMBER)"
    */
-  role: '해구르르' | '팀장' | '일반'
+  role: 'ROLE_WEB_MASTER' | 'ROLE_ADMIN' | 'ROLE_TEAM_LEADER' | 'ROLE_MEMBER'
+}
+
+export interface ProfileResponseDto {
   /**
-   * 가입 날짜
-   * @format date-time
+   * 유저 아이디
+   * @example "haedal12"
    */
-  regDate: string
+  userId: string
+  /**
+   * 유저 이름
+   * @example "조대성"
+   */
+  userName: string
+  /**
+   * 유저 학번 (본인 전용)
+   * @format int32
+   * @example 2024111234
+   */
+  studentNumber: number
+  /** 유저 이메일 (본인 전용) */
+  email: string
+  /**
+   * 유저 권한
+   * @example "(ROLE_WEB_MASTER, ROLE_ADMIN, ROLE_TEAM_LEADER, ROLE_MEMBER)"
+   */
+  role: 'ROLE_WEB_MASTER' | 'ROLE_ADMIN' | 'ROLE_TEAM_LEADER' | 'ROLE_MEMBER'
+  /** 프로필 이미지 파일 Url */
+  profileImageUrl?: string
+  /** 프로필 소개 */
+  userIntro?: string
+  /** 깃허브 계정 id */
+  githubAccount?: string
+  /** 인스타그램 계정 id */
+  instaAccount?: string
+}
+
+export interface PageProfileResponseDto {
+  /** @format int32 */
+  totalPages: number
+  /** @format int64 */
+  totalElements: number
+  /** @format int32 */
+  size?: number
+  content?: ProfileResponseDto[]
+  /** @format int32 */
+  number?: number
+  sort?: SortObject[]
+  /** @format int32 */
+  numberOfElements?: number
+  pageable: PageableObject
+  first?: boolean
+  last?: boolean
+  empty?: boolean
+}
+
+export interface PageableObject {
+  /** @format int64 */
+  offset?: number
+  sort?: SortObject[]
+  /** @format int32 */
+  pageNumber: number
+  /** @format int32 */
+  pageSize: number
+  paged?: boolean
+  unpaged?: boolean
+}
+
+export interface SortObject {
+  direction?: string
+  nullHandling?: string
+  ascending?: boolean
+  property?: string
+  ignoreCase?: boolean
 }
 
 export interface SemesterResponseDto {
@@ -258,25 +327,6 @@ export interface ActivityResponseDto {
   semesterId: number
 }
 
-export interface UserSummaryResponseDto {
-  /**
-   * 유저 아이디
-   * @example "haedal12"
-   */
-  userId: string
-  /**
-   * 유저 학번
-   * @format int32
-   * @example 2024111234
-   */
-  studentNumber: number
-  /**
-   * 유저 이름
-   * @example "조대성"
-   */
-  userName: string
-}
-
 export interface PagePostSummaryResponseDto {
   /** @format int32 */
   totalPages: number
@@ -294,18 +344,6 @@ export interface PagePostSummaryResponseDto {
   first?: boolean
   last?: boolean
   empty?: boolean
-}
-
-export interface PageableObject {
-  /** @format int64 */
-  offset?: number
-  sort?: SortObject[]
-  /** @format int32 */
-  pageNumber: number
-  /** @format int32 */
-  pageSize: number
-  paged?: boolean
-  unpaged?: boolean
 }
 
 export interface PostSummaryResponseDto {
@@ -355,17 +393,9 @@ export interface PostSummaryResponseDto {
    * 게시판 id
    * @format int64
    */
-  boardId: number
+  boardId?: number
   /** 게시판 이름 */
-  boardName: string
-}
-
-export interface SortObject {
-  direction?: string
-  nullHandling?: string
-  ascending?: boolean
-  property?: string
-  ignoreCase?: boolean
+  boardName?: string
 }
 
 export interface PostResponseDto {
@@ -379,7 +409,7 @@ export interface PostResponseDto {
   /** 게시글 내용 */
   postContent: string
   /** 게시글 대표 이미지 파일 Url */
-  postImageUrl?: string
+  postImageUrl: string
   /**
    * 게시글 조회수
    * @format int64
@@ -419,6 +449,35 @@ export interface PostResponseDto {
   boardName?: string
 }
 
+export interface AdminUserResponseDto {
+  /**
+   * 유저 아이디
+   * @example "haedal12"
+   */
+  userId: string
+  /**
+   * 유저 학번
+   * @format int32
+   * @example 2024111234
+   */
+  studentNumber: number
+  /**
+   * 유저 이름
+   * @example "조대성"
+   */
+  userName: string
+  /**
+   * 유저 권한
+   * @example "(ROLE_WEB_MASTER, ROLE_ADMIN, ROLE_TEAM_LEADER, ROLE_MEMBER)"
+   */
+  role: 'ROLE_WEB_MASTER' | 'ROLE_ADMIN' | 'ROLE_TEAM_LEADER' | 'ROLE_MEMBER'
+  /**
+   * 가입 날짜
+   * @format date-time
+   */
+  regDate: string
+}
+
 export interface BoardResponseDto {
   /**
    * 게시판 id
@@ -437,7 +496,7 @@ export interface BoardResponseDto {
    * 활동 id
    * @format int64
    */
-  activityId: number
+  activityId?: number
 }
 
 export interface PageBoardResponseDto {
@@ -446,7 +505,7 @@ export interface PageBoardResponseDto {
   /** @format int64 */
   totalElements: number
   /** @format int32 */
-  size: number
+  size?: number
   content: BoardResponseDto[]
   /** @format int32 */
   number?: number
@@ -466,6 +525,30 @@ export interface ParticipantResponseDto {
   userId: string
   userName: string
 }
+
+export type GetProfileData = ProfileResponseDto
+
+export type UpdateProfileData = any
+
+export interface UpdateProfileImagePayload {
+  /** @format binary */
+  file: File
+}
+
+export type UpdateProfileImageData = any
+
+export type GetBoardData = BoardResponseDto
+
+export type UpdateBoardData = any
+
+export type DeleteBoardData = any
+
+export interface UpdateBoardImagePayload {
+  /** @format binary */
+  file: File
+}
+
+export type UpdateBoardImageData = any
 
 export type ReissueData = any
 
@@ -497,7 +580,13 @@ export type RegisterActivityData = SuccessResponse
 
 export type GetBoardsData = PageBoardResponseDto
 
-export type AddBoardData = SuccessResponse
+export interface RegisterBoardPayload {
+  /** @format binary */
+  file: File
+  boardRequestDto: BoardRequestDto
+}
+
+export type RegisterBoardData = SuccessResponse
 
 export type ChangeUserRoleData = any
 
@@ -505,17 +594,11 @@ export type ExpelUserData = any
 
 export type ApproveUserData = any
 
-export type GetBoardData = BoardResponseDto
+export type GetUsersData = UserResponseDto[]
 
-export type DeleteBoardData = any
+export type GetUserData = UserResponseDto
 
-export type UpdateBoardData = any
-
-export type UpdateBoardImagePayload = string
-
-export type UpdateBoardImageData = any
-
-export type GetMeData = UserResponseDto
+export type GetProfilesData = PageProfileResponseDto
 
 export type GetSemestersData = SemesterResponseDto[]
 
@@ -523,7 +606,7 @@ export type GetSemesterData = SemesterResponseDto
 
 export type GetActivitiesData = ActivityResponseDto[]
 
-export type GetUserData = UserSummaryResponseDto[]
+export type GetActivityData = ActivityResponseDto
 
 export type GetPostData = PostResponseDto
 
@@ -533,7 +616,7 @@ export type CheckUserIdDuplicateData = any
 
 export type CheckStudentNumberDuplicateData = any
 
-export type GetUser1Data = UserResponseDto[]
+export type GetUser1Data = AdminUserResponseDto[]
 
 export type MainPData = string
 
@@ -615,7 +698,7 @@ export interface DeleteBoardRequest {
 
 export interface AddBoardRequest {
   activityId: number
-  data: CreateBoardRequestDto
+  data: RegisterBoardPayload
 }
 
 export interface NoticePostPagingRequest {

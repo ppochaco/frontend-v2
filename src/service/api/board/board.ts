@@ -75,7 +75,7 @@ export const deleteBoardApi = async ({
 
 export const addBoardApi = async ({ activityId, data }: AddBoardRequest) => {
   const boardsClient = new Activities(AUTHORIZATION_API)
-  const response = await boardsClient.addBoard(activityId, data)
+  const response = await boardsClient.registerBoard(activityId, data)
 
   return response.data
 }

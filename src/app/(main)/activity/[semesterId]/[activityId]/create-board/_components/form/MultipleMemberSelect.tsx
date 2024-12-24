@@ -13,12 +13,12 @@ import {
   CommandItem,
   CommandList,
 } from '@/components/ui'
-import { User } from '@/types/user'
+import { UserResponseDto } from '@/service/models'
 
 type MultipleMemberSelectProps = {
-  options: User[]
-  value: User[]
-  onChange: (value: User[]) => void
+  options: UserResponseDto[]
+  value: UserResponseDto[]
+  onChange: (value: UserResponseDto[]) => void
 }
 
 export const MultipleMemberSelect = ({
@@ -29,7 +29,7 @@ export const MultipleMemberSelect = ({
   const [isOpen, setIsOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
 
-  const selectMember = (member: User) => {
+  const selectMember = (member: UserResponseDto) => {
     if (value.includes(member)) {
       onChange(value.filter((m) => m.userId !== member.userId))
     } else {
