@@ -22,7 +22,7 @@ export const CreatePostButton = () => {
 
   return (
     <Button
-      onClick={() => router.push(`${pathName}/create-post`)}
+      onClick={() => router.push(`${pathName}/board/create-post`)}
       disabled={disabled}
     >
       게시글 작성하기
