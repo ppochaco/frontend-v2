@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react'
 
 import { OpenInNewWindowIcon } from '@radix-ui/react-icons'
+import { throttle } from 'lodash'
 import Image from 'next/image'
 
 export const InstagramArea = () => {
@@ -17,11 +18,13 @@ export const InstagramArea = () => {
       }
     }
 
+    const throttledResize = throttle(updateItemCount, 200)
+
     updateItemCount()
-    window.addEventListener('resize', updateItemCount)
+    window.addEventListener('resize', throttledResize)
 
     return () => {
-      window.removeEventListener('resize', updateItemCount)
+      window.removeEventListener('resize', throttledResize)
     }
   }, [])
 
