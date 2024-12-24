@@ -6,12 +6,15 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
+import { useRouter } from 'next/navigation'
 
 import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
+import { queryClient } from '@/lib/query-client'
 import { Login, LoginSchema } from '@/schema/auth'
-import { loginApi } from '@/service/api'
+import { UserQuries, loginApi } from '@/service/api'
 import { useAuthStore } from '@/store/auth'
+import { useMyInfoStore } from '@/store/myInfo'
 
 import { LoginErrorMessage } from './ErrorMessageBox'
 
@@ -27,6 +30,7 @@ export const LoginForm = () => {
   })
 
   const setAccessToken = useAuthStore((state) => state.setAccessToken)
+  const setMyInfo = useMyInfoStore((state) => state.setMyInfo)
 
   const form = useForm<Login>({
     resolver: zodResolver(LoginSchema),
@@ -37,12 +41,12 @@ export const LoginForm = () => {
     },
   })
 
+  const router = useRouter()
   const [message, setMessage] = useState('')
 
   const onSubmit = form.handleSubmit(
     (values) => {
       login({ data: values })
-      form.reset(values)
       setMessage('')
     },
     (errors) => {
@@ -55,15 +59,19 @@ export const LoginForm = () => {
   const onSuccessLogin = async (accessToken: string) => {
     setAccessToken(accessToken)
 
-    // try {
-    //   const myInfo = await queryClient.fetchQuery(UserQuries.me())
-    //   if (myInfo) {
-    //     setMyInfo({ userName: myInfo.userName, role: myInfo.role })
-    //     router.push('/')
-    //   }
-    // } catch (error) {
-    //   setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
-    // }
+    try {
+      const myInfo = await queryClient.fetchQuery(
+        UserQuries.detail({ userId: form.getValues('userId') }),
+      )
+
+      if (myInfo) {
+        setMyInfo({ userName: myInfo.userName, role: myInfo.role })
+        router.push('/')
+        form.reset(form.getValues())
+      }
+    } catch (error) {
+      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+    }
   }
 
   const onErrorLogin = (error: Error) => {
