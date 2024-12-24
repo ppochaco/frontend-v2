@@ -26,7 +26,7 @@ export const InstagramArea = () => {
   }, [])
 
   return (
-    <div className="relative flex w-full flex-col items-center justify-center border-t-2 border-t-slate-100 px-12 pb-20 pt-8">
+    <div className="relative flex w-full flex-col items-center justify-center px-12 pb-20 pt-8">
       <div className="text-semibold pointer flex items-center gap-2 text-xl leading-10">
         <span>Instagram</span>
         <OpenInNewWindowIcon
