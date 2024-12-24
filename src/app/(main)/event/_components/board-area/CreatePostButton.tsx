@@ -7,7 +7,7 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Button } from '@/components/ui'
 import { useMyInfoStore } from '@/store/myInfo'
 
-export const CreateEventPostButton = () => {
+export const CreatePostButton = () => {
   const pathName = usePathname()
   const router = useRouter()
 

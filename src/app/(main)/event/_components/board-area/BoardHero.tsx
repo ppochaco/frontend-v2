@@ -1,7 +1,7 @@
 import { NavLink, PageBreadcrumb } from '@/components/common'
 import { Separator } from '@/components/ui'
 
-export const EventBoardHero = () => {
+export const BoardHero = () => {
   return (
     <div className="flex w-full flex-col">
       <Separator variant="dark" />
