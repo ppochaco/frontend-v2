@@ -1,12 +1,10 @@
 import { Suspense, useState } from 'react'
 
-import {
-  CreateEventPostButton,
-  EventBoardHero,
-  EventGallery,
-  EventPostList,
-  EventViewSelector,
-} from '../../_components'
+import { CreateEventPostButton } from './CreatePostButton'
+import { EventBoardHero } from './EventBoardHero'
+import { Gallery as EventGallery } from './Gallery'
+import { EventPostList } from './PostList'
+import { ViewSelector as EventViewSelector } from './ViewSelector'
 
 type View = '갤러리' | '리스트'
 
