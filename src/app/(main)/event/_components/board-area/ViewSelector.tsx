@@ -1,3 +1,5 @@
+import { cn } from '@/lib/utils'
+
 type View = '갤러리' | '리스트'
 
 type ViewSelectorProps = {
