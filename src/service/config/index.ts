@@ -3,7 +3,7 @@ import { useAuthStore } from '@/store/auth'
 
 import authErrorInterceptor from './authErrorInterceptor'
 
-const BASE_URL = 'http://3.39.251.254:8080/api'
+const BASE_URL = 'https://www.knu-haedal.com/api'
 
 export const BACKEND_API = initInstance({
   baseURL: BASE_URL,
