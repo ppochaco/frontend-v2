@@ -1,51 +1,25 @@
 'use client'
 
-import { useForm } from 'react-hook-form'
-
-import { zodResolver } from '@hookform/resolvers/zod'
-
-import { Form } from '@/components/ui'
-import { CreateMypage, CreateMypageSchema } from '@/schema/mypage'
-
-import { UserImgSection, UserInfoSection } from './_components'
+import { UserInfoSection, UserSocialInfoSection } from './_components'
 
 const MyPage = () => {
-  const form = useForm({
-    resolver: zodResolver(CreateMypageSchema),
-    defaultValues: {
-      introduction: '',
-      socialInfo: {
-        github: '',
-        instagram: '',
-      },
-      profileImage: new File([], ''),
-    },
-  })
-
-  const onSubmit = (data: CreateMypage) => {
-    console.log(data)
-  }
-
   return (
-    <Form {...form}>
-      <form
-        onSubmit={() => onSubmit}
-        className="mb-30 mt-1 w-full max-w-screen-xl px-12 pb-20 pt-10 md:mt-5 md:px-20"
-      >
-        <div>
-          <UserImgSection
-            studentId={mypageMockData.studentId}
-            name={mypageMockData.name}
-            role={mypageMockData.role}
-          />
-          <UserInfoSection
-            githubInfo={mypageMockData.socialInfo.github}
-            instagramInfo={mypageMockData.socialInfo.instagram}
-            profileIntro={mypageMockData.introduction}
-          />
-        </div>
-      </form>
-    </Form>
+    <div className="mt-1 flex w-full flex-col items-center justify-center">
+      <section className="w-full max-w-screen-xl px-12 pt-10 md:px-20">
+        <UserInfoSection
+          studentId={mypageMockData.studentId}
+          name={mypageMockData.name}
+          role={mypageMockData.role}
+        />
+      </section>
+      <section className="mb-30 w-full max-w-screen-xl px-12 pb-20 md:px-20">
+        <UserSocialInfoSection
+          githubInfo={mypageMockData.socialInfo.github}
+          instagramInfo={mypageMockData.socialInfo.instagram}
+          profileIntro={mypageMockData.introduction}
+        />
+      </section>
+    </div>
   )
 }
 
