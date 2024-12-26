@@ -2,9 +2,8 @@
 
 import { Suspense } from 'react'
 
-import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
-import { useGetPost } from '@/service/data/post'
+import { PostView } from '@/types/post'
 
 import { EventPostDetail, EventPostHero } from './_components'
 
@@ -15,18 +14,14 @@ type EventPostPageParams = {
 }
 
 const EventPostPage = ({ params }: EventPostPageParams) => {
-  const { data: post, status } = useGetPost({ postId: Number(params.postId) })
-
-  if (status === 'pending') return <Spinner />
-
-  if (!post) return <div>게시글 정보가 없습니다.</div>
+  console.log(params.postId)
 
   return (
     <div>
       <EventPostHero />
       <Suspense fallback={<div>loading...</div>}>
-        <EventPostDetail post={post} />
-        <PostContent content={post.postContent} />
+        <EventPostDetail post={postData} />
+        <PostContent content={postData.postContent} />
         <BoardNavigationButton />
       </Suspense>
     </div>
@@ -34,3 +29,18 @@ const EventPostPage = ({ params }: EventPostPageParams) => {
 }
 
 export default EventPostPage
+
+const postData: PostView = {
+  postContent: '',
+  postImageUrl: '',
+  boardId: 0,
+  boardName: '행사',
+  postId: 0,
+  postTitle: '테스트',
+  postViews: 1,
+  postActivityStartDate: Date(),
+  postActivityEndDate: Date(),
+  postCreateDate: '2024-12-26',
+  userId: 'dkwls0234',
+  userName: '관리자',
+}
