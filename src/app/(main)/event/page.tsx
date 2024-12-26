@@ -1,9 +1,14 @@
-import { EventHero } from './_components'
+import { Separator } from '@/components/ui'
+
+import { EventBoardArea, EventHero, EventInstagramArea } from './_components'
 
 const EventPage = () => {
   return (
-    <div className="flex h-full w-full flex-1 flex-col items-center gap-10 pb-20">
+    <div className="flex h-full w-full flex-1 flex-col items-center">
       <EventHero />
+      <EventBoardArea />
+      <Separator />
+      <EventInstagramArea />
     </div>
   )
 }
