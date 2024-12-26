@@ -1,149 +1,141 @@
-import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
 
-import { Button, Input } from '@/components/ui'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Cross2Icon, UploadIcon } from '@radix-ui/react-icons'
+import Image from 'next/image'
 
-import { useEditProfileIntro, useSocialInfo } from '../../_hooks'
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+  Button,
+  Form,
+} from '@/components/ui'
+import { CreateMypageProfile, CreateMypageProfileSchema } from '@/schema/mypage'
+
+import HaedalLogo from '../../_assets/haedal-logo.png'
 
 interface UserInfoSectionProps {
-  githubInfo: string
-  instagramInfo: string
-  profileIntro: string
+  name: string
+  role: string
+  studentId: string
+  profileImage?: string
 }
 
 export const UserInfoSection = ({
-  githubInfo: initialGithubInfo,
-  instagramInfo: initialInstagramInfo,
-  profileIntro: initialProfileIntro,
+  name,
+  role,
+  studentId,
+  profileImage: initialProfileImage,
 }: UserInfoSectionProps) => {
-  const {
-    value: profileIntro,
-    isEditing: isEditingIntro,
-    tempValue: tempProfileIntro,
-    setTempValue: setTempProfileIntro,
-    editProfileIntro,
-    keyDownEditProfileIntro,
-  } = useEditProfileIntro({ initialValue: initialProfileIntro })
-
-  const {
-    githubInfo,
-    instagramInfo,
-    isEditing: isEditingSocial,
-    tempGithubInfo,
-    tempInstagramInfo,
-    setTempGithubInfo,
-    setTempInstagramInfo,
-    editSocialInfo,
-    keyDownEditSocialInfo,
-  } = useSocialInfo({
-    initialGithubInfo,
-    initialInstagramInfo,
+  const form = useForm<CreateMypageProfile>({
+    resolver: zodResolver(CreateMypageProfileSchema),
   })
 
+  const { register, handleSubmit, setValue, watch } = form
+
+  const [previewImage, setPreviewImage] = useState<string | undefined>(
+    initialProfileImage,
+  )
+
+  const profileImage = watch('profileImage')
+
+  useEffect(() => {
+    if (profileImage && profileImage instanceof File) {
+      const reader = new FileReader()
+      reader.onload = () => {
+        setPreviewImage(reader.result as string)
+      }
+      reader.readAsDataURL(profileImage)
+    }
+  }, [profileImage])
+
+  const imageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      setValue('profileImage', file)
+    }
+  }
+
+  const uploadToButtonClick = () => {
+    const fileInput =
+      document.querySelector<HTMLInputElement>('input[type="file"]')
+    fileInput?.click()
+    form.handleSubmit(onSubmit)
+  }
+
+  const removeImage = () => {
+    setValue('profileImage', undefined)
+    setPreviewImage(undefined)
+  }
+
+  const onSubmit = (data: CreateMypageProfile) => {
+    console.log('제출된 데이터:', data)
+  }
+
   return (
-    <section className="mt-10 flex h-full w-full flex-col space-y-5">
-      <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-        <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-10">
-          <div className="text-lg font-bold text-primary md:text-xl">
-            한 줄 소개
-          </div>
-          <div className="md:y-0 y-5 flex h-10 gap-5">
-            {isEditingIntro ? (
-              <div className="flex h-10 w-full justify-center md:w-auto">
-                <Input
-                  className="w-full md:w-auto"
-                  value={tempProfileIntro}
-                  onChange={(e) => setTempProfileIntro(e.target.value)}
-                  onKeyDown={keyDownEditProfileIntro}
-                  autoFocus
-                />
-              </div>
-            ) : (
-              <div className="text-md flex h-10 items-center">
-                {profileIntro}
-              </div>
-            )}
+    <section className="flex h-full w-full flex-col md:flex-row md:space-x-8">
+      <div className="flex flex-col items-center justify-center space-y-5">
+        <Avatar className="md:h-35 md:w-35 mx-auto flex h-32 w-32 items-center justify-center rounded-full">
+          <AvatarImage src={previewImage} />
+          <AvatarFallback>
+            <Image
+              src={HaedalLogo}
+              alt="haedal-logo"
+              className="h-full w-full"
+            />
+          </AvatarFallback>
+        </Avatar>
+        <div className="flex w-full flex-row items-center gap-4">
+          <Button
+            onClick={uploadToButtonClick}
+            className="text-md mx-auto my-auto h-full w-full rounded-full font-semibold"
+            variant="outline"
+            type="submit"
+          >
+            <UploadIcon className="h-4 w-4 text-blue-500" />
+          </Button>
+          <Button
+            onClick={removeImage}
+            className="text-md mx-auto my-auto h-full w-full rounded-full font-semibold"
+            variant="destructive"
+            type="submit"
+          >
+            <Cross2Icon className="h-5 w-5 font-bold text-white" />
+          </Button>
+        </div>
+        <Form {...form}>
+          <form
+            onSubmit={handleSubmit(onSubmit)}
+            className="flex w-full flex-col gap-3 text-center align-middle md:flex-col"
+          >
+            <input
+              type="file"
+              {...register('profileImage')}
+              className="hidden"
+              onChange={imageUpload}
+            />
+            <Button
+              // onClick={uploadToButtonClick}
+              className="mx-auto rounded-sm px-3 py-1 md:px-5 md:py-2"
+              variant="yellow"
+              type="submit"
+            >
+              이미지 수정 완료
+            </Button>
+          </form>
+        </Form>
+      </div>
+      <div className="mb-5 mt-10 border-t border-border md:hidden" />
+      <div className="mt-5 space-y-3">
+        <div className="flex flex-row items-center gap-3 md:gap-5">
+          <div className="text-2xl font-bold md:text-3xl">{name}</div>
+          <div className="text-md rounded-full border border-primary px-3 py-1 text-primary md:text-xl">
+            {role}
           </div>
         </div>
-        <Button
-          className="w-fit px-0 py-0 font-semibold text-destructive hover:text-destructive md:px-3 md:py-[2px]"
-          variant="ghost"
-          onClick={(e) => editProfileIntro(e)}
-        >
-          {isEditingIntro ? '완료' : '수정'}
-        </Button>
-      </div>
-      <div className="text-sm text-zinc-400 md:text-base">
-        멤버 페이지에서 보이는 정보입니다.
-      </div>
-      <div className="border-t border-border" />
-      <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-bold text-primary md:text-xl">
-            소셜 정보
-          </div>
-          <div className="flex flex-col gap-3 md:flex-row md:gap-5 md:py-2">
-            <div className="flex h-10 cursor-pointer items-center gap-2 align-middle">
-              <div className="flex-shrink-0">
-                <GitHubLogoIcon className="h-5 w-5" />
-              </div>
-              {isEditingSocial ? (
-                <Input
-                  className="w-full md:w-auto"
-                  value={tempGithubInfo}
-                  onChange={(e) => setTempGithubInfo(e.target.value)}
-                  onKeyDown={keyDownEditSocialInfo}
-                  autoFocus
-                />
-              ) : (
-                <span className="text-md">{githubInfo}</span>
-              )}
-            </div>
-            <div className="flex h-10 cursor-pointer items-center gap-2 align-middle">
-              <div className="flex-shrink-0">
-                <InstagramLogoIcon className="h-5 w-5" />
-              </div>
-              {isEditingSocial ? (
-                <Input
-                  className="w-full md:w-auto"
-                  value={tempInstagramInfo}
-                  onChange={(e) => setTempInstagramInfo(e.target.value)}
-                  onKeyDown={keyDownEditSocialInfo}
-                  autoFocus
-                />
-              ) : (
-                <span>{instagramInfo}</span>
-              )}
-            </div>
-          </div>
-          <div className="text-sm text-zinc-400 md:text-base">
-            멤버 페이지에서 보이는 정보입니다.
-          </div>
-        </div>
-        <Button
-          className="w-fit px-0 py-0 font-semibold text-destructive hover:text-destructive md:px-3 md:py-[2px]"
-          variant="ghost"
-          onClick={(e) => editSocialInfo(e)}
-        >
-          {isEditingSocial ? '완료' : '수정'}
-        </Button>
-      </div>
-      <div className="border-t border-border" />
-      <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-        <div className="flex flex-col gap-2">
-          <div className="text-lg font-bold text-primary md:text-xl">
-            회원 탈퇴
-          </div>
-          <div className="text-sm text-zinc-400 md:text-base">
-            탈퇴 시 작성한 게시글 및 댓글이 모두 삭제되며 복구되지 않습니다.
-          </div>
-        </div>
-        <Button
-          className="w-fit px-0 py-0 font-semibold text-destructive hover:text-destructive md:px-3 md:py-[2px]"
-          variant="ghost"
-          onClick={() => console.log('회원 탈퇴')}
-        >
-          탈퇴하기
-        </Button>
+        <div className="text-xl">{studentId}</div>
       </div>
     </section>
   )
