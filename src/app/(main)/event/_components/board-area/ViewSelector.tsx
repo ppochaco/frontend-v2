@@ -13,9 +13,11 @@ export const ViewSelector = ({ view, setView }: ViewSelectorProps) => {
       {viewOptions.map((item) => (
         <span
           key={item}
-          className={`pointer-events-auto cursor-pointer text-sm ${
-            view === item ? 'text-primary' : 'text-gray-400'
-          }`}
+          className={cn(
+            `pointer-events-auto cursor-pointer text-sm ${
+              view === item ? 'text-primary' : 'text-gray-400'
+            }`,
+          )}
           onClick={() => setView(item)}
         >
           {item}
