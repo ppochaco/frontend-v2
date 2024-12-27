@@ -60,7 +60,7 @@ export const UserSocialInfoSection = ({
           onSubmit={handleSubmit(onSubmit)}
           className="flex h-full w-full flex-col space-y-5"
         >
-          <div className="flex flex-row items-center justify-end gap-2">
+          <div className="hidden flex-row items-center justify-end gap-2 md:flex">
             <Button
               variant="outline"
               onClick={clickToEdit}
@@ -73,10 +73,24 @@ export const UserSocialInfoSection = ({
             </Button>
           </div>
           <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-            {/* 한 줄 소개 */}
             <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-10">
-              <div className="text-lg font-bold text-primary md:text-xl">
-                한 줄 소개
+              <div className="flex justify-between">
+                <div className="text-lg font-bold text-primary md:text-xl">
+                  한 줄 소개
+                </div>
+                <div className="flex gap-3 md:hidden">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={clickToEdit}
+                    className="text-destructive"
+                  >
+                    수정
+                  </Button>
+                  <Button variant="default" type="submit" size="sm">
+                    완료
+                  </Button>
+                </div>
               </div>
               <div className="md:y-0 y-5 flex h-10 gap-5">
                 {isEditingIntro ? (
@@ -98,13 +112,12 @@ export const UserSocialInfoSection = ({
           </div>
           <div className="border-t border-border" />
 
-          {/* 소셜 정보 */}
           <div className="flex flex-col gap-5 md:flex-row md:justify-between">
             <div className="flex flex-col gap-2">
               <div className="text-lg font-bold text-primary md:text-xl">
                 소셜 정보
               </div>
-              <div className="flex flex-col gap-3 md:flex-row md:gap-5 md:py-2">
+              <div className="flex flex-col md:flex-row md:gap-5 md:py-2">
                 <div className="flex h-10 items-center gap-2">
                   <GitHubLogoIcon className="h-5 w-5" />
                   {isEditingSocial ? (
@@ -132,8 +145,8 @@ export const UserSocialInfoSection = ({
           </div>
         </form>
       </Form>
-      {/* 회원 탈퇴 */}
-      <div className="flex flex-col gap-5 md:flex-row md:justify-between">
+      <div className="mb-5 mt-5 border-t border-border md:hidden" />
+      <div className="mt-3 flex flex-col gap-5 md:flex-row md:justify-between">
         <div className="flex flex-col gap-2">
           <div className="text-lg font-bold text-primary md:text-xl">
             회원 탈퇴
