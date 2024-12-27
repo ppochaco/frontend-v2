@@ -1,1 +1,0 @@
-export { UserImgSection } from './UserImgSection'
