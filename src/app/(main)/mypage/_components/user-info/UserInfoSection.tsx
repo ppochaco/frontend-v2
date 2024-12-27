@@ -87,22 +87,24 @@ export const UserInfoSection = ({
             />
           </AvatarFallback>
         </Avatar>
-        <div className="flex w-full flex-row items-center gap-4">
+        <div className="w-55 flex flex-row items-center gap-5 md:w-full md:gap-4">
           <Button
             onClick={uploadToButtonClick}
             className="text-md mx-auto my-auto h-full w-full rounded-full font-semibold"
             variant="outline"
             type="submit"
+            size="default"
           >
             <UploadIcon className="h-4 w-4 text-blue-500" />
           </Button>
           <Button
             onClick={removeImage}
-            className="text-md mx-auto my-auto h-full w-full rounded-full font-semibold"
+            className="text-md mx-auto my-auto rounded-full px-3 font-semibold md:h-full md:w-full"
             variant="destructive"
             type="submit"
+            size="icon"
           >
-            <Cross2Icon className="h-5 w-5 font-bold text-white" />
+            <Cross2Icon className="h-auto w-6 font-bold text-white md:h-5 md:w-5" />
           </Button>
         </div>
         <Form {...form}>
@@ -117,7 +119,6 @@ export const UserInfoSection = ({
               onChange={imageUpload}
             />
             <Button
-              // onClick={uploadToButtonClick}
               className="mx-auto rounded-sm px-3 py-1 md:px-5 md:py-2"
               variant="yellow"
               type="submit"
