@@ -1,12 +1,6 @@
-import { useEffect } from 'react'
-
 import { format } from 'date-fns'
-import { useAction } from 'next-safe-action/hooks'
-import { useRouter } from 'next/navigation'
 
-import { Button, Separator, ToastAction, useToast } from '@/components/ui'
-import { queryClient } from '@/lib/query-client'
-import { deletePostAction } from '@/service/server/post/delete-post'
+import { Button, Separator } from '@/components/ui'
 import { useMyInfoStore } from '@/store/myInfo'
 import { PostView } from '@/types/post'
 
@@ -17,57 +11,13 @@ type EventPostDetailProps = {
 export const EventPostDetail = ({ post }: EventPostDetailProps) => {
   const { role } = useMyInfoStore((state) => state.getMyInfo())
 
-  const {
-    execute: deletePost,
-    result,
-    isExecuting,
-  } = useAction(deletePostAction)
-
-  const { toast } = useToast()
-  const router = useRouter()
-
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 2000,
-      })
-
-      queryClient.invalidateQueries({ queryKey: ['posts', 'EVENT'] })
-      router.push('/event/board')
-      return
-    }
-
-    if (result.data?.action === 'login') {
-      toast({
-        title: result.data?.message,
-        action: (
-          <ToastAction
-            onClick={() => router.push('/auth/login')}
-            altText="로그인하기"
-          >
-            로그인하기
-          </ToastAction>
-        ),
-      })
-      return
-    }
-
-    if (result.data?.message) {
-      toast({
-        title: result.data.message,
-      })
-    }
-  }, [result, toast, router])
-
   return (
     <div className="flex flex-col gap-3 py-4 text-primary">
       <div className="pt-4 text-4xl font-semibold">{post.postTitle}</div>
       <div className="flex justify-end">
-        {role === '해구르르' && (
+        {role === 'ROLE_ADMIN' && (
           <Button
-            onClick={() => deletePost({ postId: post.postId })}
-            disabled={isExecuting}
+            onClick={() => {}}
             variant="link"
             className="h-fit p-0 text-primary/60 hover:text-primary"
           >
