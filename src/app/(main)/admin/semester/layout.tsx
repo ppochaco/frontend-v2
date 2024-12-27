@@ -1,7 +1,6 @@
 import { ErrorHandlingWrapper } from '@/components/common'
 import { AdminErrorFallback } from '@/components/feature'
-
-import { AdminSemesterPageSkeleton } from './page'
+import { AdminSemesterPageSkeleton } from '@/components/feature'
 
 export default function AdminSemesterLayout({
   children,
