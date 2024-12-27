@@ -1,44 +1,30 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { ErrorHandlingWrapper } from '@/components/common'
-import {
-  AdminErrorFallback,
-  AdminSemesterSkeleton,
-  SectionWithTitle,
-} from '@/components/feature'
+import { AdminSemesterSkeleton, SectionWithTitle } from '@/components/feature'
 import { semesterQueries } from '@/service/api'
 
 import { ActivityAccordion, SemesterList } from './_components'
 
 const AdminSemesterPage = () => {
-  const { data: semesters, status } = useQuery(semesterQueries.list())
-
-  if (status === 'pending') return <AdminSemesterPageSkeleton />
-
-  if (!semesters) return <div>학기가 없습니다</div>
+  const { data: semesters } = useSuspenseQuery(semesterQueries.list())
 
   return (
     <div className="flex w-full flex-col items-center">
-      <ErrorHandlingWrapper
-        suspenseFallback={<AdminSemesterPageSkeleton />}
-        fallbackComponent={AdminErrorFallback}
-      >
-        <SectionWithTitle title="학기 관리">
-          <SemesterList semesters={semesters} />
-        </SectionWithTitle>
-        <SectionWithTitle title="활동 관리">
-          <ActivityAccordion semesters={semesters} />
-        </SectionWithTitle>
-      </ErrorHandlingWrapper>
+      <SectionWithTitle title="학기 관리">
+        <SemesterList semesters={semesters} />
+      </SectionWithTitle>
+      <SectionWithTitle title="활동 관리">
+        <ActivityAccordion semesters={semesters} />
+      </SectionWithTitle>
     </div>
   )
 }
 
 export default AdminSemesterPage
 
-const AdminSemesterPageSkeleton = () => {
+export const AdminSemesterPageSkeleton = () => {
   return (
     <div className="flex w-full flex-col items-center">
       <SectionWithTitle title="학기 관리">
