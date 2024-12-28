@@ -16,7 +16,7 @@ export interface ProfileRequestDto {
    * @maxLength 127
    * @example "안녕하세요 반갑습니다"
    */
-  profileIntro?: string
+  userIntro?: string
   /**
    * 깃허브 계정 id
    * @minLength 0
