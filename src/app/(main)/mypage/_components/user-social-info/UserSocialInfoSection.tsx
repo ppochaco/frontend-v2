@@ -1,19 +1,22 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons'
+import { useMutation } from '@tanstack/react-query'
 
-import { Button, Form, Input } from '@/components/ui'
+import { Button, Form, Input, toast } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import {
   CreateMypageSocialInfo,
   CreateMypageSocialInfoSchema,
 } from '@/schema/mypage'
+import { putUpdateProfileApi, userQueries } from '@/service/api/mypage'
 
 interface UserSocialInfoSectionProps {
-  githubInfo: string
-  instagramInfo: string
-  profileIntro: string
+  githubInfo?: string
+  instagramInfo?: string
+  profileIntro?: string
 }
 
 export const UserSocialInfoSection = ({
@@ -24,19 +27,52 @@ export const UserSocialInfoSection = ({
   const [isEditingIntro, setIsEditingIntro] = useState(false)
   const [isEditingSocial, setIsEditingSocial] = useState(false)
 
+  const { mutate: updateProfile, isPending } = useMutation({
+    mutationFn: putUpdateProfileApi,
+    onSuccess: (data) => onSuccess(data.message),
+  })
+
   const form = useForm<CreateMypageSocialInfo>({
     resolver: zodResolver(CreateMypageSocialInfoSchema),
     defaultValues: {
-      introduction: initialProfileIntro,
-      githubInfo: initialGithubInfo,
-      instagramInfo: initialInstagramInfo,
+      userIntro: initialProfileIntro,
+      githubAccount: initialGithubInfo,
+      instaAccount: initialInstagramInfo,
     },
   })
 
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: userQueries.profiles({ userId: 'admin0234' }),
+    })
+  }
+
   const { register, handleSubmit, watch } = form
 
+  useEffect(() => {
+    form.reset({
+      userIntro: initialProfileIntro,
+      githubAccount: initialGithubInfo,
+      instaAccount: initialInstagramInfo,
+    })
+  }, [initialProfileIntro, initialGithubInfo, initialInstagramInfo, form])
+
   const onSubmit = (data: CreateMypageSocialInfo) => {
-    console.log('제출된 데이터:', data)
+    console.log(data)
+    updateProfile({
+      userId: 'admin0234',
+      profileData: {
+        userIntro: data.userIntro,
+        githubAccount: data.githubAccount,
+        instaAccount: data.instaAccount,
+      },
+      params: {},
+    })
     setIsEditingIntro(false)
     setIsEditingSocial(false)
   }
@@ -66,10 +102,10 @@ export const UserSocialInfoSection = ({
               onClick={clickToEdit}
               className="text-destructive"
             >
-              수정
+              {isEditingIntro ? '취소' : '수정'}
             </Button>
             <Button variant="default" type="submit">
-              완료
+              {isPending ? '저장 중' : '완료'}
             </Button>
           </div>
           <div className="flex flex-col gap-5 md:flex-row md:justify-between">
@@ -85,10 +121,10 @@ export const UserSocialInfoSection = ({
                     onClick={clickToEdit}
                     className="text-destructive"
                   >
-                    수정
+                    {isEditingIntro ? '취소' : '수정'}
                   </Button>
                   <Button variant="default" type="submit" size="sm">
-                    완료
+                    {isPending ? '저장 중' : '완료'}
                   </Button>
                 </div>
               </div>
@@ -96,12 +132,12 @@ export const UserSocialInfoSection = ({
                 {isEditingIntro ? (
                   <Input
                     className="w-full md:w-auto"
-                    {...register('introduction')}
+                    {...register('userIntro')}
                     autoFocus
                   />
                 ) : (
                   <div className="text-md flex h-10 items-center">
-                    {watch('introduction')}
+                    {initialProfileIntro || watch('userIntro')}
                   </div>
                 )}
               </div>
@@ -123,10 +159,11 @@ export const UserSocialInfoSection = ({
                   {isEditingSocial ? (
                     <Input
                       className="w-full md:w-auto"
-                      {...register('githubInfo')}
+                      {...register('githubAccount')}
+                      autoFocus
                     />
                   ) : (
-                    <span>{watch('githubInfo')}</span>
+                    <span>{initialGithubInfo || watch('githubAccount')}</span>
                   )}
                 </div>
                 <div className="flex h-10 items-center gap-2">
@@ -134,10 +171,11 @@ export const UserSocialInfoSection = ({
                   {isEditingSocial ? (
                     <Input
                       className="w-full md:w-auto"
-                      {...register('instagramInfo')}
+                      {...register('instaAccount')}
+                      autoFocus
                     />
                   ) : (
-                    <span>{watch('instagramInfo')}</span>
+                    <span>{initialInstagramInfo || watch('instaAccount')}</span>
                   )}
                 </div>
               </div>
