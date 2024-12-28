@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -11,15 +11,19 @@ import {
   AvatarImage,
   Button,
   Form,
+  FormControl,
+  FormField,
+  FormItem,
+  Input,
 } from '@/components/ui'
 import { CreateMypageProfile, CreateMypageProfileSchema } from '@/schema/mypage'
 
 import HaedalLogo from '../../_assets/haedal-logo.png'
 
 interface UserInfoSectionProps {
-  name: string
-  role: string
-  studentId: string
+  name?: string
+  role?: string
+  studentId?: number
   profileImage?: string
 }
 
@@ -31,42 +35,33 @@ export const UserInfoSection = ({
 }: UserInfoSectionProps) => {
   const form = useForm<CreateMypageProfile>({
     resolver: zodResolver(CreateMypageProfileSchema),
+    defaultValues: {
+      profileImage: new File([], ''),
+    },
   })
-
-  const { register, handleSubmit, setValue, watch } = form
 
   const [previewImage, setPreviewImage] = useState<string | undefined>(
     initialProfileImage,
   )
 
-  const profileImage = watch('profileImage')
+  const handleUploadProfile = (file: File) => {
+    form.handleSubmit(onSubmit)()
 
-  useEffect(() => {
-    if (profileImage && profileImage instanceof File) {
-      const reader = new FileReader()
-      reader.onload = () => {
-        setPreviewImage(reader.result as string)
-      }
-      reader.readAsDataURL(profileImage)
+    const reader = new FileReader()
+    reader.onload = () => {
+      setPreviewImage(reader.result as string)
     }
-  }, [profileImage])
-
-  const imageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0]
-    if (file) {
-      setValue('profileImage', file)
-    }
+    reader.readAsDataURL(file)
   }
 
-  const uploadToButtonClick = () => {
+  const onClickUploadButton = () => {
     const fileInput =
       document.querySelector<HTMLInputElement>('input[type="file"]')
     fileInput?.click()
-    form.handleSubmit(onSubmit)
   }
 
-  const removeImage = () => {
-    setValue('profileImage', undefined)
+  const onClickRemoveButton = () => {
+    form.setValue('profileImage', undefined)
     setPreviewImage(undefined)
   }
 
@@ -87,44 +82,49 @@ export const UserInfoSection = ({
             />
           </AvatarFallback>
         </Avatar>
-        <div className="w-55 flex flex-row items-center gap-5 md:w-full md:gap-4">
-          <Button
-            onClick={uploadToButtonClick}
-            className="text-md mx-auto my-auto h-full w-full rounded-full font-semibold"
-            variant="outline"
-            type="submit"
-            size="default"
-          >
-            <UploadIcon className="h-4 w-4 text-blue-500" />
-          </Button>
-          <Button
-            onClick={removeImage}
-            className="text-md mx-auto my-auto rounded-full px-3 font-semibold md:h-full md:w-full"
-            variant="destructive"
-            type="submit"
-            size="icon"
-          >
-            <Cross2Icon className="h-auto w-6 font-bold text-white md:h-5 md:w-5" />
-          </Button>
-        </div>
         <Form {...form}>
           <form
-            onSubmit={handleSubmit(onSubmit)}
+            onSubmit={(e) => e.preventDefault()}
             className="flex w-full flex-col gap-3 text-center align-middle md:flex-col"
           >
-            <input
-              type="file"
-              {...register('profileImage')}
-              className="hidden"
-              onChange={imageUpload}
+            <FormField
+              control={form.control}
+              name="profileImage"
+              render={({ field }) => (
+                <FormItem>
+                  <FormControl>
+                    <Input
+                      type="file"
+                      className="hidden"
+                      multiple={false}
+                      onChange={(e) => {
+                        const file = e.target.files ? e.target.files[0] : null
+                        field.onChange(file)
+                        if (file) handleUploadProfile(file)
+                      }}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
             />
-            <Button
-              className="mx-auto rounded-sm px-3 py-1 md:px-5 md:py-2"
-              variant="yellow"
-              type="submit"
-            >
-              이미지 수정 완료
-            </Button>
+            <div className="w-55 flex flex-row items-center gap-5 md:w-full md:gap-4">
+              <Button
+                onClick={onClickUploadButton}
+                className="text-md mx-auto my-auto h-full w-full rounded-full font-semibold"
+                variant="outline"
+                size="default"
+              >
+                <UploadIcon className="h-4 w-4 text-blue-500" />
+              </Button>
+              <Button
+                onClick={onClickRemoveButton}
+                className="text-md mx-auto my-auto rounded-full px-3 font-semibold md:h-full md:w-full"
+                variant="destructive"
+                size="icon"
+              >
+                <Cross2Icon className="h-auto w-6 font-bold text-white md:h-5 md:w-5" />
+              </Button>
+            </div>
           </form>
         </Form>
       </div>
