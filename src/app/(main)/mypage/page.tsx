@@ -1,22 +1,36 @@
 'use client'
 
+import { useQuery } from '@tanstack/react-query'
+
+import { userQueries } from '@/service/api/mypage'
+
 import { UserInfoSection, UserSocialInfoSection } from './_components'
 
 const MyPage = () => {
+  const { data: userInfo } = useQuery(
+    userQueries.userInfo({ userId: 'admin0234' }),
+  )
+
+  const { data: userProfile } = useQuery(
+    userQueries.profile({ userId: 'admin0234' }),
+  )
+
+  console.log(userProfile)
+
   return (
     <div className="mt-1 flex w-full flex-col items-center justify-center">
       <section className="w-full max-w-screen-xl px-12 pt-10 md:px-20">
         <UserInfoSection
-          studentId={mypageMockData.studentId}
-          name={mypageMockData.name}
-          role={mypageMockData.role}
+          studentId={userInfo?.studentNumber}
+          name={userInfo?.userName}
+          role={userInfo?.role}
         />
       </section>
       <section className="mb-30 w-full max-w-screen-xl px-12 pb-20 md:px-20">
         <UserSocialInfoSection
-          githubInfo={mypageMockData.socialInfo.github}
-          instagramInfo={mypageMockData.socialInfo.instagram}
-          profileIntro={mypageMockData.introduction}
+          githubInfo={userProfile?.githubAccount}
+          instagramInfo={userProfile?.instaAccount}
+          profileIntro={userProfile?.userIntro}
         />
       </section>
     </div>
@@ -24,17 +38,3 @@ const MyPage = () => {
 }
 
 export default MyPage
-
-const mypageMockData = {
-  introduction: '도비는 자유에요!',
-  userId: '3',
-  studentId: '2099111222',
-  name: '호반우',
-  role: 'ROLE_ADMIN',
-  socialInfo: {
-    github: 'hobanwo',
-    instagram: 'hobanwo',
-  },
-  // profileImage: new File([], ''),
-  profileImage: 'https://github.com/shadcn.png',
-}
