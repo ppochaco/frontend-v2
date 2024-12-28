@@ -1,182 +1,104 @@
-/* eslint-disable */
+import { queryOptions } from '@tanstack/react-query'
 
-/* tslint:disable */
-
-/*
- * ---------------------------------------------------------------
- * ## THIS FILE WAS GENERATED VIA SWAGGER-TYPESCRIPT-API        ##
- * ##                                                           ##
- * ## AUTHOR: acacode                                           ##
- * ## SOURCE: https://github.com/acacode/swagger-typescript-api ##
- * ---------------------------------------------------------------
- */
+import { AUTHORIZATION_API } from '@/service/config'
 import {
-  GetProfileData,
-  GetProfilesData,
-  GetUserData,
-  GetUsersData,
+  GetUserRequest,
   ProfileRequestDto,
-  UpdateProfileData,
-  UpdateProfileImageData,
+  RequestParams,
   UpdateProfileImagePayload,
-} from './data-contracts'
-import { ContentType, HttpClient, RequestParams } from './http-client'
+  Users,
+} from '@/service/models'
 
-export class Users<
-  SecurityDataType = unknown,
-> extends HttpClient<SecurityDataType> {
-  /**
-   * No description
-   *
-   * @tags 프로필 API
-   * @name GetProfile
-   * @summary 프로필 단일 조회
-   * @request GET:/users/{userId}/profile
-   * @secure
-   * @response `200` `GetProfileData` OK
-   * @response `404` `void`
-   */
-  getProfile = (userId: string, params: RequestParams = {}) =>
-    this.request<GetProfileData, void>({
-      path: `/users/${userId}/profile`,
-      method: 'GET',
-      secure: true,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags 프로필 API
-   * @name UpdateProfile
-   * @summary 프로필 수정
-   * @request PUT:/users/{userId}/profile
-   * @secure
-   * @response `200` `UpdateProfileData`
-   * @response `401` `void`
-   * @response `403` `void`
-   * @response `404` `void`
-   */
-  updateProfile = (
-    userId: string,
-    data: ProfileRequestDto,
-    params: RequestParams = {},
-  ) =>
-    this.request<UpdateProfileData, void>({
-      path: `/users/${userId}/profile`,
-      method: 'PUT',
-      body: data,
-      secure: true,
-      type: ContentType.Json,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags 프로필 API
-   * @name UpdateProfileImage
-   * @summary 프로필 이미지 수정
-   * @request PUT:/users/{userId}/profile/image
-   * @secure
-   * @response `200` `UpdateProfileImageData`
-   * @response `401` `void`
-   * @response `403` `void`
-   * @response `404` `void`
-   */
-  updateProfileImage = (
-    userId: string,
-    data: UpdateProfileImagePayload,
-    params: RequestParams = {},
-  ) =>
-    this.request<UpdateProfileImageData, void>({
-      path: `/users/${userId}/profile/image`,
-      method: 'PUT',
-      body: data,
-      secure: true,
-      type: ContentType.FormData,
-      format: 'json',
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags 유저 API
-   * @name GetUsers
-   * @summary User 목록 조회 (학번 포함, 회원만)
-   * @request GET:/users
-   * @secure
-   * @response `200` `GetUsersData` OK
-   * @response `404` `void`
-   */
-  getUsers = (params: RequestParams = {}) =>
-    this.request<GetUsersData, void>({
-      path: `/users`,
-      method: 'GET',
-      secure: true,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags 유저 API
-   * @name GetUser
-   * @summary User 조회 (학번 포함, 회원만)
-   * @request GET:/users/{userId}
-   * @secure
-   * @response `200` `GetUserData` OK
-   * @response `404` `void`
-   */
-  getUser = (userId: string, params: RequestParams = {}) =>
-    this.request<GetUserData, void>({
-      path: `/users/${userId}`,
-      method: 'GET',
-      secure: true,
-      ...params,
-    })
-  /**
-   * No description
-   *
-   * @tags 프로필 API
-   * @name GetProfiles
-   * @summary 프로필 페이징 조회
-   * @request GET:/users/profiles
-   * @secure
-   * @response `200` `GetProfilesData` OK
-   */
-  getProfiles = (
-    query: {
-      /**
-       * 페이지 번호 (0부터 시작)
-       * @format int32
-       * @default 0
-       * @example 0
-       */
-      page?: number
-      /**
-       * 페이지 크기
-       * @format int32
-       * @default 5
-       * @example 5
-       */
-      size?: number
-      /**
-       * 조회할 역할 목록 컴마로 여러개 전달 가능 (ex: ROLE_ADMIN,ROLE_TEAM_LEADER,ROLE_MEMBER)
-       * @example "ROLE_ADMIN,ROLE_TEAM_LEADER"
-       */
-      roles: (
-        | 'ROLE_WEB_MASTER'
-        | 'ROLE_ADMIN'
-        | 'ROLE_TEAM_LEADER'
-        | 'ROLE_MEMBER'
-      )[]
-    },
-    params: RequestParams = {},
-  ) =>
-    this.request<GetProfilesData, any>({
-      path: `/users/profiles`,
-      method: 'GET',
-      query: query,
-      secure: true,
-      ...params,
-    })
+// type UserProfile = {
+//   userId: UserInfo
+//   data: 'data'
+//   params: 'params'
+// }
+const userClient = new Users(AUTHORIZATION_API)
+
+const getUserInfo = async ({ userId }: GetUserRequest) => {
+  const response = await userClient.getUser(userId)
+  return response.data
+}
+
+const getUserProfile = async ({ userId }: GetUserRequest) => {
+  const response = await userClient.getProfile(userId)
+  return response.data
+}
+
+// const putUpdateProfileImage = async ({ userId, data, params }: UserProfile) => {
+//   const response = await userClient.updateProfileImage(userId, data, params)
+//   return response.data
+// }
+
+export const userQueries = {
+  all: () => ['users'],
+  userInfos: ({ userId }: GetUserRequest) => [
+    ...userQueries.all(),
+    'info',
+    userId,
+  ],
+  userInfo: ({ userId }: GetUserRequest) =>
+    queryOptions({
+      queryKey: [...userQueries.userInfos({ userId })],
+      queryFn: async () => getUserInfo({ userId }),
+    }),
+
+  profiles: ({ userId }: GetUserRequest) => [
+    ...userQueries.all(),
+    'profile',
+    userId,
+  ],
+  profile: ({ userId }: GetUserRequest) =>
+    queryOptions({
+      queryKey: [...userQueries.profiles({ userId })],
+      queryFn: async () => getUserProfile({ userId }),
+    }),
+
+  // updateProfileImage: ({
+  //   userId,
+  //   data,
+  //   params,
+  // }: {
+  //   userId: string
+  //   data: unknown
+  //   params: unknown
+  // }) =>
+  //   queryOptions({
+  //     queryFn: async () => putUpdateProfileImage({ userId, data, params }),
+  //   }),
+}
+type UpdateProfileRequest = {
+  userId: string
+  profileData: ProfileRequestDto
+  params: RequestParams
+}
+
+export const putUpdateProfileApi = async ({
+  userId,
+  profileData,
+  params,
+}: UpdateProfileRequest) => {
+  const response = await userClient.updateProfile(userId, profileData, params)
+  return response.data
+}
+
+export const putUpdateProfileImageApi = async ({
+  userId,
+  file,
+  params,
+}: {
+  userId: string
+  file: File
+  params?: RequestParams
+}) => {
+  const formData = new FormData()
+  formData.append('file', file)
+
+  const response = await userClient.updateProfileImage(
+    userId,
+    formData as unknown as UpdateProfileImagePayload,
+    params || {},
+  )
+  return response.data
 }
