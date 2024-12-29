@@ -2,11 +2,13 @@
 
 import { useCallback, useEffect } from 'react'
 
+import { CrossCircledIcon } from '@radix-ui/react-icons'
 import { AxiosError } from 'axios'
 
 import { FallbackProps } from '@/components/common'
 import { Button, useToast } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
+import { cn } from '@/lib/utils'
 
 export const AdminErrorFallback = ({
   error,
@@ -18,7 +20,16 @@ export const AdminErrorFallback = ({
     (message: string, status: number) => {
       if (status === 404 || status === 409) {
         toast({
-          title: `🚨 ${message}`,
+          description: (
+            <div className="flex items-center font-semibold">
+              <CrossCircledIcon className="mr-2 h-5 w-5 text-white" />
+              {message}
+            </div>
+          ),
+          className: cn(
+            'right-0 flex fixed md:max-w-[420px] top-4 md:right-4 data-[state=open]:sm:slide-in-from-top-full',
+          ),
+          variant: 'destructive',
         })
 
         resetErrorBoundary()
