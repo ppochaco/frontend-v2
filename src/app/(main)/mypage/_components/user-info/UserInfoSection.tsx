@@ -3,6 +3,7 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Cross2Icon, UploadIcon } from '@radix-ui/react-icons'
+import { useMutation } from '@tanstack/react-query'
 import Image from 'next/image'
 
 import {
@@ -15,8 +16,12 @@ import {
   FormField,
   FormItem,
   Input,
+  toast,
 } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
 import { CreateMypageProfile, CreateMypageProfileSchema } from '@/schema/mypage'
+import { putUpdateProfileImageApi, userQueries } from '@/service/api/mypage'
+import { BACKEND_API } from '@/service/config'
 
 import HaedalLogo from '../../_assets/haedal-logo.png'
 
@@ -24,24 +29,50 @@ interface UserInfoSectionProps {
   name?: string
   role?: string
   studentId?: number
-  profileImage?: string
+  profileImageUrl?: string
+  userId: string
 }
 
 export const UserInfoSection = ({
   name,
   role,
   studentId,
-  profileImage: initialProfileImage,
+  profileImageUrl: initialProfileImage,
+  userId,
 }: UserInfoSectionProps) => {
   const form = useForm<CreateMypageProfile>({
     resolver: zodResolver(CreateMypageProfileSchema),
     defaultValues: {
-      profileImage: new File([], ''),
+      profileImage: initialProfileImage
+        ? new File([initialProfileImage], 'profile')
+        : undefined,
     },
   })
 
+  const { mutate: updateProfileImage } = useMutation({
+    mutationFn: putUpdateProfileImageApi,
+    onSuccess: (data) => onSuccess(data.message),
+  })
+
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
+
+    queryClient.invalidateQueries({
+      queryKey: userQueries.profiles({ userId: userId }),
+    })
+  }
+
+  const getBaseURL = () => BACKEND_API.defaults.baseURL
+
+  const formattedImageUrl = initialProfileImage
+    ? `${getBaseURL()}${initialProfileImage}`
+    : undefined
+
   const [previewImage, setPreviewImage] = useState<string | undefined>(
-    initialProfileImage,
+    formattedImageUrl,
   )
 
   const handleUploadProfile = (file: File) => {
@@ -66,14 +97,18 @@ export const UserInfoSection = ({
   }
 
   const onSubmit = (data: CreateMypageProfile) => {
-    console.log('제출된 데이터:', data)
+    if (!data.profileImage) return
+    updateProfileImage({
+      userId: userId,
+      file: data.profileImage,
+    })
   }
 
   return (
     <section className="flex h-full w-full flex-col md:flex-row md:space-x-8">
       <div className="flex flex-col items-center justify-center space-y-5">
         <Avatar className="md:h-35 md:w-35 mx-auto flex h-32 w-32 items-center justify-center rounded-full">
-          <AvatarImage src={previewImage} />
+          <AvatarImage src={previewImage || formattedImageUrl} />
           <AvatarFallback>
             <Image
               src={HaedalLogo}
@@ -84,7 +119,7 @@ export const UserInfoSection = ({
         </Avatar>
         <Form {...form}>
           <form
-            onSubmit={(e) => e.preventDefault()}
+            onSubmit={form.handleSubmit(onSubmit)}
             className="flex w-full flex-col gap-3 text-center align-middle md:flex-col"
           >
             <FormField
@@ -96,6 +131,7 @@ export const UserInfoSection = ({
                     <Input
                       type="file"
                       className="hidden"
+                      accept="image/*"
                       multiple={false}
                       onChange={(e) => {
                         const file = e.target.files ? e.target.files[0] : null

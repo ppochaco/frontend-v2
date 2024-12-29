@@ -28,12 +28,14 @@ interface UserSocialInfoSectionProps {
   githubInfo?: string
   instagramInfo?: string
   profileIntro?: string
+  userId: string
 }
 
 export const UserSocialInfoSection = ({
   githubInfo: initialGithubInfo,
   instagramInfo: initialInstagramInfo,
   profileIntro: initialProfileIntro,
+  userId,
 }: UserSocialInfoSectionProps) => {
   const [isEditingIntro, setIsEditingIntro] = useState(false)
   const [isEditingSocial, setIsEditingSocial] = useState(false)
@@ -59,13 +61,13 @@ export const UserSocialInfoSection = ({
     })
 
     queryClient.invalidateQueries({
-      queryKey: userQueries.profiles({ userId: 'admin0234' }),
+      queryKey: userQueries.profiles({ userId: userId }),
     })
   }
 
   const onSubmit = (data: CreateMypageSocialInfo) => {
     updateProfile({
-      userId: 'admin0234',
+      userId: userId,
       profileData: {
         profileIntro: data.profileIntro,
         githubAccount: data.githubAccount,
