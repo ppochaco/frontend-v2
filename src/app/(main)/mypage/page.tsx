@@ -30,7 +30,7 @@ const MyPage = () => {
         <UserSocialInfoSection
           githubInfo={userProfile?.githubAccount}
           instagramInfo={userProfile?.instaAccount}
-          profileIntro={userProfile?.userIntro}
+          profileIntro={userProfile?.profileIntro}
         />
       </section>
     </div>
