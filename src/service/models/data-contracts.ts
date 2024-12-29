@@ -633,6 +633,11 @@ export interface GetActivitiesRequest {
   semesterId: number
 }
 
+export interface GetActivityDetailRequest {
+  semesterId: number
+  activityId: number
+}
+
 export interface DeleteActivityRequest {
   semesterId: number
   activityId: number
