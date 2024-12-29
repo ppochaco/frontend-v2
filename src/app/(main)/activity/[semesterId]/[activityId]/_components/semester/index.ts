@@ -1,1 +1,0 @@
-export { SemesterList } from './SemesterList'

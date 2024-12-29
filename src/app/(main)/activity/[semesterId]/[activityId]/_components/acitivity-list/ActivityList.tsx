@@ -1,29 +1,20 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
-import { ActivitySkeleton } from '@/components/feature'
 import { Button, buttonVariants } from '@/components/ui'
 import { cn } from '@/lib/utils'
-import { activityQueries } from '@/service/api'
+import { Activity } from '@/types/activity'
 
 type ActivityListProps = {
-  semesterId: number
+  activities: Activity[]
   activityId: number
 }
 
-export const ActivityList = ({ semesterId, activityId }: ActivityListProps) => {
-  const { data: activities, status } = useQuery(
-    activityQueries.list({ semesterId }),
-  )
-
+export const ActivityList = ({ activities, activityId }: ActivityListProps) => {
   const pathName = usePathname()
   const basePath = pathName.split('/').slice(0, -1).join('/')
-
-  if (status === 'pending') return <ActivitySkeleton />
-  if (!activities?.length) return <div>활동이 없습니다.</div>
 
   return (
     <div className="flex justify-center gap-2">
