@@ -3,7 +3,7 @@
 import { z } from 'zod'
 
 export const CreateMypageSocialInfoSchema = z.object({
-  userIntro: z
+  profileIntro: z
     .string()
     .min(1, { message: '한 줄 소개를 입력해주세요.' })
     .max(100, { message: '한 줄 소개는 15자 이내이어야 합니다.' }),
