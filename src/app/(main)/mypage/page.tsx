@@ -15,8 +15,6 @@ const MyPage = () => {
     userQueries.profile({ userId: 'admin0234' }),
   )
 
-  console.log(userProfile)
-
   return (
     <div className="mt-1 flex w-full flex-col items-center justify-center">
       <section className="w-full max-w-screen-xl px-12 pt-10 md:px-20">
