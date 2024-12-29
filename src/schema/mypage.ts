@@ -2,17 +2,21 @@
 
 import { z } from 'zod'
 
-export const CreateMypageSchema = z.object({
+export const CreateMypageSocialInfoSchema = z.object({
   introduction: z
     .string()
     .min(1, { message: '한 줄 소개를 입력해주세요.' })
     .max(100, { message: '한 줄 소개는 15자 이내이어야 합니다.' }),
 
-  socialInfo: z.object({
-    github: z.string().optional(),
-    instagram: z.string().optional(),
-  }),
+  githubInfo: z.string().optional(),
+  instagramInfo: z.string().optional(),
+})
 
+export type CreateMypageSocialInfo = z.infer<
+  typeof CreateMypageSocialInfoSchema
+>
+
+export const CreateMypageProfileSchema = z.object({
   profileImage: z
     .instanceof(File)
     .refine((file) => file.size < 5000000, {
@@ -24,4 +28,4 @@ export const CreateMypageSchema = z.object({
     .optional(),
 })
 
-export type CreateMypage = z.infer<typeof CreateMypageSchema>
+export type CreateMypageProfile = z.infer<typeof CreateMypageProfileSchema>
