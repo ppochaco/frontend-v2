@@ -4,6 +4,7 @@ import { persist } from 'zustand/middleware'
 import { Role } from '@/types/user'
 
 export type MyInfo = {
+  userId: string
   userName: string
   role?: Role
 }
@@ -18,9 +19,10 @@ interface MyInfoProps {
 export const useMyInfoStore = create(
   persist<MyInfoProps>(
     (set, get) => ({
-      myInfo: { userName: '', role: undefined },
+      myInfo: { userId: '', userName: '', role: undefined },
       setMyInfo: (myInfo) => set({ myInfo }),
-      clearMyInfo: () => set({ myInfo: { userName: '', role: undefined } }),
+      clearMyInfo: () =>
+        set({ myInfo: { userId: '', userName: '', role: undefined } }),
       getMyInfo: () => get().myInfo,
     }),
     {
