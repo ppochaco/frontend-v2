@@ -1,11 +1,22 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
 
-import { Button, Form, Input, toast } from '@/components/ui'
+import {
+  Button,
+  Form,
+  FormControl,
+  FormDescription,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+  Input,
+  toast,
+} from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import {
   CreateMypageSocialInfo,
@@ -35,9 +46,9 @@ export const UserSocialInfoSection = ({
   const form = useForm<CreateMypageSocialInfo>({
     resolver: zodResolver(CreateMypageSocialInfoSchema),
     defaultValues: {
-      userIntro: initialProfileIntro,
-      githubAccount: initialGithubInfo,
-      instaAccount: initialInstagramInfo,
+      profileIntro: initialProfileIntro ?? undefined,
+      githubAccount: initialGithubInfo ?? undefined,
+      instaAccount: initialInstagramInfo ?? undefined,
     },
   })
 
@@ -52,26 +63,14 @@ export const UserSocialInfoSection = ({
     })
   }
 
-  const { register, handleSubmit, watch } = form
-
-  useEffect(() => {
-    form.reset({
-      userIntro: initialProfileIntro,
-      githubAccount: initialGithubInfo,
-      instaAccount: initialInstagramInfo,
-    })
-  }, [initialProfileIntro, initialGithubInfo, initialInstagramInfo, form])
-
   const onSubmit = (data: CreateMypageSocialInfo) => {
-    console.log(data)
     updateProfile({
       userId: 'admin0234',
       profileData: {
-        userIntro: data.userIntro,
+        profileIntro: data.profileIntro,
         githubAccount: data.githubAccount,
         instaAccount: data.instaAccount,
       },
-      params: {},
     })
     setIsEditingIntro(false)
     setIsEditingSocial(false)
@@ -80,7 +79,7 @@ export const UserSocialInfoSection = ({
   const clickToEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
 
-    if (isEditingIntro === false && isEditingSocial === false) {
+    if (!isEditingIntro && !isEditingSocial) {
       setIsEditingIntro(true)
       setIsEditingSocial(true)
     } else {
@@ -93,7 +92,7 @@ export const UserSocialInfoSection = ({
     <>
       <Form {...form}>
         <form
-          onSubmit={handleSubmit(onSubmit)}
+          onSubmit={form.handleSubmit(onSubmit)}
           className="flex h-full w-full flex-col space-y-5"
         >
           <div className="hidden flex-row items-center justify-end gap-2 md:flex">
@@ -109,42 +108,55 @@ export const UserSocialInfoSection = ({
             </Button>
           </div>
           <div className="flex flex-col gap-5 md:flex-row md:justify-between">
-            <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-10">
-              <div className="flex justify-between">
-                <div className="text-lg font-bold text-primary md:text-xl">
-                  한 줄 소개
-                </div>
-                <div className="flex gap-3 md:hidden">
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    onClick={clickToEdit}
-                    className="text-destructive"
-                  >
-                    {isEditingIntro ? '취소' : '수정'}
-                  </Button>
-                  <Button variant="default" type="submit" size="sm">
-                    {isPending ? '저장 중' : '완료'}
-                  </Button>
-                </div>
-              </div>
-              <div className="md:y-0 y-5 flex h-10 gap-5">
-                {isEditingIntro ? (
-                  <Input
-                    className="w-full md:w-auto"
-                    {...register('userIntro')}
-                    autoFocus
-                  />
-                ) : (
-                  <div className="text-md flex h-10 items-center">
-                    {initialProfileIntro || watch('userIntro')}
+            <FormField
+              control={form.control}
+              name="profileIntro"
+              render={({ field }) => (
+                <FormItem className="md:flex md:flex-col md:items-center md:gap-2">
+                  <div className="flex w-full flex-col gap-2 md:flex-row md:items-center">
+                    <div className="flex flex-row justify-between">
+                      <FormLabel className="text-lg font-bold text-primary md:text-xl">
+                        한 줄 소개
+                      </FormLabel>
+                      <div className="flex flex-row items-center justify-end gap-2 md:hidden">
+                        <Button
+                          variant="outline"
+                          onClick={clickToEdit}
+                          className="text-destructive"
+                          size="sm"
+                        >
+                          {isEditingIntro ? '취소' : '수정'}
+                        </Button>
+                        <Button variant="default" type="submit" size="sm">
+                          {isPending ? '저장 중' : '완료'}
+                        </Button>
+                      </div>
+                    </div>
+
+                    <FormControl>
+                      {isEditingIntro ? (
+                        <Input
+                          className="w-full md:w-80"
+                          placeholder="한 줄 소개를 입력하세요."
+                          {...field}
+                          autoFocus
+                        />
+                      ) : (
+                        <div className="text-md flex h-10 items-center">
+                          {initialProfileIntro || field.value}
+                        </div>
+                      )}
+                    </FormControl>
                   </div>
-                )}
-              </div>
-            </div>
-          </div>
-          <div className="text-sm text-zinc-400 md:text-base">
-            멤버 페이지에서 보이는 정보입니다.
+                  <FormDescription className="w-full text-sm text-zinc-400 md:text-base">
+                    멤버 페이지에서 보이는 정보입니다.
+                  </FormDescription>
+                  <div className="flex w-full">
+                    <FormMessage />
+                  </div>
+                </FormItem>
+              )}
+            />
           </div>
           <div className="border-t border-border" />
 
@@ -153,31 +165,53 @@ export const UserSocialInfoSection = ({
               <div className="text-lg font-bold text-primary md:text-xl">
                 소셜 정보
               </div>
-              <div className="flex flex-col md:flex-row md:gap-5 md:py-2">
-                <div className="flex h-10 items-center gap-2">
-                  <GitHubLogoIcon className="h-5 w-5" />
-                  {isEditingSocial ? (
-                    <Input
-                      className="w-full md:w-auto"
-                      {...register('githubAccount')}
-                      autoFocus
-                    />
-                  ) : (
-                    <span>{initialGithubInfo || watch('githubAccount')}</span>
+              <div className="flex flex-col gap-2 md:flex-row">
+                <FormField
+                  control={form.control}
+                  name="githubAccount"
+                  render={({ field }) => (
+                    <FormItem className="md:flex md:items-center md:gap-10">
+                      <div className="flex h-10 items-center gap-2">
+                        <GitHubLogoIcon className="h-5 w-5" />
+                        <FormControl>
+                          {isEditingSocial ? (
+                            <Input
+                              className="w-full md:w-auto"
+                              placeholder="GitHub 계정"
+                              {...field}
+                              autoFocus
+                            />
+                          ) : (
+                            <span>{initialGithubInfo || field.value}</span>
+                          )}
+                        </FormControl>
+                      </div>
+                    </FormItem>
                   )}
-                </div>
-                <div className="flex h-10 items-center gap-2">
-                  <InstagramLogoIcon className="h-5 w-5" />
-                  {isEditingSocial ? (
-                    <Input
-                      className="w-full md:w-auto"
-                      {...register('instaAccount')}
-                      autoFocus
-                    />
-                  ) : (
-                    <span>{initialInstagramInfo || watch('instaAccount')}</span>
+                />
+                <FormField
+                  control={form.control}
+                  name="instaAccount"
+                  render={({ field }) => (
+                    <FormItem className="md:flex md:items-center md:gap-10">
+                      <div className="flex h-10 items-center gap-2">
+                        <InstagramLogoIcon className="h-5 w-5" />
+                        <FormControl>
+                          {isEditingSocial ? (
+                            <Input
+                              className="w-full md:w-auto"
+                              placeholder="Instagram 계정"
+                              {...field}
+                              autoFocus
+                            />
+                          ) : (
+                            <span>{initialInstagramInfo || field.value}</span>
+                          )}
+                        </FormControl>
+                      </div>
+                    </FormItem>
                   )}
-                </div>
+                />
               </div>
             </div>
           </div>
@@ -185,7 +219,7 @@ export const UserSocialInfoSection = ({
       </Form>
       <div className="mb-5 mt-5 border-t border-border md:hidden" />
       <div className="mt-3 flex flex-col gap-5 md:flex-row md:justify-between">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-3 md:mt-2">
           <div className="text-lg font-bold text-primary md:text-xl">
             회원 탈퇴
           </div>
