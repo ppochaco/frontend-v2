@@ -9,14 +9,14 @@ import {
   Users,
 } from '@/service/models'
 
-const userClient = new Users(AUTHORIZATION_API)
-
 const getUserInfo = async ({ userId }: GetUserRequest) => {
+  const userClient = new Users(AUTHORIZATION_API)
   const response = await userClient.getUser(userId)
   return response.data
 }
 
 const getUserProfile = async ({ userId }: GetUserRequest) => {
+  const userClient = new Users(AUTHORIZATION_API)
   const response = await userClient.getProfile(userId)
   return response.data
 }
@@ -56,6 +56,7 @@ export const putUpdateProfileApi = async ({
   userId,
   profileData,
 }: UpdateProfileRequest) => {
+  const userClient = new Users(AUTHORIZATION_API)
   const response = await userClient.updateProfile(userId, profileData)
   return response.data
 }
@@ -63,19 +64,17 @@ export const putUpdateProfileApi = async ({
 export const putUpdateProfileImageApi = async ({
   userId,
   file,
-  params,
 }: {
   userId: string
   file: File
   params?: RequestParams
 }) => {
+  const userClient = new Users(AUTHORIZATION_API)
   const formData = new FormData()
   formData.append('file', file)
-
   const response = await userClient.updateProfileImage(
     userId,
     formData as unknown as UpdateProfileImagePayload,
-    params || {},
   )
   return response.data
 }
