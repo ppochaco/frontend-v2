@@ -37,8 +37,7 @@ export const UserSocialInfoSection = ({
   profileIntro: initialProfileIntro,
   userId,
 }: UserSocialInfoSectionProps) => {
-  const [isEditingIntro, setIsEditingIntro] = useState(false)
-  const [isEditingSocial, setIsEditingSocial] = useState(false)
+  const [isEditing, setIsEditing] = useState(false)
 
   const { mutate: updateProfile, isPending } = useMutation({
     mutationFn: putUpdateProfileApi,
@@ -74,20 +73,12 @@ export const UserSocialInfoSection = ({
         instaAccount: data.instaAccount,
       },
     })
-    setIsEditingIntro(false)
-    setIsEditingSocial(false)
+    setIsEditing(false)
   }
 
-  const clickToEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
+  const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
-
-    if (!isEditingIntro && !isEditingSocial) {
-      setIsEditingIntro(true)
-      setIsEditingSocial(true)
-    } else {
-      setIsEditingIntro(false)
-      setIsEditingSocial(false)
-    }
+    setIsEditing(!isEditing)
   }
 
   return (
@@ -100,10 +91,10 @@ export const UserSocialInfoSection = ({
           <div className="hidden flex-row items-center justify-end gap-2 md:flex">
             <Button
               variant="outline"
-              onClick={clickToEdit}
+              onClick={onClickEdit}
               className="text-destructive"
             >
-              {isEditingIntro ? '취소' : '수정'}
+              {isEditing ? '취소' : '수정'}
             </Button>
             <Button variant="default" type="submit">
               {isPending ? '저장 중' : '완료'}
@@ -123,11 +114,11 @@ export const UserSocialInfoSection = ({
                       <div className="flex flex-row items-center justify-end gap-2 md:hidden">
                         <Button
                           variant="outline"
-                          onClick={clickToEdit}
+                          onClick={onClickEdit}
                           className="text-destructive"
                           size="sm"
                         >
-                          {isEditingIntro ? '취소' : '수정'}
+                          {isEditing ? '취소' : '수정'}
                         </Button>
                         <Button variant="default" type="submit" size="sm">
                           {isPending ? '저장 중' : '완료'}
@@ -136,16 +127,21 @@ export const UserSocialInfoSection = ({
                     </div>
 
                     <FormControl>
-                      {isEditingIntro ? (
+                      {isEditing ? (
                         <Input
                           className="w-full md:w-80"
                           placeholder="한 줄 소개를 입력하세요."
                           {...field}
+                          value={field.value || initialProfileIntro}
                           autoFocus
+                          onFocus={(e) => {
+                            e.target.value = ''
+                            field.onChange('')
+                          }}
                         />
                       ) : (
                         <div className="text-md flex h-10 items-center">
-                          {initialProfileIntro || field.value}
+                          {field.value || initialProfileIntro}
                         </div>
                       )}
                     </FormControl>
@@ -176,15 +172,20 @@ export const UserSocialInfoSection = ({
                       <div className="flex h-10 items-center gap-2">
                         <GitHubLogoIcon className="h-5 w-5" />
                         <FormControl>
-                          {isEditingSocial ? (
+                          {isEditing ? (
                             <Input
                               className="w-full md:w-auto"
                               placeholder="GitHub 계정"
                               {...field}
+                              value={field.value || initialGithubInfo}
+                              onFocus={(e) => {
+                                e.target.value = ''
+                                field.onChange('')
+                              }}
                               autoFocus
                             />
                           ) : (
-                            <span>{initialGithubInfo || field.value}</span>
+                            <span>{field.value || initialGithubInfo}</span>
                           )}
                         </FormControl>
                       </div>
@@ -199,15 +200,20 @@ export const UserSocialInfoSection = ({
                       <div className="flex h-10 items-center gap-2">
                         <InstagramLogoIcon className="h-5 w-5" />
                         <FormControl>
-                          {isEditingSocial ? (
+                          {isEditing ? (
                             <Input
                               className="w-full md:w-auto"
                               placeholder="Instagram 계정"
                               {...field}
+                              value={field.value || initialInstagramInfo}
+                              onFocus={(e) => {
+                                e.target.value = ''
+                                field.onChange('')
+                              }}
                               autoFocus
                             />
                           ) : (
-                            <span>{initialInstagramInfo || field.value}</span>
+                            <span>{field.value || initialInstagramInfo}</span>
                           )}
                         </FormControl>
                       </div>
