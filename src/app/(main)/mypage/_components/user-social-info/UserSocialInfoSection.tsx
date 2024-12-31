@@ -132,12 +132,8 @@ export const UserSocialInfoSection = ({
                           className="w-full md:w-80"
                           placeholder="한 줄 소개를 입력하세요."
                           {...field}
-                          value={field.value || initialProfileIntro}
+                          value={field.value}
                           autoFocus
-                          onFocus={(e) => {
-                            e.target.value = ''
-                            field.onChange('')
-                          }}
                         />
                       ) : (
                         <div className="text-md flex h-10 items-center">
@@ -178,10 +174,6 @@ export const UserSocialInfoSection = ({
                               placeholder="GitHub 계정"
                               {...field}
                               value={field.value}
-                              onFocus={(e) => {
-                                e.target.value = ''
-                                field.onChange('')
-                              }}
                               autoFocus
                             />
                           ) : (
@@ -206,10 +198,6 @@ export const UserSocialInfoSection = ({
                               placeholder="Instagram 계정"
                               {...field}
                               value={field.value}
-                              onFocus={(e) => {
-                                e.target.value = ''
-                                field.onChange('')
-                              }}
                               autoFocus
                             />
                           ) : (
