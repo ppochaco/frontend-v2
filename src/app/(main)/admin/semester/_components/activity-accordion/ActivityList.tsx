@@ -3,7 +3,6 @@
 import { Cross2Icon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 
-import { ActivitySkeleton } from '@/components/feature'
 import { useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { activityQueries, deleteActivityApi } from '@/service/api'
@@ -37,7 +36,7 @@ export const ActivityList = ({ semester }: ActivityListProps) => {
     queryClient.invalidateQueries({ queryKey: activityQueries.all() })
   }
 
-  if (status === 'pending') return <ActivitySkeleton />
+  if (status === 'pending') return <ActivityListSkeleton />
 
   if (!activities || !activities.length)
     return <div className="text-muted-foreground">활동이 없습니다.</div>
@@ -60,6 +59,16 @@ export const ActivityList = ({ semester }: ActivityListProps) => {
           </div>
         </div>
       ))}
+    </div>
+  )
+}
+
+const ActivityListSkeleton = () => {
+  return (
+    <div className="flex items-center gap-1 rounded-full bg-input px-4 py-1.5 text-sm">
+      <div className="h-8 w-16 animate-pulse rounded-full bg-slate-100"></div>
+      <div className="h-8 w-20 animate-pulse rounded-full bg-slate-50"></div>
+      <div className="h-8 w-16 animate-pulse rounded-full bg-slate-100"></div>
     </div>
   )
 }

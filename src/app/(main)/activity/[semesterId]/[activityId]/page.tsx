@@ -1,22 +1,20 @@
 'use client'
 
-import { useQuery } from '@tanstack/react-query'
-import { usePathname } from 'next/navigation'
+import { useQuery, useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
-import { ActivitySemesterSkeleton } from '@/components/feature'
-import { Button } from '@/components/ui'
-import { semesterQueries } from '@/service/api'
-import { useMyInfoStore } from '@/store/myInfo'
-import { Semester } from '@/types/activity'
+import { activityQueries, semesterQueries } from '@/service/api'
+import { Activity, Semester } from '@/types/activity'
 
 import {
   ActivityBoardList,
   ActivityHero,
   ActivityList,
+  ActivitySkeleton,
+  CreateBoardButton,
   SemesterList,
+  SemesterListSkeleton,
 } from './_components'
-import { RedirectSemester } from './_components/semester/RedirectSemester'
 
 type ActivityParams = {
   params: {
@@ -27,63 +25,109 @@ type ActivityParams = {
 
 interface ActivityPageProps extends ActivityParams {
   semesters: Semester[]
+  semester: Semester
+  activities: Activity[]
 }
 
-const ActivityPage = ({ params, semesters }: ActivityPageProps) => {
-  const pathName = usePathname()
+const ActivityPage = ({
+  params,
+  semesters,
+  semester,
+  activities,
+}: ActivityPageProps) => {
   const router = useRouter()
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
 
-  const {
-    data: semester,
-    status,
-    error,
-  } = useQuery(
-    semesterQueries.detail({ semesterId: Number(params.semesterId) }),
+  const { data: activity, error } = useQuery(
+    activityQueries.detail({
+      semesterId: semester.semesterId,
+      activityId: Number(params.activityId),
+    }),
   )
 
-  if (status === 'pending') return <ActivitiySkeleton />
+  if (error) {
+    const lastActivity = activities[activities.length - 1]
+    router.push(`/activity/${semester.semesterId}/${lastActivity.activityId}`)
+  }
 
-  if (error) return <RedirectSemester semesters={semesters} />
+  if (activity) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <ActivityHero />
+        <SemesterList semester={semester} semesters={semesters} />
+        <div className="flex w-full flex-col items-center gap-6">
+          <ActivityList
+            activities={activities}
+            activityId={Number(params.activityId)}
+          />
+          <ActivityBoardList activityId={Number(params.activityId)} />
+          <div className="mb-20 flex w-full justify-end">
+            <CreateBoardButton />
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   return (
     <div className="flex flex-col items-center gap-2">
       <ActivityHero />
       <SemesterList semester={semester} semesters={semesters} />
-      <div className="flex w-full flex-col items-center gap-6">
-        <ActivityList
-          semesterId={Number(params.semesterId)}
-          activityId={Number(params.activityId)}
-        />
-        <ActivityBoardList activityId={Number(params.activityId)} />
-        <div className="mb-20 flex w-full justify-end">
-          <Button
-            className="max-w-fit"
-            onClick={() => router.push(`${pathName}/create-board`)}
-            disabled={!(role === 'ROLE_ADMIN' || role === 'ROLE_TEAM_LEADER')}
-          >
-            게시판 생성하기
-          </Button>
-        </div>
-      </div>
+      <ActivitySkeleton />
     </div>
   )
 }
 
-export default function Activity({ params }: ActivityParams) {
-  const { data: semesters, status } = useQuery(semesterQueries.list())
+export default function ActivityRedirectPage({ params }: ActivityParams) {
+  const router = useRouter()
 
-  if (status === 'pending') return <ActivitiySkeleton />
-  if (!semesters) return <div>학기가 없습니다.</div>
+  const { data: semesters } = useSuspenseQuery(semesterQueries.list())
+  const { data: activities } = useSuspenseQuery(
+    activityQueries.list({ semesterId: Number(params.semesterId) }),
+  )
 
-  return <ActivityPage params={params} semesters={semesters} />
-}
+  const { data: semester, error } = useQuery(
+    semesterQueries.detail({ semesterId: Number(params.semesterId) }),
+  )
 
-const ActivitiySkeleton = () => {
+  if (error) {
+    const lastSemester = semesters[semesters.length - 1]
+    router.push(`/activity/${lastSemester.semesterId}/-1`)
+  }
+
+  if (!semesters.length) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <ActivityHero />
+        <div>학기가 없습니다.</div>
+      </div>
+    )
+  }
+
+  if (!semester) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <ActivityHero />
+        <SemesterListSkeleton />
+      </div>
+    )
+  }
+
+  if (!activities.length) {
+    return (
+      <div className="flex flex-col items-center gap-2">
+        <ActivityHero />
+        <SemesterList semester={semester} semesters={semesters} />
+        <div>활동이 없습니다.</div>
+      </div>
+    )
+  }
+
   return (
-    <div className="flex flex-col items-center gap-2">
-      <ActivityHero />
-      <ActivitySemesterSkeleton />
-    </div>
+    <ActivityPage
+      params={params}
+      semesters={semesters}
+      semester={semester}
+      activities={activities}
+    />
   )
 }

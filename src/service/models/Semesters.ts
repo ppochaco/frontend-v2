@@ -13,6 +13,7 @@
 import { CustomHttpClient } from '../config'
 import {
   GetActivitiesData,
+  GetActivityData,
   GetSemesterData,
   GetSemestersData,
 } from './data-contracts'
@@ -68,6 +69,28 @@ export class Semesters<
   getActivities = (semesterId: number, params: RequestParams = {}) =>
     this.request<GetActivitiesData, any>({
       path: `/semesters/${semesterId}/activities`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 활동 API
+   * @name GetActivity
+   * @summary 해당 학기 활동 단일 조회
+   * @request GET:/semesters/{semesterId}/activities/{activityId}
+   * @secure
+   * @response `200` `GetActivityData` OK
+   * @response `404` `void`
+   */
+  getActivity = (
+    semesterId: number,
+    activityId: number,
+    params: RequestParams = {},
+  ) =>
+    this.request<GetActivityData, void>({
+      path: `/semesters/${semesterId}/activities/${activityId}`,
       method: 'GET',
       secure: true,
       ...params,
