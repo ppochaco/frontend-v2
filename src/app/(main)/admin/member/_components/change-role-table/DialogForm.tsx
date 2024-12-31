@@ -24,13 +24,21 @@ type ChangeRoleDialogFormProps = {
 }
 
 export const ChangeRoleDialogForm = ({ user }: ChangeRoleDialogFormProps) => {
-  const { mutate: changeRole, isPending } = useMutation({
+  const {
+    mutate: changeRole,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: changeRoleApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
 
   const form = useForm<ChangeRole>({ resolver: zodResolver(ChangeRoleSchema) })
+
+  if (error) {
+    throw error
+  }
 
   const onSubmit = form.handleSubmit((values) => {
     changeRole({ userId: user.userId, data: { role: values.role } })
