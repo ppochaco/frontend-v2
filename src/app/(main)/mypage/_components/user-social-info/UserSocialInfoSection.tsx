@@ -177,7 +177,7 @@ export const UserSocialInfoSection = ({
                               className="w-full md:w-auto"
                               placeholder="GitHub 계정"
                               {...field}
-                              value={field.value || initialGithubInfo}
+                              value={field.value}
                               onFocus={(e) => {
                                 e.target.value = ''
                                 field.onChange('')
@@ -205,7 +205,7 @@ export const UserSocialInfoSection = ({
                               className="w-full md:w-auto"
                               placeholder="Instagram 계정"
                               {...field}
-                              value={field.value || initialInstagramInfo}
+                              value={field.value}
                               onFocus={(e) => {
                                 e.target.value = ''
                                 field.onChange('')
