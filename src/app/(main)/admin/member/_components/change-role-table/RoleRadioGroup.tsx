@@ -1,3 +1,5 @@
+import convertRoleName from '@/utils/convert-role'
+
 import { Label, RadioGroup, RadioGroupItem } from '@/components/ui'
 import { cn } from '@/lib/utils'
 import { Role } from '@/types/user'
@@ -7,7 +9,7 @@ type RoleRadioGroupProps = {
   disabledRole: Role
 }
 
-const ROLES: Role[] = ['일반', '팀장', '해구르르']
+const ROLES: Role[] = ['ROLE_ADMIN', 'ROLE_TEAM_LEADER', 'ROLE_MEMBER']
 
 export const RoleRadioGroup = ({
   onChange,
@@ -20,7 +22,7 @@ export const RoleRadioGroup = ({
           <div key={role} className="flex items-center space-x-2">
             <RadioGroupItem value={role} disabled={role === disabledRole} />
             <Label className={cn(role === disabledRole && 'text-primary/50')}>
-              {role}
+              {convertRoleName(role)}
             </Label>
           </div>
         )

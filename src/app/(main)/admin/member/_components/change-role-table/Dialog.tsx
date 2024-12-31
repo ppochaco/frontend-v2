@@ -1,3 +1,5 @@
+import convertRoleName from '@/utils/convert-role'
+
 import {
   Button,
   Dialog,
@@ -7,12 +9,12 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui'
-import { ActiveUser } from '@/types/user'
+import { UserResponseDto } from '@/service/models'
 
 import { ChangeRoleDialogForm } from './DialogForm'
 
 type ChangeRoleDialogProps = {
-  user: ActiveUser
+  user: UserResponseDto
 }
 
 export const ChangeRoleDialog = ({ user }: ChangeRoleDialogProps) => {
@@ -23,7 +25,7 @@ export const ChangeRoleDialog = ({ user }: ChangeRoleDialogProps) => {
           variant="secondary"
           className="h-fit w-16 py-1.5 text-sm hover:bg-primary/5"
         >
-          {user.role}
+          {convertRoleName(user.role)}
         </Button>
       </DialogTrigger>
       <DialogContent>

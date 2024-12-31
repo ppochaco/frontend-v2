@@ -1,7 +1,7 @@
 import Image from 'next/image'
 
+import { ChannelIcons } from './ChannelIcons'
 import { FooterDetail } from './FooterDetail'
-import { LinkIcon } from './LinkIcon'
 
 export const Footer = () => {
   return (
@@ -21,8 +21,10 @@ export const Footer = () => {
         </p>
       </div>
       <FooterDetail />
-      <p className="text-xs">© 2024 해달. All rights reserved.</p>
-      <LinkIcon />
+      <p className="text-xs text-slate-500">
+        © 2024 해달. All rights reserved.
+      </p>
+      <ChannelIcons />
     </div>
   )
 }

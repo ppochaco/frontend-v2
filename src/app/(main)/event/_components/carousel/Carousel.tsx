@@ -1,27 +1,11 @@
 'use client'
 
-import Image from 'next/image'
-import { useRouter } from 'next/navigation'
-
-import {
-  Card,
-  CardContent,
-  Carousel,
-  CarouselContent,
-  CarouselDots,
-  CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
-} from '@/components/ui'
-import { useGetPostsSlider } from '@/service/data/post'
+import { Card, CardContent } from '@/components/ui'
 
 export const EventCarousel = () => {
-  const router = useRouter()
+  return <CarouselSkeleton />
 
-  const { data, status } = useGetPostsSlider({})
-
-  if (status === 'pending' || !data?.posts.length) return <CarouselSkeleton />
-
+  /*
   return (
     <Carousel
       opts={{ loop: true }}
@@ -60,6 +44,7 @@ export const EventCarousel = () => {
       <CarouselNext />
     </Carousel>
   )
+  */
 }
 
 const CarouselSkeleton = () => {

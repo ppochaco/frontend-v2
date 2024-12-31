@@ -1,15 +1,21 @@
 'use client'
 
+import convertRoleName from '@/utils/convert-role'
+import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { MemberTable, SkeletonTable } from '@/components/feature'
-import { useGetActiveUsers } from '@/service/data/user'
-import { ActiveUser } from '@/types/user'
+import { AdminUserQuries } from '@/service/api'
+import { UserResponseDto } from '@/service/models'
 
 import { ExpelMemberDialog } from './Dialog'
 
 export const ExpelMemberTable = () => {
-  const { data: activeUsers, status, error } = useGetActiveUsers()
+  const {
+    data: activeUsers,
+    status,
+    error,
+  } = useQuery(AdminUserQuries.active())
 
   if (status === 'pending') return <SkeletonTable />
 
@@ -17,7 +23,7 @@ export const ExpelMemberTable = () => {
 
   if (!activeUsers) return <div>멤버가 없습니다.</div>
 
-  const expelMemberColumn: ColumnDef<ActiveUser>[] = [
+  const expelMemberColumn: ColumnDef<UserResponseDto>[] = [
     {
       header: '',
       id: 'id',
@@ -45,7 +51,9 @@ export const ExpelMemberTable = () => {
       accessorKey: 'role',
       header: '등급',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('role')}</div>
+        <div className="text-center">
+          {convertRoleName(row.getValue('role'))}
+        </div>
       ),
     },
     {

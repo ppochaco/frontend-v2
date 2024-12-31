@@ -1,11 +1,10 @@
 'use client'
 
-import { Dispatch, SetStateAction, useEffect } from 'react'
+import { Dispatch, SetStateAction } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useAction } from 'next-safe-action/hooks'
-import { useRouter } from 'next/navigation'
+import { useMutation } from '@tanstack/react-query'
 
 import {
   Button,
@@ -21,13 +20,11 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
-  ToastAction,
   useToast,
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { AddSemester, AddSemesterSchema } from '@/schema/admin'
-import { semesterQuery } from '@/service/data/semester'
-import { AddSemesterAction } from '@/service/server/semester/add-semester'
+import { addSemesterApi, semesterQueries } from '@/service/api'
 
 type AddSemesterDialogFormProps = {
   setOpen: Dispatch<SetStateAction<boolean>>
@@ -36,13 +33,16 @@ type AddSemesterDialogFormProps = {
 export const AddSemesterDialogForm = ({
   setOpen,
 }: AddSemesterDialogFormProps) => {
-  const {
-    execute: addSemester,
-    result,
-    isExecuting,
-  } = useAction(AddSemesterAction)
   const { toast } = useToast()
-  const router = useRouter()
+
+  const {
+    mutate: addSemester,
+    isPending,
+    error,
+  } = useMutation({
+    mutationFn: addSemesterApi,
+    onSuccess: (data) => onSuccess(data.message),
+  })
 
   const form = useForm<AddSemester>({
     resolver: zodResolver(AddSemesterSchema),
@@ -51,55 +51,28 @@ export const AddSemesterDialogForm = ({
     },
   })
 
-  const onSubmit = (values: AddSemester) => {
-    addSemester({ semesterName: values.year + values.term })
+  if (error && !isPending) {
+    throw error
   }
 
-  useEffect(() => {
-    if (result.data?.isSuccess) {
-      toast({
-        title: result.data.message,
-        duration: 1000,
-      })
+  const onSubmit = form.handleSubmit((values) => {
+    addSemester({ semesterName: values.year + values.term })
+  })
 
-      const { queryKey } = semesterQuery()
+  const onSuccess = (message?: string) => {
+    toast({
+      title: message,
+      duration: 2000,
+    })
 
-      queryClient.invalidateQueries({ queryKey })
+    queryClient.invalidateQueries({ queryKey: semesterQueries.all() })
 
-      setOpen(false)
-
-      return
-    }
-
-    if (result.data?.action === 'login') {
-      toast({
-        title: result.data?.message,
-        action: (
-          <ToastAction
-            onClick={() => router.push('/auth/login')}
-            altText="로그인하기"
-          >
-            로그인하기
-          </ToastAction>
-        ),
-      })
-
-      return
-    }
-
-    if (result.data?.message) {
-      toast({
-        title: result.data.message,
-      })
-    }
-  }, [result, toast, router, setOpen])
+    setOpen(false)
+  }
 
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-6"
-      >
+      <form onSubmit={onSubmit} className="flex flex-col gap-6">
         <div className="flex gap-8">
           <FormField
             control={form.control}
@@ -134,7 +107,7 @@ export const AddSemesterDialogForm = ({
             )}
           />
         </div>
-        <Button type="submit" disabled={isExecuting}>
+        <Button type="submit" disabled={isPending}>
           추가하기
         </Button>
       </form>
