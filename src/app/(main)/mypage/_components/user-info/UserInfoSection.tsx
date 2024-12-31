@@ -4,7 +4,6 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Cross2Icon, UploadIcon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
-import Image from 'next/image'
 
 import {
   Avatar,
@@ -22,8 +21,6 @@ import { queryClient } from '@/lib/query-client'
 import { CreateMypageProfile, CreateMypageProfileSchema } from '@/schema/mypage'
 import { putUpdateProfileImageApi, userQueries } from '@/service/api/mypage'
 import { BACKEND_API } from '@/service/config'
-
-import HaedalLogo from '../../_assets/haedal-logo.png'
 
 interface UserInfoSectionProps {
   name?: string
@@ -109,13 +106,7 @@ export const UserInfoSection = ({
       <div className="flex flex-col items-center justify-center space-y-5">
         <Avatar className="md:h-35 md:w-35 mx-auto flex h-32 w-32 items-center justify-center rounded-full">
           <AvatarImage src={previewImage || formattedImageUrl} />
-          <AvatarFallback>
-            <Image
-              src={HaedalLogo}
-              alt="haedal-logo"
-              className="h-full w-full"
-            />
-          </AvatarFallback>
+          <AvatarFallback />
         </Avatar>
         <Form {...form}>
           <form
