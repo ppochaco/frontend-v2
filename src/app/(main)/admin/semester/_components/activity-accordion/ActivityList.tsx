@@ -18,11 +18,15 @@ export const ActivityList = ({ semester }: ActivityListProps) => {
     activityQueries.list({ semesterId: semester.semesterId }),
   )
 
-  const { mutate: deleteActivity } = useMutation({
+  const { mutate: deleteActivity, error } = useMutation({
     mutationFn: deleteActivityApi,
     onSuccess: (data) => onSuccess(data.message),
   })
   const { toast } = useToast()
+
+  if (error) {
+    throw error
+  }
 
   const onSuccess = (message: string) => {
     toast({

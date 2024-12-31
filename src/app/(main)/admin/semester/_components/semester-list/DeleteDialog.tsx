@@ -27,12 +27,20 @@ export const DeleteSemesterDialog = ({
   setOpen,
   semester,
 }: DeleteSemesterDialogProps) => {
-  const { mutate: deleteSemester, isPending } = useMutation({
+  const { toast } = useToast()
+
+  const {
+    mutate: deleteSemester,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: deleteSemesterApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
-  const { toast } = useToast()
+  if (error && !isPending) {
+    throw error
+  }
 
   const onSuccess = (message: string) => {
     toast({
@@ -48,30 +56,34 @@ export const DeleteSemesterDialog = ({
   if (!semester) return null
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle className="text-md flex gap-2">
-            정말 {semester.semesterName} 학기를 삭제하시겠어요?
-          </DialogTitle>
-          <DialogDescription className="text-start">
-            삭제하기 버튼 선택 시, 해당 학기의 모든 활동 정보는 삭제되며
-            복구되지 않습니다.
-          </DialogDescription>
-        </DialogHeader>
-        <DialogFooter className="flex gap-2">
-          <Button onClick={() => setOpen(false)} variant="secondary">
-            취소하기
-          </Button>
-          <Button
-            variant="destructive"
-            onClick={() => deleteSemester({ semesterId: semester.semesterId })}
-            disabled={isPending}
-          >
-            삭제하기
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+    <div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle className="text-md flex gap-2">
+              정말 {semester.semesterName} 학기를 삭제하시겠어요?
+            </DialogTitle>
+            <DialogDescription className="text-start">
+              삭제하기 버튼 선택 시, 해당 학기의 모든 활동 정보는 삭제되며
+              복구되지 않습니다.
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex gap-2">
+            <Button onClick={() => setOpen(false)} variant="secondary">
+              취소하기
+            </Button>
+            <Button
+              variant="destructive"
+              onClick={() =>
+                deleteSemester({ semesterId: semester.semesterId })
+              }
+              disabled={isPending}
+            >
+              삭제하기
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   )
 }

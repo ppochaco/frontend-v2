@@ -1,5 +1,6 @@
 'use client'
 
+import convertRoleName from '@/utils/convert-role'
 import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 
@@ -50,7 +51,9 @@ export const ExpelMemberTable = () => {
       accessorKey: 'role',
       header: '등급',
       cell: ({ row }) => (
-        <div className="text-center">{row.getValue('role')}</div>
+        <div className="text-center">
+          {convertRoleName(row.getValue('role'))}
+        </div>
       ),
     },
     {

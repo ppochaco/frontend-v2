@@ -33,11 +33,16 @@ type AddSemesterDialogFormProps = {
 export const AddSemesterDialogForm = ({
   setOpen,
 }: AddSemesterDialogFormProps) => {
-  const { mutate: addSemester, isPending } = useMutation({
+  const { toast } = useToast()
+
+  const {
+    mutate: addSemester,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: addSemesterApi,
     onSuccess: (data) => onSuccess(data.message),
   })
-  const { toast } = useToast()
 
   const form = useForm<AddSemester>({
     resolver: zodResolver(AddSemesterSchema),
@@ -45,6 +50,10 @@ export const AddSemesterDialogForm = ({
       year: '',
     },
   })
+
+  if (error && !isPending) {
+    throw error
+  }
 
   const onSubmit = form.handleSubmit((values) => {
     addSemester({ semesterName: values.year + values.term })

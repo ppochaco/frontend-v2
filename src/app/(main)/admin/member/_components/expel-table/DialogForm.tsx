@@ -15,12 +15,20 @@ export const ExpelMemberDialogForm = ({
   userId,
   setDialogOpen,
 }: ExpelMemberDialogFormProps) => {
-  const { mutate: expelUser, isPending } = useMutation({
+  const {
+    mutate: expelUser,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: expelUserApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
   const { toast } = useToast()
+
+  if (error) {
+    throw error
+  }
 
   const onSuccess = (message: string) => {
     queryClient.invalidateQueries({

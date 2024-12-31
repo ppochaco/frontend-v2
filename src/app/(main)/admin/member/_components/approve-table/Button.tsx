@@ -9,17 +9,33 @@ type ApproveMemberButtonProps = {
 }
 
 export const ApproveMemberButton = ({ userId }: ApproveMemberButtonProps) => {
-  const { mutate: approveUser, isPending: isPendingApprove } = useMutation({
+  const {
+    mutate: approveUser,
+    isPending: isPendingApprove,
+    error: approveError,
+  } = useMutation({
     mutationFn: approveUserApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
-  const { mutate: rejectUser, isPending: isPendingReject } = useMutation({
+  const {
+    mutate: rejectUser,
+    isPending: isPendingReject,
+    error: rejectError,
+  } = useMutation({
     mutationFn: rejectUserApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
   const { toast } = useToast()
+
+  if (approveError) {
+    throw approveError
+  }
+
+  if (rejectError) {
+    throw rejectError
+  }
 
   const onSuccess = (message: string) => {
     queryClient.invalidateQueries({ queryKey: AdminUserQuries.all() })

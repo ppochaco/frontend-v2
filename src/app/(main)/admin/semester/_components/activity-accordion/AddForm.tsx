@@ -23,7 +23,11 @@ type AddActivityFormProps = {
 }
 
 export const AddActivityForm = ({ semesterId }: AddActivityFormProps) => {
-  const { mutate: addActivity, isPending } = useMutation({
+  const {
+    mutate: addActivity,
+    isPending,
+    error,
+  } = useMutation({
     mutationFn: addActivityApi,
     onSuccess: (data) => onSuccess(data.message),
   })
@@ -37,6 +41,10 @@ export const AddActivityForm = ({ semesterId }: AddActivityFormProps) => {
   })
 
   const [message, setMessage] = useState('')
+
+  if (error && !isPending) {
+    throw error
+  }
 
   const onSubmit = form.handleSubmit(
     (value: AddActivity) => {
