@@ -2,6 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query'
 
+import { Spinner } from '@/components/common'
+import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { userQueries } from '@/service/api/mypage'
 import { useMyInfoStore } from '@/store/myInfo'
 
@@ -10,11 +12,28 @@ import { UserInfoSection, UserSocialInfoSection } from './_components'
 const MyPage = () => {
   const { userId } = useMyInfoStore((state) => state.getMyInfo())
 
-  const { data: userInfo } = useQuery(userQueries.userInfo({ userId: userId }))
+  const {
+    data: userInfo,
+    isPending: userInfoPending,
+    error: userInfoError,
+  } = useQuery(userQueries.userInfo({ userId: userId }))
 
-  const { data: userProfile } = useQuery(
-    userQueries.profile({ userId: userId }),
-  )
+  const {
+    data: userProfile,
+    isPending: userProfilePending,
+    error: userProfileError,
+  } = useQuery(userQueries.profile({ userId: userId }))
+
+  if (userInfoPending || userProfilePending)
+    return (
+      <div className="flex h-screen w-full items-center justify-center">
+        <Spinner />
+      </div>
+    )
+
+  if (userInfoError || userProfileError) {
+    throw new Error(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+  }
 
   return (
     <div className="mt-1 flex w-full flex-col items-center justify-center">
