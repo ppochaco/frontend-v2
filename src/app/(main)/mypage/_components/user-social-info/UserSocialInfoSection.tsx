@@ -79,6 +79,12 @@ export const UserSocialInfoSection = ({
   const onClickEdit = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault()
     setIsEditing(!isEditing)
+
+    if (isEditing) {
+      form.reset()
+    }
+
+    setIsEditing(!isEditing)
   }
 
   return (
@@ -91,7 +97,7 @@ export const UserSocialInfoSection = ({
           <div className="hidden flex-row items-center justify-end gap-2 md:flex">
             <Button
               variant="outline"
-              onClick={onClickEdit}
+              onClick={(e) => onClickEdit(e)}
               className="text-destructive"
             >
               {isEditing ? '취소' : '수정'}
@@ -114,7 +120,7 @@ export const UserSocialInfoSection = ({
                       <div className="flex flex-row items-center justify-end gap-2 md:hidden">
                         <Button
                           variant="outline"
-                          onClick={onClickEdit}
+                          onClick={(e) => onClickEdit(e)}
                           className="text-destructive"
                           size="sm"
                         >
@@ -174,7 +180,6 @@ export const UserSocialInfoSection = ({
                               placeholder="GitHub 계정"
                               {...field}
                               value={field.value}
-                              autoFocus
                             />
                           ) : (
                             <span>{field.value || initialGithubInfo}</span>
@@ -198,7 +203,6 @@ export const UserSocialInfoSection = ({
                               placeholder="Instagram 계정"
                               {...field}
                               value={field.value}
-                              autoFocus
                             />
                           ) : (
                             <span>{field.value || initialInstagramInfo}</span>
