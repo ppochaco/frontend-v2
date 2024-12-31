@@ -1,24 +1,29 @@
 'use client'
 
 import { useMutation } from '@tanstack/react-query'
-import { useRouter } from 'next/navigation'
 
+import { useToast } from '@/components/ui'
 import { logoutApi } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 
 export const LogoutButton = () => {
-  const router = useRouter()
   const clearMyInfo = useMyInfoStore((state) => state.clearMyInfo)
 
   const { mutate: logout } = useMutation({
     mutationFn: logoutApi,
+    onSuccess: (data) => onSuccess(data.message),
   })
 
-  const onClick = () => {
-    logout()
+  const { toast } = useToast()
+
+  const onSuccess = (message: string) => {
     clearMyInfo()
-    router.refresh()
+
+    toast({
+      title: message,
+      duration: 2000,
+    })
   }
 
-  return <button onClick={onClick}>로그아웃</button>
+  return <button onClick={() => logout()}>로그아웃</button>
 }
