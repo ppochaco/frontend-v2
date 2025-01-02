@@ -23,14 +23,13 @@ export default function ActivityRedirectPage({ params }: ActivityParams) {
   const { data: activities } = useSuspenseQuery(
     activityQueries.list({ semesterId: Number(params.semesterId) }),
   )
-  const { error } = useSuspenseQuery(
+
+  useSuspenseQuery(
     activityQueries.detail({
       semesterId: Number(params.semesterId),
       activityId: Number(params.activityId),
     }),
   )
-
-  if (error) return <div>404페이지</div>
 
   return (
     <div className="flex w-full flex-col items-center gap-2">
