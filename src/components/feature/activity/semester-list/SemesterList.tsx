@@ -17,13 +17,16 @@ type SemesterListProps = {
 }
 
 export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
-  const previousIndex = Math.max((semester.index ?? 0) - 1, 0)
+  const currentIndex =
+    semesters.find((s) => s.semesterId === semester.semesterId)?.index ?? 0
+
+  const previousIndex = Math.max((currentIndex ?? 0) - 1, 0)
   const nextIndex = Math.min(
-    (semester.index ?? semesters.length - 1) + 1,
+    (currentIndex ?? semesters.length - 1) + 1,
     semesters.length - 1,
   )
 
-  const visibleSemesters = getVisibleSemesterList(semesters, semester)
+  const visibleSemesters = getVisibleSemesterList(semesters, currentIndex)
 
   return (
     <Pagination className="pt-3">
@@ -31,7 +34,7 @@ export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
         <PaginationItem>
           <PaginationPrevious
             href={`/activity/${semesters[previousIndex].semesterId}`}
-            disabled={semester?.index === 0}
+            disabled={currentIndex === 0}
           />
         </PaginationItem>
         <PaginationItem>
@@ -53,7 +56,7 @@ export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
         <PaginationItem>
           <PaginationNext
             href={`/activity/${semesters[nextIndex].semesterId}`}
-            disabled={semester.index === semesters.length - 1}
+            disabled={currentIndex === semesters.length - 1}
           />
         </PaginationItem>
       </PaginationContent>
@@ -63,10 +66,8 @@ export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
 
 const getVisibleSemesterList = (
   semesters: Semester[],
-  currentSemester?: Semester,
+  currentIndex: number,
 ) => {
-  const currentIndex = currentSemester?.index ?? semesters.length - 1
-
   const endIndex = Math.min(semesters.length - 1, currentIndex + 1)
   const startIndex = Math.max(0, endIndex - 2)
 
