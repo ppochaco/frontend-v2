@@ -30,7 +30,7 @@ export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
       <PaginationContent>
         <PaginationItem>
           <PaginationPrevious
-            href={`/activity/${semesters[previousIndex].semesterId}/-1`}
+            href={`/activity/${semesters[previousIndex].semesterId}`}
             disabled={semester?.index === 0}
           />
         </PaginationItem>
@@ -41,7 +41,7 @@ export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
             return (
               <PaginationLink
                 key={visibleSemester.semesterId}
-                href={`/activity/${visibleSemester.semesterId}/-1`}
+                href={`/activity/${visibleSemester.semesterId}`}
                 isActive={isActive}
                 className={cn(!isActive && 'text-primary/60')}
               >
@@ -52,7 +52,7 @@ export const SemesterList = ({ semester, semesters }: SemesterListProps) => {
         </PaginationItem>
         <PaginationItem>
           <PaginationNext
-            href={`/activity/${semesters[nextIndex].semesterId}/-1`}
+            href={`/activity/${semesters[nextIndex].semesterId}`}
             disabled={semester.index === semesters.length - 1}
           />
         </PaginationItem>

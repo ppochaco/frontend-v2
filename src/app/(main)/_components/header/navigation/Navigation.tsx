@@ -15,7 +15,7 @@ export const Navigation = () => {
 export const navigationLinks = [
   {
     name: '활동',
-    href: '/activity/-1/-1',
+    href: '/activity',
   },
   {
     name: '행사',
