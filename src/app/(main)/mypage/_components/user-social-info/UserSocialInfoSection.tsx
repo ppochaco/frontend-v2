@@ -217,7 +217,7 @@ export const UserSocialInfoSection = ({
           </div>
         </form>
       </Form>
-      <div className="mb-5 mt-5 border-t border-border md:hidden" />
+      <div className="mb-5 mt-5 hidden border-t border-border md:flex" />
       <div className="mt-3 flex flex-col gap-5 md:flex-row md:justify-between">
         <div className="flex flex-col gap-3 md:mt-2">
           <div className="text-lg font-bold text-primary md:text-xl">
