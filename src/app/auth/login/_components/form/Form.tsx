@@ -65,7 +65,11 @@ export const LoginForm = () => {
       )
 
       if (myInfo) {
-        setMyInfo({ userName: myInfo.userName, role: myInfo.role })
+        setMyInfo({
+          userId: myInfo.userId,
+          userName: myInfo.userName,
+          role: myInfo.role,
+        })
         router.push('/')
         form.reset(form.getValues())
       }
