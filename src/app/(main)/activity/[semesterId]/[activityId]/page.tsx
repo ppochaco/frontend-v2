@@ -2,15 +2,10 @@
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
+import { ActivityHero, ActivityList, SemesterList } from '@/components/feature'
 import { activityQueries, semesterQueries } from '@/service/api'
 
-import {
-  ActivityBoardList,
-  ActivityHero,
-  ActivityList,
-  CreateBoardButton,
-  SemesterList,
-} from './_components'
+import { ActivityBoardList, CreateBoardButton } from './_components'
 
 type ActivityParams = {
   params: {

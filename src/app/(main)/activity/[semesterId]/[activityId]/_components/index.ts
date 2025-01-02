@@ -1,6 +1,2 @@
-export { default as ActivityErrorFallback } from './ErrorFallback'
-export * from './semester-list'
-export * from './hero'
-export * from './acitivity-list'
 export * from './board-list'
 export * from './create-board-button'

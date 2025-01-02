@@ -5,13 +5,9 @@ import { useEffect } from 'react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
+import { ActivityHero, SemesterListSkeleton } from '@/components/feature'
 import { semesterQueries } from '@/service/api'
 import { Semester } from '@/types/activity'
-
-import {
-  ActivityHero,
-  SemesterListSkeleton,
-} from './[semesterId]/[activityId]/_components'
 
 interface ActivityRedirectProps {
   semesters: Semester[]

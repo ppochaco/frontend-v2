@@ -1,12 +1,9 @@
 import { ReactNode } from 'react'
 
 import { ErrorHandlingWrapper } from '@/components/common'
+import { ActivityHero, SemesterListSkeleton } from '@/components/feature'
 
-import {
-  ActivityErrorFallback,
-  ActivityHero,
-  SemesterListSkeleton,
-} from './[semesterId]/[activityId]/_components'
+import { ActivityErrorFallback } from './_components'
 
 export default function SemesterRedirectLayout({
   children,

@@ -5,14 +5,13 @@ import { useEffect } from 'react'
 import { useSuspenseQuery } from '@tanstack/react-query'
 import { useRouter } from 'next/navigation'
 
-import { activityQueries, semesterQueries } from '@/service/api'
-import { Activity, Semester } from '@/types/activity'
-
 import {
   ActivityHero,
-  ActivitySkeleton,
+  ActivityListSkeleton,
   SemesterList,
-} from './[activityId]/_components'
+} from '@/components/feature'
+import { activityQueries, semesterQueries } from '@/service/api'
+import { Activity, Semester } from '@/types/activity'
 
 type ActivityRedirectParams = {
   params: {
@@ -42,7 +41,7 @@ const ActivityRedirect = ({
     <div className="flex flex-col items-center gap-2">
       <ActivityHero />
       <SemesterList semester={semester} semesters={semesters} />
-      <ActivitySkeleton />
+      <ActivityListSkeleton />
     </div>
   )
 }
