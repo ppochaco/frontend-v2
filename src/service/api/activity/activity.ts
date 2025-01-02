@@ -32,6 +32,7 @@ export const activityQueries = {
       queryKey: [...activityQueries.lists(), semesterId],
       queryFn: async () => getActivities({ semesterId }),
       enabled: !!semesterId,
+      staleTime: 1000 * 60 * 5,
     }),
   details: () => [...activityQueries.all(), 'detail'],
   detail: ({ semesterId, activityId }: GetActivityDetailRequest) =>
@@ -39,5 +40,6 @@ export const activityQueries = {
       queryKey: [...activityQueries.details(), semesterId, activityId],
       queryFn: async () => getActivityDetail({ semesterId, activityId }),
       enabled: !!semesterId,
+      staleTime: 1000 * 60 * 5,
     }),
 }

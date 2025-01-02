@@ -24,11 +24,13 @@ export const semesterQueries = {
     queryOptions({
       queryKey: [...semesterQueries.all()],
       queryFn: async () => getSemesters(),
+      staleTime: 1000 * 60 * 5,
     }),
   details: () => [...semesterQueries.all(), 'detail'],
   detail: ({ semesterId }: GetSemesterRequest) =>
     queryOptions({
       queryKey: [...semesterQueries.details(), semesterId],
       queryFn: () => getSemester({ semesterId }),
+      staleTime: 1000 * 60 * 5,
     }),
 }
