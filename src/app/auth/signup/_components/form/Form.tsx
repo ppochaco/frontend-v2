@@ -16,8 +16,8 @@ import {
   CheckUserIdField,
   SignupCheckboxField,
   SignupInputField,
+  VerifyUserEmailField,
 } from './field'
-import { VerifyUserEmailField } from './field/input/check-field/VerifyUserEmailField'
 import { SignupSuccessDialog } from './success-dialog'
 
 export const SignupForm = () => {
