@@ -25,6 +25,7 @@ export const SignupSchema = z.object({
     }),
   confirmPassword: z.string(),
   email: z.string(),
+  code: z.string(),
   studentNumber: z.string().regex(/^[0-9]{10}$/, {
     message: '학번은 10자여야 합니다.',
   }),
