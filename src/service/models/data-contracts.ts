@@ -141,6 +141,7 @@ export interface JoinRequestDto {
    * @example "조대성"
    */
   userName: string
+  code: string
 }
 
 export interface EmailVerificationCodeRequestDto {
