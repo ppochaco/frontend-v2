@@ -12,17 +12,22 @@ import { signupApi } from '@/service/api'
 
 import {
   CheckStudentNumberField,
+  CheckUserEmailField,
   CheckUserIdField,
   SignupCheckboxField,
   SignupInputField,
 } from './field'
+import { VerifyUserEmailField } from './field/input/check-field/VerifyUserEmailField'
 import { SignupSuccessDialog } from './success-dialog'
 
 export const SignupForm = () => {
   const { mutate: signup, isPending } = useMutation({ mutationFn: signupApi })
+
   const [isValid, setIsValid] = useState({
     userId: false,
     studentNumber: false,
+    userEmail: false,
+    code: false,
   })
 
   const form = useForm<Signup>({
@@ -32,6 +37,7 @@ export const SignupForm = () => {
       userId: '',
       password: '',
       email: '',
+      code: '',
       confirmPassword: '',
       studentNumber: '',
       userName: '',
@@ -51,7 +57,11 @@ export const SignupForm = () => {
         throw new Error('학번 중복 확인을 진행해주세요.')
       }
 
-      const { userId, password, email, studentNumber, userName } =
+      if (!isValid.userEmail) {
+        throw new Error('이메일 인증을 진행해주세요.')
+      }
+
+      const { userId, password, email, code, studentNumber, userName } =
         form.getValues()
 
       signup({
@@ -59,6 +69,7 @@ export const SignupForm = () => {
           userId,
           password,
           email,
+          code,
           studentNumber: Number(studentNumber),
           userName,
         },
@@ -101,6 +112,26 @@ export const SignupForm = () => {
             formLabel="비밀번호 확인"
             placeholder="********"
             formDescription="- 비밀번호는 영문, 숫자, 특수문자를 포함해 8~20자로 입력해주세요."
+          />
+        </div>
+        <div className="space-y-2">
+          <CheckUserEmailField
+            name="userEmail"
+            formLabel="이메일"
+            placeholder="hobanu@knu.ac.kr"
+            isValid={isValid.userEmail}
+            setIsValid={(valid: boolean) =>
+              setIsValid((prev) => ({ ...prev, userEmail: valid }))
+            }
+          />
+          <VerifyUserEmailField
+            name="code"
+            formLabel="인증번호"
+            placeholder="123abc"
+            isValid={isValid.code}
+            setIsValid={(valid: boolean) =>
+              setIsValid((prev) => ({ ...prev, code: valid }))
+            }
           />
         </div>
         <div className="space-y-2">
