@@ -2,6 +2,8 @@ import { BACKEND_API } from '@/service/config'
 import {
   CheckStudentNumberRequest,
   CheckUserIdRequest,
+  EmailRequestDto,
+  EmailVerificationCodeRequestDto,
   Join,
   SignupRequest,
 } from '@/service/models'
@@ -27,6 +29,24 @@ export const checkStudentNumberApi = async ({
   const response = await signupClient.checkStudentNumberDuplicate({
     studentNumber,
   })
+
+  return response.data
+}
+
+export const checkUserEmailApi = async ({ email }: EmailRequestDto) => {
+  const signupClient = new Join(BACKEND_API)
+  const response = await signupClient.sendVerificationCode({ email })
+
+  return response.data
+}
+
+export const verifyUserEmailApi = async ({
+  email,
+  userId,
+  code,
+}: EmailVerificationCodeRequestDto) => {
+  const signupClient = new Join(BACKEND_API)
+  const response = await signupClient.verifyCode({ email, userId, code })
 
   return response.data
 }
