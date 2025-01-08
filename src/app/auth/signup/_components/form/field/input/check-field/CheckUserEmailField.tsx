@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import { useMutation } from '@tanstack/react-query'
@@ -54,7 +54,9 @@ export const CheckUserEmailField = ({
 
   const email = form.getValues(name)
 
-  setUserEmail(email)
+  useEffect(() => {
+    setUserEmail(email)
+  }, [email, setUserEmail])
 
   const onClick = () => {
     checkUserEmail({ email })
@@ -69,11 +71,6 @@ export const CheckUserEmailField = ({
     if (error instanceof AxiosError) {
       if (error.response?.status === 409) {
         setMessage(error.response?.data.message)
-        return
-      }
-
-      if (error.response?.status === 400) {
-        setMessage('유효하지 않는 학번입니다. ')
         return
       }
     }
