@@ -85,6 +85,7 @@ export const SignupForm = () => {
   }
 
   const [open, setOpen] = useState(false)
+  const [userEmail, setUserEmail] = useState('')
 
   return (
     <Form {...form}>
@@ -115,26 +116,6 @@ export const SignupForm = () => {
           />
         </div>
         <div className="space-y-2">
-          <CheckUserEmailField
-            name="userEmail"
-            formLabel="이메일"
-            placeholder="hobanu@knu.ac.kr"
-            isValid={isValid.userEmail}
-            setIsValid={(valid: boolean) =>
-              setIsValid((prev) => ({ ...prev, userEmail: valid }))
-            }
-          />
-          <VerifyUserEmailField
-            name="code"
-            formLabel="인증번호"
-            placeholder="123abc"
-            isValid={isValid.code}
-            setIsValid={(valid: boolean) =>
-              setIsValid((prev) => ({ ...prev, code: valid }))
-            }
-          />
-        </div>
-        <div className="space-y-2">
           <CheckStudentNumberField
             type="number"
             name="studentNumber"
@@ -149,6 +130,28 @@ export const SignupForm = () => {
             name="userName"
             formLabel="이름"
             placeholder="호반우"
+          />
+        </div>
+        <div className="space-y-2">
+          <CheckUserEmailField
+            name="userEmail"
+            formLabel="이메일"
+            placeholder="hobanu@knu.ac.kr"
+            isValid={isValid.userEmail}
+            setUserEmail={setUserEmail}
+            setIsValid={(valid: boolean) =>
+              setIsValid((prev) => ({ ...prev, userEmail: valid }))
+            }
+          />
+          <VerifyUserEmailField
+            name="code"
+            formLabel="인증번호"
+            placeholder="123abc"
+            isValid={isValid.code}
+            userEmail={userEmail}
+            setIsValid={(valid: boolean) =>
+              setIsValid((prev) => ({ ...prev, code: valid }))
+            }
           />
         </div>
         <SignupCheckboxField

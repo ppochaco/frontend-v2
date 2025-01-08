@@ -22,6 +22,7 @@ import { SignupInputFieldProps } from '../InputField'
 
 interface VerifyUserEmailFieldProps extends SignupInputFieldProps {
   isValid: boolean
+  userEmail: string
   setIsValid: (isValid: boolean) => void
 }
 
@@ -31,6 +32,7 @@ export const VerifyUserEmailField = ({
   placeholder,
   formDescription,
   isValid,
+  userEmail,
   setIsValid,
 }: VerifyUserEmailFieldProps) => {
   const form = useFormContext()
@@ -44,10 +46,11 @@ export const VerifyUserEmailField = ({
     onError: (error: Error) => onError(error),
   })
 
+  const { userId, code } = form.getValues()
+
   const onClick = () => {
-    const { email, userId, code } = form.getValues()
     verifyUserEmail({
-      email,
+      email: userEmail,
       userId,
       code,
     })
