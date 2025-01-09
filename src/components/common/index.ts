@@ -7,5 +7,6 @@ export { IconButton } from './IconButton'
 
 export * from './PageBreadcrumb'
 export * from './error-boundary'
+export * from './not-found'
 
 export { default as MainErrorFallback } from './MainErrorFallback'
