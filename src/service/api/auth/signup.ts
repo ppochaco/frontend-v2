@@ -1,3 +1,5 @@
+'use client'
+
 import { BACKEND_API } from '@/service/config'
 import {
   CheckStudentNumberRequest,

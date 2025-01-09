@@ -1,3 +1,5 @@
+'use client'
+
 import convertSemesterFormat from '@/utils/convert-semester'
 import { queryOptions } from '@tanstack/react-query'
 
