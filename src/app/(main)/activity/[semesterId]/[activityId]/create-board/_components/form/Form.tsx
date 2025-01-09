@@ -4,7 +4,9 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { CrossCircledIcon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 
 import {
@@ -32,6 +34,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
   const { mutate: addBoard, isPending } = useMutation({
     mutationFn: addBoardApi,
     onSuccess: (data) => onSuccess(data.message),
+    onError: (error) => onError(error),
   })
   const { toast } = useToast()
 
@@ -58,6 +61,27 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
 
     queryClient.invalidateQueries({ queryKey: boardQueries.lists(activityId) })
     router.push(basePath)
+  }
+
+  const onError = (error: Error) => {
+    if (error instanceof AxiosError && error.response) {
+      const { code, errors } = error.response.data
+
+      if (code === 'COMMON_001') {
+        toast({
+          description: (
+            <div className="flex items-center font-semibold">
+              <CrossCircledIcon className="mr-2 h-5 w-5 text-white" />
+              {
+                errors[0].field
+              }에는 {errors[0].message}
+            </div>
+          ),
+
+          variant: 'destructive',
+        })
+      }
+    }
   }
 
   return (
