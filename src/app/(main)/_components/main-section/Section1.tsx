@@ -4,8 +4,8 @@ export const Section1 = () => {
   return (
     <Content className="bg-primary px-10 py-40 text-white md:px-10">
       <div className="flex w-full flex-1 flex-col gap-10">
-        <div className="flex w-full flex-col gap-2 text-4xl">
-          <div>경북대학교 IT대학 학술동아리 </div>
+        <div className="flex w-full flex-col gap-2">
+          <div className="text-4xl">경북대학교 IT대학 학술동아리 </div>
           <div className="text-5xl">HAEDAL</div>
         </div>
         <div className="flex flex-col gap-2 text-lg">
