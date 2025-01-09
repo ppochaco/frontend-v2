@@ -17,7 +17,7 @@ export default function NotFoundPage() {
       </Content>
       <div className="mt-16 flex h-full flex-1 flex-col items-center pt-20 text-primary/90">
         <div className="pb-2 text-9xl">404</div>
-        <div className="text-xl">앗! 페이지가 존재하지 않아요</div>
+        <div className="text-xl">해당 페이지를 찾을 수 없습니다.</div>
         <div className="flex justify-center gap-4 pt-4">
           <Button variant="secondary" onClick={() => router.back()}>
             이전으로
