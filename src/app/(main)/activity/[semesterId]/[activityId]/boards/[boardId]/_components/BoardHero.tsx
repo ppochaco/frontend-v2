@@ -1,3 +1,4 @@
+import { TrashIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
@@ -68,12 +69,13 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
       {role === 'ROLE_ADMIN' && (
         <div className="flex justify-end">
           <Button
-            variant="link"
-            className="text-primary/60"
+            variant="outline"
             onClick={() => deleteBoard({ boardId, activityId })}
             disabled={isPending}
+            className="mb-3 gap-1 px-2 text-primary/70"
           >
-            게시판 삭제하기
+            <TrashIcon />
+            <div>삭제하기</div>
           </Button>
         </div>
       )}
