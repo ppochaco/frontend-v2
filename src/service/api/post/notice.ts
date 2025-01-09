@@ -1,3 +1,5 @@
+'use client'
+
 import formatDateDistanceFromToday from '@/utils/date-distance'
 import { queryOptions } from '@tanstack/react-query'
 

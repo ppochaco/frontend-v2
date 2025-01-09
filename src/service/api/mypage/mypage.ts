@@ -1,3 +1,5 @@
+'use client'
+
 import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API } from '@/service/config'

@@ -1,3 +1,5 @@
+'use client'
+
 import { AUTHORIZATION_API } from '@/service/config'
 import {
   AddActivityRequest,
