@@ -9,7 +9,7 @@ export const CreateBoardButton = () => {
   const router = useRouter()
   const pathName = usePathname()
 
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   return (
     <Button

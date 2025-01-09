@@ -20,7 +20,7 @@ type CreateBoardPageParams = {
 }
 
 const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
-  const { userName } = useMyInfoStore((state) => state.getMyInfo())
+  const { userName } = useMyInfoStore((state) => state.myInfo)
 
   const {
     data: semester,

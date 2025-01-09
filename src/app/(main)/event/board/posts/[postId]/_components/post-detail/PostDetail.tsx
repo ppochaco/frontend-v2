@@ -9,7 +9,7 @@ type EventPostDetailProps = {
 }
 
 export const EventPostDetail = ({ post }: EventPostDetailProps) => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   return (
     <div className="flex flex-col gap-3 py-4 text-primary">

@@ -18,7 +18,7 @@ type BoardHeroProps = {
 }
 
 export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   const { data: boardDetail, status } = useQuery(
     boardQueries.detail({ activityId, boardId }),

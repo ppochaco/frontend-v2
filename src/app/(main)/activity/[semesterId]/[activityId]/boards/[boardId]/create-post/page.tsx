@@ -29,7 +29,7 @@ const CreateActivityPostPage = ({ params }: CreatePostPageParams) => {
     }),
   )
 
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   useEffect(() => {
     if (!role?.includes(role as Role)) {
