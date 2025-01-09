@@ -68,21 +68,28 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
       >
         <BoardFormField name="boardName" label="게시판 제목">
           {(field) => (
-            <Input {...field} placeholder="게시판 제목을 입력해주세요" />
+            <Input
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="게시판 제목을 입력해주세요"
+            />
           )}
         </BoardFormField>
         <BoardFormField name="boardIntro" label="게시판 소개">
           {(field) => (
-            <Textarea {...field} placeholder="게시판 소개글을 작성해주세요" />
+            <Textarea
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="게시판 소개글을 작성해주세요"
+            />
           )}
         </BoardFormField>
         <BoardFormField name="file" label="게시판 대표 사진">
           {(field) => <ImageInput field={field} />}
         </BoardFormField>
         <BoardFormField name="participants" label="게시판 이용자">
-          {(field) => (
+          {() => (
             <SelectMemberInput
-              {...field}
               selectedMember={selectedMember}
               setSelectedMember={setSelectedMember}
             />
