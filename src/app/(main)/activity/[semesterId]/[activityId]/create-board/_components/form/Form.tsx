@@ -59,7 +59,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
       duration: 2000,
     })
 
-    queryClient.invalidateQueries({ queryKey: boardQueries.lists(activityId) })
+    queryClient.invalidateQueries({ queryKey: boardQueries.all() })
     router.push(basePath)
   }
 
