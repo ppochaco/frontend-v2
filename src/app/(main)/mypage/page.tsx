@@ -3,20 +3,19 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { Spinner } from '@/components/common'
-import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { userQueries } from '@/service/api/mypage'
 import { useMyInfoStore } from '@/store/myInfo'
 
 import { UserInfoSection, UserSocialInfoSection } from './_components'
 
-const MyPage = () => {
+export default function MyPage() {
   const { userId } = useMyInfoStore((state) => state.getMyInfo())
 
   const {
     data: userInfo,
     isPending: userInfoPending,
     error: userInfoError,
-  } = useQuery(userQueries.userInfo({ userId: userId }))
+  } = useQuery(userQueries.userInfo({ userId }))
 
   const {
     data: userProfile,
@@ -32,7 +31,7 @@ const MyPage = () => {
     )
 
   if (userInfoError || userProfileError) {
-    throw new Error(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+    return <div>error</div>
   }
 
   return (
@@ -57,5 +56,3 @@ const MyPage = () => {
     </div>
   )
 }
-
-export default MyPage
