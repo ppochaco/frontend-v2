@@ -4,14 +4,14 @@ import { useAuthStore } from '@/store/auth'
 import authErrorInterceptor from './auth-error-interceptor'
 
 const BACKEND_API = initInstance({
-  baseURL: 'https://www.knu-haedal.com/api',
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
 })
 
 const AUTHORIZATION_API = initInstance({
-  baseURL: 'https://www.knu-haedal.com/api',
+  baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   headers: {
     'Content-Type': 'application/json',
   },
