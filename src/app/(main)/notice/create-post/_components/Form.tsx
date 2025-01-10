@@ -27,7 +27,7 @@ export const CreateNoticePostForm = () => {
     defaultValues: {
       postTitle: '',
       postContent: '',
-      postType: 'NOTICE',
+      postImageIds: [],
     },
   })
 

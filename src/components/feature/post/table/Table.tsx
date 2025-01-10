@@ -7,21 +7,21 @@ import {
 } from '@tanstack/react-table'
 
 import {
-  PostSummaryResponseDto,
+  BasePostSummaryResponseDto,
   PostWithBoardSummaryResponseDto,
 } from '@/service/models'
 
 import { PostTableContent } from './TableContent'
 
 type PostTableProps = {
-  posts: PostSummaryResponseDto[] | PostWithBoardSummaryResponseDto[]
+  posts: BasePostSummaryResponseDto[] | PostWithBoardSummaryResponseDto[]
   pageNumber: number
   pageSize: number
 }
 
 export const PostTable = ({ posts, pageNumber, pageSize }: PostTableProps) => {
   const columns: ColumnDef<
-    PostSummaryResponseDto | PostWithBoardSummaryResponseDto
+    BasePostSummaryResponseDto | PostWithBoardSummaryResponseDto
   >[] = [
     {
       header: '번호',

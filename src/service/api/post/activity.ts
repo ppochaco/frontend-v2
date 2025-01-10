@@ -14,8 +14,6 @@ import {
 } from '@/service/models'
 import { Paging } from '@/types/paging'
 
-import { PostQuries } from './post'
-
 type PostPagingResponse = {
   posts: PostWithBoardSummaryResponseDto[]
 } & Paging
@@ -68,7 +66,7 @@ const getActivityPostDetail = async ({
 }
 
 export const activityPostQuries = {
-  all: () => [...PostQuries.all(), 'activity'],
+  all: () => ['post', 'activity'],
   board: (boardId: number) => [...activityPostQuries.all(), boardId],
   list: ({ boardId, page, size }: ActivityPostPagingRequest) =>
     queryOptions({

@@ -93,6 +93,80 @@ export interface PostWithBoardRequestDto {
   postActivityEndDate?: string
 }
 
+export interface BasePostSummaryResponseDto {
+  /**
+   * 게시글 id
+   * @format int64
+   */
+  postId: number
+  /** 게시글 제목 */
+  postTitle: string
+  /**
+   * 게시글 조회수
+   * @format int64
+   */
+  postViews: number
+  /**
+   * 유저 아이디
+   * @example "haedal12"
+   */
+  userId: string
+  /**
+   * 유저 이름
+   * @example "조대성"
+   */
+  userName: string
+  /**
+   * 게시글 타입
+   * @example "(NOTICE, ACTIVITY)"
+   */
+  postType: 'ACTIVITY' | 'NOTICE'
+  /**
+   * 게시글 생성일
+   * @format date-time
+   */
+  postRegDate: string
+}
+
+export interface PageBasePostSummaryResponseDto {
+  /** @format int32 */
+  totalPages: number
+  /** @format int64 */
+  totalElements: number
+  /** @format int32 */
+  size?: number
+  content: BasePostSummaryResponseDto[]
+  /** @format int32 */
+  number?: number
+  sort?: SortObject[]
+  /** @format int32 */
+  numberOfElements?: number
+  pageable: PageableObject
+  first?: boolean
+  last?: boolean
+  empty?: boolean
+}
+
+export interface BasePostRequestDto {
+  /**
+   * 게시글 이름
+   * @minLength 1
+   * @maxLength 50
+   * @example "게시글1"
+   */
+  postTitle?: string
+  /**
+   * @minLength 1
+   * @maxLength 200000
+   */
+  postContent?: string
+  /**
+   * 게시글 이미지 ID
+   * @example [1,2]
+   */
+  postImageIds?: number[]
+}
+
 export interface PostWithBoardResponseDto {
   /**
    * 게시글 id
@@ -143,36 +217,6 @@ export interface PostWithBoardResponseDto {
    * @format date
    */
   postActivityEndDate?: string
-}
-
-export interface CreatePostRequestDto {
-  /**
-   * 게시글 이름
-   * @minLength 1
-   * @maxLength 50
-   * @example "게시글1"
-   */
-  postTitle: string
-  /**
-   * @minLength 1
-   * @maxLength 200000
-   */
-  postContent: string
-  /**
-   * 활동 시작일 (이벤트와 활동은 필수, 공지사항은 생략)
-   * @example "yyyy-MM-dd (2024-07-24)"
-   */
-  postActivityStartDate?: string
-  /**
-   * 활동 종료일 (생략 가능)
-   * @example "yyyy-MM-dd (2024-07-24)"
-   */
-  postActivityEndDate?: string
-  /**
-   * 게시글 타입
-   * @example "(ACTIVITY, NOTICE)"
-   */
-  postType: string
 }
 
 export interface LoginRequestDto {
@@ -411,25 +455,6 @@ export interface ActivityResponseDto {
   semesterId: number
 }
 
-export interface PagePostSummaryResponseDto {
-  /** @format int32 */
-  totalPages: number
-  /** @format int64 */
-  totalElements: number
-  /** @format int32 */
-  size?: number
-  content: PostSummaryResponseDto[]
-  /** @format int32 */
-  number?: number
-  sort?: SortObject[]
-  /** @format int32 */
-  numberOfElements?: number
-  pageable: PageableObject
-  first?: boolean
-  last?: boolean
-  empty?: boolean
-}
-
 export interface PagePostWithBoardSummaryResponseDto {
   /** @format int32 */
   totalPages: number
@@ -449,7 +474,7 @@ export interface PagePostWithBoardSummaryResponseDto {
   empty?: boolean
 }
 
-export interface PostSummaryResponseDto {
+export interface BasePostResponseDto {
   /**
    * 게시글 id
    * @format int64
@@ -457,31 +482,23 @@ export interface PostSummaryResponseDto {
   postId: number
   /** 게시글 제목 */
   postTitle: string
-  /**
-   * 게시글 대표 이미지 파일 Url
-   * @format url
-   */
-  postImageUrl?: string
+  /** 게시글 내용 */
+  postContent: string
   /**
    * 게시글 조회수
    * @format int64
    */
   postViews: number
   /**
-   * 활동 시작일
-   * @format date
+   * 게시글 타입
+   * @example "(NOTICE, ACTIVITY)"
    */
-  postActivityStartDate?: string
-  /**
-   * 활동 종료일
-   * @format date
-   */
-  postActivityEndDate?: string
+  postType: 'ACTIVITY' | 'NOTICE'
   /**
    * 게시글 생성일
    * @format date-time
    */
-  postCreateDate: string
+  postRegDate: string
   /**
    * 유저 아이디
    * @example "haedal12"
@@ -492,13 +509,6 @@ export interface PostSummaryResponseDto {
    * @example "조대성"
    */
   userName: string
-  /**
-   * 게시판 id
-   * @format int64
-   */
-  boardId?: number
-  /** 게시판 이름 */
-  boardName?: string
 }
 
 export interface PostWithBoardSummaryResponseDto {
@@ -703,13 +713,15 @@ export interface UpdateBoardImagePayload {
 
 export type GetPostWithBoardData = PostWithBoardResponseDto
 
+export type GetNoticePostData = BasePostResponseDto
+
 export type UpdateBoardImageData = any
 
 export type ReissueData = any
 
-export type GetActivityPostsData = PagePostSummaryResponseDto
-
 export type AddNoticePostData = SuccessResponse
+
+export type RegisterNoticePostData = SuccessResponse
 
 export type SignInData = any
 
@@ -726,6 +738,8 @@ export type ResisterAdminData = SuccessResponse
 export type CommonErrorCodeDefinitionData = any
 
 export type GetPostsWithBoardData = PagePostWithBoardSummaryResponseDto
+
+export type GetNoticePostsData = PageBasePostSummaryResponseDto
 
 export type RegisterPostWithBoardData = SuccessResponse
 
@@ -782,6 +796,10 @@ export type RejectUserData = any
 export type RemoveSemesterData = any
 
 export type RemoveActivityData = any
+
+export type RemoveNoticePostData = any
+
+export type UpdateNoticePostData = any
 
 /** request type */
 export interface GetActivitiesRequest {
@@ -871,7 +889,7 @@ export interface DeleteNoticePostRequest {
 }
 
 export interface AddNoticePostRequest {
-  data: CreatePostRequestDto
+  data: BasePostRequestDto
 }
 
 export interface ActivityPostPagingRequest {
@@ -905,4 +923,8 @@ export interface GetSemesterRequest {
 
 export interface GetUserRequest {
   userId: string
+}
+
+export interface GetNoticePostDetailRequest {
+  postId: number
 }
