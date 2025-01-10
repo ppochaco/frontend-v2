@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useFormContext } from 'react-hook-form'
 
 import { useMutation } from '@tanstack/react-query'
@@ -20,25 +20,17 @@ import { checkUserEmailApi } from '@/service/api'
 
 import { SignupInputFieldProps } from '../InputField'
 
-interface CheckUserEmailFieldProps extends SignupInputFieldProps {
-  isValid: boolean
-  setUserEmail: (email: string) => void
-  setIsValid: (isValid: boolean) => void
-}
-
 export const CheckUserEmailField = ({
   name,
   formLabel,
   placeholder,
   formDescription,
-  isValid,
-  setUserEmail,
-  setIsValid,
-}: CheckUserEmailFieldProps) => {
+}: SignupInputFieldProps) => {
   const form = useFormContext()
   const { errors } = form.formState
 
   const [message, setMessage] = useState('')
+  const [isError, setIsError] = useState(false)
 
   const { mutate: checkUserEmail, isPending } = useMutation({
     mutationFn: checkUserEmailApi,
@@ -54,20 +46,19 @@ export const CheckUserEmailField = ({
 
   const email = form.getValues(name)
 
-  useEffect(() => {
-    setUserEmail(email)
-  }, [email, setUserEmail])
-
   const onClick = () => {
-    checkUserEmail({ email })
+    if (email) {
+      checkUserEmail({ email })
+    }
   }
 
   const onSuccess = (message: string) => {
-    setIsValid(true)
+    setIsError(false)
     setMessage(message)
   }
 
   const onError = (error: Error) => {
+    setIsError(true)
     if (error instanceof AxiosError) {
       if (error.response?.status === 409) {
         setMessage(error.response?.data.message)
@@ -91,7 +82,6 @@ export const CheckUserEmailField = ({
                 value={field.value || ''}
                 onChange={(e) => {
                   field.onChange(e)
-                  setIsValid(false)
                   setMessage('')
                 }}
                 placeholder={placeholder}
@@ -111,7 +101,7 @@ export const CheckUserEmailField = ({
           {message && (
             <p
               className={cn(
-                isValid ? 'text-blue-600' : 'text-red-600',
+                !isError ? 'text-blue-600' : 'text-red-600',
                 'pl-2 text-sm',
               )}
             >
