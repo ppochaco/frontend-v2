@@ -39,29 +39,24 @@ export const CheckUserIdField = ({
   const [message, setMessage] = useState('')
 
   const { mutate: checkUserId, isPending } = useMutation({
-    mutationFn: checkUserIdApi,
-    onSuccess: (data) => onSuccess(data.message),
-    onError: (error: Error) => onError(error),
+    mutationFn: () => checkUserIdApi({ userId: form.getValues(name) }),
+    onSuccess: (data) => {
+      setIsValid(true)
+      setMessage(data.message)
+    },
+    onError: (error: Error) => {
+      if (error instanceof AxiosError) {
+        if (error.response?.status === 409) {
+          setMessage(error.response?.data.message)
+          return
+        }
+      }
+      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+    },
   })
 
   const onClick = () => {
-    checkUserId(form.getValues(name))
-  }
-
-  const onSuccess = (message: string) => {
-    setIsValid(true)
-    setMessage(message)
-  }
-
-  const onError = (error: Error) => {
-    if (error instanceof AxiosError) {
-      if (error.response?.status === 409) {
-        setMessage(error.response?.data.message)
-        return
-      }
-    }
-
-    setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+    checkUserId()
   }
 
   return (
