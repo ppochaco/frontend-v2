@@ -63,7 +63,7 @@ export const MultipleMemberSelect = ({
           ))}
           <CommandPrimitive.Input
             value={inputValue}
-            onValueChange={(value) => setInputValue(value)}
+            onValueChange={setInputValue}
             onBlur={() => setIsOpen(false)}
             onClick={() => setIsOpen((prev) => !prev)}
             placeholder="게시판 이용자를 입력해주세요."

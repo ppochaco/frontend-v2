@@ -18,7 +18,7 @@ export const ActivityPostDetail = ({
   boardId,
   post,
 }: ActivityPostDetailProps) => {
-  const { userId } = useMyInfoStore((state) => state.getMyInfo())
+  const { userId } = useMyInfoStore((state) => state.myInfo)
 
   const { mutate: deleteActivityPost, isPending } = useMutation({
     mutationFn: deleteActivityPostApi,

@@ -18,7 +18,10 @@ export const CreateBoardSchema = z.object({
     .refine((f) => !!f.name, {
       message: '게시판 대표 사진을 선택해주세요.',
     }),
-  participants: z.string().array(),
+  participants: z
+    .string()
+    .array()
+    .min(1, { message: '참여 인원은 최소 한 명 이상이어야 합니다.' }),
 })
 
 export type CreateBoard = z.infer<typeof CreateBoardSchema>

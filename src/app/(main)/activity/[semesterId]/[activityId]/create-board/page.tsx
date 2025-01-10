@@ -20,40 +20,41 @@ type CreateBoardPageParams = {
 }
 
 const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
-  const { userName } = useMyInfoStore((state) => state.getMyInfo())
+  const { userName } = useMyInfoStore((state) => state.myInfo)
 
   const {
     data: semester,
-    status,
-    error,
+    status: semesterStatus,
+    error: semesterError,
   } = useQuery(
     semesterQueries.detail({ semesterId: Number(params.semesterId) }),
   )
-  const { data: activities } = useQuery(
-    activityQueries.list({ semesterId: Number(params.semesterId) }),
+  const {
+    data: activity,
+    status: activityStatus,
+    error: activityError,
+  } = useQuery(
+    activityQueries.detail({
+      semesterId: Number(params.semesterId),
+      activityId: Number(params.activityId),
+    }),
   )
 
-  const currentActivity = activities?.find(
-    (activity) => activity.activityId === Number(params.activityId),
-  )
-
-  if (!currentActivity?.activityName) return <CreateBoardSkeleton />
-
-  if (status === 'pending') {
+  if (semesterStatus === 'pending' || activityStatus === 'pending') {
     return <CreateBoardSkeleton />
   }
 
-  if (error) return <div>{error.message}</div>
+  if (semesterError || activityError) return <div>not found</div>
 
   return (
     <div className="w-full pt-10">
       <CreateBoardHero />
       <CreateBoardDetail
         semesterName={semester.semesterName}
-        activityName={currentActivity.activityName}
+        activityName={activity.activityName}
         userName={userName}
       />
-      <CreateBoardForm activityId={Number(currentActivity.activityId)} />
+      <CreateBoardForm activityId={activity.activityId} />
     </div>
   )
 }

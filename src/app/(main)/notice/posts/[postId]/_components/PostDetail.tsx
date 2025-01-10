@@ -14,7 +14,7 @@ interface NoticePostDetailProps {
 }
 
 export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   const { mutate: deleteNoticePost, isPending } = useMutation({
     mutationFn: deleteNoticePostApi,

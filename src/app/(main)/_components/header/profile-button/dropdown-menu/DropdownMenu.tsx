@@ -15,7 +15,7 @@ import { UserAvatar } from '../UserAvatar'
 import { LogoutButton } from './LogoutButton'
 
 export const ProfileDropdownMenu = () => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   return (
     <DropdownMenu modal={false}>

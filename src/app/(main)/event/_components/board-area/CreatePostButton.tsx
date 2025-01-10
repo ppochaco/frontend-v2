@@ -11,7 +11,7 @@ export const CreatePostButton = () => {
   const pathName = usePathname()
   const router = useRouter()
 
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
   const [disabled, setDisabled] = useState(true)
 
   useEffect(() => {

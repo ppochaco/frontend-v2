@@ -8,7 +8,7 @@ import { useMyInfoStore } from '@/store/myInfo'
 import { CreateEventPostForm, CreateEventPostHero } from './_components'
 
 const CreateEventPost = () => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   useEffect(() => {
     if (role !== 'ROLE_ADMIN') {

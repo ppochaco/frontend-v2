@@ -9,7 +9,7 @@ import { useMyInfoStore } from '@/store/myInfo'
 import { UserInfoSection, UserSocialInfoSection } from './_components'
 
 export default function MyPage() {
-  const { userId } = useMyInfoStore((state) => state.getMyInfo())
+  const { userId } = useMyInfoStore((state) => state.myInfo)
 
   const {
     data: userInfo,
