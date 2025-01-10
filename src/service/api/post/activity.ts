@@ -9,14 +9,13 @@ import {
   AddActivityPostRequest,
   Boards,
   DeleteActivityPostRequest,
-  PostSummaryResponseDto,
+  GetActivityPostDetailRequest,
+  PostWithBoardSummaryResponseDto,
 } from '@/service/models'
 import { Paging } from '@/types/paging'
 
-import { PostQuries } from './post'
-
 type PostPagingResponse = {
-  posts: PostSummaryResponseDto[]
+  posts: PostWithBoardSummaryResponseDto[]
 } & Paging
 
 const activityPostPaging = async ({
@@ -25,13 +24,13 @@ const activityPostPaging = async ({
   size = 10,
 }: ActivityPostPagingRequest): Promise<PostPagingResponse> => {
   const postClient = new Boards(BACKEND_API)
-  const response = await postClient.getActivityPosts1(boardId, { page, size })
+  const response = await postClient.getPostsWithBoard(boardId, { page, size })
 
   const { data } = response
 
   const posts = data.content.map((post) => {
     const formatCreateDate = formatDateDistanceFromToday(
-      new Date(post.postCreateDate),
+      new Date(post.postRegDate),
     )
 
     if (!formatCreateDate) return post
@@ -56,13 +55,28 @@ const activityPostPaging = async ({
   }
 }
 
+const getActivityPostDetail = async ({
+  boardId,
+  postId,
+}: GetActivityPostDetailRequest) => {
+  const boardClient = new Boards(BACKEND_API)
+  const response = await boardClient.getPostWithBoard(boardId, postId)
+
+  return response.data
+}
+
 export const activityPostQuries = {
-  all: () => [...PostQuries.all(), 'activity'],
+  all: () => ['post', 'activity'],
   board: (boardId: number) => [...activityPostQuries.all(), boardId],
   list: ({ boardId, page, size }: ActivityPostPagingRequest) =>
     queryOptions({
       queryKey: [...activityPostQuries.board(boardId), page],
       queryFn: async () => activityPostPaging({ boardId, page, size }),
+    }),
+  detail: ({ boardId, postId }: GetActivityPostDetailRequest) =>
+    queryOptions({
+      queryKey: [...activityPostQuries.board(boardId), 'detail'],
+      queryFn: async () => getActivityPostDetail({ boardId, postId }),
     }),
 }
 
@@ -81,7 +95,7 @@ export const addActivityPostApi = async ({
   data,
 }: AddActivityPostRequest) => {
   const postClient = new Boards(AUTHORIZATION_API)
-  const response = await postClient.addPost(boardId, data)
+  const response = await postClient.registerPostWithBoard(boardId, data)
 
   return response.data
 }

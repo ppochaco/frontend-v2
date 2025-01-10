@@ -24,7 +24,11 @@ export const SignupSchema = z.object({
       message: '비밀번호는 영문, 숫자, 특수문자를 혼용하여 설정해야 합니다.',
     }),
   confirmPassword: z.string(),
-  email: z.string(),
+  email: z
+    .string()
+    .email({ message: '이메일 형식이 올바르지 않습니다.' })
+    .min(1, { message: '이메일을 입력해주세요.' }),
+  code: z.string(),
   studentNumber: z.string().regex(/^[0-9]{10}$/, {
     message: '학번은 10자여야 합니다.',
   }),

@@ -12,17 +12,25 @@ import { signupApi } from '@/service/api'
 
 import {
   CheckStudentNumberField,
+  CheckUserEmailField,
   CheckUserIdField,
   SignupCheckboxField,
   SignupInputField,
+  VerifyUserEmailField,
 } from './field'
 import { SignupSuccessDialog } from './success-dialog'
 
 export const SignupForm = () => {
-  const { mutate: signup, isPending } = useMutation({ mutationFn: signupApi })
+  const { mutate: signup, isPending } = useMutation({
+    mutationFn: signupApi,
+    onSuccess: () => setOpen(true),
+  })
+
   const [isValid, setIsValid] = useState({
     userId: false,
     studentNumber: false,
+    email: false,
+    code: false,
   })
 
   const form = useForm<Signup>({
@@ -32,6 +40,7 @@ export const SignupForm = () => {
       userId: '',
       password: '',
       email: '',
+      code: '',
       confirmPassword: '',
       studentNumber: '',
       userName: '',
@@ -51,6 +60,10 @@ export const SignupForm = () => {
         throw new Error('학번 중복 확인을 진행해주세요.')
       }
 
+      if (!isValid.code) {
+        throw new Error('이메일 인증을 진행해주세요.')
+      }
+
       const { userId, password, email, studentNumber, userName } =
         form.getValues()
 
@@ -65,7 +78,7 @@ export const SignupForm = () => {
       })
     } catch (error) {
       if (error instanceof Error) {
-        if (!isValid.userId || !isValid.studentNumber)
+        if (!isValid.userId || !isValid.studentNumber || !isValid.code)
           toast({
             title: error.message,
           })
@@ -118,6 +131,31 @@ export const SignupForm = () => {
             name="userName"
             formLabel="이름"
             placeholder="호반우"
+          />
+        </div>
+        <div className="space-y-2">
+          <CheckUserEmailField
+            name="email"
+            formLabel="이메일"
+            placeholder="hobanu@knu.ac.kr"
+            formDescription="아이디 중복 검사를 먼저 진행한 후, 이메일 인증을 진행해 주세요."
+            disabled={!isValid.userId}
+            isValid={isValid.email}
+            setIsValid={(valid: boolean) =>
+              setIsValid((prev) => ({ ...prev, email: valid }))
+            }
+          />
+          <VerifyUserEmailField
+            name="code"
+            formLabel="인증번호"
+            placeholder="123abc"
+            disabled={!isValid.email}
+            userEmail={form.getValues('email')}
+            userId={form.getValues('userId')}
+            isValid={isValid.code}
+            setIsValid={(valid: boolean) =>
+              setIsValid((prev) => ({ ...prev, code: valid }))
+            }
           />
         </div>
         <SignupCheckboxField

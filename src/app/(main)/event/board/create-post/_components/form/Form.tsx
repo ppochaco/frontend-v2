@@ -21,7 +21,6 @@ export const CreateEventPostForm = () => {
       form={form}
       onSubmit={() => {}}
       isExecuting={false}
-      isActivityDateRequired={false}
       isImageRequired={false}
     />
   )

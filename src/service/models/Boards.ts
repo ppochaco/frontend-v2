@@ -12,10 +12,11 @@
  */
 import { CustomHttpClient } from '../config'
 import {
-  AddPostData,
-  CreatePostRequestDto,
   DeletePostData,
-  GetActivityPosts1Data,
+  GetPostWithBoardData,
+  GetPostsWithBoardData,
+  PostWithBoardRequestDto,
+  RegisterPostWithBoardData,
 } from './data-contracts'
 import { ContentType, RequestParams } from './http-client'
 
@@ -26,24 +27,43 @@ export class Boards<
    * No description
    *
    * @tags 게시글 API
-   * @name GetActivityPosts1
+   * @name GetPostWithBoard
+   * @summary 활동 게시글 단일 조회
+   * @request GET:/boards/{boardId}/posts/{postId}
+   * @secure
+   * @response `200` `GetPostWithBoardData` OK
+   * @response `404` `void`
+   */
+  getPostWithBoard = (
+    boardId: number,
+    postId: number,
+    params: RequestParams = {},
+  ) =>
+    this.request<GetPostWithBoardData, void>({
+      path: `/boards/${boardId}/posts/${postId}`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 게시글 API
+   * @name GetPostsWithBoard
    * @summary 활동 게시글 목록 조회
    * @request GET:/boards/{boardId}/posts
    * @secure
-   * @response `200` `GetActivityPosts1Data` OK
-   * @response `404` `void`
+   * @response `200` `GetPostsWithBoardData` OK
    */
-  getActivityPosts1 = (
+  getPostsWithBoard = (
     boardId: number,
     query?: {
       /**
-       * 조회 할 page, default: 0
        * @format int32
        * @default 0
        */
       page?: number
       /**
-       * 한 번에 조회 할 page 수, default: 10
        * @format int32
        * @default 10
        */
@@ -51,7 +71,7 @@ export class Boards<
     },
     params: RequestParams = {},
   ) =>
-    this.request<GetActivityPosts1Data, void>({
+    this.request<GetPostsWithBoardData, any>({
       path: `/boards/${boardId}/posts`,
       method: 'GET',
       query: query,
@@ -62,21 +82,21 @@ export class Boards<
    * No description
    *
    * @tags 게시글 API
-   * @name AddPost
+   * @name RegisterPostWithBoard
    * @summary 활동 게시글 생성
    * @request POST:/boards/{boardId}/posts
    * @secure
-   * @response `200` `AddPostData` OK
+   * @response `200` `RegisterPostWithBoardData` OK
    * @response `201` `void`
-   * @response `400` `void`
+   * @response `401` `void`
    * @response `404` `void`
    */
-  addPost = (
+  registerPostWithBoard = (
     boardId: number,
-    data: CreatePostRequestDto,
+    data: PostWithBoardRequestDto,
     params: RequestParams = {},
   ) =>
-    this.request<AddPostData, void>({
+    this.request<RegisterPostWithBoardData, void>({
       path: `/boards/${boardId}/posts`,
       method: 'POST',
       body: data,
@@ -84,6 +104,7 @@ export class Boards<
       type: ContentType.Json,
       ...params,
     })
+
   /**
    * No description
    *

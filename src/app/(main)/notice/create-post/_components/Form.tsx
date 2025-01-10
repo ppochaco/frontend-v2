@@ -27,7 +27,7 @@ export const CreateNoticePostForm = () => {
     defaultValues: {
       postTitle: '',
       postContent: '',
-      postType: 'NOTICE',
+      postImageIds: [],
     },
   })
 
@@ -48,7 +48,6 @@ export const CreateNoticePostForm = () => {
       form={form}
       onSubmit={(values) => addNoticePost({ data: values })}
       isExecuting={isPending}
-      isActivityDateRequired={false}
       isImageRequired={false}
     />
   )
