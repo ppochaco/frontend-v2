@@ -44,12 +44,8 @@ export const CheckUserEmailField = ({
     onError: (error: Error) => onError(error),
   })
 
-  const email = form.getValues(name)
-
   const onClick = () => {
-    if (email) {
-      checkUserEmail({ email })
-    }
+    checkUserEmail({ email: form.getValues(name) })
   }
 
   const onSuccess = (message: string) => {
