@@ -25,7 +25,7 @@ import { activityPostQuries, addActivityPostApi } from '@/service/api'
 
 import { ActivityDateFieldDialog } from './date-field-dialog'
 
-type CreateActivityPostFormProps = {
+interface CreateActivityPostFormProps {
   boardId: number
 }
 
