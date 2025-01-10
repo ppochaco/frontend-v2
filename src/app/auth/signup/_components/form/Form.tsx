@@ -61,7 +61,7 @@ export const SignupForm = () => {
         throw new Error('이메일 인증을 진행해주세요.')
       }
 
-      const { userId, password, email, code, studentNumber, userName } =
+      const { userId, password, email, studentNumber, userName } =
         form.getValues()
 
       signup({
@@ -69,7 +69,6 @@ export const SignupForm = () => {
           userId,
           password,
           email,
-          code,
           studentNumber: Number(studentNumber),
           userName,
         },
@@ -86,6 +85,7 @@ export const SignupForm = () => {
 
   const [open, setOpen] = useState(false)
   const [userEmail, setUserEmail] = useState('')
+  const [userId, setUserId] = useState('')
 
   return (
     <Form {...form}>
@@ -96,6 +96,7 @@ export const SignupForm = () => {
           placeholder="hobanu"
           formDescription="- ID는 영어와 숫자를 포함해 6~12자리로 입력해주세요."
           isValid={isValid.userId}
+          setUserId={setUserId}
           setIsValid={(valid: boolean) =>
             setIsValid((prev) => ({ ...prev, userId: valid }))
           }
@@ -149,6 +150,7 @@ export const SignupForm = () => {
             placeholder="123abc"
             isValid={isValid.code}
             userEmail={userEmail}
+            userId={userId}
             setIsValid={(valid: boolean) =>
               setIsValid((prev) => ({ ...prev, code: valid }))
             }
