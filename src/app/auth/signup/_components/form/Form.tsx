@@ -21,7 +21,10 @@ import {
 import { SignupSuccessDialog } from './success-dialog'
 
 export const SignupForm = () => {
-  const { mutate: signup, isPending } = useMutation({ mutationFn: signupApi })
+  const { mutate: signup, isPending } = useMutation({
+    mutationFn: signupApi,
+    onSuccess: () => setOpen(true),
+  })
 
   const [isValid, setIsValid] = useState({
     userId: false,
