@@ -81,7 +81,7 @@ export const addActivityPostApi = async ({
   data,
 }: AddActivityPostRequest) => {
   const postClient = new Boards(AUTHORIZATION_API)
-  const response = await postClient.addPost(boardId, data)
+  const response = await postClient.registerPostWithBoard(boardId, data)
 
   return response.data
 }

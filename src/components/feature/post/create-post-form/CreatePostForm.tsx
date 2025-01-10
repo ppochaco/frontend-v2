@@ -9,8 +9,6 @@ import dynamic from 'next/dynamic'
 import { ImageInput, PostFormField } from '@/components/feature'
 import { Button, Form, Input, Separator, Skeleton } from '@/components/ui'
 
-import { ActivityDateFieldDialog } from './activity-date-dialog'
-
 const PostContentFieldEditor = dynamic(() => import('./editor/EditorField'), {
   ssr: false,
   loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
@@ -20,7 +18,6 @@ type CreatePostFormProps<T extends FieldValues> = {
   form: UseFormReturn<T>
   onSubmit: (values: T) => void
   isExecuting: boolean
-  isActivityDateRequired?: boolean
   isImageRequired?: boolean
 }
 
@@ -28,7 +25,6 @@ export const CreatePostForm = <T extends FieldValues>({
   form,
   onSubmit,
   isExecuting,
-  isActivityDateRequired = true,
   isImageRequired = true,
 }: CreatePostFormProps<T>) => {
   return (
@@ -40,7 +36,6 @@ export const CreatePostForm = <T extends FieldValues>({
         <PostFormField name="postTitle" label="게시글 제목">
           {(field: ControllerRenderProps) => <Input {...field} />}
         </PostFormField>
-        {isActivityDateRequired && <ActivityDateFieldDialog />}
         <Separator />
         <div>게시글 내용 작성하기</div>
         <PostContentFieldEditor />

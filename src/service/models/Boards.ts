@@ -12,10 +12,10 @@
  */
 import { CustomHttpClient } from '../config'
 import {
-  AddPostData,
-  CreatePostRequestDto,
   DeletePostData,
   GetActivityPosts1Data,
+  PostWithBoardRequestDto,
+  RegisterPostWithBoardData,
 } from './data-contracts'
 import { ContentType, RequestParams } from './http-client'
 
@@ -62,21 +62,21 @@ export class Boards<
    * No description
    *
    * @tags 게시글 API
-   * @name AddPost
+   * @name RegisterPostWithBoard
    * @summary 활동 게시글 생성
    * @request POST:/boards/{boardId}/posts
    * @secure
-   * @response `200` `AddPostData` OK
+   * @response `200` `RegisterPostWithBoardData` OK
    * @response `201` `void`
-   * @response `400` `void`
+   * @response `401` `void`
    * @response `404` `void`
    */
-  addPost = (
+  registerPostWithBoard = (
     boardId: number,
-    data: CreatePostRequestDto,
+    data: PostWithBoardRequestDto,
     params: RequestParams = {},
   ) =>
-    this.request<AddPostData, void>({
+    this.request<RegisterPostWithBoardData, void>({
       path: `/boards/${boardId}/posts`,
       method: 'POST',
       body: data,
@@ -84,6 +84,7 @@ export class Boards<
       type: ContentType.Json,
       ...params,
     })
+
   /**
    * No description
    *

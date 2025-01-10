@@ -61,6 +61,38 @@ export interface BoardRequestDto {
   participants: string[]
 }
 
+export interface PostWithBoardRequestDto {
+  /**
+   * 게시글 이름
+   * @minLength 1
+   * @maxLength 50
+   * @example "게시글1"
+   */
+  postTitle?: string
+  /**
+   * @minLength 1
+   * @maxLength 200000
+   */
+  postContent?: string
+  /**
+   * 게시글 이미지 ID
+   * @example [1,2]
+   */
+  postImageIds?: number[]
+  /**
+   * 활동 시작일
+   * @format date
+   * @example "2024-07-24"
+   */
+  postActivityStartDate: string
+  /**
+   * 활동 종료일 (생략 가능)
+   * @format date
+   * @example "2024-07-24"
+   */
+  postActivityEndDate?: string
+}
+
 export interface CreatePostRequestDto {
   /**
    * 게시글 이름
@@ -572,7 +604,7 @@ export type CommonErrorCodeDefinitionData = any
 
 export type GetActivityPosts1Data = PagePostSummaryResponseDto
 
-export type AddPostData = SuccessResponse
+export type RegisterPostWithBoardData = SuccessResponse
 
 export type RegisterSemesterData = SuccessResponse
 
@@ -732,7 +764,7 @@ export interface DeleteActivityPostRequest {
 
 export interface AddActivityPostRequest {
   boardId: number
-  data: CreatePostRequestDto
+  data: PostWithBoardRequestDto
 }
 
 export interface GetPostDetailRequest {
