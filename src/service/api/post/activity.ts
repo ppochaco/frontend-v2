@@ -9,14 +9,14 @@ import {
   AddActivityPostRequest,
   Boards,
   DeleteActivityPostRequest,
-  PostSummaryResponseDto,
+  PostWithBoardSummaryResponseDto,
 } from '@/service/models'
 import { Paging } from '@/types/paging'
 
 import { PostQuries } from './post'
 
 type PostPagingResponse = {
-  posts: PostSummaryResponseDto[]
+  posts: PostWithBoardSummaryResponseDto[]
 } & Paging
 
 const activityPostPaging = async ({
@@ -25,13 +25,13 @@ const activityPostPaging = async ({
   size = 10,
 }: ActivityPostPagingRequest): Promise<PostPagingResponse> => {
   const postClient = new Boards(BACKEND_API)
-  const response = await postClient.getActivityPosts1(boardId, { page, size })
+  const response = await postClient.getPostsWithBoard(boardId, { page, size })
 
   const { data } = response
 
   const posts = data.content.map((post) => {
     const formatCreateDate = formatDateDistanceFromToday(
-      new Date(post.postCreateDate),
+      new Date(post.postRegDate),
     )
 
     if (!formatCreateDate) return post

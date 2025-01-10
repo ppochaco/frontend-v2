@@ -378,6 +378,25 @@ export interface PagePostSummaryResponseDto {
   empty?: boolean
 }
 
+export interface PagePostWithBoardSummaryResponseDto {
+  /** @format int32 */
+  totalPages: number
+  /** @format int64 */
+  totalElements: number
+  /** @format int32 */
+  size?: number
+  content: PostWithBoardSummaryResponseDto[]
+  /** @format int32 */
+  number?: number
+  sort?: SortObject[]
+  /** @format int32 */
+  numberOfElements?: number
+  pageable: PageableObject
+  first?: boolean
+  last?: boolean
+  empty?: boolean
+}
+
 export interface PostSummaryResponseDto {
   /**
    * 게시글 id
@@ -428,6 +447,56 @@ export interface PostSummaryResponseDto {
   boardId?: number
   /** 게시판 이름 */
   boardName?: string
+}
+
+export interface PostWithBoardSummaryResponseDto {
+  /**
+   * 게시글 id
+   * @format int64
+   */
+  postId: number
+  /** 게시글 제목 */
+  postTitle: string
+  /**
+   * 게시글 조회수
+   * @format int64
+   */
+  postViews: number
+  /**
+   * 유저 아이디
+   * @example "haedal12"
+   */
+  userId: string
+  /**
+   * 유저 이름
+   * @example "조대성"
+   */
+  userName: string
+  /**
+   * 게시글 타입
+   * @example "(NOTICE, ACTIVITY)"
+   */
+  postType: 'ACTIVITY' | 'NOTICE'
+  /**
+   * 게시글 생성일
+   * @format date-time
+   */
+  postRegDate: string
+  /**
+   * 게시판 id
+   * @format int64
+   */
+  boardId: number
+  /**
+   * 활동 시작일
+   * @format date
+   */
+  postActivityStartDate: string
+  /**
+   * 활동 종료일
+   * @format date
+   */
+  postActivityEndDate?: string
 }
 
 export interface PostResponseDto {
@@ -602,7 +671,7 @@ export type ResisterAdminData = SuccessResponse
 
 export type CommonErrorCodeDefinitionData = any
 
-export type GetActivityPosts1Data = PagePostSummaryResponseDto
+export type GetPostsWithBoardData = PagePostWithBoardSummaryResponseDto
 
 export type RegisterPostWithBoardData = SuccessResponse
 

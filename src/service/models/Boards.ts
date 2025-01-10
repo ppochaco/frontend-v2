@@ -13,7 +13,7 @@
 import { CustomHttpClient } from '../config'
 import {
   DeletePostData,
-  GetActivityPosts1Data,
+  GetPostsWithBoardData,
   PostWithBoardRequestDto,
   RegisterPostWithBoardData,
 } from './data-contracts'
@@ -26,24 +26,21 @@ export class Boards<
    * No description
    *
    * @tags 게시글 API
-   * @name GetActivityPosts1
+   * @name GetPostsWithBoard
    * @summary 활동 게시글 목록 조회
    * @request GET:/boards/{boardId}/posts
    * @secure
-   * @response `200` `GetActivityPosts1Data` OK
-   * @response `404` `void`
+   * @response `200` `GetPostsWithBoardData` OK
    */
-  getActivityPosts1 = (
+  getPostsWithBoard = (
     boardId: number,
     query?: {
       /**
-       * 조회 할 page, default: 0
        * @format int32
        * @default 0
        */
       page?: number
       /**
-       * 한 번에 조회 할 page 수, default: 10
        * @format int32
        * @default 10
        */
@@ -51,7 +48,7 @@ export class Boards<
     },
     params: RequestParams = {},
   ) =>
-    this.request<GetActivityPosts1Data, void>({
+    this.request<GetPostsWithBoardData, any>({
       path: `/boards/${boardId}/posts`,
       method: 'GET',
       query: query,
