@@ -26,7 +26,6 @@ export const SignupForm = () => {
   const [isValid, setIsValid] = useState({
     userId: false,
     studentNumber: false,
-    userEmail: false,
     code: false,
   })
 
@@ -57,10 +56,6 @@ export const SignupForm = () => {
         throw new Error('학번 중복 확인을 진행해주세요.')
       }
 
-      if (!isValid.userEmail) {
-        throw new Error('이메일 인증을 진행해주세요.')
-      }
-
       const { userId, password, email, studentNumber, userName } =
         form.getValues()
 
@@ -84,8 +79,6 @@ export const SignupForm = () => {
   }
 
   const [open, setOpen] = useState(false)
-  const [userEmail, setUserEmail] = useState('')
-  const [userId, setUserId] = useState('')
 
   return (
     <Form {...form}>
@@ -96,7 +89,6 @@ export const SignupForm = () => {
           placeholder="hobanu"
           formDescription="- ID는 영어와 숫자를 포함해 6~12자리로 입력해주세요."
           isValid={isValid.userId}
-          setUserId={setUserId}
           setIsValid={(valid: boolean) =>
             setIsValid((prev) => ({ ...prev, userId: valid }))
           }
@@ -138,19 +130,14 @@ export const SignupForm = () => {
             name="userEmail"
             formLabel="이메일"
             placeholder="hobanu@knu.ac.kr"
-            isValid={isValid.userEmail}
-            setUserEmail={setUserEmail}
-            setIsValid={(valid: boolean) =>
-              setIsValid((prev) => ({ ...prev, userEmail: valid }))
-            }
           />
           <VerifyUserEmailField
             name="code"
             formLabel="인증번호"
             placeholder="123abc"
             isValid={isValid.code}
-            userEmail={userEmail}
-            userId={userId}
+            userEmail={form.getValues('email')}
+            userId={form.getValues('userId')}
             setIsValid={(valid: boolean) =>
               setIsValid((prev) => ({ ...prev, code: valid }))
             }
