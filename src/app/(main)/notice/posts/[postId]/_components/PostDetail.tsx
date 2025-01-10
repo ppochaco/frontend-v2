@@ -9,7 +9,7 @@ import { NoticePostQuries, deleteNoticePostApi } from '@/service/api'
 import { BasePostResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
-type NoticePostDetailProps = {
+interface NoticePostDetailProps {
   post: BasePostResponseDto
 }
 

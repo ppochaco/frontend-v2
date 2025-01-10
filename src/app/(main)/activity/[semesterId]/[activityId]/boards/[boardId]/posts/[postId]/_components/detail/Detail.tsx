@@ -9,7 +9,7 @@ import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
 import { PostWithBoardResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
-type ActivityPostDetailProps = {
+interface ActivityPostDetailProps {
   boardId: number
   post: PostWithBoardResponseDto
 }
