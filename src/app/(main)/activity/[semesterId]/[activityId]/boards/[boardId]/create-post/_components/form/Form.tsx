@@ -59,7 +59,7 @@ export const CreateActivityPostForm = ({
     })
 
     queryClient.invalidateQueries({
-      queryKey: activityPostQuries.board(boardId),
+      queryKey: activityPostQuries.all(),
     })
 
     const basePath = pathName.split('/').slice(0, -1).join('/')
