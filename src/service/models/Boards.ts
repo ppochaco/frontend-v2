@@ -13,6 +13,7 @@
 import { CustomHttpClient } from '../config'
 import {
   DeletePostData,
+  GetPostWithBoardData,
   GetPostsWithBoardData,
   PostWithBoardRequestDto,
   RegisterPostWithBoardData,
@@ -22,6 +23,28 @@ import { ContentType, RequestParams } from './http-client'
 export class Boards<
   SecurityDataType = unknown,
 > extends CustomHttpClient<SecurityDataType> {
+  /**
+   * No description
+   *
+   * @tags 게시글 API
+   * @name GetPostWithBoard
+   * @summary 활동 게시글 단일 조회
+   * @request GET:/boards/{boardId}/posts/{postId}
+   * @secure
+   * @response `200` `GetPostWithBoardData` OK
+   * @response `404` `void`
+   */
+  getPostWithBoard = (
+    boardId: number,
+    postId: number,
+    params: RequestParams = {},
+  ) =>
+    this.request<GetPostWithBoardData, void>({
+      path: `/boards/${boardId}/posts/${postId}`,
+      method: 'GET',
+      secure: true,
+      ...params,
+    })
   /**
    * No description
    *

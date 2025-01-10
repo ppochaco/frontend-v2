@@ -93,6 +93,58 @@ export interface PostWithBoardRequestDto {
   postActivityEndDate?: string
 }
 
+export interface PostWithBoardResponseDto {
+  /**
+   * 게시글 id
+   * @format int64
+   */
+  postId: number
+  /** 게시글 제목 */
+  postTitle: string
+  /** 게시글 내용 */
+  postContent: string
+  /**
+   * 게시글 조회수
+   * @format int64
+   */
+  postViews: number
+  /**
+   * 게시글 타입
+   * @example "(NOTICE, ACTIVITY)"
+   */
+  postType: 'ACTIVITY' | 'NOTICE'
+  /**
+   * 게시글 생성일
+   * @format date-time
+   */
+  postRegDate: string
+  /**
+   * 유저 아이디
+   * @example "haedal12"
+   */
+  userId: string
+  /**
+   * 유저 이름
+   * @example "조대성"
+   */
+  userName: string
+  /**
+   * 게시판 id
+   * @format int64
+   */
+  boardId: number
+  /**
+   * 활동 시작일
+   * @format date
+   */
+  postActivityStartDate?: string
+  /**
+   * 활동 종료일
+   * @format date
+   */
+  postActivityEndDate?: string
+}
+
 export interface CreatePostRequestDto {
   /**
    * 게시글 이름
@@ -491,7 +543,7 @@ export interface PostWithBoardSummaryResponseDto {
    * 활동 시작일
    * @format date
    */
-  postActivityStartDate: string
+  postActivityStartDate?: string
   /**
    * 활동 종료일
    * @format date
@@ -648,6 +700,8 @@ export interface UpdateBoardImagePayload {
   /** @format binary */
   file: File
 }
+
+export type GetPostWithBoardData = PostWithBoardResponseDto
 
 export type UpdateBoardImageData = any
 
@@ -837,6 +891,11 @@ export interface AddActivityPostRequest {
 }
 
 export interface GetPostDetailRequest {
+  postId: number
+}
+
+export interface GetActivityPostDetailRequest {
+  boardId: number
   postId: number
 }
 

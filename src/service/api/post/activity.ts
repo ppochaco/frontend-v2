@@ -9,6 +9,7 @@ import {
   AddActivityPostRequest,
   Boards,
   DeleteActivityPostRequest,
+  GetActivityPostDetailRequest,
   PostWithBoardSummaryResponseDto,
 } from '@/service/models'
 import { Paging } from '@/types/paging'
@@ -56,6 +57,16 @@ const activityPostPaging = async ({
   }
 }
 
+const getActivityPostDetail = async ({
+  boardId,
+  postId,
+}: GetActivityPostDetailRequest) => {
+  const boardClient = new Boards(BACKEND_API)
+  const response = await boardClient.getPostWithBoard(boardId, postId)
+
+  return response.data
+}
+
 export const activityPostQuries = {
   all: () => [...PostQuries.all(), 'activity'],
   board: (boardId: number) => [...activityPostQuries.all(), boardId],
@@ -63,6 +74,11 @@ export const activityPostQuries = {
     queryOptions({
       queryKey: [...activityPostQuries.board(boardId), page],
       queryFn: async () => activityPostPaging({ boardId, page, size }),
+    }),
+  detail: ({ boardId, postId }: GetActivityPostDetailRequest) =>
+    queryOptions({
+      queryKey: [...activityPostQuries.board(boardId), 'detail'],
+      queryFn: async () => getActivityPostDetail({ boardId, postId }),
     }),
 }
 

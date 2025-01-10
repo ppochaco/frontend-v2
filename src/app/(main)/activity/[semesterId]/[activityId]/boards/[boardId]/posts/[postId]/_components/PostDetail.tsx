@@ -5,12 +5,12 @@ import { usePathname, useRouter } from 'next/navigation'
 import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
-import { PostResponseDto } from '@/service/models'
+import { PostWithBoardResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
 type ActivityPostDetailProps = {
   boardId: number
-  post: PostResponseDto
+  post: PostWithBoardResponseDto
 }
 
 export const ActivityPostDetail = ({
@@ -62,7 +62,7 @@ export const ActivityPostDetail = ({
           <div className="font-semibold">{post.userName}</div>
           <div>·</div>
           <div className="text-primary/60">
-            {format(new Date(post.postCreateDate), 'yyyy-MM-dd')}
+            {format(new Date(post.postRegDate), 'yyyy-MM-dd')}
           </div>
           <div className="text-primary/60">조회 {post.postViews}</div>
         </div>
