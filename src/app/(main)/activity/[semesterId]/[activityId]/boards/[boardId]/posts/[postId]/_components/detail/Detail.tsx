@@ -2,13 +2,12 @@ import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { usePathname, useRouter } from 'next/navigation'
 
+import { DeletePostDialog } from '@/components/feature'
 import { Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
 import { PostWithBoardResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
-
-import { DeletePostDialog } from './delete-dialog'
 
 type ActivityPostDetailProps = {
   boardId: number
