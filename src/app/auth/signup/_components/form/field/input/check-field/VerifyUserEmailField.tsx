@@ -23,6 +23,7 @@ import { SignupInputFieldProps } from '../InputField'
 interface VerifyUserEmailFieldProps extends SignupInputFieldProps {
   isValid: boolean
   userEmail: string
+  userId: string
   setIsValid: (isValid: boolean) => void
 }
 
@@ -33,6 +34,7 @@ export const VerifyUserEmailField = ({
   formDescription,
   isValid,
   userEmail,
+  userId,
   setIsValid,
 }: VerifyUserEmailFieldProps) => {
   const form = useFormContext()
@@ -46,12 +48,12 @@ export const VerifyUserEmailField = ({
     onError: (error: Error) => onError(error),
   })
 
-  const { userId, code } = form.getValues()
+  const { code } = form.getValues()
 
   const onClick = () => {
     verifyUserEmail({
       email: userEmail,
-      userId,
+      userId: userId,
       code,
     })
   }
@@ -69,7 +71,19 @@ export const VerifyUserEmailField = ({
       }
 
       if (error.response?.status === 400) {
-        setMessage('유효하지 않는 학번입니다. ')
+        if (error.response?.data.errors[0].field === 'email') {
+          setMessage(error.response?.data.errors[0].message)
+          return
+        }
+        if (error.response?.data.errors[0].field === 'code') {
+          setMessage(error.response?.data.errors[0].message)
+          return
+        }
+        if (error.response?.data.errors[0].field === 'userId') {
+          setMessage(error.response?.data.errors[0].message)
+          return
+        }
+        setMessage(error.response?.data.message)
         return
       }
     }
