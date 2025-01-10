@@ -21,10 +21,11 @@ import { verifyUserEmailApi } from '@/service/api'
 import { SignupInputFieldProps } from '../InputField'
 
 interface VerifyUserEmailFieldProps extends SignupInputFieldProps {
-  isValid: boolean
   userEmail: string
   userId: string
+  isValid: boolean
   setIsValid: (isValid: boolean) => void
+  disabled: boolean
 }
 
 export const VerifyUserEmailField = ({
@@ -32,13 +33,13 @@ export const VerifyUserEmailField = ({
   formLabel,
   placeholder,
   formDescription,
-  isValid,
   userEmail,
   userId,
+  isValid,
   setIsValid,
+  disabled,
 }: VerifyUserEmailFieldProps) => {
   const form = useFormContext()
-  const { errors } = form.formState
 
   const [message, setMessage] = useState('')
 
@@ -63,30 +64,18 @@ export const VerifyUserEmailField = ({
 
   const onError = (error: Error) => {
     if (error instanceof AxiosError) {
-      if (error.response?.status === 409) {
-        setMessage(error.response?.data.message)
-        return
-      }
-
       if (error.response?.status === 400) {
-        if (error.response?.data.errors[0].field === 'email') {
-          setMessage(error.response?.data.errors[0].message)
+        if (error.response.data.code === 'EMAIL_001') {
+          setMessage(error.response?.data.message)
           return
         }
-        if (error.response?.data.errors[0].field === 'code') {
-          setMessage(error.response?.data.errors[0].message)
-          return
-        }
-        if (error.response?.data.errors[0].field === 'userId') {
-          setMessage(error.response?.data.errors[0].message)
-          return
-        }
-        setMessage(error.response?.data.message)
+
+        setMessage(error.response?.data.errors[0].message)
         return
       }
-    }
 
-    setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+    }
   }
 
   return (
@@ -110,7 +99,7 @@ export const VerifyUserEmailField = ({
               <Button
                 type="button"
                 variant="outline"
-                disabled={!!errors[name] || isPending}
+                disabled={disabled || isPending}
                 onClick={onClick}
               >
                 인증번호 확인
