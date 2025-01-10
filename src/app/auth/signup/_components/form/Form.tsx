@@ -127,7 +127,7 @@ export const SignupForm = () => {
         </div>
         <div className="space-y-2">
           <CheckUserEmailField
-            name="userEmail"
+            name="email"
             formLabel="이메일"
             placeholder="hobanu@knu.ac.kr"
           />

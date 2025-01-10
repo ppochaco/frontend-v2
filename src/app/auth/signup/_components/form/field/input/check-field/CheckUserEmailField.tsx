@@ -75,7 +75,7 @@ export const CheckUserEmailField = ({
           <FormControl>
             <div className="flex gap-2">
               <Input
-                value={field.value || ''}
+                value={field.value}
                 onChange={(e) => {
                   field.onChange(e)
                   setMessage('')
