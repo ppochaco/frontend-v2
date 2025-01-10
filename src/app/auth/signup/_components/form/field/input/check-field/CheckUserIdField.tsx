@@ -23,7 +23,6 @@ import { SignupInputFieldProps } from '../InputField'
 interface CheckUserIdFieldProps extends SignupInputFieldProps {
   isValid: boolean
   setIsValid: (isValid: boolean) => void
-  setUserId: (userId: string) => void
 }
 
 export const CheckUserIdField = ({
@@ -33,7 +32,6 @@ export const CheckUserIdField = ({
   formDescription,
   isValid,
   setIsValid,
-  setUserId,
 }: CheckUserIdFieldProps) => {
   const form = useFormContext()
   const { errors } = form.formState
@@ -45,7 +43,6 @@ export const CheckUserIdField = ({
     onSuccess: (data) => {
       setIsValid(true)
       setMessage(data.message)
-      setUserId(form.getValues(name))
     },
     onError: (error: Error) => {
       if (error instanceof AxiosError) {
