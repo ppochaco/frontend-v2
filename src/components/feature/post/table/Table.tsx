@@ -6,18 +6,23 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { PostWithBoardSummaryResponseDto } from '@/service/models'
+import {
+  PostSummaryResponseDto,
+  PostWithBoardSummaryResponseDto,
+} from '@/service/models'
 
 import { PostTableContent } from './TableContent'
 
 type PostTableProps = {
-  posts: PostWithBoardSummaryResponseDto[]
+  posts: PostSummaryResponseDto[] | PostWithBoardSummaryResponseDto[]
   pageNumber: number
   pageSize: number
 }
 
 export const PostTable = ({ posts, pageNumber, pageSize }: PostTableProps) => {
-  const columns: ColumnDef<PostWithBoardSummaryResponseDto>[] = [
+  const columns: ColumnDef<
+    PostSummaryResponseDto | PostWithBoardSummaryResponseDto
+  >[] = [
     {
       header: '번호',
       accessorKey: 'postId',
