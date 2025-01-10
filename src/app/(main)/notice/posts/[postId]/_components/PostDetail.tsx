@@ -2,14 +2,15 @@ import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { useRouter } from 'next/navigation'
 
-import { Button, Separator, useToast } from '@/components/ui'
+import { DeletePostDialog } from '@/components/feature'
+import { Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { NoticePostQuries, deleteNoticePostApi } from '@/service/api'
-import { PostResponseDto } from '@/service/models'
+import { BasePostResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
-type NoticePostDetailProps = {
-  post: PostResponseDto
+interface NoticePostDetailProps {
+  post: BasePostResponseDto
 }
 
 export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
@@ -36,23 +37,21 @@ export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
   return (
     <div className="flex flex-col gap-3 py-4 text-primary">
       <div className="py-4 text-2xl font-semibold">{post.postTitle}</div>
+      <div className="flex justify-end">
+        {role === 'ROLE_ADMIN' && (
+          <DeletePostDialog
+            onClick={() => deleteNoticePost({ postId: post.postId })}
+            disabled={isPending}
+          />
+        )}
+      </div>
       <div className="flex items-center justify-between gap-2 text-sm">
         <div className="font-semibold">{post.userName}</div>
         <div className="flex gap-2">
           <div className="text-primary/60">
-            {format(new Date(post.postCreateDate), 'yyyy-MM-dd')}
+            {format(new Date(post.postRegDate), 'yyyy-MM-dd')}
           </div>
           <div className="text-primary/60">조회 {post.postViews}</div>
-          {role === 'ROLE_ADMIN' && (
-            <Button
-              onClick={() => deleteNoticePost({ postId: post.postId })}
-              disabled={isPending}
-              variant="link"
-              className="h-fit p-0 text-primary/60 hover:text-primary"
-            >
-              삭제하기
-            </Button>
-          )}
         </div>
       </div>
       <Separator />

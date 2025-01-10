@@ -2,22 +2,23 @@ import { useMutation } from '@tanstack/react-query'
 import { format } from 'date-fns'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { Button, Separator, useToast } from '@/components/ui'
+import { DeletePostDialog } from '@/components/feature'
+import { Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
-import { PostResponseDto } from '@/service/models'
+import { PostWithBoardResponseDto } from '@/service/models'
 import { useMyInfoStore } from '@/store/myInfo'
 
-type ActivityPostDetailProps = {
+interface ActivityPostDetailProps {
   boardId: number
-  post: PostResponseDto
+  post: PostWithBoardResponseDto
 }
 
 export const ActivityPostDetail = ({
   boardId,
   post,
 }: ActivityPostDetailProps) => {
-  const { userName } = useMyInfoStore((state) => state.getMyInfo())
+  const { userId } = useMyInfoStore((state) => state.getMyInfo())
 
   const { mutate: deleteActivityPost, isPending } = useMutation({
     mutationFn: deleteActivityPostApi,
@@ -46,15 +47,11 @@ export const ActivityPostDetail = ({
     <div className="flex flex-col gap-3 py-4 text-primary">
       <div className="pt-4 text-4xl font-semibold">{post.postTitle}</div>
       <div className="flex justify-end">
-        {userName === post.userName && (
-          <Button
+        {userId === post.userId && (
+          <DeletePostDialog
             onClick={() => deleteActivityPost({ boardId, postId: post.postId })}
             disabled={isPending}
-            variant="link"
-            className="h-fit p-0 text-primary/60 hover:text-primary"
-          >
-            삭제하기
-          </Button>
+          />
         )}
       </div>
       <div className="flex flex-col items-start gap-1 text-sm sm:flex-row sm:items-end sm:justify-between">
@@ -62,7 +59,7 @@ export const ActivityPostDetail = ({
           <div className="font-semibold">{post.userName}</div>
           <div>·</div>
           <div className="text-primary/60">
-            {format(new Date(post.postCreateDate), 'yyyy-MM-dd')}
+            {format(new Date(post.postRegDate), 'yyyy-MM-dd')}
           </div>
           <div className="text-primary/60">조회 {post.postViews}</div>
         </div>

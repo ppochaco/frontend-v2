@@ -1,2 +1,2 @@
-export { CreateActivityPostHero } from './Hero'
-export { CreateActivityPostForm } from './PostForm'
+export * from './hero'
+export * from './form'

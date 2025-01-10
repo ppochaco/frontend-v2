@@ -10,7 +10,7 @@ export const CreatePostButton = () => {
   const pathName = usePathname()
   const router = useRouter()
 
-  const { role } = useMyInfoStore.getState().myInfo
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   return (
     <div className="mb-20 flex justify-end">
