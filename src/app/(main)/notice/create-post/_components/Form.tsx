@@ -48,7 +48,6 @@ export const CreateNoticePostForm = () => {
       form={form}
       onSubmit={(values) => addNoticePost({ data: values })}
       isExecuting={isPending}
-      isActivityDateRequired={false}
       isImageRequired={false}
     />
   )

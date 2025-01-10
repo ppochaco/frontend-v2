@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { DateRange } from 'react-day-picker'
 import { useFormContext } from 'react-hook-form'
 
-import { getDateDistance } from '@toss/date'
+import { getDateDistance, kstFormat } from '@toss/date'
 
 import {
   Button,
@@ -23,20 +23,34 @@ import {
 } from '@/components/ui'
 import { CreateActivityPost } from '@/schema/post'
 
-import { DateDialogTriggerButton } from './trigger-button'
+import { DateDialogTriggerButton } from './TriggerButton'
 
 export const ActivityDateFieldDialog = () => {
-  const { control, setValue } = useFormContext<CreateActivityPost>()
+  const { control, setValue, getValues } = useFormContext<CreateActivityPost>()
 
   const [date, setDate] = useState<DateRange | undefined>({
     from: undefined,
     to: undefined,
   })
 
+  const onSelectCalendar = (from?: Date, to?: Date) => {
+    if (from) {
+      setValue('postActivityStartDate', kstFormat(from, 'yyyy-LL-dd'))
+    }
+    if (from && to) {
+      setValue(
+        'postActivityEndDate',
+        getDateDistance(from, to).days === 0 ? '' : kstFormat(to, 'yyyy-LL-dd'),
+      )
+    } else {
+      setValue('postActivityEndDate', '')
+    }
+  }
+
   return (
     <FormField
       control={control}
-      name="activityDate"
+      name="postActivityStartDate"
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <div className="flex flex-col md:flex-row md:items-center">
@@ -44,8 +58,12 @@ export const ActivityDateFieldDialog = () => {
             <div className="w-full">
               <Dialog>
                 <DateDialogTriggerButton
-                  startDate={field.value.start}
-                  endDate={field.value.end}
+                  startDate={field.value ? new Date(field.value) : undefined}
+                  endDate={
+                    getValues('postActivityEndDate')
+                      ? new Date(getValues('postActivityEndDate'))
+                      : undefined
+                  }
                 />
                 <DialogContent>
                   <DialogHeader>
@@ -56,20 +74,11 @@ export const ActivityDateFieldDialog = () => {
                   </DialogHeader>
                   <div className="flex justify-center">
                     <Calendar
-                      autoFocus
                       mode="range"
                       selected={date}
                       onSelect={(range) => {
                         setDate(range)
-                        setValue('activityDate', {
-                          start: range?.from,
-                          end:
-                            range?.from &&
-                            range?.to &&
-                            getDateDistance(range.from, range.to).days === 0
-                              ? undefined
-                              : range?.to,
-                        })
+                        onSelectCalendar(range?.from, range?.to)
                       }}
                     />
                   </div>
