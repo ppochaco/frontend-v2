@@ -48,13 +48,11 @@ export const VerifyUserEmailField = ({
     onError: (error: Error) => onError(error),
   })
 
-  const { code } = form.getValues()
-
   const onClick = () => {
     verifyUserEmail({
       email: userEmail,
       userId: userId,
-      code,
+      code: form.getValues(name),
     })
   }
 
