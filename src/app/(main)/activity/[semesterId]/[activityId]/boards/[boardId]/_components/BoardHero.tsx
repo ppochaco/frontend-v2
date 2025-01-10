@@ -1,11 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
-import {
-  ActivityBreadcrumb,
-  BoardHeroSkeleton,
-  NameLabel,
-} from '@/components/feature'
+import { ActivityBreadcrumb, NameLabel } from '@/components/feature'
 import { Button, Separator, useToast } from '@/components/ui'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
@@ -77,6 +73,17 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
           </Button>
         </div>
       )}
+      <Separator variant="dark" />
+    </div>
+  )
+}
+
+export const BoardHeroSkeleton = () => {
+  return (
+    <div className="flex flex-col">
+      <Separator variant="dark" />
+      <div className="h-40"></div>
+      <div className="h-0.5"></div>
       <Separator variant="dark" />
     </div>
   )
