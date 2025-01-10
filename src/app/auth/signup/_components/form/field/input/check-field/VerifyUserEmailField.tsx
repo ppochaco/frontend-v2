@@ -16,47 +16,66 @@ import {
 } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { cn } from '@/lib/utils'
-import { checkUserIdApi } from '@/service/api'
+import { verifyUserEmailApi } from '@/service/api'
 
 import { SignupInputFieldProps } from '../InputField'
 
-interface CheckUserIdFieldProps extends SignupInputFieldProps {
+interface VerifyUserEmailFieldProps extends SignupInputFieldProps {
+  userEmail: string
+  userId: string
   isValid: boolean
   setIsValid: (isValid: boolean) => void
+  disabled: boolean
 }
 
-export const CheckUserIdField = ({
+export const VerifyUserEmailField = ({
   name,
   formLabel,
   placeholder,
   formDescription,
+  userEmail,
+  userId,
   isValid,
   setIsValid,
-}: CheckUserIdFieldProps) => {
+  disabled,
+}: VerifyUserEmailFieldProps) => {
   const form = useFormContext()
-  const { errors } = form.formState
 
   const [message, setMessage] = useState('')
 
-  const { mutate: checkUserId, isPending } = useMutation({
-    mutationFn: () => checkUserIdApi({ userId: form.getValues(name) }),
-    onSuccess: (data) => {
-      setIsValid(true)
-      setMessage(data.message)
-    },
-    onError: (error: Error) => {
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 409) {
-          setMessage(error.response?.data.message)
-          return
-        }
-      }
-      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
-    },
+  const { mutate: verifyUserEmail, isPending } = useMutation({
+    mutationFn: verifyUserEmailApi,
+    onSuccess: (data) => onSuccess(data.message),
+    onError: (error: Error) => onError(error),
   })
 
   const onClick = () => {
-    checkUserId()
+    verifyUserEmail({
+      email: userEmail,
+      userId: userId,
+      code: form.getValues(name),
+    })
+  }
+
+  const onSuccess = (message: string) => {
+    setIsValid(true)
+    setMessage(message)
+  }
+
+  const onError = (error: Error) => {
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 400) {
+        if (error.response.data.code === 'EMAIL_001') {
+          setMessage(error.response?.data.message)
+          return
+        }
+
+        setMessage(error.response?.data.errors[0].message)
+        return
+      }
+
+      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+    }
   }
 
   return (
@@ -80,10 +99,10 @@ export const CheckUserIdField = ({
               <Button
                 type="button"
                 variant="outline"
-                disabled={!!errors[name] || isPending}
+                disabled={disabled || isPending}
                 onClick={onClick}
               >
-                중복 확인
+                인증번호 확인
               </Button>
             </div>
           </FormControl>

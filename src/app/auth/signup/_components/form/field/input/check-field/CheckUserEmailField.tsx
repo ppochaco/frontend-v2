@@ -16,47 +16,61 @@ import {
 } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { cn } from '@/lib/utils'
-import { checkUserIdApi } from '@/service/api'
+import { checkUserEmailApi } from '@/service/api'
 
 import { SignupInputFieldProps } from '../InputField'
 
-interface CheckUserIdFieldProps extends SignupInputFieldProps {
+interface CheckUserEmailFieldProps extends SignupInputFieldProps {
   isValid: boolean
   setIsValid: (isValid: boolean) => void
+  disabled: boolean
 }
 
-export const CheckUserIdField = ({
+export const CheckUserEmailField = ({
   name,
   formLabel,
   placeholder,
   formDescription,
   isValid,
   setIsValid,
-}: CheckUserIdFieldProps) => {
+  disabled,
+}: CheckUserEmailFieldProps) => {
   const form = useFormContext()
   const { errors } = form.formState
 
   const [message, setMessage] = useState('')
 
-  const { mutate: checkUserId, isPending } = useMutation({
-    mutationFn: () => checkUserIdApi({ userId: form.getValues(name) }),
+  const { mutate: checkUserEmail, isPending } = useMutation({
+    mutationFn: checkUserEmailApi,
     onSuccess: (data) => {
-      setIsValid(true)
-      setMessage(data.message)
-    },
-    onError: (error: Error) => {
-      if (error instanceof AxiosError) {
-        if (error.response?.status === 409) {
-          setMessage(error.response?.data.message)
-          return
-        }
+      if (data.message) {
+        onSuccess(data.message)
+      } else {
+        onError(new Error('Message is undefined'))
       }
-      setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
     },
+    onError: (error: Error) => onError(error),
   })
 
   const onClick = () => {
-    checkUserId()
+    checkUserEmail({ email: form.getValues(name) })
+  }
+
+  const onSuccess = (message: string) => {
+    setIsValid(true)
+    setMessage(message)
+  }
+
+  const onError = (error: Error) => {
+    setIsValid(false)
+    if (error instanceof AxiosError) {
+      if (error.response?.status === 409) {
+        setMessage(error.response?.data.message)
+        return
+      }
+    }
+
+    setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
   }
 
   return (
@@ -80,10 +94,10 @@ export const CheckUserIdField = ({
               <Button
                 type="button"
                 variant="outline"
-                disabled={!!errors[name] || isPending}
+                disabled={disabled || !!errors[name] || isPending}
                 onClick={onClick}
               >
-                중복 확인
+                인증번호 전송
               </Button>
             </div>
           </FormControl>
