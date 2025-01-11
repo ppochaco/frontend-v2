@@ -68,14 +68,20 @@ const getActivityPostDetail = async ({
 export const activityPostQuries = {
   all: () => ['post', 'activity'],
   board: (boardId: number) => [...activityPostQuries.all(), boardId],
+  lists: (boardId: number) => [...activityPostQuries.board(boardId), 'list'],
   list: ({ boardId, page, size }: ActivityPostPagingRequest) =>
     queryOptions({
-      queryKey: [...activityPostQuries.board(boardId), page],
+      queryKey: [...activityPostQuries.lists(boardId), page],
       queryFn: async () => activityPostPaging({ boardId, page, size }),
     }),
+  details: ({ boardId, postId }: GetActivityPostDetailRequest) => [
+    ...activityPostQuries.board(boardId),
+    'detail',
+    postId,
+  ],
   detail: ({ boardId, postId }: GetActivityPostDetailRequest) =>
     queryOptions({
-      queryKey: [...activityPostQuries.board(boardId), 'detail'],
+      queryKey: [...activityPostQuries.details({ boardId, postId })],
       queryFn: async () => getActivityPostDetail({ boardId, postId }),
     }),
 }
