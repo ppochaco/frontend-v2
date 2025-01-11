@@ -58,8 +58,8 @@ export const CreateActivityPostForm = ({
       duration: 2000,
     })
 
-    queryClient.invalidateQueries({
-      queryKey: activityPostQuries.all(),
+    queryClient.refetchQueries({
+      queryKey: activityPostQuries.lists(boardId),
     })
 
     const basePath = pathName.split('/').slice(0, -1).join('/')

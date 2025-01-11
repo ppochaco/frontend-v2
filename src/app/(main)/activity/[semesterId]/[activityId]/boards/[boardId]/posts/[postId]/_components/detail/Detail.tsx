@@ -35,7 +35,7 @@ export const ActivityPostDetail = ({
       duration: 2000,
     })
 
-    queryClient.invalidateQueries({
+    queryClient.refetchQueries({
       queryKey: activityPostQuries.board(boardId),
     })
 
