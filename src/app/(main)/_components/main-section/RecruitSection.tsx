@@ -9,13 +9,17 @@ export const RecruitSection = () => {
       <div className="flex w-full flex-1 flex-col gap-10 text-lg text-white">
         <div className="flex flex-col items-center px-12">
           <p
-            className="bg-gradient-to-r from-yellow-400 via-slate-100 to-yellow-600 bg-clip-text text-4xl font-semibold leading-loose text-transparent"
+            className="bg-gradient-to-r from-yellow-400 via-slate-100 to-yellow-600 bg-clip-text text-center text-4xl font-semibold leading-snug text-transparent"
             style={{
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
             }}
           >
-            해달과 함께 성장해갈 동아리원을 모집합니다!
+            해달과 함께 성장해갈{' '}
+            <span className="hidden md:inline">동아리원을 모집합니다!</span>
+            <span className="inline md:hidden">
+              <br /> 동아리원을 모집합니다!
+            </span>
           </p>
           <Image
             src="/haedal-notebook.png"
