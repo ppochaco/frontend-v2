@@ -711,6 +711,13 @@ export interface UpdateBoardImagePayload {
   file: File
 }
 
+export interface RegisterPostImagePayload {
+  /** @format binary */
+  file: File
+}
+
+export type RegisterPostImageData = PostImageResponseDto
+
 export type GetPostWithBoardData = PostWithBoardResponseDto
 
 export type GetNoticePostData = BasePostResponseDto
@@ -842,6 +849,16 @@ export interface GetAdminUsersRequest {
   active: boolean
 }
 
+export interface PostImageResponseDto {
+  /**
+   * 게시글 이미지 id
+   * @format int64
+   */
+  postImageId: number
+  /** 게시글 이미지 파일 Url */
+  postImageUrl: string
+}
+
 export interface LoginRequest {
   data: LoginRequestDto
 }
@@ -927,4 +944,8 @@ export interface GetUserRequest {
 
 export interface GetNoticePostDetailRequest {
   postId: number
+}
+
+export interface UploadPostImageRequest {
+  data: RegisterPostImagePayload
 }
