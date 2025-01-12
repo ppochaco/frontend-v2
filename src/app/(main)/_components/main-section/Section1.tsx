@@ -4,41 +4,38 @@ import { Content } from '@/components/common'
 
 export const Section1 = () => {
   return (
-    <>
-      <div className="relative w-full">
-        <Image
-          src="/haedal-background.png"
-          width={0}
-          height={0}
-          className="h-auto w-full"
-          alt="Haedal Background"
-        />
-        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-b from-transparent to-[#010238]" />
-      </div>
-      <Content className="flex flex-col items-center bg-[#010238] px-10 py-40 text-white">
-        <div className="flex w-full flex-1 flex-col gap-10">
-          <div className="flex w-full flex-col gap-2">
-            <div className="text-4xl">경북대학교 IT대학 학술동아리 </div>
-            <div className="text-5xl">HAEDAL</div>
-          </div>
-          <div className="flex flex-col gap-2 text-lg">
-            <div>
-              <strong>해달</strong>은{' '}
-              <strong className="bg-yellow-400 px-1 text-primary">
+    <div className="relative h-auto w-full">
+      <Image
+        src="/haedal-background.png"
+        width={0}
+        height={0}
+        className="h-auto w-full"
+        alt="Haedal Background"
+      />
+      <Content className="bg-custom-gradient relative z-10 -mt-20 flex w-full flex-col items-center px-10 pb-60 pt-60 text-white">
+        <div className="section1-intro-area flex w-full flex-col">
+          <p className="text-xl md:text-3xl">경북대학교 IT대학 학술동아리</p>
+          <p className="text-xl md:text-2xl">
+            <span className="text-5xl leading-loose md:text-6xl md:leading-loose">
+              해달
+            </span>
+            은
+          </p>
+          <div className="flex flex-col break-keep text-lg leading-relaxed md:text-2xl md:leading-relaxed">
+            <p>
+              <strong className="bg-yellow-400 text-primary">
                 SW 가치 확산
               </strong>
-              이라는 목표를 가지고 다양한 코딩 행사를 진행하는 동아리입니다.
-            </div>
-            <div>
-              비전공자도 상관없이 코딩에 관심이 있는 사람이라면{' '}
-              <strong className="bg-yellow-400 px-1 text-primary">
-                누구나
-              </strong>{' '}
+              이라는 목표를 가지고 다양한 활동 및 행사를 진행하고 있습니다.
+            </p>
+            <p>
+              전공과 상관없이 코딩에 관심이 있는 사람이라면{' '}
+              <strong className="bg-yellow-400 text-primary">누구나</strong>{' '}
               함께하실 수 있습니다.
-            </div>
+            </p>
           </div>
         </div>
       </Content>
-    </>
+    </div>
   )
 }
