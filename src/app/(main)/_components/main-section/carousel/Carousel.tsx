@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from '@/components/ui'
 
-export const EventCarousel = () => {
+export const Carousel = () => {
   return <CarouselSkeleton />
 
   /*
