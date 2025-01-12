@@ -5,7 +5,7 @@ import { Button } from '@/components/ui'
 
 export const RecruitSection = () => {
   return (
-    <Content className="w-full bg-primary py-20 md:px-10">
+    <Content className="w-full bg-primary py-28 md:px-10">
       <div className="flex w-full flex-1 flex-col gap-10 text-lg text-white">
         <div className="flex flex-col items-center px-12">
           <p
@@ -35,7 +35,7 @@ export const RecruitSection = () => {
           </p>
           <Button
             variant="secondary"
-            className="mt-4 h-fit text-2xl text-yellow-400"
+            className="mt-6 h-fit text-2xl text-yellow-400"
             onClick={() => (window.location.href = '/recruit')}
           >
             더 알아보기 →
