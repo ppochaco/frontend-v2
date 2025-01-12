@@ -6,9 +6,9 @@ import { useForm } from 'react-hook-form'
 import { Block } from '@blocknote/core'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
+import dynamic from 'next/dynamic'
 import { usePathname, useRouter } from 'next/navigation'
 
-import { PostContentFieldEditor } from '@/components/feature'
 import {
   Button,
   Form,
@@ -19,11 +19,20 @@ import {
   Input,
   Label,
   Separator,
+  Skeleton,
   useToast,
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateNoticePost, CreateNoticePostSchema } from '@/schema/post'
 import { NoticePostQuries, addNoticePostApi } from '@/service/api'
+
+const PostContentFieldEditor = dynamic(
+  () => import('@/components/feature/post/post-editor/EditorField'),
+  {
+    ssr: false,
+    loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
+  },
+)
 
 export const CreateNoticePostForm = () => {
   const { toast } = useToast()
