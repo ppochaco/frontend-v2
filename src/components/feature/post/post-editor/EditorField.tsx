@@ -10,6 +10,7 @@ import { useMutation } from '@tanstack/react-query'
 import { FormField, FormItem, FormMessage } from '@/components/ui'
 import { CreateActivityPost } from '@/schema/post'
 import { uploadPostImageApi } from '@/service/api/post/image-upload'
+import { BASE_URL } from '@/service/config/instance'
 
 interface PostContentFieldEditorProps {
   addImageId: (url: string, id: number) => void
@@ -29,10 +30,7 @@ const PostContentFieldEditor = ({
     const url = data.postImageUrl.split('/').pop() ?? ''
     addImageId(url, data.postImageId)
 
-    const imageUrl = data.postImageUrl.replace(
-      '/upload',
-      'https://www.knu-haedal.com/api/upload',
-    )
+    const imageUrl = data.postImageUrl.replace('/upload', `${BASE_URL}/upload`)
 
     return imageUrl
   }
