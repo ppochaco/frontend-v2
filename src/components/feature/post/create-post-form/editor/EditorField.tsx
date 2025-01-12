@@ -11,29 +11,35 @@ import { FormField, FormItem, FormMessage } from '@/components/ui'
 import { CreateActivityPost } from '@/schema/post'
 import { uploadPostImageApi } from '@/service/api/post/image-upload'
 
-const PostContentFieldEditor = () => {
+interface PostContentFieldEditorProps {
+  addImageId: (url: string, id: number) => void
+}
+
+const PostContentFieldEditor = ({
+  addImageId,
+}: PostContentFieldEditorProps) => {
   const { mutateAsync: uploadPostImage } = useMutation({
     mutationFn: uploadPostImageApi,
-    onSuccess: (data) => onSuccess(data.postImageId),
   })
   const { control } = useFormContext<CreateActivityPost>()
 
   const uploadFile = async (file: File): Promise<string> => {
     const data = await uploadPostImage({ data: { file } })
 
-    return data.postImageUrl.replace(
+    const url = data.postImageUrl.split('/').pop() ?? ''
+    addImageId(url, data.postImageId)
+
+    const imageUrl = data.postImageUrl.replace(
       '/upload',
       'https://www.knu-haedal.com/api/upload',
     )
+
+    return imageUrl
   }
 
   const editor = useCreateBlockNote({
     uploadFile,
   })
-
-  const onSuccess = (imageId: number) => {
-    console.log(imageId)
-  }
 
   return (
     <FormField
