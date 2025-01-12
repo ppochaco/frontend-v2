@@ -21,6 +21,8 @@ const config = {
       backgroundImage: {
         'custom-gradient':
           'linear-gradient(180deg, transparent 0%, #010238 10%, #010238 80%, transparent 100%)',
+        'custom-gradient-2':
+          'linear-gradient(180deg, transparent 0%, #010238 10%, #010238 80%, transparent 100%)',
       },
       colors: {
         border: 'hsl(var(--border))',

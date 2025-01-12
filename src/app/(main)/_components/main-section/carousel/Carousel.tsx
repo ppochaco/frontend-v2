@@ -24,7 +24,7 @@ export const Carousel = () => {
           <CarouselItem key={index}>
             <div className="p-1">
               <Card className="cursor-pointer">
-                <CardContent className="relative flex aspect-video flex-col p-0">
+                <CardContent className="relative flex aspect-[4/3] flex-col p-0">
                   <div className="flex w-full flex-1 items-center justify-center overflow-hidden rounded-xl">
                     <Image
                       alt={item.title}
@@ -35,8 +35,8 @@ export const Carousel = () => {
                       className="h-auto w-full"
                     />
                   </div>
-                  <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 break-keep rounded-b-lg bg-slate-100/90 px-6 py-4">
-                    <p className="text-lg font-semibold leading-loose lg:text-xl lg:leading-loose">
+                  <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 break-keep rounded-b-lg bg-gradient-to-t from-slate-100/90 to-transparent px-6 py-4">
+                    <p className="text-xl font-semibold leading-loose">
                       {item.title}
                     </p>
                     <p className="text-md text-slate-600 lg:text-lg">
