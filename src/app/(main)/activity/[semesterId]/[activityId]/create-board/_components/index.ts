@@ -1,4 +1,3 @@
-export { CreateBoardDetail } from './BoardDetail'
-export { CreateBoardHero } from './BoardHero'
-export { CreateBoardSkeleton } from './Skeleton'
+export * from './hero'
+export * from './detail'
 export * from './form'

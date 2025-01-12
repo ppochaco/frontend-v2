@@ -2,6 +2,8 @@
 
 import { useQuery } from '@tanstack/react-query'
 
+import { Spinner } from '@/components/common'
+import { Separator, Skeleton } from '@/components/ui'
 import { activityQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
 
@@ -9,7 +11,6 @@ import {
   CreateBoardDetail,
   CreateBoardForm,
   CreateBoardHero,
-  CreateBoardSkeleton,
 } from './_components'
 
 type CreateBoardPageParams = {
@@ -60,3 +61,16 @@ const CreateBoardPage = ({ params }: CreateBoardPageParams) => {
 }
 
 export default CreateBoardPage
+
+const CreateBoardSkeleton = () => {
+  return (
+    <div className="w-full pt-10">
+      <div>
+        <Separator variant="dark" />
+        <Skeleton className="my-4 h-5 w-full" />
+        <Separator variant="dark" />
+      </div>
+      <Spinner />
+    </div>
+  )
+}

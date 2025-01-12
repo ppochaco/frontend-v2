@@ -1,3 +1,5 @@
+'use client'
+
 import { AUTHORIZATION_API } from '@/service/config'
 import { UploadPostImageRequest } from '@/service/models'
 import { PostImages } from '@/service/models/PostImages'

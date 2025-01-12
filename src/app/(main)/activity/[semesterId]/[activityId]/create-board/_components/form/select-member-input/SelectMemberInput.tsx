@@ -8,7 +8,7 @@ import { Skeleton } from '@/components/ui'
 import { UserQuries } from '@/service/api'
 import { UserResponseDto } from '@/service/models'
 
-import { MultipleMemberSelect } from './MultipleMemberSelect'
+import { MultipleMemberSelect } from './multiple-member-select'
 
 type SelectMemberInputProps = {
   selectedMember: UserResponseDto[]
