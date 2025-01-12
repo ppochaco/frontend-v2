@@ -5,17 +5,17 @@ import { Content } from '@/components/common'
 export const Section1 = () => {
   return (
     <>
-      <Image
-        src="/haedal-background.png"
-        width={0}
-        height={0}
-        className="h-auto w-full"
-        alt="Haedal Background"
-      />
-      <Content
-        style={{ backgroundColor: '#010238' }}
-        className="flex flex-col items-center px-10 py-40 text-white"
-      >
+      <div className="relative w-full">
+        <Image
+          src="/haedal-background.png"
+          width={0}
+          height={0}
+          className="h-auto w-full"
+          alt="Haedal Background"
+        />
+        <div className="absolute bottom-0 h-10 w-full bg-gradient-to-b from-transparent to-[#010238]" />
+      </div>
+      <Content className="flex flex-col items-center bg-[#010238] px-10 py-40 text-white">
         <div className="flex w-full flex-1 flex-col gap-10">
           <div className="flex w-full flex-col gap-2">
             <div className="text-4xl">경북대학교 IT대학 학술동아리 </div>
