@@ -4,7 +4,7 @@ const nextConfig = {
   images: {
     domains: [
       'haedal-image-storage.s3.ap-northeast-2.amazonaws.com',
-      'photos.fife.usercontent.google.com',
+      'github.com',
     ],
   },
 }

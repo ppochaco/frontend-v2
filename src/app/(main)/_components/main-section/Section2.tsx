@@ -14,7 +14,7 @@ export const Section2 = () => {
           주요 활동 및 행사
         </p>
         <Carousel />
-        <div className="relative mt-4 flex w-full flex-col items-center gap-12 px-12 md:mt-8 md:flex-row md:gap-6 md:gap-8">
+        <div className="relative mt-4 flex w-full flex-col items-center gap-12 px-12 md:mt-10 md:flex-row md:gap-6 md:gap-8">
           <CalendarFirstSemester />
           <CalendarSecondSemester />
           <p className="-rotate-15 absolute -bottom-5 right-6 bg-yellow-400/80 px-0.5 text-2xl font-semibold md:text-3xl">
