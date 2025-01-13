@@ -11,9 +11,10 @@ export const Section2 = () => {
           주요 활동 및 행사
         </p>
         <Carousel />
-        <div className="relative mt-10 flex w-full flex-col items-center px-12">
-          <Calendar />
-          <p className="-rotate-15 absolute -bottom-5 right-6 bg-yellow-400/80 px-0.5 text-3xl font-semibold">
+        <div className="relative mt-2 flex w-full flex-col items-center gap-6 px-12 md:mt-8 md:flex-row md:gap-8">
+          <CalendarFirstSemester />
+          <CalendarSecondSemester />
+          <p className="-rotate-15 absolute -bottom-5 right-6 bg-yellow-400/80 px-0.5 text-2xl font-semibold md:text-3xl">
             한눈에 보기
           </p>
         </div>
@@ -22,7 +23,7 @@ export const Section2 = () => {
   )
 }
 
-const Calendar = () => {
+const CalendarFirstSemester = () => {
   return (
     <table className="w-full table-fixed border-collapse overflow-hidden rounded-xl border border-gray-300">
       <thead className="bg-primary text-white">
@@ -31,6 +32,37 @@ const Calendar = () => {
           <th className="border border-gray-300 px-4 py-2">4월</th>
           <th className="border border-gray-300 px-4 py-2">5월</th>
           <th className="border border-gray-300 px-4 py-2">6월</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td className="border border-gray-300 px-4 py-2">🎈 개강총회</td>
+          <td className="border border-gray-300 px-4 py-2"></td>
+          <td className="border border-gray-300 px-4 py-2"></td>
+          <td className="border border-gray-300 px-4 py-2">🎈 종강총회</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-300 px-4 py-2">🧺 해크닉</td>
+          <td className="border border-gray-300 px-4 py-2">🥪 간식마차</td>
+          <td className="border border-gray-300 px-4 py-2"></td>
+          <td className="border border-gray-300 px-4 py-2">🥪 간식마차</td>
+        </tr>
+        <tr>
+          <td className="border border-gray-300 px-4 py-2"></td>
+          <td className="border border-gray-300 px-4 py-2"></td>
+          <td className="border border-gray-300 px-4 py-2">🏞️ MT</td>
+          <td className="border border-gray-300 px-4 py-2"></td>
+        </tr>
+      </tbody>
+    </table>
+  )
+}
+
+const CalendarSecondSemester = () => {
+  return (
+    <table className="w-full table-fixed border-collapse overflow-hidden rounded-xl border border-gray-300">
+      <thead className="bg-primary text-white">
+        <tr>
           <th className="border border-gray-300 px-4 py-2">9월</th>
           <th className="border border-gray-300 px-4 py-2">10월</th>
           <th className="border border-gray-300 px-4 py-2">11월</th>
@@ -43,16 +75,8 @@ const Calendar = () => {
           <td className="border border-gray-300 px-4 py-2"></td>
           <td className="border border-gray-300 px-4 py-2"></td>
           <td className="border border-gray-300 px-4 py-2">🎈 종강총회</td>
-          <td className="border border-gray-300 px-4 py-2">🎈 개강총회</td>
-          <td className="border border-gray-300 px-4 py-2"></td>
-          <td className="border border-gray-300 px-4 py-2"></td>
-          <td className="border border-gray-300 px-4 py-2">🎈 종강총회</td>
         </tr>
         <tr>
-          <td className="border border-gray-300 px-4 py-2">🧺 해크닉</td>
-          <td className="border border-gray-300 px-4 py-2">🥪 간식마차</td>
-          <td className="border border-gray-300 px-4 py-2"></td>
-          <td className="border border-gray-300 px-4 py-2">🥪 간식마차</td>
           <td className="border border-gray-300 px-4 py-2">🧺 해크닉</td>
           <td className="border border-gray-300 px-4 py-2">🥪 간식마차</td>
           <td className="border border-gray-300 px-4 py-2"></td>
@@ -62,10 +86,6 @@ const Calendar = () => {
           <td className="border border-gray-300 px-4 py-2"></td>
           <td className="border border-gray-300 px-4 py-2"></td>
           <td className="border border-gray-300 px-4 py-2">🏞️ MT</td>
-          <td className="border border-gray-300 px-4 py-2"></td>
-          <td className="border border-gray-300 px-4 py-2"></td>
-          <td className="border border-gray-300 px-4 py-2">🏞️ MT</td>
-          <td className="border border-gray-300 px-4 py-2"></td>
           <td className="border border-gray-300 px-4 py-2"></td>
         </tr>
       </tbody>
