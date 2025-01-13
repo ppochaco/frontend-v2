@@ -11,7 +11,7 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { CAROUSEL_ACTIVITIES as CarouselActivities } from '@/constant/carouselActicities'
+import { EVENTS_WHOLE_YEAR as Events } from '@/constant/annualEvents'
 
 export const Carousel = () => {
   return (
@@ -20,7 +20,7 @@ export const Carousel = () => {
       className="w-full max-w-52 xs:max-w-sm sm:max-w-xl"
     >
       <CarouselContent>
-        {CarouselActivities.map((item, index) => (
+        {Events.map((item, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
               <Card className="cursor-pointer">

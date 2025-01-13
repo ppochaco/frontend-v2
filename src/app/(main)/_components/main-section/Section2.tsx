@@ -1,9 +1,12 @@
 import Image from 'next/image'
 
 import { Content } from '@/components/common'
-import { CAROUSEL_ACTIVITIES as CarouselActivities } from '@/constant/carouselActicities'
+import {
+  EVENTS_FIRST_SEMESTER,
+  EVENTS_SECOND_SEMESTER,
+} from '@/constant/annualEvents'
 
-import { CalendarFirstSemester, CalendarSecondSemester } from './calenders'
+import { Calendar } from './calender'
 import { Carousel } from './carousel'
 
 export const Section2 = () => {
@@ -15,8 +18,14 @@ export const Section2 = () => {
         </p>
         <Carousel />
         <div className="relative mt-4 flex w-full flex-col items-center gap-12 px-12 md:mt-10 md:flex-row md:gap-6 md:gap-8">
-          <CalendarFirstSemester />
-          <CalendarSecondSemester />
+          <Calendar
+            months={EVENTS_FIRST_SEMESTER.months}
+            events={EVENTS_FIRST_SEMESTER.events}
+          />
+          <Calendar
+            months={EVENTS_SECOND_SEMESTER.months}
+            events={EVENTS_SECOND_SEMESTER.events}
+          />
           <p className="-rotate-15 absolute -bottom-5 right-6 bg-yellow-400/80 px-0.5 text-2xl font-semibold md:text-3xl">
             한눈에 보기
           </p>

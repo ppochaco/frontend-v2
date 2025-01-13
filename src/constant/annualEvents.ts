@@ -1,6 +1,4 @@
-import { de } from '@blocknote/core/types/src/i18n/locales'
-
-export const CAROUSEL_ACTIVITIES = [
+export const EVENTS_WHOLE_YEAR = [
   {
     title: '해달 설명회',
     month: '학기 초',
@@ -65,3 +63,21 @@ export const CAROUSEL_ACTIVITIES = [
       '아이디어톤에서 창의적인 아이디어를 내고, 해커톤에서 직접 구현하는 과정을 통해 개발 실력을 향상시킬 수 있습니다. 단기간의 목표 성취를 통한 짜릿함을 느껴보세요😵‍💫',
   },
 ]
+
+export const EVENTS_FIRST_SEMESTER = {
+  months: ['3월', '4월', '5월', '6월'],
+  events: [
+    ['🎈 개강총회', '', '', '🎈 종강총회'],
+    ['🧺 해크닉', '🥪 간식마차', '', '🥪 간식마차'],
+    ['', '', '🏞️ MT', ''],
+  ],
+}
+
+export const EVENTS_SECOND_SEMESTER = {
+  months: ['9월', '10월', '11월', '12월'],
+  events: [
+    ['🎈 개강총회', '', '', '🎈 종강총회'],
+    ['🧺 해크닉', '🥪 간식마차', '', '🥪 간식마차'],
+    ['', '', '🏞️ MT', ''],
+  ],
+}
