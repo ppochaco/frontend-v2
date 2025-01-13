@@ -1,13 +1,10 @@
 import Image from 'next/image'
 
 import { Content } from '@/components/common'
-import {
-  EVENTS_FIRST_SEMESTER,
-  EVENTS_SECOND_SEMESTER,
-} from '@/constant/annualEvents'
 
 import { Calendar } from './calender'
 import { Carousel } from './carousel'
+import { EVENTS_FIRST_SEMESTER, EVENTS_SECOND_SEMESTER } from './eventsData'
 
 export const Section2 = () => {
   return (

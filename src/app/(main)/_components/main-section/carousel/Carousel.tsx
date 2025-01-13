@@ -11,7 +11,8 @@ import {
   CarouselNext,
   CarouselPrevious,
 } from '@/components/ui/carousel'
-import { EVENTS_WHOLE_YEAR as Events } from '@/constant/annualEvents'
+
+import { EVENTS_WHOLE_YEAR as Events } from '../eventsData'
 
 export const Carousel = () => {
   return (
