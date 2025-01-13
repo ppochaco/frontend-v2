@@ -36,7 +36,7 @@ export const Section1 = () => {
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
           >
-            <span className="text-5xl leading-loose md:text-6xl md:leading-loose">
+            <span className="text-4xl leading-loose md:text-5xl md:leading-loose">
               해달
             </span>
             은
