@@ -1,6 +1,12 @@
+import { motion } from 'framer-motion'
 import Image from 'next/image'
 
 import { Content } from '@/components/common'
+
+const fadeInUp = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+}
 
 export const Section1 = () => {
   return (
@@ -14,14 +20,34 @@ export const Section1 = () => {
       />
       <Content className="bg-custom-gradient relative z-10 -mt-20 flex w-full flex-col items-center px-10 pb-60 pt-60 text-white">
         <div className="section1-intro-area flex w-full flex-col">
-          <p className="text-xl md:text-3xl">경북대학교 IT대학 학술동아리</p>
-          <p className="text-xl md:text-2xl">
+          <motion.p
+            className="text-xl md:text-3xl"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+          >
+            경북대학교 IT대학 학술동아리
+          </motion.p>
+          <motion.p
+            className="text-xl md:text-2xl"
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+          >
             <span className="text-5xl leading-loose md:text-6xl md:leading-loose">
               해달
             </span>
             은
-          </p>
-          <div className="flex flex-col break-keep text-lg leading-relaxed md:text-2xl md:leading-relaxed">
+          </motion.p>
+          <motion.div
+            variants={fadeInUp}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true, margin: '-50px' }}
+            className="flex flex-col break-keep text-lg leading-relaxed md:text-2xl md:leading-relaxed"
+          >
             <p>
               <strong className="bg-yellow-400 text-primary">
                 SW 가치 확산
@@ -33,7 +59,7 @@ export const Section1 = () => {
               <strong className="bg-yellow-400 text-primary">누구나</strong>{' '}
               함께하실 수 있습니다.
             </p>
-          </div>
+          </motion.div>
         </div>
       </Content>
     </div>
