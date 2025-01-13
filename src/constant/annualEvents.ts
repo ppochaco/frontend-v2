@@ -56,7 +56,7 @@ export const EVENTS_WHOLE_YEAR = [
   },
   {
     title: '아이디어톤 & 해커톤',
-    month: '학기별 1회/연 2회',
+    month: '학기별 1회',
     imageUrl:
       'https://github.com/user-attachments/assets/3792a4a1-b95c-4940-b3a3-2d060187ea23',
     description:
