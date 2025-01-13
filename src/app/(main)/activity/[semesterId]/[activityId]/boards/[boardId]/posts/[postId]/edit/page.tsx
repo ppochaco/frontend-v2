@@ -10,7 +10,6 @@ import {
 } from '@/constant/errorMessage'
 import { boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
-import { Role } from '@/types/user'
 
 import { EditActivityPostForm } from './components/form/Form'
 import { EditActivityPostHero } from './components/hero/Hero'
@@ -30,13 +29,17 @@ const EditActivityPostPage = ({ params }: EditPostPageParams) => {
     }),
   )
 
-  const { role } = useMyInfoStore((state) => state.myInfo)
+  const { userId } = useMyInfoStore((state) => state.myInfo)
 
   useEffect(() => {
-    if (!role?.includes(role as Role)) {
+    if (
+      !board?.participants?.some(
+        (participant: { userId: string }) => participant.userId !== userId,
+      )
+    ) {
       throw new Error(ACCESS_ERROR_MESSAGE.UNAUTHORIZED_ERROR)
     }
-  }, [role])
+  }, [userId, board?.participants])
 
   if (status === 'pending') return <div />
 
