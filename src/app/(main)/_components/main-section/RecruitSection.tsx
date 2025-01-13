@@ -22,11 +22,11 @@ export const RecruitSection = () => {
             </span>
           </p>
           <Image
-            src="/haedal-notebook.png"
+            src="/haedal-laptop.png"
             width={0}
             height={0}
             className="h-auto sm:w-1/2 lg:w-1/3"
-            alt="Haedal Background"
+            alt="Haedal laptop"
           />
           <p className="text-center text-slate-300">
             지금은 모집 기간이 아닙니다.
