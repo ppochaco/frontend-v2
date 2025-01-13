@@ -1,3 +1,4 @@
+import { ArrowRightIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
 
 import { Content } from '@/components/common'
@@ -35,10 +36,11 @@ export const RecruitSection = () => {
           </p>
           <Button
             variant="secondary"
-            className="mt-6 h-fit text-2xl text-yellow-400"
+            className="mt-6 h-fit gap-2 text-2xl font-semibold text-yellow-400"
             onClick={() => (window.location.href = '/recruit')}
           >
-            더 알아보기 →
+            <span>더 알아보기</span>
+            <ArrowRightIcon className="h-auto w-6" />
           </Button>
         </div>
       </div>
