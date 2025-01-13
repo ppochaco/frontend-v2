@@ -94,7 +94,7 @@ export const CreateActivityPostForm = ({
         <ActivityDateFieldDialog />
         <Separator />
         <div>게시글 내용 작성하기</div>
-        <PostContentFieldEditor />
+        <PostContentFieldEditor isFixed={false} />
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
             게시글 업로드
