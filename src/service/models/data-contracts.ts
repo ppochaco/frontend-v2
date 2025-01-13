@@ -797,6 +797,8 @@ export type RemoveSemesterData = any
 
 export type RemoveActivityData = any
 
+export type UpdatePostWithBoardData = any
+
 export type RemoveNoticePostData = any
 
 export type UpdateNoticePostData = any
@@ -901,6 +903,12 @@ export interface ActivityPostPagingRequest {
 export interface DeleteActivityPostRequest {
   boardId: number
   postId: number
+}
+
+export interface UpdateActivityPostRequest {
+  boardId: number
+  postId: number
+  data: PostWithBoardRequestDto
 }
 
 export interface AddActivityPostRequest {
