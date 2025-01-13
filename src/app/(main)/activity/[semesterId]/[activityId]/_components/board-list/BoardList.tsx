@@ -12,6 +12,7 @@ import { BoardSkeleton, NameLabel } from '@/components/feature'
 import { Card, CardContent, CardTitle } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { boardQueries } from '@/service/api'
+import { BASE_URL } from '@/service/config/instance'
 
 type ActivityBoardListProps = {
   activityId: number
@@ -54,7 +55,7 @@ export const ActivityBoardList = ({ activityId }: ActivityBoardListProps) => {
                   height="0"
                   sizes="100vw"
                   className="h-auto w-full"
-                  src={board.boardImageUrl}
+                  src={`${BASE_URL}${board.boardImageUrl}`}
                   alt={board.boardName}
                 />
               </div>

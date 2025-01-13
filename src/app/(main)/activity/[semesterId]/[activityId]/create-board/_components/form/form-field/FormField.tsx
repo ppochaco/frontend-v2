@@ -11,17 +11,17 @@ import {
   Label,
 } from '@/components/ui'
 
-type PostFormFieldProps = {
+type BoardFormFieldProps = {
   name: string
   label: string
   children: (field: ControllerRenderProps) => ReactNode
 }
 
-export const PostFormField = ({
+export const BoardFormField = ({
   name,
   label,
   children,
-}: PostFormFieldProps) => {
+}: BoardFormFieldProps) => {
   const form = useFormContext()
 
   return (

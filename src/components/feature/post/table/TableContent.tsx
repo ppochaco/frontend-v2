@@ -1,7 +1,5 @@
 'use client'
 
-import { HTMLAttributes } from 'react'
-
 import { flexRender, Table as tanskTable } from '@tanstack/react-table'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
@@ -14,13 +12,12 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui'
-import { PostSummaryResponseDto } from '@/service/models'
 
-interface PostTableContentProps extends HTMLAttributes<HTMLTableElement> {
-  table: tanskTable<PostSummaryResponseDto>
+interface TableContentProps<T> {
+  table: tanskTable<T>
 }
 
-export function PostTableContent({ table }: PostTableContentProps) {
+export function PostTableContent<T>({ table }: TableContentProps<T>) {
   const pathName = usePathname()
 
   return (

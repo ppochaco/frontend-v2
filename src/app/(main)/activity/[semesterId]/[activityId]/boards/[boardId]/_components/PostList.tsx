@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { useSearchParams } from 'next/navigation'
 
-import { PaginationButtons } from '@/components/common'
+import { PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { activityPostQuries } from '@/service/api'
@@ -22,7 +22,11 @@ export const ActivityPostListSection = ({
   const { data, status } = useQuery(activityPostQuries.list({ boardId, page }))
 
   if (status === 'pending')
-    return <div className="flex w-full justify-center">loading...</div>
+    return (
+      <div className="flex w-full justify-center">
+        <Spinner />
+      </div>
+    )
 
   if (!data) {
     throw new Error(DATA_ERROR_MESSAGES.POST_NOT_FOUND)

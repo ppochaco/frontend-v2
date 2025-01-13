@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { Spinner } from '@/components/common'
 import { BoardNavigationButton, PostContent } from '@/components/feature'
-import { PostQuries } from '@/service/api'
+import { NoticePostQuries } from '@/service/api'
 
 import { NoticePostDetail, NoticePostHero } from './_components'
 
@@ -16,7 +16,7 @@ type NoticePostPageParams = {
 
 const NoticePostPage = ({ params }: NoticePostPageParams) => {
   const { data: post, status } = useQuery(
-    PostQuries.detail({ postId: Number(params.postId) }),
+    NoticePostQuries.detail({ postId: Number(params.postId) }),
   )
 
   if (status === 'pending' || !post) return <Spinner />

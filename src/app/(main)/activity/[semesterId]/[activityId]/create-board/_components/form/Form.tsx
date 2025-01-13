@@ -4,20 +4,20 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { CrossCircledIcon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 
-import {
-  PostFormField as BoardFormField,
-  ImageInput,
-} from '@/components/feature'
+import { ImageInput } from '@/components/feature'
 import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
 import { addBoardApi, boardQueries } from '@/service/api'
 import { UserResponseDto } from '@/service/models'
 
-import { SelectMemberInput } from './SelectMemberInput'
+import { BoardFormField } from './form-field'
+import { SelectMemberInput } from './select-member-input'
 
 type CreateBoardFromProps = {
   activityId: number
@@ -32,6 +32,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
   const { mutate: addBoard, isPending } = useMutation({
     mutationFn: addBoardApi,
     onSuccess: (data) => onSuccess(data.message),
+    onError: (error) => onError(error),
   })
   const { toast } = useToast()
 
@@ -56,8 +57,29 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
       duration: 2000,
     })
 
-    queryClient.invalidateQueries({ queryKey: boardQueries.lists(activityId) })
+    queryClient.invalidateQueries({ queryKey: boardQueries.all() })
     router.push(basePath)
+  }
+
+  const onError = (error: Error) => {
+    if (error instanceof AxiosError && error.response) {
+      const { code, errors } = error.response.data
+
+      if (code === 'COMMON_001') {
+        toast({
+          description: (
+            <div className="flex items-center font-semibold">
+              <CrossCircledIcon className="mr-2 h-5 w-5 text-white" />
+              {
+                errors[0].field
+              }에는 {errors[0].message}
+            </div>
+          ),
+
+          variant: 'destructive',
+        })
+      }
+    }
   }
 
   return (
@@ -68,21 +90,28 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
       >
         <BoardFormField name="boardName" label="게시판 제목">
           {(field) => (
-            <Input {...field} placeholder="게시판 제목을 입력해주세요" />
+            <Input
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="게시판 제목을 입력해주세요"
+            />
           )}
         </BoardFormField>
         <BoardFormField name="boardIntro" label="게시판 소개">
           {(field) => (
-            <Textarea {...field} placeholder="게시판 소개글을 작성해주세요" />
+            <Textarea
+              value={field.value}
+              onChange={field.onChange}
+              placeholder="게시판 소개글을 작성해주세요"
+            />
           )}
         </BoardFormField>
         <BoardFormField name="file" label="게시판 대표 사진">
           {(field) => <ImageInput field={field} />}
         </BoardFormField>
         <BoardFormField name="participants" label="게시판 이용자">
-          {(field) => (
+          {() => (
             <SelectMemberInput
-              {...field}
               selectedMember={selectedMember}
               setSelectedMember={setSelectedMember}
             />

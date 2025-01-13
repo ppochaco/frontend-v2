@@ -1,11 +1,8 @@
+import { TrashIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { usePathname, useRouter } from 'next/navigation'
 
-import {
-  ActivityBreadcrumb,
-  BoardHeroSkeleton,
-  NameLabel,
-} from '@/components/feature'
+import { ActivityBreadcrumb, NameLabel } from '@/components/feature'
 import { Button, Separator, useToast } from '@/components/ui'
 import { DATA_ERROR_MESSAGES } from '@/constant/errorMessage'
 import { queryClient } from '@/lib/query-client'
@@ -18,7 +15,7 @@ type BoardHeroProps = {
 }
 
 export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
 
   const { data: boardDetail, status } = useQuery(
     boardQueries.detail({ activityId, boardId }),
@@ -68,15 +65,27 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
       {role === 'ROLE_ADMIN' && (
         <div className="flex justify-end">
           <Button
-            variant="link"
-            className="text-primary/60"
+            variant="outline"
             onClick={() => deleteBoard({ boardId, activityId })}
             disabled={isPending}
+            className="mb-3 gap-1 px-2 text-primary/70"
           >
-            게시판 삭제하기
+            <TrashIcon />
+            <div>삭제하기</div>
           </Button>
         </div>
       )}
+      <Separator variant="dark" />
+    </div>
+  )
+}
+
+export const BoardHeroSkeleton = () => {
+  return (
+    <div className="flex flex-col">
+      <Separator variant="dark" />
+      <div className="h-40"></div>
+      <div className="h-0.5"></div>
       <Separator variant="dark" />
     </div>
   )

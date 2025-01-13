@@ -9,7 +9,7 @@ import { useMyInfoStore } from '@/store/myInfo'
 import { AdminSidebar } from './_components'
 
 const AdminLayout = ({ children }: { children: React.ReactNode }) => {
-  const { role } = useMyInfoStore((state) => state.getMyInfo())
+  const { role } = useMyInfoStore((state) => state.myInfo)
   const router = useRouter()
 
   useEffect(() => {

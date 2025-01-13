@@ -13,17 +13,15 @@ interface MyInfoProps {
   myInfo: MyInfo
   setMyInfo: (myInfo: MyInfo) => void
   clearMyInfo: () => void
-  getMyInfo: () => MyInfo
 }
 
 export const useMyInfoStore = create(
   persist<MyInfoProps>(
-    (set, get) => ({
+    (set) => ({
       myInfo: { userId: '', userName: '', role: undefined },
       setMyInfo: (myInfo) => set({ myInfo }),
       clearMyInfo: () =>
         set({ myInfo: { userId: '', userName: '', role: undefined } }),
-      getMyInfo: () => get().myInfo,
     }),
     {
       name: 'my-info',

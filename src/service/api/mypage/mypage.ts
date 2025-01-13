@@ -1,3 +1,5 @@
+'use client'
+
 import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API } from '@/service/config'
@@ -31,6 +33,7 @@ export const userQueries = {
   userInfo: ({ userId }: GetUserRequest) =>
     queryOptions({
       queryKey: [...userQueries.userInfos({ userId })],
+      enabled: !!userId,
       queryFn: async () => getUserInfo({ userId }),
     }),
 
@@ -42,6 +45,7 @@ export const userQueries = {
   profile: ({ userId }: GetUserRequest) =>
     queryOptions({
       queryKey: [...userQueries.profiles({ userId })],
+      enabled: !!userId,
       queryFn: async () => getUserProfile({ userId }),
     }),
 }

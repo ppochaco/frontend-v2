@@ -1,2 +1,2 @@
-export { ActivityPostDetail } from './PostDetail'
-export { ActivityPostHero } from './PostHero'
+export * from './hero'
+export * from './detail'

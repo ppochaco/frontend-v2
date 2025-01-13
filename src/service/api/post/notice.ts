@@ -1,29 +1,29 @@
+'use client'
+
 import formatDateDistanceFromToday from '@/utils/date-distance'
 import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API, BACKEND_API } from '@/service/config'
 import {
   AddNoticePostRequest,
+  BasePostSummaryResponseDto,
   DeleteNoticePostRequest,
+  GetNoticePostDetailRequest,
   NoticePostPagingRequest,
-  PostSummaryResponseDto,
-  Posts,
 } from '@/service/models'
+import { Notices } from '@/service/models/Notices'
 import { Paging } from '@/types/paging'
 
-import { PostQuries } from './post'
-
 type NoticePostPagingResponse = {
-  posts: PostSummaryResponseDto[]
+  posts: BasePostSummaryResponseDto[]
 } & Paging
 
 const noticePostPaging = async ({
   page,
   size = 10,
 }: NoticePostPagingRequest): Promise<NoticePostPagingResponse> => {
-  const postClient = new Posts(BACKEND_API)
-  const response = await postClient.getActivityPosts({
-    postType: 'NOTICE',
+  const noticeClient = new Notices(BACKEND_API)
+  const response = await noticeClient.getNoticePosts({
     page,
     size,
   })
@@ -32,7 +32,7 @@ const noticePostPaging = async ({
 
   const posts = data.content.map((post) => {
     const formatCreateDate = formatDateDistanceFromToday(
-      new Date(post.postCreateDate),
+      new Date(post.postRegDate),
     )
 
     if (!formatCreateDate) return post
@@ -57,27 +57,39 @@ const noticePostPaging = async ({
   }
 }
 
+const getNoticePostDetail = async ({ postId }: GetNoticePostDetailRequest) => {
+  const noticeClient = new Notices(BACKEND_API)
+  const response = await noticeClient.getNoticePost(postId)
+
+  return response.data
+}
+
 export const NoticePostQuries = {
-  all: () => [...PostQuries.all(), 'notice'],
+  all: () => ['post', 'notice'],
   list: ({ page, size }: NoticePostPagingRequest) =>
     queryOptions({
-      queryKey: [...PostQuries.all(), page],
+      queryKey: [...NoticePostQuries.all(), page],
       queryFn: async () => noticePostPaging({ page, size }),
+    }),
+  detail: ({ postId }: GetNoticePostDetailRequest) =>
+    queryOptions({
+      queryKey: [...NoticePostQuries.all(), postId],
+      queryFn: () => getNoticePostDetail({ postId }),
     }),
 }
 
 export const deleteNoticePostApi = async ({
   postId,
 }: DeleteNoticePostRequest) => {
-  const postClient = new Posts(AUTHORIZATION_API)
-  const response = await postClient.deleteNoticePost(postId)
+  const noticeClient = new Notices(AUTHORIZATION_API)
+  const response = await noticeClient.removeNoticePost(postId)
 
   return response.data
 }
 
 export const addNoticePostApi = async ({ data }: AddNoticePostRequest) => {
-  const postClient = new Posts(AUTHORIZATION_API)
-  const response = await postClient.addNoticePost(data)
+  const noticeClient = new Notices(AUTHORIZATION_API)
+  const response = await noticeClient.registerNoticePost(data)
 
   return response.data
 }
