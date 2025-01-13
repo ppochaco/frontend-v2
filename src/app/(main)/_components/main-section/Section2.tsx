@@ -1,5 +1,3 @@
-import Image from 'next/image'
-
 import { Content } from '@/components/common'
 
 import { Calendar } from './calender'
