@@ -7,6 +7,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 
+import { Spinner } from '@/components/common'
 import { PostContentFieldEditor } from '@/components/feature/post/create-post-form/editor'
 import {
   Button,
@@ -40,7 +41,7 @@ export const EditActivityPostForm = ({
 
   const postId = Number(params.postId)
 
-  const { data: editPostData } = useQuery(
+  const { data: editPostData, isPending: editPostPending } = useQuery(
     activityPostQuries.detail({ boardId, postId }),
   )
 
@@ -65,6 +66,8 @@ export const EditActivityPostForm = ({
       form.reset({
         postTitle: editPostData.postTitle,
         postContent: editPostData.postContent,
+        // TODO: 이미지 관련 수정 필요
+        postImageIds: [1, 2, 3],
         postActivityStartDate: editPostData.postActivityStartDate,
         postActivityEndDate: editPostData.postActivityEndDate,
       })
@@ -84,6 +87,8 @@ export const EditActivityPostForm = ({
     const basePath = pathName.split('/').slice(0, -1).join('/')
     router.push(basePath)
   }
+
+  if (editPostPending) return <Spinner />
 
   return (
     <Form {...form}>
