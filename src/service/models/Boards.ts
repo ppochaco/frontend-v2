@@ -17,6 +17,7 @@ import {
   GetPostsWithBoardData,
   PostWithBoardRequestDto,
   RegisterPostWithBoardData,
+  UpdatePostWithBoardData,
 } from './data-contracts'
 import { ContentType, RequestParams } from './http-client'
 
@@ -122,6 +123,34 @@ export class Boards<
       path: `/boards/${boardId}/posts/${postId}`,
       method: 'DELETE',
       secure: true,
+      format: 'json',
+      ...params,
+    })
+
+  /**
+   * No description
+   *
+   * @tags 게시글 API
+   * @name UpdatePostWithBoard
+   * @summary 활동 게시글 수정
+   * @request PUT:/boards/{boardId}/posts/{postId}
+   * @secure
+   * @response `200` `UpdatePostWithBoardData`
+   * @response `401` `void`
+   * @response `404` `void`
+   */
+  updatePostWithBoard = (
+    boardId: number,
+    postId: number,
+    data: PostWithBoardRequestDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<UpdatePostWithBoardData, void>({
+      path: `/boards/${boardId}/posts/${postId}`,
+      method: 'PUT',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
       format: 'json',
       ...params,
     })
