@@ -2,7 +2,7 @@
 
 import { useFormContext } from 'react-hook-form'
 
-import { BlockNoteEditor, PartialBlock } from '@blocknote/core'
+import { PartialBlock } from '@blocknote/core'
 import { BlockNoteView } from '@blocknote/mantine'
 import '@blocknote/mantine/style.css'
 import { useCreateBlockNote } from '@blocknote/react'
@@ -24,7 +24,7 @@ const PostContentFieldEditor = ({
   const initialContent = JSON.parse(contents || '') as PartialBlock[]
 
   const createEditor = useCreateBlockNote()
-  const fixEditor = BlockNoteEditor.create({ initialContent })
+  const fixEditor = useCreateBlockNote({ initialContent })
 
   return (
     <FormField
