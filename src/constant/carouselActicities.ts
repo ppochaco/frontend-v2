@@ -3,6 +3,7 @@ import { de } from '@blocknote/core/types/src/i18n/locales'
 export const CAROUSEL_ACTIVITIES = [
   {
     title: '해달 설명회',
+    month: '학기 초',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczPChEyk1rZLTfIofaHGGkaPsqAvAZ-qhFQ_MBZAaEish80JzsN00TYT=w1600-h901-s-no?authuser=1',
     description:
@@ -10,12 +11,14 @@ export const CAROUSEL_ACTIVITIES = [
   },
   {
     title: 'Git 교육',
+    month: '학기 초',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczMew8cq9pXKYRJ1ayzobZdLhYMN8ho9XUmt1zHXZGWABasoCRPY18KL=w1201-h901-s-no?authuser=1',
     description: '해달에서는 Git을 이용한 협업을 위한 교육을 진행합니다.',
   },
   {
     title: '개강총회 & 종강총회',
+    month: '학기 초/말',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczMnXXhLSjiChovuXU2Ts3undFwi9OMrK9CZCzwdmbJzA0H9wPbuXNxT=w1201-h901-s-no?authuser=1',
     description:
@@ -23,6 +26,7 @@ export const CAROUSEL_ACTIVITIES = [
   },
   {
     title: '해크닉',
+    month: '3/9월',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczMEYPFAkzrldSYAx-ynnA1I38KOc8FKGOfdwP_3ZHU-oVkKNS5iZduK=w1802-h901-s-no?authuser=1',
     description:
@@ -30,6 +34,7 @@ export const CAROUSEL_ACTIVITIES = [
   },
   {
     title: '시험기간 간식마차',
+    month: '4/6/10/12월',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczOz64RQfyWrdD06TfpU5sLYptLm-smGlISHRWj57MaQCiPEgibU3PES=w1201-h901-s-no?authuser=1',
     description:
@@ -37,6 +42,7 @@ export const CAROUSEL_ACTIVITIES = [
   },
   {
     title: '봄/가을 MT',
+    month: '5/10월',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczOO0Gh90y_-4bRv5_pjcCS4cFqyx46OujOt5Au0kaRPByPfdFEBMpC0=w1600-h901-s-no?authuser=1',
     description:
@@ -44,6 +50,7 @@ export const CAROUSEL_ACTIVITIES = [
   },
   {
     title: '취업특강 & 진로특강',
+    month: '학기별 1회',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczPD7jTK5_YXlyYEOfUN49ak3a4YsUg2WTmzXp8Mvjan6ZOhUP3DOX2y=w1200-h901-s-no?authuser=1',
     description:
@@ -51,6 +58,7 @@ export const CAROUSEL_ACTIVITIES = [
   },
   {
     title: '아이디어톤 & 해커톤',
+    month: '학기별 1회/연 2회',
     imageUrl:
       'https://photos.fife.usercontent.google.com/pw/AP1GczMHv70lXRvzzc3Ss2VYYIMDG42qyAZzVJN3Ae0j23McWYFeKrUZT8Es=w1201-h901-s-no?authuser=1',
     description:
