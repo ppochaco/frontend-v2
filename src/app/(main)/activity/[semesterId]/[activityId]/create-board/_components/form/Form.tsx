@@ -9,17 +9,15 @@ import { useMutation } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { usePathname, useRouter } from 'next/navigation'
 
-import {
-  PostFormField as BoardFormField,
-  ImageInput,
-} from '@/components/feature'
+import { ImageInput } from '@/components/feature'
 import { Button, Form, Input, Textarea, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateBoard, CreateBoardSchema } from '@/schema/board'
 import { addBoardApi, boardQueries } from '@/service/api'
 import { UserResponseDto } from '@/service/models'
 
-import { SelectMemberInput } from './SelectMemberInput'
+import { BoardFormField } from './form-field'
+import { SelectMemberInput } from './select-member-input'
 
 type CreateBoardFromProps = {
   activityId: number
