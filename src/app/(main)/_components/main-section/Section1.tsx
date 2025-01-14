@@ -15,7 +15,9 @@ export const Section1 = () => {
         src="/haedal-background.png"
         width={0}
         height={0}
+        sizes="100vw"
         className="h-auto w-full"
+        priority
         alt="Haedal Background"
       />
       <Content className="bg-custom-gradient relative z-10 -mt-20 flex w-full flex-col items-center px-10 pb-60 pt-60 text-white">

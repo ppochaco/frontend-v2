@@ -26,6 +26,7 @@ export const RecruitSection = () => {
             src="/haedal-laptop.png"
             width={0}
             height={0}
+            sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             className="h-auto sm:w-1/2 lg:w-1/3"
             alt="Haedal laptop"
           />
