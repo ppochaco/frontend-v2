@@ -20,7 +20,7 @@ export const Section1 = () => {
         priority
         alt="Haedal Background"
       />
-      <Content className="bg-custom-gradient relative z-10 -mt-20 flex w-full flex-col items-center px-10 pb-60 pt-60 text-white">
+      <Content className="bg-custom-gradient relative z-10 -mt-20 flex w-full flex-col items-center px-10 pb-80 pt-60 text-white">
         <div className="section1-intro-area flex w-full flex-col">
           <motion.p
             className="text-xl md:text-3xl"
