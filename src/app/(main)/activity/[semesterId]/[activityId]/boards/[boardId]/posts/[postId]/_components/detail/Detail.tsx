@@ -48,20 +48,24 @@ export const ActivityPostDetail = ({
       <div className="pt-4 text-4xl font-semibold">{post.postTitle}</div>
       <div className="flex justify-end">
         <div className="flex items-center gap-3">
-          <Button
-            variant="link"
-            onClick={() => router.push(`${pathName.split('/').join('/')}/edit`)}
-            className="h-fit p-0 font-normal text-primary/70 hover:text-primary"
-          >
-            수정
-          </Button>
           {userId === post.userId && (
-            <DeletePostDialog
-              onClick={() =>
-                deleteActivityPost({ boardId, postId: post.postId })
-              }
-              disabled={isPending}
-            />
+            <div className="flex gap-2">
+              <Button
+                variant="link"
+                onClick={() =>
+                  router.push(`${pathName.split('/').join('/')}/edit`)
+                }
+                className="h-fit p-0 font-normal text-primary/70 hover:text-primary"
+              >
+                수정
+              </Button>
+              <DeletePostDialog
+                onClick={() =>
+                  deleteActivityPost({ boardId, postId: post.postId })
+                }
+                disabled={isPending}
+              />
+            </div>
           )}
         </div>
       </div>
