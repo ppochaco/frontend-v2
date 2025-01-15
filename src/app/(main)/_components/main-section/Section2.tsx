@@ -21,7 +21,7 @@ export const Section2 = () => {
             months={EVENTS_SECOND_SEMESTER.months}
             events={EVENTS_SECOND_SEMESTER.events}
           />
-          <p className="absolute -bottom-5 right-6 -rotate-15 bg-yellow-400/80 px-0.5 text-2xl font-semibold md:text-3xl">
+          <p className="absolute -bottom-5 right-6 -rotate-15 bg-yellow-400/80 px-0.5 text-lg font-semibold md:text-xl lg:text-2xl">
             한눈에 보기
           </p>
         </div>
