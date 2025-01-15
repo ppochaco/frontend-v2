@@ -6,7 +6,7 @@ import { Button } from '@/components/ui'
 
 export const RecruitSection = () => {
   return (
-    <Content className="w-full bg-gradient-to-b from-primary via-primary/60 to-yellow-100 py-28 md:px-10">
+    <Content className="w-full bg-gradient-to-b from-[#010238] via-[#010238]/50 to-yellow-100 py-28 md:px-10">
       <div className="flex w-full flex-1 flex-col gap-10 text-lg text-white">
         <div className="flex flex-col items-center px-12">
           <p
