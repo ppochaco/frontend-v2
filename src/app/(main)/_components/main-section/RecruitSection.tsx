@@ -10,7 +10,7 @@ export const RecruitSection = () => {
       <div className="flex w-full flex-1 flex-col gap-10 text-lg text-white">
         <div className="flex flex-col items-center px-12">
           <p
-            className="bg-gradient-to-r from-yellow-400 via-slate-100 to-yellow-600 bg-clip-text text-center text-4xl font-semibold leading-snug text-transparent"
+            className="bg-gradient-to-r from-yellow-400 via-slate-100 to-yellow-600 bg-clip-text text-center text-2xl font-semibold leading-snug text-transparent md:text-3xl lg:text-4xl"
             style={{
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
@@ -37,7 +37,7 @@ export const RecruitSection = () => {
           </p>
           <Button
             variant="secondary"
-            className="mt-6 h-fit gap-2 text-2xl font-semibold text-yellow-400"
+            className="mt-6 h-fit gap-2 text-lg font-semibold text-yellow-400 md:text-xl lg:text-2xl"
             onClick={() => (window.location.href = '/recruit')}
           >
             <span>더 알아보기</span>
