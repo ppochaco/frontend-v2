@@ -29,12 +29,12 @@ import { ActivityDateFieldDialog } from './date-field-dialog'
 
 interface EditActivityPostFormProps {
   boardId: number
-  editPostData: PostWithBoardResponseDto
+  postInfo: PostWithBoardResponseDto
 }
 
 export const EditActivityPostForm = ({
   boardId,
-  editPostData,
+  postInfo,
 }: EditActivityPostFormProps) => {
   const { toast } = useToast()
   const router = useRouter()
@@ -60,17 +60,17 @@ export const EditActivityPostForm = ({
   })
 
   useEffect(() => {
-    if (editPostData) {
+    if (postInfo) {
       form.reset({
-        postTitle: editPostData.postTitle,
-        postContent: editPostData.postContent,
+        postTitle: postInfo.postTitle,
+        postContent: postInfo.postContent,
         // TODO: 이미지 관련 수정 필요
         postImageIds: [],
-        postActivityStartDate: editPostData.postActivityStartDate,
-        postActivityEndDate: editPostData.postActivityEndDate || '',
+        postActivityStartDate: postInfo.postActivityStartDate,
+        postActivityEndDate: postInfo.postActivityEndDate || '',
       })
     }
-  }, [editPostData, form])
+  }, [postInfo, form])
 
   const onSuccess = (message?: string) => {
     toast({
@@ -128,7 +128,7 @@ export const EditActivityPostForm = ({
           addImageId={(url, id) => {
             console.log(url, id)
           }}
-          contents={editPostData?.postContent}
+          contents={postInfo?.postContent}
         />
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
