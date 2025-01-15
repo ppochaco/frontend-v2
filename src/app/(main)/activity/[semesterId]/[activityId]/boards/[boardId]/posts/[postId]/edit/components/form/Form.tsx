@@ -8,7 +8,7 @@ import { useMutation, useQuery } from '@tanstack/react-query'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 
 import { Spinner } from '@/components/common'
-import { PostContentFieldEditor } from '@/components/feature/post/create-post-form/editor'
+import UpdateContentFieldEditor from '@/components/feature/post/post-editor/UpdateEditorField'
 import {
   Button,
   Form,
@@ -81,7 +81,7 @@ export const EditActivityPostForm = ({
     })
 
     queryClient.refetchQueries({
-      queryKey: activityPostQuries.lists(boardId),
+      queryKey: activityPostQuries.details({ boardId, postId }),
     })
 
     const basePath = pathName.split('/').slice(0, -1).join('/')
@@ -118,8 +118,11 @@ export const EditActivityPostForm = ({
         <ActivityDateFieldDialog />
         <Separator />
         <div>게시글 내용 수정하기</div>
-        <PostContentFieldEditor
-          isFixed={true}
+        <UpdateContentFieldEditor
+          addImageId={(url, id) => {
+            console.log(url, id)
+          }}
+          // isFixed={true}
           contents={editPostData?.postContent}
         />
         <div className="flex justify-end">

@@ -29,7 +29,7 @@ import { activityPostQuries, addActivityPostApi } from '@/service/api'
 import { ActivityDateFieldDialog } from './date-field-dialog'
 
 const PostContentFieldEditor = dynamic(
-  () => import('@/components/feature/post/post-editor/EditorField'),
+  () => import('@/components/feature/post/post-editor/PostEditorField'),
   {
     ssr: false,
     loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
@@ -128,7 +128,7 @@ export const CreateActivityPostForm = ({
         <ActivityDateFieldDialog />
         <Separator />
         <div>게시글 내용 작성하기</div>
-        <PostContentFieldEditor isFixed={false} />
+        <PostContentFieldEditor addImageId={addImageId} />
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
             게시글 업로드
