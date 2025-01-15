@@ -3,7 +3,7 @@ import { format } from 'date-fns'
 import { usePathname, useRouter } from 'next/navigation'
 
 import { DeletePostDialog } from '@/components/feature'
-import { Separator, useToast } from '@/components/ui'
+import { Button, Separator, useToast } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
 import { PostWithBoardResponseDto } from '@/service/models'
@@ -47,12 +47,27 @@ export const ActivityPostDetail = ({
     <div className="flex flex-col gap-3 py-4 text-primary">
       <div className="pt-4 text-4xl font-semibold">{post.postTitle}</div>
       <div className="flex justify-end">
-        {userId === post.userId && (
-          <DeletePostDialog
-            onClick={() => deleteActivityPost({ boardId, postId: post.postId })}
-            disabled={isPending}
-          />
-        )}
+        <div className="flex items-center gap-3">
+          {userId === post.userId && (
+            <div className="flex gap-2">
+              <Button
+                variant="link"
+                onClick={() =>
+                  router.push(`${pathName.split('/').join('/')}/edit`)
+                }
+                className="h-fit p-0 font-normal text-primary/70 hover:text-primary"
+              >
+                수정
+              </Button>
+              <DeletePostDialog
+                onClick={() =>
+                  deleteActivityPost({ boardId, postId: post.postId })
+                }
+                disabled={isPending}
+              />
+            </div>
+          )}
+        </div>
       </div>
       <div className="flex flex-col items-start gap-1 text-sm sm:flex-row sm:items-end sm:justify-between">
         <div className="flex items-center gap-2">

@@ -1,14 +1,13 @@
 'use client'
 
-import { useRef } from 'react'
+import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
-import { Block } from '@blocknote/core'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import dynamic from 'next/dynamic'
-import { usePathname, useRouter } from 'next/navigation'
+import { useParams, usePathname, useRouter } from 'next/navigation'
 
+import UpdateContentFieldEditor from '@/components/feature/post/post-editor/UpdateEditorField'
 import {
   Button,
   Form,
@@ -19,36 +18,33 @@ import {
   Input,
   Label,
   Separator,
-  Skeleton,
   useToast,
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
-import { activityPostQuries, addActivityPostApi } from '@/service/api'
+import { activityPostQuries, updateActivityPostApi } from '@/service/api'
+import { PostWithBoardResponseDto } from '@/service/models'
 
 import { ActivityDateFieldDialog } from './date-field-dialog'
 
-const PostContentFieldEditor = dynamic(
-  () => import('@/components/feature/post/post-editor/PostEditorField'),
-  {
-    ssr: false,
-    loading: () => <Skeleton className="h-[500px] w-full bg-slate-100" />,
-  },
-)
-
-interface CreateActivityPostFormProps {
+interface EditActivityPostFormProps {
   boardId: number
+  postInfo: PostWithBoardResponseDto
 }
 
-export const CreateActivityPostForm = ({
+export const EditActivityPostForm = ({
   boardId,
-}: CreateActivityPostFormProps) => {
+  postInfo,
+}: EditActivityPostFormProps) => {
   const { toast } = useToast()
   const router = useRouter()
   const pathName = usePathname()
+  const params = useParams()
 
-  const { mutate: addActivityPost, isPending } = useMutation({
-    mutationFn: addActivityPostApi,
+  const postId = Number(params.postId)
+
+  const { mutate: updateActivityPost, isPending } = useMutation({
+    mutationFn: updateActivityPostApi,
     onSuccess: (data) => onSuccess(data.message),
   })
 
@@ -63,30 +59,18 @@ export const CreateActivityPostForm = ({
     },
   })
 
-  const imageMapRef = useRef<Map<string, number>>(new Map())
-
-  const addImageId = (url: string, id: number) => {
-    imageMapRef.current.set(url, id)
-  }
-
-  const onSubmit = (values: CreateActivityPost) => {
-    const imageIds: number[] = []
-
-    JSON.parse(values.postContent)
-      .filter((block: Block) => block.type === 'image')
-      .forEach((block: Block) => {
-        if (block.type === 'image') {
-          const url = block.props.url.split('/').pop() ?? ''
-          const imageId = imageMapRef.current.get(url)
-
-          if (imageId) imageIds.push(imageId)
-        }
+  useEffect(() => {
+    if (postInfo) {
+      form.reset({
+        postTitle: postInfo.postTitle,
+        postContent: postInfo.postContent,
+        // TODO: 이미지 관련 수정 필요
+        postImageIds: [],
+        postActivityStartDate: postInfo.postActivityStartDate,
+        postActivityEndDate: postInfo.postActivityEndDate || '',
       })
-
-    form.setValue('postImageIds', imageIds)
-
-    addActivityPost({ boardId, data: values })
-  }
+    }
+  }, [postInfo, form])
 
   const onSuccess = (message?: string) => {
     toast({
@@ -95,17 +79,29 @@ export const CreateActivityPostForm = ({
     })
 
     queryClient.refetchQueries({
-      queryKey: activityPostQuries.lists(boardId),
+      queryKey: activityPostQuries.details({ boardId, postId }),
     })
 
     const basePath = pathName.split('/').slice(0, -1).join('/')
     router.push(basePath)
   }
+  const onSumbit = form.handleSubmit(
+    (values) => {
+      console.log(values)
+      updateActivityPost({ boardId, postId, data: values })
+    },
+    (error) => {
+      console.log(error)
+    },
+  )
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit(onSubmit)}
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSumbit()
+        }}
         className="flex flex-col gap-4"
       >
         <FormField
@@ -127,11 +123,16 @@ export const CreateActivityPostForm = ({
         />
         <ActivityDateFieldDialog />
         <Separator />
-        <div>게시글 내용 작성하기</div>
-        <PostContentFieldEditor addImageId={addImageId} />
+        <div>게시글 내용 수정하기</div>
+        <UpdateContentFieldEditor
+          addImageId={(url, id) => {
+            console.log(url, id)
+          }}
+          contents={postInfo?.postContent}
+        />
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
-            게시글 업로드
+            게시글 수정
           </Button>
         </div>
       </form>

@@ -11,6 +11,7 @@ import {
   DeleteActivityPostRequest,
   GetActivityPostDetailRequest,
   PostWithBoardSummaryResponseDto,
+  UpdateActivityPostRequest,
 } from '@/service/models'
 import { Paging } from '@/types/paging'
 
@@ -102,6 +103,17 @@ export const addActivityPostApi = async ({
 }: AddActivityPostRequest) => {
   const postClient = new Boards(AUTHORIZATION_API)
   const response = await postClient.registerPostWithBoard(boardId, data)
+
+  return response.data
+}
+
+export const updateActivityPostApi = async ({
+  boardId,
+  postId,
+  data,
+}: UpdateActivityPostRequest) => {
+  const postClient = new Boards(AUTHORIZATION_API)
+  const response = await postClient.updatePostWithBoard(boardId, postId, data)
 
   return response.data
 }
