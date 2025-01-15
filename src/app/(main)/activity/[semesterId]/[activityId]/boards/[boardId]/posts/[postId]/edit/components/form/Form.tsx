@@ -65,9 +65,9 @@ export const EditActivityPostForm = ({
         postTitle: editPostData.postTitle,
         postContent: editPostData.postContent,
         // TODO: 이미지 관련 수정 필요
-        postImageIds: [1, 2, 3],
+        postImageIds: [],
         postActivityStartDate: editPostData.postActivityStartDate,
-        postActivityEndDate: editPostData.postActivityEndDate,
+        postActivityEndDate: editPostData.postActivityEndDate || '',
       })
     }
   }, [editPostData, form])
@@ -85,13 +85,23 @@ export const EditActivityPostForm = ({
     const basePath = pathName.split('/').slice(0, -1).join('/')
     router.push(basePath)
   }
+  const onSumbit = form.handleSubmit(
+    (values) => {
+      console.log(values)
+      updateActivityPost({ boardId, postId, data: values })
+    },
+    (error) => {
+      console.log(error)
+    },
+  )
 
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((values) =>
-          updateActivityPost({ boardId, postId, data: values }),
-        )}
+        onSubmit={(e) => {
+          e.preventDefault()
+          onSumbit()
+        }}
         className="flex flex-col gap-4"
       >
         <FormField
