@@ -20,7 +20,7 @@ export const Carousel = () => {
     <CarouselComponent
       opts={{ loop: true }}
       plugins={[Autoplay({ delay: 2000 })]}
-      className="flex w-full max-w-52 flex-col items-center xs:max-w-sm sm:max-w-xl"
+      className="flex w-full flex-col items-center px-12 sm:w-3/4 md:w-2/3 lg:w-2/3"
     >
       <div className="flex flex-row items-center gap-3">
         <CarouselPrevious />
@@ -41,13 +41,13 @@ export const Carousel = () => {
                       />
                     </div>
                     <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 break-keep rounded-b-lg bg-gradient-to-t from-slate-100 via-slate-100/90 to-transparent px-6 pb-4 pt-8">
-                      <strong className="absolute right-6 top-8 bg-yellow-400 px-0.5 text-primary">
+                      <strong className="lg:text-md absolute right-6 top-9 bg-yellow-400 px-0.5 text-xs md:text-sm">
                         {item.month}
                       </strong>
-                      <p className="text-xl font-semibold leading-normal">
+                      <p className="md:text-md text-sm font-semibold leading-normal lg:text-xl">
                         {item.title}
                       </p>
-                      <p className="text-md text-slate-600 lg:text-lg">
+                      <p className="text-xs text-slate-600 md:text-sm lg:text-lg">
                         {item.description}
                       </p>
                     </div>
