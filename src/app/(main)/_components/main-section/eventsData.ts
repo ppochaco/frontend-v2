@@ -36,7 +36,7 @@ export const EVENTS_WHOLE_YEAR = [
     imageUrl:
       'https://github.com/user-attachments/assets/df9d5b74-397d-4316-9ad2-e3949e7fe3d5',
     description:
-      '시험기간에는 동아리원들에게 응원의 마음을 전달하기 위해 간식마차를 운영합니다. 맛있는 간식 먹고 A+ 받으세요!',
+      '시험 응원의 마음을 전달하기 위해 간식마차를 운영합니다. 맛있는 간식 먹고 A+ 받으세요!',
   },
   {
     title: '봄/가을 MT',
@@ -52,7 +52,7 @@ export const EVENTS_WHOLE_YEAR = [
     imageUrl:
       'https://github.com/user-attachments/assets/b93b507b-aad1-4b1f-927c-c114806e224d',
     description:
-      '취업을 준비하는 학생들을 위해 연사를 초청하여 관련 정보와 진로에 대한 조언을 얻을 수 있는 특강을 진행합니다.',
+      '취업을 준비하는 학생들을 위해 연사를 초청하여 관련 정보와 진로 조언을 얻을 수 있는 특강을 진행합니다.',
   },
   {
     title: '아이디어톤 & 해커톤',
@@ -60,7 +60,7 @@ export const EVENTS_WHOLE_YEAR = [
     imageUrl:
       'https://github.com/user-attachments/assets/3792a4a1-b95c-4940-b3a3-2d060187ea23',
     description:
-      '아이디어톤에서 창의적인 아이디어를 내고, 해커톤에서 직접 구현하는 과정을 통해 개발 실력을 향상시킬 수 있습니다. 단기간의 목표 성취를 통한 짜릿함을 느껴보세요😵‍💫',
+      '창의적인 아이디어를 직접 구현하는 과정에서 개발 실력을 향상시킬 수 있습니다. 밤샘과 함께 짜릿함을 느껴보세요😵‍💫',
   },
 ]
 

@@ -20,10 +20,10 @@ export const Carousel = () => {
     <CarouselComponent
       opts={{ loop: true }}
       plugins={[Autoplay({ delay: 2000 })]}
-      className="flex w-full flex-col items-center px-12 sm:w-3/4 md:w-2/3 lg:w-2/3"
+      className="flex w-3/4 flex-col items-center px-12 sm:w-4/5 md:w-4/5 lg:w-2/3"
     >
       <div className="flex flex-row items-center gap-3">
-        <CarouselPrevious />
+        <CarouselPrevious className="hidden sm:inline" />
         <CarouselContent>
           {Events.map((item, index) => (
             <CarouselItem key={index}>
@@ -40,16 +40,21 @@ export const Carousel = () => {
                         className="h-auto w-full"
                       />
                     </div>
-                    <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 break-keep rounded-b-lg bg-gradient-to-t from-slate-100 via-slate-100/90 to-transparent px-6 pb-4 pt-8">
-                      <strong className="lg:text-md absolute right-6 top-9 bg-yellow-400 px-0.5 text-xs md:text-sm">
-                        {item.month}
-                      </strong>
-                      <p className="md:text-md text-sm font-semibold leading-normal lg:text-xl">
-                        {item.title}
-                      </p>
-                      <p className="text-xs text-slate-600 md:text-sm lg:text-lg">
+                    <div className="absolute bottom-0 left-0 right-0 flex flex-col gap-2 break-keep rounded-b-lg bg-gradient-to-t from-slate-100 via-slate-100/90 to-transparent px-4 pb-4 pt-8 sm:px-6">
+                      <div className="flex flex-row flex-wrap items-center justify-between">
+                        <p className="md:text-md whitespace-nowrap text-sm font-semibold leading-normal lg:text-xl">
+                          {item.title}
+                        </p>
+                        <strong className="lg:text-md bg-yellow-400 px-0.5 text-xs md:text-sm">
+                          {item.month}
+                        </strong>
+                      </div>
+                      <p className="hidden text-xs text-slate-600 md:inline md:text-sm lg:text-lg">
                         {item.description}
                       </p>
+                    </div>
+                    <div className="absolute bottom-0 left-0 right-0 top-0 inline break-keep rounded-lg bg-slate-600/80 px-4 py-4 text-sm text-white opacity-0 hover:opacity-100 active:opacity-100 sm:px-6 md:hidden">
+                      {item.description}
                     </div>
                   </CardContent>
                 </Card>
@@ -57,7 +62,7 @@ export const Carousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext />
+        <CarouselNext className="hidden sm:inline" />
       </div>
       <CarouselDots className="pt-4" />
     </CarouselComponent>
