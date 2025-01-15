@@ -26,7 +26,7 @@ export const Carousel = () => {
         {Events.map((item, index) => (
           <CarouselItem key={index}>
             <div className="p-1">
-              <Card className="cursor-pointer">
+              <Card>
                 <CardContent className="relative flex aspect-video flex-col p-0">
                   <div className="flex w-full flex-1 items-center justify-center overflow-hidden rounded-xl">
                     <Image
