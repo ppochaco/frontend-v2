@@ -15,7 +15,7 @@ export const Calendar = ({ months, events }: CalendarProps) => {
         height={0}
         className="absolute -top-7 left-[calc(68%)] z-10"
       />
-      <p className="absolute -top-10 left-[calc(72%)] z-10 text-lg font-semibold text-red-400">
+      <p className="absolute -top-10 left-[calc(72%)] z-10 text-base font-semibold text-red-400 lg:text-lg">
         해커톤
       </p>
       <table className="md:text-md w-full table-fixed border-collapse overflow-hidden break-keep rounded-xl border border-gray-300 text-sm">
