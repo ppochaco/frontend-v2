@@ -3,10 +3,17 @@ import Image from 'next/image'
 
 import { Content } from '@/components/common'
 
-const fadeInUp = {
+const fadeInUp = (delay = 0) => ({
   hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
-}
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.5,
+      delay,
+    },
+  },
+})
 
 export const Section1 = () => {
   return (
@@ -20,11 +27,11 @@ export const Section1 = () => {
         priority
         alt="Haedal Background"
       />
-      <Content className="bg-custom-gradient relative z-10 -mt-20 flex w-full flex-col items-center px-10 pb-80 pt-60 text-white">
+      <Content className="relative z-10 -mt-20 flex w-full flex-col items-center bg-custom-gradient px-10 pb-80 pt-60 text-white">
         <div className="section1-intro-area flex w-full flex-col">
           <motion.p
             className="text-xl md:text-3xl"
-            variants={fadeInUp}
+            variants={fadeInUp(0)}
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
@@ -33,7 +40,7 @@ export const Section1 = () => {
           </motion.p>
           <motion.p
             className="text-xl md:text-2xl"
-            variants={fadeInUp}
+            variants={fadeInUp(0.3)} // delay
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
@@ -44,7 +51,7 @@ export const Section1 = () => {
             은
           </motion.p>
           <motion.div
-            variants={fadeInUp}
+            variants={fadeInUp(0.6)} // delay
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: '-50px' }}
