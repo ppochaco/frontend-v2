@@ -4,10 +4,9 @@ import { useEffect } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
-import { useMutation, useQuery } from '@tanstack/react-query'
+import { useMutation } from '@tanstack/react-query'
 import { useParams, usePathname, useRouter } from 'next/navigation'
 
-import { Spinner } from '@/components/common'
 import UpdateContentFieldEditor from '@/components/feature/post/post-editor/UpdateEditorField'
 import {
   Button,
@@ -24,15 +23,18 @@ import {
 import { queryClient } from '@/lib/query-client'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/schema/post'
 import { activityPostQuries, updateActivityPostApi } from '@/service/api'
+import { PostWithBoardResponseDto } from '@/service/models'
 
 import { ActivityDateFieldDialog } from './date-field-dialog'
 
 interface EditActivityPostFormProps {
   boardId: number
+  editPostData: PostWithBoardResponseDto
 }
 
 export const EditActivityPostForm = ({
   boardId,
+  editPostData,
 }: EditActivityPostFormProps) => {
   const { toast } = useToast()
   const router = useRouter()
@@ -40,10 +42,6 @@ export const EditActivityPostForm = ({
   const params = useParams()
 
   const postId = Number(params.postId)
-
-  const { data: editPostData, isPending: editPostPending } = useQuery(
-    activityPostQuries.detail({ boardId, postId }),
-  )
 
   const { mutate: updateActivityPost, isPending } = useMutation({
     mutationFn: updateActivityPostApi,
@@ -88,8 +86,6 @@ export const EditActivityPostForm = ({
     router.push(basePath)
   }
 
-  if (editPostPending) return <Spinner />
-
   return (
     <Form {...form}>
       <form
@@ -122,7 +118,6 @@ export const EditActivityPostForm = ({
           addImageId={(url, id) => {
             console.log(url, id)
           }}
-          // isFixed={true}
           contents={editPostData?.postContent}
         />
         <div className="flex justify-end">
