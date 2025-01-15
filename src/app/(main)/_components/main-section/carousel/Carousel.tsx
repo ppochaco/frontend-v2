@@ -1,5 +1,6 @@
 'use client'
 
+import Autoplay from 'embla-carousel-autoplay'
 import Image from 'next/image'
 
 import { Card, CardContent } from '@/components/ui'
@@ -18,6 +19,7 @@ export const Carousel = () => {
   return (
     <CarouselComponent
       opts={{ loop: true }}
+      plugins={[Autoplay({ delay: 2000 })]}
       className="w-full max-w-52 xs:max-w-sm sm:max-w-xl"
     >
       <CarouselContent>
