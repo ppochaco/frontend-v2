@@ -20,7 +20,7 @@ export const Carousel = () => {
     <CarouselComponent
       opts={{ loop: true }}
       plugins={[Autoplay({ delay: 2000 })]}
-      className="flex w-3/4 flex-col items-center px-12 sm:w-4/5 md:w-4/5 lg:w-2/3"
+      className="flex w-5/6 flex-col items-center px-12 sm:w-5/6 md:w-4/5 lg:w-2/3"
     >
       <div className="flex flex-row items-center gap-3">
         <CarouselPrevious className="hidden sm:inline" />
