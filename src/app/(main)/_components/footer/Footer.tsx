@@ -22,7 +22,7 @@ export const Footer = () => {
       </div>
       <FooterDetail />
       <p className="text-xs text-slate-500">
-        © 2024 해달. All rights reserved.
+        © 2025 해달. All rights reserved.
       </p>
       <ChannelIcons />
     </div>

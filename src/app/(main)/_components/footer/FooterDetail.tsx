@@ -24,7 +24,7 @@ const footerDetailData: FooterDetailData[] = [
     id: 0,
     label: '주소',
     content:
-      '대구광역시 북구 대학로 80 (산격동, 경북대학교) IT대학 1호관 108A (41566)',
+      '대구광역시 북구 대학로 80 (산격동, 경북대학교) IT대학 2호관 108호 (안쪽) (41566)',
   },
   {
     id: 1,
