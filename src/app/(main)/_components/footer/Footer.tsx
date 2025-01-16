@@ -5,7 +5,7 @@ import { FooterDetail } from './FooterDetail'
 
 export const Footer = () => {
   return (
-    <div className="relative flex w-full flex-col gap-8 px-12 py-8">
+    <div className="relative flex w-full flex-col gap-8 px-8 py-6 md:px-12 md:py-8">
       <div className="flex w-full flex-col items-start gap-2">
         <Image
           width={0}
@@ -22,7 +22,7 @@ export const Footer = () => {
       </div>
       <FooterDetail />
       <p className="text-xs text-slate-500">
-        © 2024 해달. All rights reserved.
+        © 2025 해달. All rights reserved.
       </p>
       <ChannelIcons />
     </div>

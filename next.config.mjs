@@ -2,7 +2,7 @@
 const nextConfig = {
   transpilePackages: ['shiki', '@blocknote'],
   images: {
-    domains: ['www.knu-haedal.com'],
+    domains: ['www.knu-haedal.com', 'github.com'],
   },
 }
 
