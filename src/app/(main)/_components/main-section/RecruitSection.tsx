@@ -26,7 +26,7 @@ export const RecruitSection = () => {
               className="h-auto w-2/3 sm:w-1/2 lg:w-1/3"
               alt="Haedal laptop"
             />
-            <p className="break-keep text-center text-base text-white md:text-base lg:text-lg">
+            <p className="break-keep text-center text-lg text-white md:text-xl lg:text-2xl">
               지금은 모집 기간이 아닙니다.
               <br />
               2025년 1학기 모집 때 다시 만나요🌝
