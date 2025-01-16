@@ -23,7 +23,7 @@ export const Carousel = () => {
       className="flex w-full flex-col items-center px-12 sm:w-5/6 md:w-4/5 lg:w-2/3"
     >
       <div className="flex flex-row items-center gap-3">
-        <CarouselPrevious className="hidden sm:inline" />
+        <CarouselPrevious className="hidden sm:flex" />
         <CarouselContent>
           {Events.map((item, index) => (
             <CarouselItem key={index}>
@@ -62,7 +62,7 @@ export const Carousel = () => {
             </CarouselItem>
           ))}
         </CarouselContent>
-        <CarouselNext className="hidden sm:inline" />
+        <CarouselNext className="hidden sm:flex" />
       </div>
       <CarouselDots className="pt-4" />
     </CarouselComponent>
