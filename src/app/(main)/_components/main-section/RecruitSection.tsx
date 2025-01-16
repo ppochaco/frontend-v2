@@ -1,10 +1,15 @@
+'use client'
+
 import { ArrowRightIcon } from '@radix-ui/react-icons'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 
 import { Content } from '@/components/common'
 import { Button } from '@/components/ui'
 
 export const RecruitSection = () => {
+  const router = useRouter()
+
   return (
     <div className="h-auto w-full">
       <div className="fade-component z-10 h-10 w-full bg-gradient-to-b from-white to-yellow-100/40" />
@@ -34,7 +39,7 @@ export const RecruitSection = () => {
             <Button
               variant="secondary"
               className="mt-6 h-fit gap-2 text-lg font-semibold md:text-xl lg:text-2xl"
-              onClick={() => (window.location.href = '/recruit')}
+              onClick={() => router.push('/recruit')}
             >
               <span>더 알아보기</span>
               <ArrowRightIcon className="h-auto w-6" />
