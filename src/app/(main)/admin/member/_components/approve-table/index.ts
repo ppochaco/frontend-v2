@@ -1,1 +1,0 @@
-export { ApproveMemberTable } from './Table'

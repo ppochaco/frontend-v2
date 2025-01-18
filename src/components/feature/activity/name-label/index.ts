@@ -1,1 +1,0 @@
-export { NameLabel } from './NameLabel'

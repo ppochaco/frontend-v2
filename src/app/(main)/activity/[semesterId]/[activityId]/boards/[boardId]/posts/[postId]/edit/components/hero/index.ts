@@ -1,1 +1,0 @@
-export { EditActivityPostHero } from './Hero'

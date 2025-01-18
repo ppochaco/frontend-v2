@@ -1,1 +1,0 @@
-export { CreateBoardDetail } from './BoardDetail'

@@ -1,1 +1,0 @@
-export { SelectMemberInput } from './SelectMemberInput'

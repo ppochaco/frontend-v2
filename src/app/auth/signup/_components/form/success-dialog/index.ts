@@ -1,1 +1,0 @@
-export { SignupSuccessDialog } from './SuccessDialog'

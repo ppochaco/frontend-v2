@@ -1,1 +1,0 @@
-export { ActivityPostDetail } from './Detail'

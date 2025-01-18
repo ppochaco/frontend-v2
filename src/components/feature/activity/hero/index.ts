@@ -1,1 +1,0 @@
-export { ActivityHero } from './Hero'
