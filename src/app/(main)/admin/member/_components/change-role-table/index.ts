@@ -1,1 +1,0 @@
-export { ChangeRoleTable } from './Table'

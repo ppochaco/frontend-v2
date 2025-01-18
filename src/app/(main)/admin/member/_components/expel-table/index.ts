@@ -1,1 +1,0 @@
-export { ExpelMemberTable } from './Table'
