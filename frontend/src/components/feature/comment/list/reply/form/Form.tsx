@@ -11,17 +11,17 @@ import {
   FormMessage,
   Textarea,
 } from '@/components/ui'
-import { CreateComment, CreateCommentSchema } from '@/service/schema'
+import { CreateReply, CreateReplySchema } from '@/service/schema'
 
-interface CommentFormProps {
-  postId: number
+interface ReplyFormProps {
+  commentId: number
 }
 
-export const CommentForm = ({ postId }: CommentFormProps) => {
-  const form = useForm<CreateComment>({
-    resolver: zodResolver(CreateCommentSchema),
+export const ReplyForm = ({ commentId }: ReplyFormProps) => {
+  const form = useForm<CreateReply>({
+    resolver: zodResolver(CreateReplySchema),
     defaultValues: {
-      postId,
+      commentId,
       commentContent: '',
     },
   })

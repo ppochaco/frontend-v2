@@ -1,14 +1,15 @@
 import { Separator } from '@/components/ui'
 import { CommentResponseDto } from '@/service/model'
 
-import { CommentForm } from '../../form'
 import { CommentListItem } from '../item'
+import { ReplyForm } from './form'
 
 interface CommentReplyProps {
   replies: CommentResponseDto[]
+  commentId: number
 }
 
-export const CommentReply = ({ replies }: CommentReplyProps) => {
+export const CommentReply = ({ replies, commentId }: CommentReplyProps) => {
   return (
     <div className="rounded-md bg-zinc-50 p-4">
       {replies.map((reply) => (
@@ -18,7 +19,7 @@ export const CommentReply = ({ replies }: CommentReplyProps) => {
         </div>
       ))}
       <div className="pt-2">
-        <CommentForm postId={1} />
+        <ReplyForm commentId={commentId} />
       </div>
     </div>
   )

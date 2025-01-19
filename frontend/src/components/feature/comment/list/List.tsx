@@ -46,7 +46,10 @@ export const CommentList = ({ comments }: CommentListProps) => {
             </Button>
           </div>
           {isOpenReplies[comment.commentId] && (
-            <CommentReply replies={comment.replies} />
+            <CommentReply
+              replies={comment.replies}
+              commentId={comment.commentId}
+            />
           )}
           {comments.length - 1 !== index && <Separator className="my-4" />}
         </div>
