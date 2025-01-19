@@ -9,6 +9,7 @@ import {
   Comments,
   DeleteCommentRequest,
   Posts,
+  UpdateCommentRequest,
 } from '@/service/model'
 
 const getCommentsPaging = async ({
@@ -69,6 +70,17 @@ export const deleteCommentApi = async ({
 }: DeleteCommentRequest) => {
   const commentClient = new Posts(AUTHORIZATION_API)
   const response = await commentClient.removeComment(postId, commentId)
+
+  return response.data
+}
+
+export const updateCommentApi = async ({
+  postId,
+  commentId,
+  data,
+}: UpdateCommentRequest) => {
+  const commentClient = new Posts(AUTHORIZATION_API)
+  const response = await commentClient.updateComment(postId, commentId, data)
 
   return response.data
 }

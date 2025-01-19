@@ -1,3 +1,5 @@
+import { useState } from 'react'
+
 import { Pencil1Icon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
 import { kstFormat } from '@toss/date'
@@ -9,6 +11,7 @@ import { CommentResponseDto } from '@/service/model'
 import { useMyInfoStore } from '@/store'
 
 import { DeleteCommentDialog } from './delete-dialog'
+import { EditCommentForm } from './edit-form'
 
 interface CommentListItemProps {
   comment: CommentResponseDto
@@ -17,6 +20,8 @@ interface CommentListItemProps {
 
 export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
   const { userId } = useMyInfoStore((state) => state.myInfo)
+
+  const [isEdit, setIsEdit] = useState(false)
 
   const { mutate: deleteComment, error } = useMutation({
     mutationFn: deleteCommentApi,
@@ -46,7 +51,12 @@ export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
         </div>
         {comment.userId === userId && !comment.deleted && (
           <div className="flex flex-row gap-2 text-primary/70">
-            <Pencil1Icon className="h-4 w-4 hover:cursor-pointer hover:text-primary" />
+            {!isEdit && (
+              <Pencil1Icon
+                onClick={() => setIsEdit(true)}
+                className="h-4 w-4 hover:cursor-pointer hover:text-primary"
+              />
+            )}
             <DeleteCommentDialog
               onClick={() =>
                 deleteComment({ postId, commentId: comment.commentId })
@@ -55,7 +65,16 @@ export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
           </div>
         )}
       </div>
-      <div className="px-1">{comment.commentContent}</div>
+      {isEdit ? (
+        <EditCommentForm
+          postId={postId}
+          commentId={comment.commentId}
+          defaultContent={comment.commentContent}
+          onClickCancel={() => setIsEdit(false)}
+        />
+      ) : (
+        <div className="px-1">{comment.commentContent}</div>
+      )}
     </>
   )
 }

@@ -216,3 +216,9 @@ export type DeleteCommentRequest = {
   postId: number
   commentId: number
 }
+
+export type UpdateCommentRequest = {
+  postId: number
+  commentId: number
+  data: CommentRequestDto
+}
