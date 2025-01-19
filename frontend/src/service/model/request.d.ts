@@ -201,3 +201,8 @@ export type CommentPagingRequest = {
 export type CommentPagingResponse = {
   comments: CommentResponseDto[]
 } & Paging
+
+export type AddCommentRequest = {
+  postId: number
+  data: CommentRequestDto
+}

@@ -1,6 +1,9 @@
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
+import { toast } from 'sonner'
 
 import {
   Button,
@@ -11,6 +14,8 @@ import {
   FormMessage,
   Textarea,
 } from '@/components/ui'
+import { queryClient } from '@/lib/query-client'
+import { addCommentApi, commentQueries } from '@/service/api/comment'
 import { CreateComment, CreateCommentSchema } from '@/service/schema'
 
 interface CommentFormProps {
@@ -26,10 +31,32 @@ export const CommentForm = ({ postId }: CommentFormProps) => {
     },
   })
 
+  const { mutate: addComment } = useMutation({
+    mutationFn: addCommentApi,
+    onSuccess: () => onSuccess(),
+    onError: (error) => onError(error),
+  })
+
+  const onSuccess = () => {
+    queryClient.invalidateQueries({ queryKey: commentQueries.lists(postId) })
+    form.reset()
+  }
+
+  const onError = (error: Error) => {
+    if (error instanceof AxiosError && error.status === 403) {
+      toast.error('로그인 후 이용해주세요.')
+      return
+    }
+
+    toast.error(error.message)
+  }
+
   return (
     <Form {...form}>
       <form
-        onSubmit={form.handleSubmit((values) => console.log(values))}
+        onSubmit={form.handleSubmit((values) =>
+          addComment({ postId, data: values }),
+        )}
         className="flex flex-col gap-1"
       >
         <FormField

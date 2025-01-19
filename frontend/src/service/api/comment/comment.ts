@@ -1,7 +1,8 @@
 import { queryOptions } from '@tanstack/react-query'
 
-import { BACKEND_API } from '@/service/config'
+import { AUTHORIZATION_API, BACKEND_API } from '@/service/config'
 import {
+  AddCommentRequest,
   CommentPagingRequest,
   CommentPagingResponse,
   Posts,
@@ -12,8 +13,8 @@ const getCommentsPaging = async ({
   page,
   size = 10,
 }: CommentPagingRequest): Promise<CommentPagingResponse> => {
-  const postClient = new Posts(BACKEND_API)
-  const response = await postClient.getComments(postId, { page, size })
+  const commentClient = new Posts(BACKEND_API)
+  const response = await commentClient.getComments(postId, { page, size })
 
   const { data } = response
 
@@ -40,4 +41,11 @@ export const commentQueries = {
       enabled: !!postId,
       queryFn: async () => getCommentsPaging({ postId, page, size }),
     }),
+}
+
+export const addCommentApi = async ({ postId, data }: AddCommentRequest) => {
+  const commentClient = new Posts(AUTHORIZATION_API)
+  const response = await commentClient.registerComment(postId, data)
+
+  return response.data
 }
