@@ -30,22 +30,18 @@ export const CommentList = ({ comments, postId }: CommentListProps) => {
       {comments.map((comment, index) => (
         <div key={comment.commentId}>
           <CommentListItem comment={comment} postId={postId} />
-          <div
+          <Button
+            variant="ghost"
             onClick={() => toggleReply(comment.commentId)}
-            className="px-1 py-2 text-sm font-medium"
+            className="flex h-fit items-center gap-1 px-1 py-2 text-sm font-medium text-primary/80 hover:bg-transparent"
           >
-            <Button
-              variant="ghost"
-              className="flex h-fit items-center gap-1 p-0 text-primary/80 hover:bg-transparent"
-            >
-              <Pencil2Icon />
-              <div>
-                {comment.replies.length
-                  ? `${comment.replies.length}개의 답글`
-                  : '답글 달기'}
-              </div>
-            </Button>
-          </div>
+            <Pencil2Icon />
+            <div>
+              {comment.replies.length
+                ? `${comment.replies.length}개의 답글`
+                : '답글 달기'}
+            </div>
+          </Button>
           {isOpenReplies[comment.commentId] && (
             <CommentReply
               replies={comment.replies}

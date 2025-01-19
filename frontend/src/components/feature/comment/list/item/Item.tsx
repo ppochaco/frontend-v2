@@ -73,7 +73,7 @@ export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
           onClickCancel={() => setIsEdit(false)}
         />
       ) : (
-        <div className="px-1">{comment.commentContent}</div>
+        <div className="px-1 py-2">{comment.commentContent}</div>
       )}
     </>
   )
