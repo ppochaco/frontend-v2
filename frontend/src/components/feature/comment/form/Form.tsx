@@ -39,8 +39,8 @@ export const CommentForm = ({ postId }: CommentFormProps) => {
             <FormItem>
               <FormControl>
                 <Textarea
-                  className="h-20"
-                  placeholder="댓글을 작성하세요."
+                  className="h-20 bg-white"
+                  placeholder="댓글을 작성하세요"
                   {...field}
                 />
               </FormControl>

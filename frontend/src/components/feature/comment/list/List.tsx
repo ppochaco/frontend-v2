@@ -1,40 +1,54 @@
-import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
-import { kstFormat } from '@toss/date'
+import { useState } from 'react'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui'
+import { Pencil2Icon } from '@radix-ui/react-icons'
+
+import { Button, Separator } from '@/components/ui'
 import { CommentResponseDto } from '@/service/model'
+
+import { CommentListItem } from './item'
+import { CommentReply } from './reply'
 
 interface CommentListProps {
   comments: CommentResponseDto[]
 }
 
 export const CommentList = ({ comments }: CommentListProps) => {
+  const [isOpenReplies, setIsOpenReplies] = useState<Record<number, boolean>>(
+    {},
+  )
+
+  const toggleReply = (commentId: number) => {
+    setIsOpenReplies((prev) => ({
+      ...prev,
+      [commentId]: !prev[commentId],
+    }))
+  }
+
   return (
-    <div className="flex flex-col gap-8 pb-16 pt-10">
-      {comments.map((comment) => (
+    <div className="flex flex-col py-6">
+      {comments.map((comment, index) => (
         <div key={comment.commentId}>
-          <div className="flex justify-between">
-            <div className="flex flex-row gap-3">
-              <Avatar className="h-9 w-9">
-                <AvatarImage src="" className="bg-white" />
-                <AvatarFallback />
-              </Avatar>
-              <div className="flex flex-col pb-1">
-                <div>{comment.userName}</div>
-                <div className="text-xs">
-                  {kstFormat(new Date(comment.commentRegDate), 'yyyy.LL.dd')}
-                </div>
+          <CommentListItem comment={comment} />
+          <div
+            onClick={() => toggleReply(comment.commentId)}
+            className="px-1 py-2 text-sm font-medium"
+          >
+            <Button
+              variant="ghost"
+              className="flex h-fit items-center gap-1 p-0 text-primary/80 hover:bg-transparent"
+            >
+              <Pencil2Icon />
+              <div>
+                {comment.replies.length
+                  ? `${comment.replies.length}개의 답글`
+                  : '답글 달기'}
               </div>
-            </div>
-            <div className="flex flex-row gap-2 text-primary/70">
-              <Pencil1Icon className="h-4 w-4 hover:cursor-pointer hover:text-primary" />
-              <TrashIcon className="h-4 w-4 hover:cursor-pointer hover:text-primary" />
-            </div>
+            </Button>
           </div>
-          <div className="px-1">{comment.commentContent}</div>
-          <div className="px-1 py-2 text-sm font-normal text-primary/70 underline-offset-4 hover:cursor-pointer hover:text-primary hover:underline">
-            답글 달기
-          </div>
+          {isOpenReplies[comment.commentId] && (
+            <CommentReply replies={comment.replies} />
+          )}
+          {comments.length - 1 !== index && <Separator className="my-4" />}
         </div>
       ))}
     </div>
