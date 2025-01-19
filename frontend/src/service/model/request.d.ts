@@ -211,3 +211,8 @@ export type AddCommentReplyRequest = {
   commentId: number
   data: CommentRequestDto
 }
+
+export type DeleteCommentRequest = {
+  postId: number
+  commentId: number
+}

@@ -29,7 +29,7 @@ export const CommentList = ({ comments, postId }: CommentListProps) => {
     <div className="flex flex-col py-6">
       {comments.map((comment, index) => (
         <div key={comment.commentId}>
-          <CommentListItem comment={comment} />
+          <CommentListItem comment={comment} postId={postId} />
           <div
             onClick={() => toggleReply(comment.commentId)}
             className="px-1 py-2 text-sm font-medium"
@@ -50,6 +50,7 @@ export const CommentList = ({ comments, postId }: CommentListProps) => {
             <CommentReply
               replies={comment.replies}
               commentId={comment.commentId}
+              isDeleted={comment.deleted}
               postId={postId}
             />
           )}

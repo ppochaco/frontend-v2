@@ -7,6 +7,7 @@ import {
   CommentPagingRequest,
   CommentPagingResponse,
   Comments,
+  DeleteCommentRequest,
   Posts,
 } from '@/service/model'
 
@@ -58,6 +59,16 @@ export const addCommentReplyApi = async ({
 }: AddCommentReplyRequest) => {
   const commentClient = new Comments(AUTHORIZATION_API)
   const response = await commentClient.registerReply(commentId, data)
+
+  return response.data
+}
+
+export const deleteCommentApi = async ({
+  postId,
+  commentId,
+}: DeleteCommentRequest) => {
+  const commentClient = new Posts(AUTHORIZATION_API)
+  const response = await commentClient.removeComment(postId, commentId)
 
   return response.data
 }
