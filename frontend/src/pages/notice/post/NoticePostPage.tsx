@@ -2,7 +2,11 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { BoardNavigationButton, PostContent } from '@/components/feature'
+import {
+  BoardNavigationButton,
+  Comment,
+  PostContent,
+} from '@/components/feature'
 import { NoticePostQuries } from '@/service/api'
 
 import { NoticePostDetail, NoticePostHero } from './_components'
@@ -20,6 +24,7 @@ export default function NoticePostPage() {
       <NoticePostDetail post={post} />
       <PostContent content={post.postContent} />
       <BoardNavigationButton />
+      <Comment postId={post.postId} />
     </div>
   )
 }

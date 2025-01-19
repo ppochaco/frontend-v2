@@ -36,6 +36,16 @@ export interface SuccessResponse {
   message: string
 }
 
+export interface CommentRequestDto {
+  /**
+   * 댓글 내용
+   * @minLength 1
+   * @maxLength 1000
+   * @example "우와 이 게시글 너무 좋아요"
+   */
+  commentContent: string
+}
+
 export interface BasePostRequestDto {
   /**
    * 게시글 이름
@@ -360,6 +370,53 @@ export interface ActivityResponseDto {
   semesterId: number
 }
 
+export interface CommentResponseDto {
+  /**
+   * 댓글 id
+   * @format int64
+   */
+  commentId: number
+  /** 댓글 내용 */
+  commentContent: string
+  /** 댓글 작성자Id */
+  userId: string
+  /** 댓글 작성자 이름 */
+  userName: string
+  /**
+   * 게시글 id
+   * @format int64
+   */
+  postId: number
+  /** 삭제 여부 */
+  deleted?: boolean
+  /** 답글 리스트 */
+  replies: CommentResponseDto[]
+  /**
+   * 댓글 작성 시간
+   * @format date-time
+   */
+  commentRegDate: string
+}
+
+export interface PageCommentResponseDto {
+  /** @format int32 */
+  totalPages: number
+  /** @format int64 */
+  totalElements: number
+  /** @format int32 */
+  size?: number
+  content: CommentResponseDto[]
+  /** @format int32 */
+  number?: number
+  sort?: SortObject[]
+  /** @format int32 */
+  numberOfElements?: number
+  pageable: PageableObject
+  first?: boolean
+  last?: boolean
+  empty?: boolean
+}
+
 export interface BasePostSummaryResponseDto {
   /**
    * 게시글 id
@@ -662,6 +719,10 @@ export type UpdateProfileImageData = any
 
 export type UpdateProfileImage1Data = any
 
+export type UpdateCommentData = any
+
+export type RemoveCommentData = any
+
 export type GetNoticePostData = BasePostResponseDto
 
 export type UpdateNoticePostData = any
@@ -689,6 +750,10 @@ export type UpdateBoardImageData = any
 
 export type ReissueData = any
 
+export type GetCommentsData = PageCommentResponseDto
+
+export type RegisterCommentData = SuccessResponse
+
 export interface RegisterPostImagePayload {
   /** @format binary */
   file: File
@@ -713,6 +778,8 @@ export type SendVerificationCodeData = SuccessResponse
 export type ResisterAdminData = SuccessResponse
 
 export type CommonErrorCodeDefinitionData = any
+
+export type RegisterReplyData = SuccessResponse
 
 export type GetPostsWithBoardData = PagePostWithBoardSummaryResponseDto
 

@@ -1,6 +1,10 @@
 import { Paging, Role } from '@/types'
 
-import { ProfileResponseDto, UpdateProfileImagePayload } from './data-contracts'
+import {
+  CommentResponseDto,
+  ProfileResponseDto,
+  UpdateProfileImagePayload,
+} from './data-contracts'
 
 export type GetActivitiesRequest = {
   semesterId: number
@@ -186,4 +190,35 @@ export type GetSemesterRequest = {
 
 export type GetUserRequest = {
   userId: string
+}
+
+export type CommentPagingRequest = {
+  postId: number
+  page: number
+  size?: number
+}
+
+export type CommentPagingResponse = {
+  comments: CommentResponseDto[]
+} & Paging
+
+export type AddCommentRequest = {
+  postId: number
+  data: CommentRequestDto
+}
+
+export type AddCommentReplyRequest = {
+  commentId: number
+  data: CommentRequestDto
+}
+
+export type DeleteCommentRequest = {
+  postId: number
+  commentId: number
+}
+
+export type UpdateCommentRequest = {
+  postId: number
+  commentId: number
+  data: CommentRequestDto
 }

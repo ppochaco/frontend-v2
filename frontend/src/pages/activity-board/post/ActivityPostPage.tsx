@@ -3,7 +3,11 @@ import { useParams } from 'react-router'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { NotFound } from '@/components/common'
-import { BoardNavigationButton, PostContent } from '@/components/feature'
+import {
+  BoardNavigationButton,
+  Comment,
+  PostContent,
+} from '@/components/feature'
 import { activityPostQuries, boardQueries } from '@/service/api'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
@@ -33,6 +37,7 @@ export default function ActivityPostPage() {
       <ActivityPostDetail boardId={Number(params.boardId)} post={post} />
       <PostContent content={post.postContent} />
       <BoardNavigationButton />
+      <Comment postId={post.postId} />
     </div>
   )
 }
