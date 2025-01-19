@@ -10,9 +10,10 @@ import { CommentReply } from './reply'
 
 interface CommentListProps {
   comments: CommentResponseDto[]
+  postId: number
 }
 
-export const CommentList = ({ comments }: CommentListProps) => {
+export const CommentList = ({ comments, postId }: CommentListProps) => {
   const [isOpenReplies, setIsOpenReplies] = useState<Record<number, boolean>>(
     {},
   )
@@ -49,6 +50,7 @@ export const CommentList = ({ comments }: CommentListProps) => {
             <CommentReply
               replies={comment.replies}
               commentId={comment.commentId}
+              postId={postId}
             />
           )}
           {comments.length - 1 !== index && <Separator className="my-4" />}

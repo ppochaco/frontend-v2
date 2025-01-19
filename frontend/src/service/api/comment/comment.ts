@@ -2,9 +2,11 @@ import { queryOptions } from '@tanstack/react-query'
 
 import { AUTHORIZATION_API, BACKEND_API } from '@/service/config'
 import {
+  AddCommentReplyRequest,
   AddCommentRequest,
   CommentPagingRequest,
   CommentPagingResponse,
+  Comments,
   Posts,
 } from '@/service/model'
 
@@ -46,6 +48,16 @@ export const commentQueries = {
 export const addCommentApi = async ({ postId, data }: AddCommentRequest) => {
   const commentClient = new Posts(AUTHORIZATION_API)
   const response = await commentClient.registerComment(postId, data)
+
+  return response.data
+}
+
+export const addCommentReplyApi = async ({
+  commentId,
+  data,
+}: AddCommentReplyRequest) => {
+  const commentClient = new Comments(AUTHORIZATION_API)
+  const response = await commentClient.registerReply(commentId, data)
 
   return response.data
 }

@@ -779,6 +779,8 @@ export type ResisterAdminData = SuccessResponse
 
 export type CommonErrorCodeDefinitionData = any
 
+export type RegisterReplyData = SuccessResponse
+
 export type GetPostsWithBoardData = PagePostWithBoardSummaryResponseDto
 
 export type RegisterPostWithBoardData = SuccessResponse

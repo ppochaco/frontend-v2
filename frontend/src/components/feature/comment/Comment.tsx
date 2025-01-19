@@ -40,7 +40,7 @@ export const Comment = ({ postId }: CommentProps) => {
     <div className="flex flex-col gap-2 py-16">
       <Label>{data.comments.length}개의 댓글</Label>
       <CommentForm postId={postId} />
-      <CommentList comments={data.comments} />
+      <CommentList comments={data.comments} postId={postId} />
     </div>
   )
 }

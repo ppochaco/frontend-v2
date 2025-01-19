@@ -206,3 +206,8 @@ export type AddCommentRequest = {
   postId: number
   data: CommentRequestDto
 }
+
+export type AddCommentReplyRequest = {
+  commentId: number
+  data: CommentRequestDto
+}

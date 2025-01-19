@@ -7,9 +7,14 @@ import { ReplyForm } from './form'
 interface CommentReplyProps {
   replies: CommentResponseDto[]
   commentId: number
+  postId: number
 }
 
-export const CommentReply = ({ replies, commentId }: CommentReplyProps) => {
+export const CommentReply = ({
+  replies,
+  commentId,
+  postId,
+}: CommentReplyProps) => {
   return (
     <div className="rounded-md bg-zinc-50 p-4">
       {replies.map((reply) => (
@@ -19,7 +24,7 @@ export const CommentReply = ({ replies, commentId }: CommentReplyProps) => {
         </div>
       ))}
       <div className="pt-2">
-        <ReplyForm commentId={commentId} />
+        <ReplyForm postId={postId} commentId={commentId} />
       </div>
     </div>
   )
