@@ -5,13 +5,10 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { NotFound } from '@/components/common'
 import {
   BoardNavigationButton,
-  CommentForm,
-  CommentList,
+  Comment,
   PostContent,
 } from '@/components/feature'
-import { Label } from '@/components/ui'
 import { activityPostQuries, boardQueries } from '@/service/api'
-import { CommentResponseDto } from '@/service/model'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
 
@@ -40,35 +37,7 @@ export default function ActivityPostPage() {
       <ActivityPostDetail boardId={Number(params.boardId)} post={post} />
       <PostContent content={post.postContent} />
       <BoardNavigationButton />
-      <div className="flex flex-col gap-2 py-16">
-        <Label>{data.length}개의 댓글</Label>
-        <CommentForm postId={post.postId} />
-        <CommentList comments={data} />
-      </div>
+      <Comment postId={post.postId} />
     </div>
   )
 }
-
-const data: CommentResponseDto[] = [
-  {
-    commentId: 0,
-    commentContent: 'string',
-    userId: 'string',
-    userName: 'string',
-    postId: 0,
-    deleted: true,
-    replies: [
-      {
-        commentId: 1,
-        commentContent: 'string',
-        userId: 'string',
-        userName: 'string',
-        postId: 0,
-        deleted: true,
-        replies: [],
-        commentRegDate: '2025-01-19T12:25:16.838Z',
-      },
-    ],
-    commentRegDate: '2025-01-19T12:25:16.838Z',
-  },
-]

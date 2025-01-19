@@ -1,2 +1,1 @@
-export * from './form'
-export * from './list'
+export { Comment } from './Comment'
