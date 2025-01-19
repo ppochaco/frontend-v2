@@ -4,7 +4,6 @@ import { Pencil1Icon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
 import { kstFormat } from '@toss/date'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { commentQueries, deleteCommentApi } from '@/service/api/comment'
 import { CommentResponseDto } from '@/service/model'
@@ -12,6 +11,7 @@ import { useMyInfoStore } from '@/store'
 
 import { DeleteCommentDialog } from './delete-dialog'
 import { EditCommentForm } from './edit-form'
+import { ProfileAvatar } from './profile-avatar'
 
 interface CommentListItemProps {
   comment: CommentResponseDto
@@ -37,11 +37,8 @@ export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
   return (
     <>
       <div className="flex justify-between">
-        <div className="flex flex-row gap-3">
-          <Avatar className="h-9 w-9">
-            <AvatarImage src="" className="bg-white" />
-            <AvatarFallback />
-          </Avatar>
+        <div className="flex flex-row items-center gap-3">
+          <ProfileAvatar userId={comment.userId} />
           <div className="flex flex-col pb-1">
             <div>{comment.userName}</div>
             <div className="text-xs text-primary/60">
