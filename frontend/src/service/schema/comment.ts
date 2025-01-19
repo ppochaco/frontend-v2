@@ -1,0 +1,10 @@
+import { z } from 'zod'
+
+export const CreateCommentSchema = z.object({
+  postId: z.number(),
+  commentContent: z
+    .string()
+    .min(1, { message: '댓글을 입력해주세요.' })
+    .max(100, { message: '댓글은 100자 이내여야 합니다.' }),
+})
+export type CreateComment = z.infer<typeof CreateCommentSchema>
