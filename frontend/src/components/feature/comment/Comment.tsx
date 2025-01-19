@@ -1,3 +1,4 @@
+import { ErrorBoundary } from 'react-error-boundary'
 import { useLocation } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
@@ -6,6 +7,7 @@ import { NotFound } from '@/components/common'
 import { Label, Skeleton } from '@/components/ui'
 import { commentQueries } from '@/service/api/comment'
 
+import { CommentErrorFallback } from '../error-fallback/comment/CommentErrorFallback'
 import { CommentForm } from './form'
 import { CommentList } from './list'
 
@@ -37,10 +39,12 @@ export const Comment = ({ postId }: CommentProps) => {
   if (error) return <NotFound />
 
   return (
-    <div className="flex flex-col gap-2 py-16">
-      <Label>{data.comments.length}개의 댓글</Label>
-      <CommentForm postId={postId} />
-      <CommentList comments={data.comments} postId={postId} />
-    </div>
+    <ErrorBoundary fallbackRender={CommentErrorFallback}>
+      <div className="flex flex-col gap-2 py-16">
+        <Label>{data.comments.length}개의 댓글</Label>
+        <CommentForm postId={postId} />
+        <CommentList comments={data.comments} postId={postId} />
+      </div>
+    </ErrorBoundary>
   )
 }

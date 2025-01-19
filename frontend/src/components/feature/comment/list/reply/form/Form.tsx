@@ -2,8 +2,6 @@ import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
-import { AxiosError } from 'axios'
-import { toast } from 'sonner'
 
 import {
   Button,
@@ -32,10 +30,9 @@ export const ReplyForm = ({ postId, commentId }: ReplyFormProps) => {
     },
   })
 
-  const { mutate: addReply } = useMutation({
+  const { mutate: addReply, error } = useMutation({
     mutationFn: addCommentReplyApi,
     onSuccess: () => onSuccess(),
-    onError: (error) => onError(error),
   })
 
   const onSuccess = () => {
@@ -43,14 +40,7 @@ export const ReplyForm = ({ postId, commentId }: ReplyFormProps) => {
     form.reset()
   }
 
-  const onError = (error: Error) => {
-    if (error instanceof AxiosError && error.status === 403) {
-      toast.error('로그인 후 이용해주세요.')
-      return
-    }
-
-    toast.error(error.message)
-  }
+  if (error) throw error
 
   return (
     <Form {...form}>

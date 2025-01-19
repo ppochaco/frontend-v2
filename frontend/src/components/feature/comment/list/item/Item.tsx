@@ -1,11 +1,8 @@
 import { Pencil1Icon } from '@radix-ui/react-icons'
 import { useMutation } from '@tanstack/react-query'
 import { kstFormat } from '@toss/date'
-import { AxiosError } from 'axios'
-import { toast } from 'sonner'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui'
-import { API_ERROR_MESSAGES } from '@/constant'
 import { queryClient } from '@/lib/query-client'
 import { commentQueries, deleteCommentApi } from '@/service/api/comment'
 import { CommentResponseDto } from '@/service/model'
@@ -21,24 +18,16 @@ interface CommentListItemProps {
 export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
   const { userId } = useMyInfoStore((state) => state.myInfo)
 
-  const { mutate: deleteComment } = useMutation({
+  const { mutate: deleteComment, error } = useMutation({
     mutationFn: deleteCommentApi,
     onSuccess: () => onSuccess(),
-    onError: (error) => onError(error),
   })
 
   const onSuccess = () => {
     queryClient.invalidateQueries({ queryKey: commentQueries.lists(postId) })
   }
 
-  const onError = (error: Error) => {
-    if (error instanceof AxiosError) {
-      toast.error(error.response?.data.message)
-      return
-    }
-
-    toast.error(API_ERROR_MESSAGES.UNKNOWN_ERROR)
-  }
+  if (error) throw error
 
   return (
     <>
