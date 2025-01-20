@@ -22,6 +22,7 @@ import {
 import { queryClient } from '@/lib/query-client'
 import { NoticePostQuries, updateNoticePostApi } from '@/service/api'
 import { CreateNoticePost, CreateNoticePostSchema } from '@/service/schema'
+import { getImageNameFromBlocks } from '@/utils'
 
 interface EditNoticePostFormProps {
   postId: number
@@ -47,7 +48,7 @@ export const EditNoticePostForm = ({ postId }: EditNoticePostFormProps) => {
     defaultValues: {
       postTitle: '',
       postContent: '',
-      postImageIds: [],
+      postImageNames: [],
     },
   })
 
@@ -56,14 +57,16 @@ export const EditNoticePostForm = ({ postId }: EditNoticePostFormProps) => {
       form.reset({
         postTitle: postInfo.postTitle,
         postContent: postInfo.postContent,
-        // TODO: 이미지 관련 수정 필요
-        postImageIds: [],
+        postImageNames: [],
       })
     }
   }, [postInfo, form])
 
   const onSubmit = (values: CreateNoticePost) => {
-    updateNoticePost({ postId: postInfo.postId, data: values })
+    const imageNames = getImageNameFromBlocks(values.postContent)
+    form.setValue('postImageNames', imageNames)
+
+    updateNoticePost({ postId: postInfo.postId, data: form.getValues() })
   }
 
   const onSuccess = (message?: string) => {
@@ -103,10 +106,7 @@ export const EditNoticePostForm = ({ postId }: EditNoticePostFormProps) => {
         <Separator />
         <div>
           <Label className="text-md">게시글 내용 수정하기</Label>
-          <PostContentFieldEditor
-            addImageId={(url: string, id: number) => console.log(url, id)}
-            contents={postInfo.postContent}
-          />
+          <PostContentFieldEditor contents={postInfo.postContent} />
         </div>
         <div className="flex justify-end pb-10">
           <Button type="submit" disabled={isPending}>

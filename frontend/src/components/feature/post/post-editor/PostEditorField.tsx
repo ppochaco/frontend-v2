@@ -12,14 +12,10 @@ import { BASE_URL } from '@/service/config/instance'
 import { CreateActivityPost } from '@/service/schema'
 
 interface PostContentFieldEditorProps {
-  addImageId: (url: string, id: number) => void
   contents?: string
 }
 
-const PostContentFieldEditor = ({
-  addImageId,
-  contents,
-}: PostContentFieldEditorProps) => {
+const PostContentFieldEditor = ({ contents }: PostContentFieldEditorProps) => {
   const { mutateAsync: uploadPostImage } = useMutation({
     mutationFn: uploadPostImageApi,
   })
@@ -27,10 +23,6 @@ const PostContentFieldEditor = ({
 
   const uploadFile = async (file: File): Promise<string> => {
     const data = await uploadPostImage({ data: { file } })
-
-    const url = data.postImageUrl.split('/').pop() ?? ''
-    addImageId(url, data.postImageId)
-
     const imageUrl = data.postImageUrl.replace('/upload', `${BASE_URL}/upload`)
 
     return imageUrl
@@ -44,10 +36,10 @@ const PostContentFieldEditor = ({
         },
       ]
 
-  const editor = useCreateBlockNote({
-    initialContent,
-    uploadFile,
-  })
+  const createEditor = useCreateBlockNote({ uploadFile })
+  const updateEditor = useCreateBlockNote({ initialContent, uploadFile })
+
+  const editor = contents ? updateEditor : createEditor
 
   return (
     <FormField

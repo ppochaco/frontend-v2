@@ -1,8 +1,6 @@
-import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router'
 
-import { Block } from '@blocknote/core'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -22,6 +20,7 @@ import {
 import { queryClient } from '@/lib/query-client'
 import { NoticePostQuries, addNoticePostApi } from '@/service/api'
 import { CreateNoticePost, CreateNoticePostSchema } from '@/service/schema'
+import { getImageNameFromBlocks } from '@/utils'
 
 export const CreateNoticePostForm = () => {
   const navigate = useNavigate()
@@ -37,33 +36,15 @@ export const CreateNoticePostForm = () => {
     defaultValues: {
       postTitle: '',
       postContent: '',
-      postImageIds: [],
+      postImageNames: [],
     },
   })
 
-  const imageMapRef = useRef<Map<string, number>>(new Map())
-
-  const addImageId = (url: string, id: number) => {
-    imageMapRef.current.set(url, id)
-  }
-
   const onSubmit = (values: CreateNoticePost) => {
-    const imageIds: number[] = []
+    const imageNames = getImageNameFromBlocks(values.postContent)
+    form.setValue('postImageNames', imageNames)
 
-    JSON.parse(values.postContent)
-      .filter((block: Block) => block.type === 'image')
-      .forEach((block: Block) => {
-        if (block.type === 'image') {
-          const url = block.props.url.split('/').pop() ?? ''
-          const imageId = imageMapRef.current.get(url)
-
-          if (imageId) imageIds.push(imageId)
-        }
-      })
-
-    form.setValue('postImageIds', imageIds)
-
-    addNoticePost({ data: values })
+    addNoticePost({ data: form.getValues() })
   }
 
   const onSuccess = (message?: string) => {
@@ -101,9 +82,7 @@ export const CreateNoticePostForm = () => {
         <Separator />
         <div>
           <Label className="text-md">게시글 내용 작성하기</Label>
-          <PostContentFieldEditor
-            addImageId={(url: string, id: number) => addImageId(url, id)}
-          />
+          <PostContentFieldEditor />
         </div>
         <div className="flex justify-end pb-10">
           <Button type="submit" disabled={isPending}>

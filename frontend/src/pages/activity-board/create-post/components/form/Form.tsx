@@ -1,8 +1,6 @@
-import { useRef } from 'react'
 import { useForm } from 'react-hook-form'
 import { useLocation, useNavigate } from 'react-router'
 
-import { Block } from '@blocknote/core'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
@@ -22,6 +20,7 @@ import {
 import { queryClient } from '@/lib/query-client'
 import { activityPostQuries, addActivityPostApi } from '@/service/api'
 import { CreateActivityPost, CreateActivityPostSchema } from '@/service/schema'
+import { getImageNameFromBlocks } from '@/utils'
 
 import { ActivityDateFieldDialog } from './date-field-dialog'
 
@@ -45,36 +44,11 @@ export const CreateActivityPostForm = ({
     defaultValues: {
       postTitle: '',
       postContent: '',
-      postImageIds: [],
+      postImageNames: [],
       postActivityStartDate: '',
       postActivityEndDate: '',
     },
   })
-
-  const imageMapRef = useRef<Map<string, number>>(new Map())
-
-  const addImageId = (url: string, id: number) => {
-    imageMapRef.current.set(url, id)
-  }
-
-  const onSubmit = (values: CreateActivityPost) => {
-    const imageIds: number[] = []
-
-    JSON.parse(values.postContent)
-      .filter((block: Block) => block.type === 'image')
-      .forEach((block: Block) => {
-        if (block.type === 'image') {
-          const url = block.props.url.split('/').pop() ?? ''
-          const imageId = imageMapRef.current.get(url)
-
-          if (imageId) imageIds.push(imageId)
-        }
-      })
-
-    form.setValue('postImageIds', imageIds)
-
-    addActivityPost({ boardId, data: values })
-  }
 
   const onSuccess = (message?: string) => {
     toast(message, { duration: 2000 })
@@ -87,12 +61,16 @@ export const CreateActivityPostForm = ({
     navigate(basePath)
   }
 
+  const onSubmit = form.handleSubmit((values) => {
+    const imageNames = getImageNameFromBlocks(values.postContent)
+    form.setValue('postImageNames', imageNames)
+
+    addActivityPost({ boardId, data: form.getValues() })
+  })
+
   return (
     <Form {...form}>
-      <form
-        onSubmit={form.handleSubmit(onSubmit)}
-        className="flex flex-col gap-4"
-      >
+      <form onSubmit={onSubmit} className="flex flex-col gap-4">
         <FormField
           control={form.control}
           name="postTitle"
@@ -113,7 +91,7 @@ export const CreateActivityPostForm = ({
         <ActivityDateFieldDialog />
         <Separator />
         <div>게시글 내용 작성하기</div>
-        <PostContentFieldEditor addImageId={addImageId} />
+        <PostContentFieldEditor />
         <div className="flex justify-end">
           <Button type="submit" disabled={isPending}>
             게시글 업로드
