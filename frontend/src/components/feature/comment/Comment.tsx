@@ -3,7 +3,7 @@ import { useLocation } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NotFound, PaginationButtons } from '@/components/common'
 import { Label, Skeleton } from '@/components/ui'
 import { commentQueries } from '@/service/api/comment'
 
@@ -41,9 +41,10 @@ export const Comment = ({ postId }: CommentProps) => {
   return (
     <ErrorBoundary fallbackRender={CommentErrorFallback}>
       <div className="flex flex-col gap-2 py-16">
-        <Label>{data.comments.length}개의 댓글</Label>
+        <Label>{data.pageInfo.totalElements}개의 댓글</Label>
         <CommentForm postId={postId} />
         <CommentList comments={data.comments} postId={postId} />
+        <PaginationButtons data={data} />
       </div>
     </ErrorBoundary>
   )
