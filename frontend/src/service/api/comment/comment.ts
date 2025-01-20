@@ -41,7 +41,7 @@ export const commentQueries = {
   lists: (postId: number) => [...commentQueries.all(), 'lists', postId],
   list: ({ postId, page, size }: CommentPagingRequest) =>
     queryOptions({
-      queryKey: [...commentQueries.lists(postId)],
+      queryKey: [...commentQueries.lists(postId), page, size],
       enabled: !!postId,
       queryFn: async () => getCommentsPaging({ postId, page, size }),
     }),
