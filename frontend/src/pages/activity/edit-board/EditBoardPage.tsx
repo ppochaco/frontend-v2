@@ -4,7 +4,7 @@
 // import { Separator, Skeleton } from '@/components/ui'
 // import { activityQueries, semesterQueries } from '@/service/api'
 // import { useMyInfoStore } from '@/store'
-import { BoardHero as EditBoardHero } from './_components/BoardHero'
+import { BoardHero as EditBoardHero } from './_components/hero'
 
 export default function EditBoardPage() {
   //   const params = useParams()
