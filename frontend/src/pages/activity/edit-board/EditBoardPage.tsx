@@ -7,9 +7,12 @@ import { Separator, Skeleton } from '@/components/ui'
 import { activityQueries, boardQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
 
-import { EditBoardDetail } from './_components/detail'
-import { EditBoardForm } from './_components/form'
-import { EditBoardHero } from './_components/hero'
+import {
+  EditBoardDetail,
+  EditBoardForm,
+  EditBoardHero,
+  EditBoardImage,
+} from './_components'
 
 export default function EditBoardPage() {
   const params = useParams()
@@ -61,17 +64,25 @@ export default function EditBoardPage() {
     )
 
   return (
-    <div className="w-full">
+    <div className="w-full pb-20">
       <EditBoardHero boardName={boardDetail.boardName} />
       <EditBoardDetail
         semesterName={semester.semesterName}
         activityName={activity.activityName}
         userName={userName}
       />
-      <EditBoardForm
-        activityId={Number(params.activityId)}
-        boardDetail={boardDetail}
-      />
+      <div className="flex justify-center">
+        <EditBoardImage
+          activityId={Number(params.activityId)}
+          boardId={Number(params.boardId)}
+          boardImageUrl={boardDetail.boardImageUrl}
+        />
+        <Separator orientation="vertical" className="mx-6 h-96" />
+        <EditBoardForm
+          activityId={Number(params.activityId)}
+          boardDetail={boardDetail}
+        />
+      </div>
     </div>
   )
 }

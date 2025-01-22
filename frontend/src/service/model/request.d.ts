@@ -63,6 +63,18 @@ export type AddBoardRequest = {
   data: RegisterBoardPayload
 }
 
+export type UpdateBoardRequest = {
+  activityId: number
+  boardId: number
+  data: BoardRequestDto
+}
+
+export type UpdateBoardImageRequest = {
+  activityId: number
+  boardId: number
+  data: UpdateBoardImagePayload
+}
+
 export type BoardDetailRequest = {
   activityId: number
   boardId: number
