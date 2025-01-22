@@ -1,0 +1,1 @@
+export { EditBoardImage } from './EditBoardImage'

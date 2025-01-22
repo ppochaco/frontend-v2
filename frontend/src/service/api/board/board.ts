@@ -8,6 +8,8 @@ import {
   BoardPagingRequest,
   BoardPagingResponse,
   DeleteBoardRequest,
+  UpdateBoardImageRequest,
+  UpdateBoardRequest,
 } from '@/service/model'
 
 const getBoardsPaging = async ({
@@ -71,6 +73,32 @@ export const deleteBoardApi = async ({
 export const addBoardApi = async ({ activityId, data }: AddBoardRequest) => {
   const boardsClient = new Activities(AUTHORIZATION_API)
   const response = await boardsClient.registerBoard(activityId, data)
+
+  return response.data
+}
+
+export const updateBoardApi = async ({
+  activityId,
+  boardId,
+  data,
+}: UpdateBoardRequest) => {
+  const boardsClient = new Activities(AUTHORIZATION_API)
+  const response = await boardsClient.updateBoard(activityId, boardId, data)
+
+  return response.data
+}
+
+export const updateBoardImageApi = async ({
+  activityId,
+  boardId,
+  data,
+}: UpdateBoardImageRequest) => {
+  const boardsClient = new Activities(AUTHORIZATION_API)
+  const response = await boardsClient.updateBoardImage(
+    activityId,
+    boardId,
+    data,
+  )
 
   return response.data
 }
