@@ -1,1 +1,1 @@
-export { BoardHero } from './BoardHero'
+export { EditBoardHero } from './Hero'

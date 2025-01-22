@@ -1,17 +1,17 @@
 import { NameLabel } from '@/components/common'
 import { Label } from '@/components/ui'
 
-type CreateBoardDetailProps = {
+type EditBoardDetailProps = {
   semesterName: string
   activityName: string
   userName: string
 }
 
-export const CreateBoardDetail = ({
+export const EditBoardDetail = ({
   semesterName,
   activityName,
   userName,
-}: CreateBoardDetailProps) => {
+}: EditBoardDetailProps) => {
   const detailData = [
     { index: 0, label: '학기', name: semesterName },
     { index: 1, label: '활동명', name: activityName },

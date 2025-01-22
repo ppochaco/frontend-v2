@@ -1,1 +1,1 @@
-export { CreateBoardForm } from './Form'
+export { EditBoardForm } from './Form'

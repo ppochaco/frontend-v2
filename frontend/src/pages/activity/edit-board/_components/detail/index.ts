@@ -1,1 +1,1 @@
-export { CreateBoardDetail } from './BoardDetail'
+export { EditBoardDetail } from './BoardDetail'

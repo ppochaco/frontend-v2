@@ -17,11 +17,11 @@ import { CreateBoard, CreateBoardSchema } from '@/service/schema'
 import { BoardFormField } from './form-field'
 import { SelectMemberInput } from './select-member-input'
 
-type CreateBoardFromProps = {
+type EditBoardFromProps = {
   activityId: number
 }
 
-export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
+export const EditBoardForm = ({ activityId }: EditBoardFromProps) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
@@ -111,7 +111,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
               )
             }
           >
-            게시판 생성하기
+            게시판 수정하기
           </Button>
         </div>
       </form>
