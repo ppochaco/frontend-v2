@@ -1,8 +1,5 @@
-import { Dispatch, SetStateAction } from 'react'
+import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { useQuery } from '@tanstack/react-query'
-
-import { Skeleton } from '@/components/ui'
 import { UserQuries } from '@/service/api'
 import { UserResponseDto } from '@/service/model'
 
@@ -10,21 +7,16 @@ import { MultipleMemberSelect } from './multiple-member-select'
 
 type SelectMemberInputProps = {
   selectedMember: UserResponseDto[]
-  setSelectedMember: Dispatch<SetStateAction<UserResponseDto[]>>
+  setSelectedMember: (members: UserResponseDto[]) => void
 }
 
 export const SelectMemberInput = ({
   selectedMember,
   setSelectedMember,
 }: SelectMemberInputProps) => {
-  const { data: users, status, error } = useQuery(UserQuries.list())
-
-  if (status === 'pending')
-    return <Skeleton className="h-8 w-full bg-slate-50" />
+  const { data: users } = useSuspenseQuery(UserQuries.list())
 
   if (!users) return <div>유저가 없습니다.</div>
-
-  if (error) return <div>{error.message}</div>
 
   return (
     <MultipleMemberSelect
