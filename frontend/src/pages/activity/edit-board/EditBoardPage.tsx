@@ -71,13 +71,17 @@ export default function EditBoardPage() {
         activityName={activity.activityName}
         userName={userName}
       />
-      <div className="flex justify-center">
+      <div className="flex flex-col md:flex-row md:justify-center">
         <EditBoardImage
           activityId={Number(params.activityId)}
           boardId={Number(params.boardId)}
           boardImageUrl={boardDetail.boardImageUrl}
         />
-        <Separator orientation="vertical" className="mx-6 h-96" />
+        <Separator
+          orientation="vertical"
+          className="mx-6 hidden h-96 md:flex"
+        />
+        <Separator className="my-8 md:hidden" />
         <EditBoardForm
           activityId={Number(params.activityId)}
           boardDetail={boardDetail}
