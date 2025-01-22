@@ -1,13 +1,15 @@
-// import { useParams } from 'react-router'
+import { useParams } from 'react-router'
+
 // import { useQuery } from '@tanstack/react-query'
 // import { NotFound, Spinner } from '@/components/common'
 // import { Separator, Skeleton } from '@/components/ui'
 // import { activityQueries, semesterQueries } from '@/service/api'
 // import { useMyInfoStore } from '@/store'
+
 import { BoardHero as EditBoardHero } from './_components/hero'
 
 export default function EditBoardPage() {
-  //   const params = useParams()
+  const params = useParams()
   //   const { userName } = useMyInfoStore((state) => state.myInfo)
 
   //   const {
@@ -43,7 +45,11 @@ export default function EditBoardPage() {
 
   return (
     <div className="w-full">
-      <EditBoardHero />
+      {/* <EditBoardHero /> */}
+      <EditBoardHero
+        activityId={Number(params.activityId)}
+        boardId={Number(params.boardId)}
+      />
     </div>
   )
 }
