@@ -11,7 +11,7 @@ import { ImageInput } from '@/components/common'
 import { Button, Form, Input, Textarea } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
 import { addBoardApi, boardQueries } from '@/service/api'
-import { UserResponseDto } from '@/service/model'
+import { BoardResponseDto, UserResponseDto } from '@/service/model'
 import { CreateBoard, CreateBoardSchema } from '@/service/schema'
 
 import { BoardFormField } from './form-field'
@@ -19,9 +19,13 @@ import { SelectMemberInput } from './select-member-input'
 
 type EditBoardFromProps = {
   activityId: number
+  boardDetail: BoardResponseDto
 }
 
-export const EditBoardForm = ({ activityId }: EditBoardFromProps) => {
+export const EditBoardForm = ({
+  activityId,
+  boardDetail,
+}: EditBoardFromProps) => {
   const navigate = useNavigate()
   const { pathname } = useLocation()
 
@@ -36,12 +40,13 @@ export const EditBoardForm = ({ activityId }: EditBoardFromProps) => {
   const form = useForm<CreateBoard>({
     resolver: zodResolver(CreateBoardSchema),
     defaultValues: {
-      boardName: '',
-      boardIntro: '',
-      participants: [],
+      boardName: boardDetail?.boardName || '',
+      boardIntro: boardDetail?.boardIntro || '',
+      participants: boardDetail?.participants?.map((p) => p.userId) || [],
       file: new File([], ''),
     },
   })
+
   const [selectedMember, setSelectedMember] = useState<UserResponseDto[]>([])
 
   const onSubmit = (form: CreateBoard) => {

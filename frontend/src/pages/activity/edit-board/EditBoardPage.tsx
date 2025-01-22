@@ -4,8 +4,7 @@ import { useQuery } from '@tanstack/react-query'
 
 import { NotFound, Spinner } from '@/components/common'
 import { Separator, Skeleton } from '@/components/ui'
-import { activityQueries, semesterQueries } from '@/service/api'
-import { boardQueries } from '@/service/api'
+import { activityQueries, boardQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
 
 import { EditBoardDetail } from './_components/detail'
@@ -16,7 +15,11 @@ export default function EditBoardPage() {
   const params = useParams()
   const { userName } = useMyInfoStore((state) => state.myInfo)
 
-  const { data: boardDetail, status: boardDetailStatus } = useQuery(
+  const {
+    data: boardDetail,
+    status: boardDetailStatus,
+    error: boardDetailError,
+  } = useQuery(
     boardQueries.detail({
       activityId: Number(params.activityId),
       boardId: Number(params.boardId),
@@ -43,7 +46,7 @@ export default function EditBoardPage() {
   )
 
   if (boardDetailStatus === 'pending') return null
-  if (!boardDetail) return null
+  if (boardDetailError) return null
 
   if (semesterStatus === 'pending' || activityStatus === 'pending') {
     return <EditBoardSkeleton />
@@ -59,17 +62,16 @@ export default function EditBoardPage() {
 
   return (
     <div className="w-full">
-      {/* <EditBoardHero
-        activityId={Number(params.activityId)}
-        boardId={Number(params.boardId)}
-      /> */}
       <EditBoardHero boardName={boardDetail.boardName} />
       <EditBoardDetail
         semesterName={semester.semesterName}
         activityName={activity.activityName}
         userName={userName}
       />
-      <EditBoardForm activityId={Number(params.activityId)} />
+      <EditBoardForm
+        activityId={Number(params.activityId)}
+        boardDetail={boardDetail}
+      />
     </div>
   )
 }
