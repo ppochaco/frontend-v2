@@ -1,1 +1,0 @@
-export { SectionWithTitle } from './SectionWithTitle'

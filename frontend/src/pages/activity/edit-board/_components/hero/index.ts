@@ -1,0 +1,1 @@
+export { EditBoardHero } from './Hero'

@@ -1,0 +1,1 @@
+export { EditBoardDetail } from './BoardDetail'
