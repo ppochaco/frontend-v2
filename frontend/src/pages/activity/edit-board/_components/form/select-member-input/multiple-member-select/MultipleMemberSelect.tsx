@@ -27,11 +27,14 @@ export const MultipleMemberSelect = ({
   const [inputValue, setInputValue] = useState('')
 
   const selectMember = (member: UserResponseDto) => {
-    if (value.includes(member)) {
-      onChange(value.filter((m) => m.userId !== member.userId))
-    } else {
-      onChange([...value, member])
-    }
+    const isMemberSelected = value.some((cur) => cur.userId === member.userId)
+
+    onChange(
+      isMemberSelected
+        ? value.filter((m) => m.userId !== member.userId)
+        : [...value, member],
+    )
+
     setInputValue('')
   }
 

@@ -7,12 +7,11 @@ import { useMutation, useSuspenseQueries } from '@tanstack/react-query'
 import { AxiosError } from 'axios'
 import { toast } from 'sonner'
 
-import { ImageInput } from '@/components/common'
 import { Button, Form, Input, Textarea } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { UserQuries, addBoardApi, boardQueries } from '@/service/api'
+import { UserQuries, boardQueries, updateBoardApi } from '@/service/api'
 import { BoardResponseDto, UserResponseDto } from '@/service/model'
-import { CreateBoard, CreateBoardSchema } from '@/service/schema'
+import { UpdateBoard, UpdateBoardSchema } from '@/service/schema'
 
 import { BoardFormField } from './form-field'
 import { SelectMemberInput } from './select-member-input'
@@ -31,7 +30,7 @@ export const EditBoardForm = ({
 
   const basePath = pathname.split('/').slice(0, -1).join('/')
 
-  const { data: selectedUsers } = useSuspenseQueries({
+  const { data: defaultUsers } = useSuspenseQueries({
     queries: boardDetail.participants.map((user) =>
       UserQuries.detail({ userId: user.userId }),
     ),
@@ -43,33 +42,31 @@ export const EditBoardForm = ({
   })
 
   const { mutate: addBoard, isPending } = useMutation({
-    mutationFn: addBoardApi,
+    mutationFn: updateBoardApi,
     onSuccess: (data) => onSuccess(data.message),
     onError: (error) => onError(error),
   })
 
-  const form = useForm<CreateBoard>({
-    resolver: zodResolver(CreateBoardSchema),
+  const form = useForm<UpdateBoard>({
+    resolver: zodResolver(UpdateBoardSchema),
     defaultValues: {
       boardName: boardDetail?.boardName || '',
       boardIntro: boardDetail?.boardIntro || '',
-      participants: [],
-      file: new File([], ''),
+      participants: defaultUsers.map((member) => member.userId),
     },
   })
 
   const [selectedMember, setSelectedMember] =
-    useState<UserResponseDto[]>(selectedUsers)
+    useState<UserResponseDto[]>(defaultUsers)
 
-  const onSubmit = (form: CreateBoard) => {
-    addBoard({ activityId, data: { file: form.file, boardRequestDto: form } })
+  const onSubmit = (values: UpdateBoard) => {
+    addBoard({ activityId, boardId: boardDetail.boardId, data: values })
   }
 
-  const onSuccess = (message?: string) => {
-    toast(message, { duration: 2000 })
+  const onSuccess = (message: string) => {
+    toast.success(message)
 
     queryClient.invalidateQueries({ queryKey: boardQueries.all() })
-    navigate(basePath)
   }
 
   const onError = (error: Error) => {
@@ -93,7 +90,7 @@ export const EditBoardForm = ({
   return (
     <Form {...form}>
       <form
-        className="flex flex-col gap-4 pb-10"
+        className="flex w-full max-w-lg flex-col gap-4"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <BoardFormField name="boardName" label="게시판 제목">
@@ -114,9 +111,6 @@ export const EditBoardForm = ({
             />
           )}
         </BoardFormField>
-        <BoardFormField name="file" label="게시판 대표 사진">
-          {(field) => <ImageInput field={field} />}
-        </BoardFormField>
         <BoardFormField name="participants" label="게시판 이용자">
           {(field) => (
             <SelectMemberInput
@@ -127,10 +121,15 @@ export const EditBoardForm = ({
             />
           )}
         </BoardFormField>
-        <div className="flex justify-end">
-          <Button type="submit" disabled={isPending}>
-            게시판 수정하기
+        <div className="flex justify-end gap-2 pt-2">
+          <Button
+            type="button"
+            variant="outline"
+            onClick={() => navigate(basePath)}
+          >
+            뒤로가기
           </Button>
+          <Button disabled={isPending}>수정하기</Button>
         </div>
       </form>
     </Form>

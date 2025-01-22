@@ -28,7 +28,7 @@ export const BoardFormField = ({
       name={name}
       render={({ field }) => (
         <FormItem className="flex flex-col">
-          <div className="flex flex-col md:flex-row md:items-center">
+          <div className="flex flex-col gap-2">
             <Label className="text-md w-40">{label}</Label>
             <FormControl>{children(field)}</FormControl>
           </div>
