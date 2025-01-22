@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from 'react-router'
 
-import { TrashIcon } from '@radix-ui/react-icons'
+import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
@@ -18,6 +18,9 @@ type BoardHeroProps = {
 }
 
 export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
+  const navigate = useNavigate()
+  const { pathname } = useLocation()
+
   const { role } = useMyInfoStore((state) => state.myInfo)
 
   const { data: boardDetail, status } = useQuery(
@@ -29,9 +32,6 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
     onSuccess: (data) => onSuccess(data.message),
     onError: () => toast.error(API_ERROR_MESSAGES.UNKNOWN_ERROR),
   })
-
-  const navigate = useNavigate()
-  const { pathname } = useLocation()
 
   const onSuccess = (message: string) => {
     toast.success(message, { duration: 2000 })
@@ -63,7 +63,16 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
         <div className="py-3 text-primary/70">{boardDetail.boardIntro}</div>
       </div>
       {role === 'ROLE_ADMIN' && (
-        <div className="flex justify-end">
+        <div className="flex justify-end gap-2">
+          <Button
+            variant="outline"
+            onClick={() => navigate('edit-board')}
+            disabled={isPending}
+            className="mb-3 gap-1 px-2 text-primary/70"
+          >
+            <Pencil1Icon />
+            <div>수정하기</div>
+          </Button>
           <Button
             variant="outline"
             onClick={() => deleteBoard({ boardId, activityId })}
