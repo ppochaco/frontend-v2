@@ -28,6 +28,7 @@ import {
   UpdateProfileImage,
   UpdateProfileImageSchema,
 } from '@/service/schema/mypage'
+import { convertRoleName } from '@/utils'
 
 interface UserInfoSectionProps {
   profile: ProfileResponseDto
@@ -138,7 +139,7 @@ export const UserInfoSection = ({ profile, userId }: UserInfoSectionProps) => {
             {profile.userName}
           </div>
           <div className="text-md rounded-full border border-primary px-3 py-1 text-primary md:text-xl">
-            {profile.role}
+            {convertRoleName(profile.role)}
           </div>
         </div>
         <div className="text-xl">{profile.studentNumber}</div>
