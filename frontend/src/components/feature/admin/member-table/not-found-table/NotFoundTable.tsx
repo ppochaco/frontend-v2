@@ -6,18 +6,17 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { MemberTableContent } from './content'
-import { MemberTableFilterSkeleton } from './filter/Filter'
+import { TableContent, TableFilterSkeleton } from '@/components/common'
 
-interface MemberTableNoneProps<T> {
+interface NotFoundMemberTableProps<T> {
   message: string
   columns: ColumnDef<T>[]
 }
 
-export function MemberTableNone<T>({
+export function NotFoundMemberTable<T>({
   message,
   columns,
-}: MemberTableNoneProps<T>) {
+}: NotFoundMemberTableProps<T>) {
   const table = useReactTable({
     data: [],
     columns,
@@ -28,8 +27,8 @@ export function MemberTableNone<T>({
 
   return (
     <div className="flex w-full max-w-screen-lg flex-col gap-2 pb-20">
-      <MemberTableFilterSkeleton />
-      <MemberTableContent table={table} />
+      <TableFilterSkeleton />
+      <TableContent table={table} />
       <div className="flex justify-center pt-2 text-primary/70">{message}</div>
     </div>
   )
