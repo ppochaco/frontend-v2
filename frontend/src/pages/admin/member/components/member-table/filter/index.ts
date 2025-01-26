@@ -1,1 +1,0 @@
-export { MemberTableFilter } from './Filter'

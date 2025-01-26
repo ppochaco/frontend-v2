@@ -3,6 +3,7 @@ import {
   ReactNode,
   createContext,
   useContext,
+  useEffect,
   useState,
 } from 'react'
 
@@ -18,7 +19,22 @@ interface SidebarProps {
 }
 
 export function Sidebar({ name, children }: SidebarProps) {
-  const [expanded, setExpanded] = useState(true)
+  const [expanded, setExpanded] = useState(window.innerWidth > 768)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)')
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      setExpanded(e.matches)
+    }
+
+    mediaQuery.addEventListener('change', handleMediaChange)
+
+    setExpanded(mediaQuery.matches)
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleMediaChange)
+    }
+  }, [])
 
   return (
     <aside className={cn(expanded ? 'w-56' : 'w-18', 'h-full transition-all')}>
