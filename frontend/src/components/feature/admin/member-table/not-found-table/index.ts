@@ -1,0 +1,1 @@
+export { NotFoundMemberTable } from './NotFoundTable'

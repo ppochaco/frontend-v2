@@ -2,25 +2,24 @@ import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 
 import { NotFound } from '@/components/common'
-import { AdminUserQuries } from '@/service/api'
-import { UserResponseDto } from '@/service/model'
-import { convertRoleName } from '@/utils'
-
-import { ExpelMemberDialog } from './expel-member-dialog'
 import {
   MemberTable,
-  MemberTableNone,
   MemberTableSkeleton,
-} from './member-table'
+  NotFoundMemberTable,
+} from '@/components/feature'
+import { AdminUserQuries } from '@/service/api'
+import { UserResponseDto } from '@/service/model'
 
-export const ExpelMemberTable = () => {
+import { ChangeRoleDialog } from './change-role-dialog'
+
+export const ChangeRoleTable = () => {
   const {
     data: activeUsers,
     status,
     error,
   } = useQuery(AdminUserQuries.active())
 
-  const expelMemberColumn: ColumnDef<UserResponseDto>[] = [
+  const changeRoleColumn: ColumnDef<UserResponseDto>[] = [
     {
       header: '',
       id: 'id',
@@ -47,19 +46,12 @@ export const ExpelMemberTable = () => {
     {
       accessorKey: 'role',
       header: '등급',
-      cell: ({ row }) => (
-        <div className="text-center">
-          {convertRoleName(row.getValue('role'))}
-        </div>
-      ),
-    },
-    {
-      accessorKey: 'isBanned',
-      header: '',
       cell: ({ row }) => {
+        const user = row.original
+
         return (
           <div className="flex justify-center">
-            <ExpelMemberDialog user={row.original} />
+            <ChangeRoleDialog user={user} />
           </div>
         )
       },
@@ -67,15 +59,18 @@ export const ExpelMemberTable = () => {
   ]
 
   if (status === 'pending')
-    return <MemberTableSkeleton columns={expelMemberColumn} />
+    return <MemberTableSkeleton columns={changeRoleColumn} />
 
   if (error) return <NotFound />
 
   if (!activeUsers.length) {
     return (
-      <MemberTableNone message="회원이 없습니다." columns={expelMemberColumn} />
+      <NotFoundMemberTable
+        message="회원이 없습니다."
+        columns={changeRoleColumn}
+      />
     )
   }
 
-  return <MemberTable data={activeUsers} columns={expelMemberColumn} />
+  return <MemberTable data={activeUsers} columns={changeRoleColumn} />
 }

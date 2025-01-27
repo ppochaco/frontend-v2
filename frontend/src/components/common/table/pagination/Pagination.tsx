@@ -15,7 +15,7 @@ interface TablePaginationProps<T> {
   table: Table<T>
 }
 
-export function MemberTablePagination<T>({
+export function TablePagination<T>({
   pageNumList,
   table,
 }: TablePaginationProps<T>) {

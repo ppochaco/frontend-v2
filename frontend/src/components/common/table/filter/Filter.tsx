@@ -7,7 +7,7 @@ interface TableFilterProps<T> {
   table: Table<T>
 }
 
-export function MemberTableFilter<T>({ table }: TableFilterProps<T>) {
+export function TableFilter<T>({ table }: TableFilterProps<T>) {
   return (
     <div className="flex items-center justify-end space-x-2 py-1">
       <MagnifyingGlassIcon className="h-4 w-4 text-muted-foreground" />
@@ -23,7 +23,7 @@ export function MemberTableFilter<T>({ table }: TableFilterProps<T>) {
   )
 }
 
-export const MemberTableFilterSkeleton = () => {
+export const TableFilterSkeleton = () => {
   return (
     <div className="flex items-center justify-end space-x-2 py-1">
       <MagnifyingGlassIcon className="h-4 w-4 text-muted-foreground" />

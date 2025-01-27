@@ -3,15 +3,15 @@ import { ColumnDef } from '@tanstack/react-table'
 import { kstFormat } from '@toss/date'
 
 import { NotFound } from '@/components/common'
+import {
+  MemberTable,
+  MemberTableSkeleton,
+  NotFoundMemberTable,
+} from '@/components/feature'
 import { AdminUserQuries } from '@/service/api'
 import { AdminUserResponseDto } from '@/service/model'
 
 import { ApproveMemberButton } from './approve-member-button'
-import {
-  MemberTable,
-  MemberTableNone,
-  MemberTableSkeleton,
-} from './member-table'
 
 export const ApproveMemberTable = () => {
   const {
@@ -73,7 +73,7 @@ export const ApproveMemberTable = () => {
 
   if (!inActiveUsers.length)
     return (
-      <MemberTableNone
+      <NotFoundMemberTable
         message="회원가입 신청이 없습니다."
         columns={approveMemberColumn}
       />

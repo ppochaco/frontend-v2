@@ -1,3 +1,3 @@
-export { ApproveMemberTable } from './ApproveMemberTable'
-export { ChangeRoleTable } from './ChangRoleTable'
-export { ExpelMemberTable } from './ExpelMemberTable'
+export * from './approve-member-table'
+export * from './change-role-table'
+export * from './expel-member-table'

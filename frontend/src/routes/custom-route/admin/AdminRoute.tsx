@@ -1,7 +1,7 @@
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 
-import { AdminLayout } from '@/components/feature'
+import { AdminSidebar, MainLayout } from '@/components/feature'
 import { useMyInfoStore } from '@/store'
 
 export const AdminRoute = () => {
@@ -17,8 +17,11 @@ export const AdminRoute = () => {
   if (!role) return null
 
   return (
-    <AdminLayout>
-      <Outlet />
-    </AdminLayout>
+    <MainLayout>
+      <div className="flex w-full flex-1 justify-center">
+        <AdminSidebar />
+        <Outlet />
+      </div>
+    </MainLayout>
   )
 }

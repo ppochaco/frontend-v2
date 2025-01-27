@@ -13,7 +13,7 @@ interface TableContentProps<T> {
   table: tanskTable<T>
 }
 
-export function MemberTableContent<T>({ table }: TableContentProps<T>) {
+export function TableContent<T>({ table }: TableContentProps<T>) {
   return (
     <Table className="w-full">
       <TableHeader>

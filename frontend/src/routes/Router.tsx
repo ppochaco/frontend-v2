@@ -44,12 +44,13 @@ export const Router = () => {
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
         </Route>
-        <Route path="/" element={<MainPage />} />
+
+        <Route path="/admin" element={<AdminRoute />}>
+          <Route path="member" element={<AdminMemberPage />} />
+          <Route path="semester" element={<AdminSemesterPage />} />
+        </Route>
+
         <Route element={<MainRoute />}>
-          <Route path="/admin" element={<AdminRoute />}>
-            <Route path="member" element={<AdminMemberPage />} />
-            <Route path="semester" element={<AdminSemesterPage />} />
-          </Route>
           <Route path="/activity" element={<ActivityRoute />}>
             <Route index element={<SemesterRedirectPage />} />
             <Route path=":semesterId" element={<ActivityRedirectPage />} />
@@ -70,6 +71,7 @@ export const Router = () => {
               </Route>
             </Route>
           </Route>
+
           <Route path="/notice" element={<NoticeRoute />}>
             <Route index element={<NoticePage />} />
             <Route path="posts/:postId" element={<NoticePostPage />} />
@@ -81,9 +83,11 @@ export const Router = () => {
               <Route path="create-post" element={<CreateNoticePostPage />} />
             </Route>
           </Route>
+
           <Route path="/mypage" element={<MyPageRoute />}>
             <Route index element={<MyPage />} />
           </Route>
+
           <Route
             path="/member"
             element={
@@ -93,6 +97,8 @@ export const Router = () => {
             }
           />
         </Route>
+
+        <Route path="/" element={<MainPage />} />
         <Route path="/recruit" element={<RecruitPage />} />
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>

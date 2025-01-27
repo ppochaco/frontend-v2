@@ -9,9 +9,7 @@ import {
   useReactTable,
 } from '@tanstack/react-table'
 
-import { MemberTableContent } from './content'
-import { MemberTableFilter } from './filter'
-import { MemberTablePagination } from './pagination'
+import { TableContent, TableFilter, TablePagination } from '@/components/common'
 
 interface MemberTableProps<T> {
   data: T[]
@@ -46,9 +44,9 @@ export function MemberTable<T>({ data, columns }: MemberTableProps<T>) {
 
   return (
     <div className="flex w-full max-w-screen-lg flex-col gap-2 pb-20">
-      <MemberTableFilter table={table} />
-      <MemberTableContent table={table} />
-      <MemberTablePagination table={table} pageNumList={pageNumList} />
+      <TableFilter table={table} />
+      <TableContent table={table} />
+      <TablePagination table={table} pageNumList={pageNumList} />
     </div>
   )
 }

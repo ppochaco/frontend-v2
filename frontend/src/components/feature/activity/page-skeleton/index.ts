@@ -1,0 +1,1 @@
+export { ActivityPageSkeleton } from './PageSkeleton'

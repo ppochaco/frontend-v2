@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
 import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { NotFound } from '@/components/common'
 import {
+  ActivityPageSkeleton,
   BoardNavigationButton,
   Comment,
   PostContent,
@@ -12,7 +14,7 @@ import { activityPostQuries, boardQueries } from '@/service/api'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
 
-export default function ActivityPostPage() {
+const ActivityPostPage = () => {
   const params = useParams()
 
   const { data: board } = useSuspenseQuery(
@@ -39,5 +41,13 @@ export default function ActivityPostPage() {
       <BoardNavigationButton />
       <Comment postId={post.postId} />
     </div>
+  )
+}
+
+export default function FetchActivityPostPage() {
+  return (
+    <Suspense fallback={<ActivityPageSkeleton />}>
+      <ActivityPostPage />
+    </Suspense>
   )
 }

@@ -1,1 +1,0 @@
-export { MemberTablePagination } from './Pagination'
