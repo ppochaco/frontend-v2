@@ -71,6 +71,7 @@ export const Router = () => {
               </Route>
             </Route>
           </Route>
+
           <Route path="/notice" element={<NoticeRoute />}>
             <Route index element={<NoticePage />} />
             <Route path="posts/:postId" element={<NoticePostPage />} />
@@ -82,9 +83,11 @@ export const Router = () => {
               <Route path="create-post" element={<CreateNoticePostPage />} />
             </Route>
           </Route>
+
           <Route path="/mypage" element={<MyPageRoute />}>
             <Route index element={<MyPage />} />
           </Route>
+
           <Route
             path="/member"
             element={
