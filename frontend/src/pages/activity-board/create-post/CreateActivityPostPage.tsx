@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NotFound, Spinner } from '@/components/common'
 import { ACCESS_ERROR_MESSAGE } from '@/constant'
 import { boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -11,7 +11,7 @@ import { Role } from '@/types'
 
 import { CreateActivityPostForm, CreateActivityPostHero } from './components'
 
-export default function CreateActivityPost() {
+const CreateActivityPost = () => {
   const params = useParams()
 
   const { data: board } = useSuspenseQuery(
@@ -36,5 +36,22 @@ export default function CreateActivityPost() {
       <CreateActivityPostHero boardName={board.boardName} />
       <CreateActivityPostForm boardId={Number(params.boardId)} />
     </div>
+  )
+}
+
+const CreateActivityPostSkeleton = () => {
+  return (
+    <div className="flex w-full flex-col gap-10">
+      <CreateActivityPostHero boardName="" />
+      <Spinner />
+    </div>
+  )
+}
+
+export default function FetchCreateActivityPost() {
+  return (
+    <Suspense fallback={<CreateActivityPostSkeleton />}>
+      <CreateActivityPost />
+    </Suspense>
   )
 }
