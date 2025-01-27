@@ -1,16 +1,17 @@
-import { useEffect } from 'react'
+import { Suspense, useEffect } from 'react'
 import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { NotFound } from '@/components/common'
+import { ActivityPageSkeleton } from '@/components/feature'
 import { ACCESS_ERROR_MESSAGE } from '@/constant'
 import { activityPostQuries, boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
 
 import { EditActivityPostForm, EditActivityPostHero } from './components'
 
-export default function EditActivityPostPage() {
+const EditActivityPostPage = () => {
   const params = useParams()
 
   const { data: board } = useSuspenseQuery(
@@ -47,5 +48,13 @@ export default function EditActivityPostPage() {
         boardId={Number(params.boardId)}
       />
     </div>
+  )
+}
+
+export default function FetchEditActivityPostPage() {
+  return (
+    <Suspense fallback={<ActivityPageSkeleton />}>
+      <EditActivityPostPage />
+    </Suspense>
   )
 }

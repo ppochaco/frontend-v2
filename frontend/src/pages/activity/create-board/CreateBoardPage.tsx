@@ -2,8 +2,8 @@ import { useParams } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { NotFound, Spinner } from '@/components/common'
-import { Separator, Skeleton } from '@/components/ui'
+import { NotFound } from '@/components/common'
+import { ActivityPageSkeleton } from '@/components/feature'
 import { activityQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
 
@@ -37,7 +37,7 @@ export default function CreateBoardPage() {
   )
 
   if (semesterStatus === 'pending' || activityStatus === 'pending') {
-    return <CreateBoardSkeleton />
+    return <ActivityPageSkeleton />
   }
 
   if (semesterError || activityError)
@@ -57,19 +57,6 @@ export default function CreateBoardPage() {
         userName={userName}
       />
       <CreateBoardForm activityId={activity.activityId} />
-    </div>
-  )
-}
-
-const CreateBoardSkeleton = () => {
-  return (
-    <div className="w-full">
-      <div>
-        <Separator variant="dark" />
-        <Skeleton className="my-4 h-5 w-full" />
-        <Separator variant="dark" />
-      </div>
-      <Spinner />
     </div>
   )
 }
