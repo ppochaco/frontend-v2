@@ -3,7 +3,8 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound, Spinner } from '@/components/common'
+import { NotFound } from '@/components/common'
+import { ActivityPageSkeleton } from '@/components/feature'
 import { ACCESS_ERROR_MESSAGE } from '@/constant'
 import { boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -39,18 +40,9 @@ const CreateActivityPost = () => {
   )
 }
 
-const CreateActivityPostSkeleton = () => {
-  return (
-    <div className="flex w-full flex-col gap-10">
-      <CreateActivityPostHero boardName="" />
-      <Spinner />
-    </div>
-  )
-}
-
 export default function FetchCreateActivityPost() {
   return (
-    <Suspense fallback={<CreateActivityPostSkeleton />}>
+    <Suspense fallback={<ActivityPageSkeleton />}>
       <CreateActivityPost />
     </Suspense>
   )

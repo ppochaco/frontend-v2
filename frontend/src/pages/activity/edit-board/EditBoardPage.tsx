@@ -4,7 +4,8 @@ import { useParams } from 'react-router'
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { NotFound } from '@/components/common'
-import { Separator, Skeleton } from '@/components/ui'
+import { ActivityPageSkeleton } from '@/components/feature'
+import { Separator } from '@/components/ui'
 import { activityQueries, boardQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
 
@@ -67,19 +68,9 @@ const EditBoardPage = () => {
   )
 }
 
-const EditBoardSkeleton = () => {
-  return (
-    <div className="w-full">
-      <Separator variant="dark" />
-      <Skeleton className="my-4 h-5 w-96 bg-slate-50" />
-      <Separator variant="dark" />
-    </div>
-  )
-}
-
 export default function FetchEditBoardPage() {
   return (
-    <Suspense fallback={<EditBoardSkeleton />}>
+    <Suspense fallback={<ActivityPageSkeleton />}>
       <EditBoardPage />
     </Suspense>
   )

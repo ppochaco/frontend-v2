@@ -3,13 +3,13 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound, Spinner } from '@/components/common'
+import { NotFound } from '@/components/common'
 import {
+  ActivityPageSkeleton,
   BoardNavigationButton,
   Comment,
   PostContent,
 } from '@/components/feature'
-import { Separator } from '@/components/ui'
 import { activityPostQuries, boardQueries } from '@/service/api'
 
 import { ActivityPostDetail, ActivityPostHero } from './_components'
@@ -44,19 +44,9 @@ const ActivityPostPage = () => {
   )
 }
 
-const ActivityPostSkeleton = () => {
-  return (
-    <div className="flex w-full flex-col">
-      <ActivityPostHero boardName="" />
-      <Separator className="mb-4 mt-36" />
-      <Spinner />
-    </div>
-  )
-}
-
 export default function FetchActivityPostPage() {
   return (
-    <Suspense fallback={<ActivityPostSkeleton />}>
+    <Suspense fallback={<ActivityPageSkeleton />}>
       <ActivityPostPage />
     </Suspense>
   )

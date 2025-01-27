@@ -3,7 +3,8 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound, Spinner } from '@/components/common'
+import { NotFound } from '@/components/common'
+import { ActivityPageSkeleton } from '@/components/feature'
 import { ACCESS_ERROR_MESSAGE } from '@/constant'
 import { activityPostQuries, boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -50,18 +51,9 @@ const EditActivityPostPage = () => {
   )
 }
 
-const EditActivityPostPageSkeleton = () => {
-  return (
-    <div className="flex w-full flex-col gap-10">
-      <EditActivityPostHero boardName="" />
-      <Spinner />
-    </div>
-  )
-}
-
 export default function FetchEditActivityPostPage() {
   return (
-    <Suspense fallback={<EditActivityPostPageSkeleton />}>
+    <Suspense fallback={<ActivityPageSkeleton />}>
       <EditActivityPostPage />
     </Suspense>
   )
