@@ -4,8 +4,7 @@ export const UpdateProfileInfoSchema = z.object({
   profileIntro: z
     .string()
     .min(1, { message: '한 줄 소개를 입력해주세요.' })
-    .max(100, { message: '한 줄 소개는 15자 이내이어야 합니다.' }),
-
+    .max(30, { message: '한 줄 소개는 30자 이내여야 합니다.' }),
   githubAccount: z.string().optional(),
   instaAccount: z.string().optional(),
 })
