@@ -45,7 +45,7 @@ export const UserSocialInfoSection = ({
   const form = useForm<UpdateProfileInfo>({
     resolver: zodResolver(UpdateProfileInfoSchema),
     defaultValues: {
-      profileIntro: profile.profileIntro,
+      profileIntro: profile.profileIntro ?? '',
       githubAccount: profile.githubAccount ?? '',
       instaAccount: profile.instaAccount ?? '',
     },
