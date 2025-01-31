@@ -13,7 +13,7 @@ export default function MyPage() {
   )
 
   return (
-    <div className="flex w-full flex-col items-center justify-center">
+    <div className="flex w-full flex-col items-center justify-center pb-20">
       <UserInfoSection profile={profile} userId={userId} />
       <UserSocialInfoSection profile={profile} userId={userId} />
     </div>
