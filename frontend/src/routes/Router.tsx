@@ -28,10 +28,11 @@ import {
 
 import {
   ActivityRoute,
+  AdminActivityPostRoute,
+  AdminBoardRoute,
   AdminNoticeRoute,
   AdminRoute,
   AuthRoute,
-  EditBoardRoute,
   MyPageRoute,
   NoticeRoute,
 } from './custom-route'
@@ -60,12 +61,14 @@ export const Router = () => {
               <Route path="create-board" element={<CreateBoardPage />} />
               <Route path="boards/:boardId">
                 <Route index element={<ActivityBoardPage />} />
-                <Route element={<EditBoardRoute />}>
+                <Route element={<AdminBoardRoute />}>
                   <Route path="edit-board" element={<EditBoardPage />} />
                 </Route>
                 <Route path="posts/:postId">
                   <Route index element={<ActivityPostPage />} />
-                  <Route path="edit" element={<EditActivityPostPage />} />
+                  <Route element={<AdminActivityPostRoute />}>
+                    <Route path="edit" element={<EditActivityPostPage />} />
+                  </Route>
                 </Route>
                 <Route
                   path="create-post"

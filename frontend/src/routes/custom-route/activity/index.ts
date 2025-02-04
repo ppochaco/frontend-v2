@@ -1,2 +1,3 @@
 export { ActivityRoute } from './ActivityRoute'
-export { EditBoardRoute } from './EditBoardRoute'
+export { AdminBoardRoute } from './AdminBoardRoute'
+export { AdminActivityPostRoute } from './AdminActivityPostRoute'
