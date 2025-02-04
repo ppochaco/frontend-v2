@@ -54,9 +54,13 @@ export const UserSocialInfoSection = ({
   const onSuccess = (message?: string) => {
     toast(message, { duration: 2000 })
 
-    queryClient.invalidateQueries({
-      queryKey: profileQuries.profiles({ userId: userId }),
-    })
+    queryClient
+      .invalidateQueries({
+        queryKey: profileQuries.profiles({ userId: userId }),
+      })
+      .then(() => {
+        form.reset(form.getValues())
+      })
   }
 
   const onSubmit = (data: UpdateProfileInfo) => {
@@ -66,7 +70,6 @@ export const UserSocialInfoSection = ({
 
   const onClickEdit = () => {
     setIsEditing(!isEditing)
-    form.reset()
   }
 
   return (
