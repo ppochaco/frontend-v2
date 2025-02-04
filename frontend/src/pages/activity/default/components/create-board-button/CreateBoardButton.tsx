@@ -2,6 +2,7 @@ import { useLocation, useNavigate } from 'react-router'
 
 import { Button } from '@/components/ui'
 import { useMyInfoStore } from '@/store/myInfo'
+import { isRoleAboveOrEqual } from '@/utils'
 
 export const CreateBoardButton = () => {
   const navigate = useNavigate()
@@ -13,7 +14,7 @@ export const CreateBoardButton = () => {
     <Button
       className="max-w-fit"
       onClick={() => navigate(`${pathname}/create-board`)}
-      disabled={!(role === 'ROLE_ADMIN' || role === 'ROLE_TEAM_LEADER')}
+      disabled={!isRoleAboveOrEqual('ROLE_TEAM_LEADER', role)}
     >
       게시판 생성하기
     </Button>
