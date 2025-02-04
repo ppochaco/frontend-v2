@@ -1,7 +1,9 @@
 import { AxiosError } from 'axios'
+import { toast } from 'sonner'
 
-import { reissueApi } from '@/service/api'
+import { logoutApi, reissueApi } from '@/service/api'
 import { AUTHORIZATION_API } from '@/service/config'
+import { useMyInfoStore } from '@/store'
 
 let isRefreshing = false
 let failedQueue: {
@@ -36,7 +38,8 @@ const authErrorInterceptor = async (error: AxiosError) => {
             .then((newAccessToken) => {
               processQueue(null, newAccessToken)
             })
-            .catch((reissueError) => {
+            .catch(async (reissueError) => {
+              await handleLogout()
               processQueue(reissueError, null)
             })
             .finally(() => {
@@ -57,6 +60,14 @@ const authErrorInterceptor = async (error: AxiosError) => {
   }
 
   return Promise.reject(error)
+}
+
+const handleLogout = async () => {
+  const clearMyInfo = useMyInfoStore.getState().clearMyInfo
+
+  await logoutApi()
+  clearMyInfo()
+  toast('로그아웃되었습니다.')
 }
 
 export default authErrorInterceptor
