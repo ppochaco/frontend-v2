@@ -56,7 +56,7 @@ export const UserSocialInfoSection = ({
 
     queryClient
       .invalidateQueries({
-        queryKey: profileQuries.profiles({ userId: userId }),
+        queryKey: profileQuries.all(),
       })
       .then(() => {
         form.reset(form.getValues())

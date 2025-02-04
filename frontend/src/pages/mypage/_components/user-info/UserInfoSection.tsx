@@ -59,7 +59,7 @@ export const UserInfoSection = ({ profile, userId }: UserInfoSectionProps) => {
     toast.success(message, { duration: 2000 })
 
     queryClient.invalidateQueries({
-      queryKey: profileQuries.profiles({ userId: profile.userId }),
+      queryKey: profileQuries.all(),
     })
   }
 
