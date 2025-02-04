@@ -11,6 +11,7 @@ import { queryClient } from '@/lib/query-client'
 import { ActivityBreadcrumb } from '@/pages/activity/components'
 import { boardQueries, deleteBoardApi } from '@/service/api'
 import { useMyInfoStore } from '@/store/myInfo'
+import { isRoleAboveOrEqual } from '@/utils'
 
 type BoardHeroProps = {
   activityId: number
@@ -62,7 +63,7 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
         </div>
         <div className="py-3 text-primary/70">{boardDetail.boardIntro}</div>
       </div>
-      {role === 'ROLE_ADMIN' && (
+      {isRoleAboveOrEqual('ROLE_ADMIN', role) && (
         <div className="flex justify-end gap-2">
           <Button
             variant="outline"

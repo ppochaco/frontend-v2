@@ -3,13 +3,14 @@ import { Outlet, useNavigate } from 'react-router'
 
 import { AdminSidebar, MainLayout } from '@/components/feature'
 import { useMyInfoStore } from '@/store'
+import { isRoleAboveOrEqual } from '@/utils'
 
 export const AdminRoute = () => {
   const navigate = useNavigate()
   const { role } = useMyInfoStore((state) => state.myInfo)
 
   useEffect(() => {
-    if (!(role === 'ROLE_ADMIN')) {
+    if (!isRoleAboveOrEqual('ROLE_ADMIN', role)) {
       navigate('/', { replace: true })
     }
   }, [role, navigate])

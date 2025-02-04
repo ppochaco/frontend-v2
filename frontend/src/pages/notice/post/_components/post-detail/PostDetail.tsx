@@ -10,6 +10,7 @@ import { queryClient } from '@/lib/query-client'
 import { NoticePostQuries, deleteNoticePostApi } from '@/service/api'
 import { BasePostResponseDto } from '@/service/model'
 import { useMyInfoStore } from '@/store/myInfo'
+import { isRoleAboveOrEqual } from '@/utils'
 
 interface NoticePostDetailProps {
   post: BasePostResponseDto
@@ -37,7 +38,7 @@ export const NoticePostDetail = ({ post }: NoticePostDetailProps) => {
     <div className="flex flex-col gap-3 py-4 text-primary">
       <div className="py-4 text-2xl font-semibold">{post.postTitle}</div>
       <div className="flex justify-end">
-        {role === 'ROLE_ADMIN' && (
+        {isRoleAboveOrEqual('ROLE_ADMIN', role) && (
           <div className="flex gap-2">
             <Button
               variant="link"

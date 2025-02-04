@@ -9,6 +9,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui'
 import { useMyInfoStore } from '@/store/myInfo'
+import { isRoleAboveOrEqual } from '@/utils'
 
 import { UserAvatar } from '../user-avatar'
 import { LogoutButton } from './logout-button'
@@ -22,7 +23,7 @@ export const ProfileDropdownMenu = () => {
         <UserAvatar />
       </DropdownMenuTrigger>
       <DropdownMenuContent className="mt-4">
-        {role === 'ROLE_ADMIN' && (
+        {isRoleAboveOrEqual('ROLE_ADMIN', role) && (
           <DropdownMenuItem>
             <Link to={'/admin/member'} className="flex items-center gap-2">
               <GearIcon />

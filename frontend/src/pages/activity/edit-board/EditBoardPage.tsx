@@ -1,10 +1,8 @@
-import { Suspense } from 'react'
 import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { NotFound } from '@/components/common'
-import { ActivityPageSkeleton } from '@/components/feature'
 import { Separator } from '@/components/ui'
 import { activityQueries, boardQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -16,7 +14,7 @@ import {
   EditBoardImage,
 } from './_components'
 
-const EditBoardPage = () => {
+export default function EditBoardPage() {
   const params = useParams()
   const { userName } = useMyInfoStore((state) => state.myInfo)
 
@@ -65,13 +63,5 @@ const EditBoardPage = () => {
         />
       </div>
     </div>
-  )
-}
-
-export default function FetchEditBoardPage() {
-  return (
-    <Suspense fallback={<ActivityPageSkeleton />}>
-      <EditBoardPage />
-    </Suspense>
   )
 }

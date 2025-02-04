@@ -8,6 +8,7 @@ import { queryClient } from '@/lib/query-client'
 import { commentQueries, deleteCommentApi } from '@/service/api/comment'
 import { CommentResponseDto } from '@/service/model'
 import { useMyInfoStore } from '@/store'
+import { isRoleAboveOrEqual } from '@/utils'
 
 import { DeleteCommentDialog } from './delete-dialog'
 import { EditCommentForm } from './edit-form'
@@ -19,9 +20,11 @@ interface CommentListItemProps {
 }
 
 export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
-  const { userId } = useMyInfoStore((state) => state.myInfo)
+  const { userId, role } = useMyInfoStore((state) => state.myInfo)
 
   const [isEdit, setIsEdit] = useState(false)
+  const enable =
+    comment.userId === userId || isRoleAboveOrEqual('ROLE_ADMIN', role)
 
   const { mutate: deleteComment, error } = useMutation({
     mutationFn: deleteCommentApi,
@@ -46,9 +49,9 @@ export const CommentListItem = ({ comment, postId }: CommentListItemProps) => {
             </div>
           </div>
         </div>
-        {comment.userId === userId && !comment.deleted && (
+        {enable && !comment.deleted && (
           <div className="flex flex-row gap-2 text-primary/70">
-            {!isEdit && (
+            {comment.userId === userId && !isEdit && (
               <Pencil1Icon
                 onClick={() => setIsEdit(true)}
                 className="h-4 w-4 hover:cursor-pointer hover:text-primary"

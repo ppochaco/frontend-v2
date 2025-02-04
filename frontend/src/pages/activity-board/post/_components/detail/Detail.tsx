@@ -10,6 +10,7 @@ import { queryClient } from '@/lib/query-client'
 import { activityPostQuries, deleteActivityPostApi } from '@/service/api'
 import { PostWithBoardResponseDto } from '@/service/model'
 import { useMyInfoStore } from '@/store/myInfo'
+import { isRoleAboveOrEqual } from '@/utils'
 
 interface ActivityPostDetailProps {
   boardId: number
@@ -20,7 +21,9 @@ export const ActivityPostDetail = ({
   boardId,
   post,
 }: ActivityPostDetailProps) => {
-  const { userId } = useMyInfoStore((state) => state.myInfo)
+  const { userId, role } = useMyInfoStore((state) => state.myInfo)
+  const enable =
+    userId === post.userId || isRoleAboveOrEqual('ROLE_ADMIN', role)
 
   const { mutate: deleteActivityPost, isPending } = useMutation({
     mutationFn: deleteActivityPostApi,
@@ -46,7 +49,7 @@ export const ActivityPostDetail = ({
       <div className="pt-4 text-4xl font-semibold">{post.postTitle}</div>
       <div className="flex justify-end">
         <div className="flex items-center gap-3">
-          {userId === post.userId && (
+          {enable && (
             <div className="flex gap-2">
               <Button
                 variant="link"
