@@ -12,7 +12,7 @@ export type MyInfo = {
 
 interface MyInfoProps {
   myInfo: MyInfo
-  setMyInfo: (myInfo: MyInfo) => void
+  setMyInfo: (myInfo: Partial<MyInfo>) => void
   clearMyInfo: () => void
 }
 
@@ -20,7 +20,10 @@ export const useMyInfoStore = create(
   persist<MyInfoProps>(
     (set) => ({
       myInfo: { userId: '', userName: '', role: undefined, profileImage: '' },
-      setMyInfo: (myInfo) => set({ myInfo }),
+      setMyInfo: (partialInfo: Partial<MyInfo>) =>
+        set((state) => ({
+          myInfo: { ...state.myInfo, ...partialInfo },
+        })),
       clearMyInfo: () =>
         set({
           myInfo: {
