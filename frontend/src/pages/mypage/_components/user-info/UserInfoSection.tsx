@@ -28,6 +28,7 @@ import {
   UpdateProfileImage,
   UpdateProfileImageSchema,
 } from '@/service/schema/mypage'
+import { useMyInfoStore } from '@/store'
 import { convertRoleName } from '@/utils'
 
 interface UserInfoSectionProps {
@@ -36,6 +37,8 @@ interface UserInfoSectionProps {
 }
 
 export const UserInfoSection = ({ profile, userId }: UserInfoSectionProps) => {
+  const setMyInfo = useMyInfoStore((state) => state.setMyInfo)
+
   const form = useForm<UpdateProfileImage>({
     resolver: zodResolver(UpdateProfileImageSchema),
     defaultValues: {
@@ -55,12 +58,18 @@ export const UserInfoSection = ({ profile, userId }: UserInfoSectionProps) => {
     onSuccess: (data) => onSuccess(data.message),
   })
 
-  const onSuccess = (message?: string) => {
+  const onSuccess = async (message?: string) => {
     toast.success(message, { duration: 2000 })
 
     queryClient.invalidateQueries({
       queryKey: profileQuries.all(),
     })
+
+    const { profileImageUrl: profileImage } = await queryClient.fetchQuery(
+      profileQuries.profile({ userId }),
+    )
+
+    setMyInfo({ profileImage })
   }
 
   const onClickUploadButton = () => {
