@@ -85,6 +85,9 @@ export default {
       fontFamily: {
         archivo: ['Archivo Black', 'sans-serif'],
       },
+      fontSize: {
+        clamp: 'clamp(1.5rem, 8vw, 8rem)',
+      },
     },
   },
   plugins: [require('tailwindcss-animate')],

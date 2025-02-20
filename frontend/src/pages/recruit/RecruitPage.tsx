@@ -1,6 +1,6 @@
 import { Footer, Header } from '@/components/feature'
 
-import { RecruitHero, RecruitMarquee } from './components'
+import { CountdownTimer, RecruitHero, RecruitMarquee } from './components'
 
 export default function RecruitPage() {
   return (
@@ -9,6 +9,7 @@ export default function RecruitPage() {
       <div className="relative w-full flex-1 pt-16">
         <RecruitHero />
         <RecruitMarquee />
+        <CountdownTimer />
       </div>
       <Footer />
     </main>
