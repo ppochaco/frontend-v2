@@ -3,11 +3,19 @@ import { Card } from '@/components/ui'
 interface HoverCardProps {
   title: string
   description: string
+  backgroundColor?: string
 }
 
-export const HoverCard = ({ title, description }: HoverCardProps) => {
+export const HoverCard = ({
+  title,
+  description,
+  backgroundColor = '#fff',
+}: HoverCardProps) => {
   return (
-    <Card className="group relative h-full w-full border-none from-black/30 to-transparent font-semibold hover:cursor-pointer hover:bg-gradient-to-t">
+    <Card
+      style={{ backgroundColor }}
+      className="group relative h-full w-full border-none from-black/30 to-transparent font-semibold hover:cursor-pointer hover:bg-gradient-to-t"
+    >
       <div className="absolute left-0 top-0 aspect-[0.95] whitespace-pre-line p-5 text-2xl transition-opacity duration-300 group-hover:opacity-0">
         {title}
       </div>
