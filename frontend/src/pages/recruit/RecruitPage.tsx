@@ -1,6 +1,11 @@
 import { Footer, Header } from '@/components/feature'
 
-import { CountdownTimer, RecruitHero, RecruitMarquee } from './components'
+import {
+  CountdownTimer,
+  RecruitEvent,
+  RecruitHero,
+  RecruitMarquee,
+} from './components'
 
 export default function RecruitPage() {
   return (
@@ -10,6 +15,7 @@ export default function RecruitPage() {
         <RecruitHero />
         <RecruitMarquee />
         <CountdownTimer />
+        <RecruitEvent />
       </div>
       <Footer />
     </main>
