@@ -22,7 +22,7 @@ export const DescriptionCard = ({
       )}
     >
       <div className="flex items-center gap-2 sm:gap-4">
-        <div className="font-semibold">{title}</div>
+        <div className="w-20 font-semibold">{title}</div>
         <StarIcon width={18} />
       </div>
       <div className="flex-1">{description}</div>
