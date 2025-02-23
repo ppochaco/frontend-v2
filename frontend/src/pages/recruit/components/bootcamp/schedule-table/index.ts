@@ -1,0 +1,1 @@
+export { BootcampScheduleTable } from './ScheduleTable'
