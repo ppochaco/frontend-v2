@@ -25,7 +25,7 @@ export const DescriptionCard = ({
         <div className="w-20 font-semibold">{title}</div>
         <StarIcon width={18} />
       </div>
-      <div className="flex-1">{description}</div>
+      <div className="sm:text-md flex-1 text-sm">{description}</div>
     </Card>
   )
 }
