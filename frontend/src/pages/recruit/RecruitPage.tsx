@@ -5,6 +5,7 @@ import {
   RecruitBootCamp,
   RecruitEvent,
   RecruitHero,
+  RecruitLinkButton,
   RecruitMarquee,
   RecruitTrack,
 } from './components'
@@ -20,6 +21,7 @@ export default function RecruitPage() {
         <RecruitEvent />
         <RecruitBootCamp />
         <RecruitTrack />
+        <RecruitLinkButton />
       </div>
       <Footer />
     </main>
