@@ -6,6 +6,7 @@ import {
   RecruitEvent,
   RecruitHero,
   RecruitMarquee,
+  RecruitTrack,
 } from './components'
 
 export default function RecruitPage() {
@@ -18,6 +19,7 @@ export default function RecruitPage() {
         <CountdownTimer />
         <RecruitEvent />
         <RecruitBootCamp />
+        <RecruitTrack />
       </div>
       <Footer />
     </main>
