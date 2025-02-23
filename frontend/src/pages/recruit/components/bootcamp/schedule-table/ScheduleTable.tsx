@@ -6,7 +6,7 @@ export const BootcampScheduleTable = () => {
           <tr>
             <th />
             {DAYS.map((day) => (
-              <th key={day} className="border px-4 py-2">
+              <th key={day} className="border px-4 py-2 font-normal">
                 {day}
               </th>
             ))}
@@ -15,7 +15,7 @@ export const BootcampScheduleTable = () => {
         <tbody>
           {CLASS_SCHEDULE.map((group, index) => (
             <tr key={index}>
-              <td className="whitespace-nowrap border border-b-black font-bold">
+              <td className="whitespace-nowrap border border-b-black text-sm font-semibold sm:text-base">
                 {group.level}
               </td>
               {DAYS.map((day) => (
