@@ -10,7 +10,7 @@ import {
 
 export const RecruitTrack = () => {
   return (
-    <div className="flex flex-col items-center bg-[#E9EDFF] py-20">
+    <div className="flex flex-col items-center bg-[#E9EDFF] pb-20">
       <div className="text-3xl font-bold lg:text-4xl">트랙 & 소모임</div>
       <div className="flex flex-col gap-4 pt-10">
         <DescriptionCard

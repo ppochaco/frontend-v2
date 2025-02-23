@@ -20,6 +20,7 @@ export default function RecruitPage() {
         <CountdownTimer />
         <RecruitEvent />
         <RecruitBootCamp />
+        <div className="h-40 bg-gradient-to-t from-[#E9EDFF] to-[#FFF]" />
         <RecruitTrack />
         <RecruitLinkButton />
       </div>
