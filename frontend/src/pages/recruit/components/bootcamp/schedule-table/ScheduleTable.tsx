@@ -29,10 +29,12 @@ export const BootcampScheduleTable = () => {
               {DAYS.map((day) => (
                 <td
                   key={day}
-                  className="whitespace-nowrap border border-b-black py-2 align-top text-sm font-light sm:px-4 sm:text-base"
+                  className="whitespace-nowrap border border-b-black align-top text-sm font-light sm:text-base"
                 >
                   {group.schedule[day].map((subject, index) => (
-                    <div key={index}>&nbsp;{subject}&nbsp;</div>
+                    <div key={index} className={cn(index < 2 && 'border-b')}>
+                      &nbsp;{subject}&nbsp;
+                    </div>
                   ))}
                 </td>
               ))}
@@ -60,21 +62,21 @@ const CLASS_SCHEDULE: ClassSchedule[] = [
   {
     level: '기초반',
     schedule: {
-      월: ['파이썬', '', ''],
-      화: ['', 'C 언어', '웹 기초'],
-      수: ['파이썬', '', ''],
-      목: ['', 'C 언어', '웹 기초'],
-      금: [],
+      월: ['', '파이썬', ''],
+      화: ['C언어', '', '웹 기초'],
+      수: ['', '파이썬', ''],
+      목: ['C 언어', '', '웹 기초'],
+      금: ['', '', ''],
     },
   },
   {
     level: '응용반',
     schedule: {
-      월: ['ANS', '', 'React'],
-      화: [],
-      수: ['', 'Spring', 'React'],
-      목: ['ANS'],
-      금: ['', 'Spring'],
+      월: ['', 'React', 'ANS'],
+      화: ['', '', ''],
+      수: ['Spring', 'React', 'ANS'],
+      목: ['', '', 'ANS'],
+      금: ['Spring', '', ''],
     },
   },
 ] as const

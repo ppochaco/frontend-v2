@@ -4,7 +4,7 @@ export const RecruitEvent = () => {
   return (
     <div className="flex flex-col items-center bg-black py-20">
       <div className="text-4xl font-bold text-white lg:text-5xl">주요 행사</div>
-      <div className="grid w-full min-w-0 max-w-screen-lg grid-flow-row grid-cols-2 gap-4 px-5 py-10 sm:grid-cols-3 sm:px-10 md:px-20 lg:px-32">
+      <div className="grid w-full min-w-0 max-w-screen-lg grid-flow-row grid-cols-2 gap-2 px-5 py-10 sm:grid-cols-3 sm:px-10 md:gap-4 md:px-20 lg:px-32">
         {EVENTS_DETAIL.map(({ id, title, description, backgroundColor }) => (
           <DescriptionCard
             key={id}
@@ -34,7 +34,7 @@ const EVENTS_DETAIL = [
   },
   {
     id: 2,
-    title: '아이디어톤 &\n 해커톤',
+    title: '아이디어톤\n& 해커톤',
     description:
       '우리의 멋있는 아이디어를 빌드업하고 제대로 구현해볼 수 있는 기회',
     backgroundColor: '#A1E6D4',
