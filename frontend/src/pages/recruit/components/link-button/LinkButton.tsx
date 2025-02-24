@@ -13,9 +13,9 @@ interface RecruitLinkButtonProps {
 export const RecruitLinkButton = ({ className }: RecruitLinkButtonProps) => {
   return (
     <Link to="https://forms.gle/74xngwMadKWfco647">
-      <Button className={cn('text-md px-8 py-6', className)}>
+      <Button className={cn('text-md gap-4 p-6', className)}>
         <StarIcon />
-        <div>신청 폼 바로가기</div>
+        <div className="font-bold">신청 폼 바로가기</div>
         <ChevronRightCircle />
       </Button>
     </Link>

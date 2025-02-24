@@ -4,7 +4,7 @@ export const RecruitHero = () => {
   return (
     <div className="flex justify-center bg-gradient-to-b from-[#0F172B] to-[#5e89f5] text-white">
       <div className="relative flex w-full max-w-screen-lg flex-col gap-6 px-5 py-12 md:py-20 lg:py-24">
-        <div className="flex flex-col items-center gap-2 font-bold">
+        <div className="flex flex-col items-center gap-2 font-extrabold">
           <div className="text-xl text-white/70 sm:text-2xl md:text-3xl 2xl:text-4xl">
             해달은 지금,
           </div>

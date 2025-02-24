@@ -84,6 +84,7 @@ export default {
       },
       fontFamily: {
         archivo: ['Archivo Black', 'sans-serif'],
+        'namum-square': ['NanumSquare', 'sns-serif'],
       },
       fontSize: {
         clamp: 'clamp(1.5rem, 8vw, 8rem)',

@@ -3,7 +3,7 @@ import { DescriptionCard } from './description-card'
 export const RecruitEvent = () => {
   return (
     <div className="flex flex-col items-center bg-black py-20">
-      <div className="text-3xl font-bold text-white lg:text-4xl">주요 행사</div>
+      <div className="text-4xl font-bold text-white lg:text-5xl">주요 행사</div>
       <div className="grid w-full min-w-0 max-w-screen-lg grid-flow-row grid-cols-2 gap-4 px-5 py-10 sm:grid-cols-3 sm:px-10 md:px-20 lg:px-32">
         {EVENTS_DETAIL.map(({ id, title, description, backgroundColor }) => (
           <DescriptionCard
