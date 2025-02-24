@@ -25,6 +25,7 @@ import {
   SemesterRedirectPage,
   SignupPage,
 } from '@/pages'
+import RecruitCommingSoonPage from '@/pages/recruit/CommingSoonPage'
 
 import {
   ActivityRoute,
@@ -105,7 +106,10 @@ export const Router = () => {
         </Route>
 
         <Route path="/" element={<MainPage />} />
-        <Route path="/recruit" element={<RecruitPage />} />
+        <Route path="/recruit">
+          <Route index element={<RecruitCommingSoonPage />} />
+          <Route path="2025-1" element={<RecruitPage />} />
+        </Route>
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
