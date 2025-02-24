@@ -12,6 +12,9 @@ export const RecruitBootCamp = () => {
         description="해달 준회원의 필수 참여 코스로 매주 2회, 총 8차시로 진행됩니다."
         className="mt-10"
       />
+      <div className="py-4 text-sm text-zinc-400">
+        ※ 프로젝트 경험이 있으신 분들은 수료 처리 가능합니다.
+      </div>
       <BootcampAccordionCard />
       <BootcampScheduleTable />
     </div>
