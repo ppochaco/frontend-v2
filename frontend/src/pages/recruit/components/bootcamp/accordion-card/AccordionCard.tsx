@@ -11,8 +11,9 @@ export const BootcampAccordionCard = () => {
     <div className="flex w-full flex-col items-center gap-5 px-5 py-10 sm:flex-row sm:items-stretch sm:justify-center md:gap-10">
       <Card className="w-80 bg-[#8A9F84] px-4 py-10 text-white sm:w-96">
         <div className="text-2xl font-semibold lg:text-3xl">기초반</div>
-        <div className="whitespace-pre-line py-6">
-          {`코딩을 처음 접하거나\n문법부터 응용까지 기초를 단단히 다지고 싶은\n준회원 분들이 선택할 수 있습니다.`}
+        <div className="py-6">
+          코딩을 처음 접하거나 문법부터 응용까지 기초를 단단히 다지고 싶은
+          준회원 분들이 선택할 수 있습니다.
         </div>
         <Accordion type="single" collapsible className="w-full text-black">
           <AccordionItem
@@ -55,8 +56,9 @@ export const BootcampAccordionCard = () => {
       </Card>
       <Card className="w-80 bg-[#84869F] px-4 py-10 text-white sm:w-96">
         <div className="text-2xl font-semibold lg:text-3xl">응용반</div>
-        <div className="whitespace-pre-line py-6">
-          {`프로젝트에 활용할 수 있도록\n프레임워크를 다뤄보고 싶은\n준회원분들이 선택할 수 있습니다.`}
+        <div className="py-6">
+          프로젝트에 활용할 수 있도록 프레임워크를 다뤄보고 싶은 준회원분들이
+          선택할 수 있습니다.
         </div>
         <Accordion type="single" collapsible className="w-full text-black">
           <AccordionItem
