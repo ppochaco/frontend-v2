@@ -1,9 +1,28 @@
+import { useEffect, useState } from 'react'
+
 import { DescriptionCard } from '@/components/feature'
-import { Card } from '@/components/ui'
+import { Button, Card } from '@/components/ui'
 
 import { TrackDescriptionCard } from './description-card'
 
 export const RecruitTrack = () => {
+  const [isExpanded, setIsExpanded] = useState(window.innerWidth > 768)
+  const visibleTracks = isExpanded ? TRACK_LIST : TRACK_LIST.slice(0, 3)
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 768px)')
+    const handleMediaChange = (e: MediaQueryListEvent) => {
+      setIsExpanded(e.matches)
+    }
+
+    mediaQuery.addEventListener('change', handleMediaChange)
+    setIsExpanded(mediaQuery.matches)
+
+    return () => {
+      mediaQuery.removeEventListener('change', handleMediaChange)
+    }
+  }, [])
+
   return (
     <div className="flex flex-col items-center bg-[#E9EDFF] pb-20">
       <div className="text-4xl font-bold lg:text-5xl">트랙 & 소모임</div>
@@ -17,12 +36,12 @@ export const RecruitTrack = () => {
           description="해달 회원이면 모두 참여할 수 있는 모임으로, 학술 이외의 주제를 공유하며 네트워킹할 수 있습니다."
         />
         <div className="px-6 py-10">
-          <Card className="w-full max-w-[1024px] border-none bg-[#BCB5C9] shadow-none">
-            <div className="pb-4 pt-10 text-center text-2xl font-semibold text-white sm:text-3xl md:pb-6">
+          <Card className="w-full max-w-[1024px] border-none bg-[#BCB5C9] pb-6 pt-10 shadow-none">
+            <div className="pb-4 text-center text-2xl font-semibold text-white sm:text-3xl md:pb-6">
               현재 개설된 트랙 LIST
             </div>
             <div className="grid grid-cols-1 gap-x-4 gap-y-3 p-4 md:grid-cols-2">
-              {TRACK_LIST.map(({ title, description, tags }) => (
+              {visibleTracks.map(({ title, description, tags }) => (
                 <TrackDescriptionCard
                   title={title}
                   description={description}
@@ -31,6 +50,17 @@ export const RecruitTrack = () => {
                 />
               ))}
             </div>
+            {!isExpanded && (
+              <div className="text-center md:hidden">
+                <Button
+                  variant="secondary"
+                  className="font-semibold"
+                  onClick={() => setIsExpanded(true)}
+                >
+                  더보기
+                </Button>
+              </div>
+            )}
           </Card>
         </div>
       </div>
