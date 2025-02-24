@@ -8,11 +8,11 @@ import {
 
 export const BootcampAccordionCard = () => {
   return (
-    <div className="flex w-full flex-col items-center gap-10 px-5 py-10 sm:flex-row sm:items-stretch sm:justify-center">
+    <div className="flex w-full flex-col items-center gap-5 px-5 py-10 sm:flex-row sm:items-stretch sm:justify-center md:gap-10">
       <Card className="w-80 bg-[#8A9F84] px-4 py-10 text-white sm:w-96">
-        <div className="text-2xl font-semibold">기초반</div>
-        <div className="whitespace-pre-line py-10">
-          {`일부 테스트를 응시하지 않은\n 준회원 분들이 선택할 수 있습니다.`}
+        <div className="text-2xl font-semibold lg:text-3xl">기초반</div>
+        <div className="whitespace-pre-line py-6">
+          {`코딩을 처음 접하거나\n문법부터 응용까지 기초를 단단히 다지고 싶은\n준회원 분들이 선택할 수 있습니다.`}
         </div>
         <Accordion type="single" collapsible className="w-full text-black">
           <AccordionItem
@@ -54,9 +54,9 @@ export const BootcampAccordionCard = () => {
         </Accordion>
       </Card>
       <Card className="w-80 bg-[#84869F] px-4 py-10 text-white sm:w-96">
-        <div className="text-2xl font-semibold">응용반</div>
-        <div className="whitespace-pre-line py-10">
-          {`입부 테스트를 통과한\n 준회원 분들이 선택할 수 있습니다.`}
+        <div className="text-2xl font-semibold lg:text-3xl">응용반</div>
+        <div className="whitespace-pre-line py-6">
+          {`프로젝트에 활용할 수 있도록\n프레임워크를 다뤄보고 싶은\n준회원분들이 선택할 수 있습니다.`}
         </div>
         <Accordion type="single" collapsible className="w-full text-black">
           <AccordionItem
@@ -66,9 +66,11 @@ export const BootcampAccordionCard = () => {
             <AccordionTrigger className="py-3 font-semibold">
               Spring
             </AccordionTrigger>
-            <AccordionContent className="whitespace-pre-line">
-              {` 요건 : java로 입부 테스트 통과\n
-        API를 이용하여 애플리케이션의 필수 기능 구현 후 배포까지`}
+            <AccordionContent className="flex flex-col gap-2">
+              <div>요건: java로 입부 테스트 통과</div>
+              <div>
+                API를 이용하여 애플리케이션의 필수 기능 구현 후 배포까지
+              </div>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem
@@ -78,9 +80,9 @@ export const BootcampAccordionCard = () => {
             <AccordionTrigger className="py-3 font-semibold">
               React
             </AccordionTrigger>
-            <AccordionContent className="whitespace-pre-line">
-              {`요건: js로 입부 테스트 통과\n
-        HTML, CSS, JS와 함께 <해달그램> 제작 후 배포까지`}
+            <AccordionContent className="flex flex-col gap-2">
+              <div>요건: js로 입부 테스트 통과</div>
+              <div>{`HTML, CSS, JS와 함께 <해달그램> 제작 후 배포까지`}</div>
             </AccordionContent>
           </AccordionItem>
           <AccordionItem
@@ -90,9 +92,9 @@ export const BootcampAccordionCard = () => {
             <AccordionTrigger className="py-3 font-semibold">
               ANS
             </AccordionTrigger>
-            <AccordionContent>
-              {`안드로이드 스튜디오 구조 탐색, <해달 그램>을 제작하면서
-        리스트뷰 구현, 파이어베이스 연동까지`}
+            <AccordionContent className="flex flex-col gap-2">
+              <div>요건: java로 입부 테스트 통과</div>
+              <div>{`<해달 그램>을 제작하면서 리스트뷰 구현, 파이어베이스 연동까지`}</div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>

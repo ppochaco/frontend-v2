@@ -1,14 +1,23 @@
+import { Link } from 'react-router'
+
 import { ChevronRightCircle } from 'lucide-react'
 
+import { StarIcon } from '@/components/feature'
 import { Button } from '@/components/ui'
+import { cn } from '@/lib/utils'
 
-export const RecruitLinkButton = () => {
+interface RecruitLinkButtonProps {
+  className?: string
+}
+
+export const RecruitLinkButton = ({ className }: RecruitLinkButtonProps) => {
   return (
-    <div className="flex justify-center bg-gradient-to-t from-[#F1F5F9] to-[#E9EDFF] py-20">
-      <Button className="text-md px-8 py-6">
-        <div>신청 폼 바로가기</div>
+    <Link to="https://forms.gle/74xngwMadKWfco647">
+      <Button className={cn('text-md gap-4 p-6', className)}>
+        <StarIcon />
+        <div className="font-bold">신청 폼 바로가기</div>
         <ChevronRightCircle />
       </Button>
-    </div>
+    </Link>
   )
 }
