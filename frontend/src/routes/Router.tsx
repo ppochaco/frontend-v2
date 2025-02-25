@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
+import { ScrollToTop } from '@/components/feature'
 import {
   ActivityBoardPage,
   ActivityPage,
@@ -25,7 +26,8 @@ import {
   SemesterRedirectPage,
   SignupPage,
 } from '@/pages'
-import RecruitCommingSoonPage from '@/pages/recruit/CommingSoonPage'
+
+// import RecruitCommingSoonPage from '@/pages/recruit/CommingSoonPage'
 
 import {
   ActivityRoute,
@@ -42,6 +44,7 @@ import { MainRoute } from './custom-route/main'
 export const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/auth" element={<AuthRoute />}>
           <Route path="login" element={<LoginPage />} />
@@ -107,7 +110,8 @@ export const Router = () => {
 
         <Route path="/" element={<MainPage />} />
         <Route path="/recruit">
-          <Route index element={<RecruitCommingSoonPage />} />
+          <Route index element={<RecruitPage />} />
+          {/* <Route index element={<RecruitCommingSoonPage />} /> */}
           <Route path="2025-1" element={<RecruitPage />} />
         </Route>
         <Route path="/*" element={<NotFoundPage />} />

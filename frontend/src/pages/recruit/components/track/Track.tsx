@@ -25,17 +25,32 @@ export const RecruitTrack = () => {
 
   return (
     <div className="flex flex-col items-center bg-[#E9EDFF]">
-      <div className="text-4xl font-bold lg:text-5xl">트랙 & 소모임</div>
+      <div
+        data-aos="fade-up"
+        data-aos-duration="600"
+        className="text-4xl font-bold lg:text-5xl"
+      >
+        트랙 & 소모임
+      </div>
       <div className="flex flex-col gap-4 pt-10">
-        <DescriptionCard
-          title="트랙이란?"
-          description="해달 정회원이 참여 가능한 코스로, 학술 분야의 내용을 탐구하기 위해 만들어진 모임입니다."
-        />
-        <DescriptionCard
-          title="소모임이란?"
-          description="해달 회원이면 모두 참여할 수 있는 모임으로, 학술 이외의 주제를 공유하며 네트워킹할 수 있습니다."
-        />
-        <div className="px-6 py-10">
+        <div data-aos="fade-up" data-aos-duration="600" data-aos-delay={100}>
+          <DescriptionCard
+            title="트랙이란?"
+            description="해달 정회원이 참여 가능한 코스로, 학술 분야의 내용을 탐구하기 위해 만들어진 모임입니다."
+          />
+        </div>
+        <div data-aos="fade-up" data-aos-duration="600" data-aos-delay={200}>
+          <DescriptionCard
+            title="소모임이란?"
+            description="해달 회원이면 모두 참여할 수 있는 모임으로, 학술 이외의 주제를 공유하며 네트워킹할 수 있습니다."
+          />
+        </div>
+        <div
+          className="px-6 py-10"
+          data-aos="fade-up"
+          data-aos-duration="600"
+          data-aos-delay={250}
+        >
           <Card className="w-full max-w-[1024px] border-none bg-[#BCB5C9] pb-6 pt-10 shadow-none">
             <div className="pb-4 text-center text-2xl font-semibold text-white sm:text-3xl md:pb-6">
               현재 개설된 트랙 LIST

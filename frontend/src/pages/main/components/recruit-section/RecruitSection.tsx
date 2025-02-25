@@ -30,14 +30,14 @@ export const RecruitSection = () => {
               className="h-auto w-2/3 sm:w-1/2 lg:w-1/3"
               alt="Haedal laptop"
             />
-            <p className="break-keep text-center text-lg text-white md:text-xl lg:text-2xl">
+            {/* <p className="break-keep text-center text-lg text-white md:text-xl lg:text-2xl">
               지금은 모집 기간이 아닙니다.
               <br />
               2025년 1학기 모집 때 다시 만나요🌝
-            </p>
+            </p> */}
             <Button
               variant="secondary"
-              className="mt-6 h-fit gap-2 text-lg font-semibold md:text-xl lg:text-2xl"
+              className="h-fit gap-2 text-lg font-semibold md:text-xl lg:text-2xl"
               onClick={() => navigate('/recruit')}
             >
               <span>더 알아보기</span>
