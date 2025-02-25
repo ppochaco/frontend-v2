@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react'
 import { getDateDistance } from '@toss/date'
 
 export const CountdownTimer = () => {
-  const endDate = useMemo(() => new Date('2025-03-04T15:00:00Z'), [])
+  const endDate = useMemo(() => new Date('2025-03-03T15:00:00Z'), [])
 
   const [distance, setDistance] = useState(getDateDistance(new Date(), endDate))
 
