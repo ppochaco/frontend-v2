@@ -11,7 +11,7 @@ export const RecruitProcess = () => {
         모집 일정
       </div>
       <div className="flex w-screen justify-center px-5 sm:px-10">
-        <div className="flex w-fit gap-4 overflow-scroll pb-6">
+        <div className="flex w-fit gap-4 overflow-y-hidden overflow-x-scroll pb-6">
           {RECRUIT_PROCESS.map(({ title, detail }, index) => (
             <div
               data-aos="fade-up"
