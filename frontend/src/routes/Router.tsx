@@ -1,6 +1,7 @@
 import { Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
+import { ScrollToTop } from '@/components/feature'
 import {
   ActivityBoardPage,
   ActivityPage,
@@ -43,6 +44,7 @@ import { MainRoute } from './custom-route/main'
 export const Router = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route path="/auth" element={<AuthRoute />}>
           <Route path="login" element={<LoginPage />} />
