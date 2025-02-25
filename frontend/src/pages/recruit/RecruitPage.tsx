@@ -7,6 +7,7 @@ import {
   RecruitHero,
   RecruitLinkButton,
   RecruitMarquee,
+  RecruitProcess,
   RecruitTrack,
 } from './components'
 
@@ -25,10 +26,12 @@ export default function RecruitPage() {
         <RecruitBootCamp />
         <div className="h-40 bg-gradient-to-t from-[#E9EDFF] to-[#FFF]" />
         <RecruitTrack />
-        <div className="flex justify-center bg-[#E9EDFF]">
-          <RecruitLinkButton className="bg-[#D9D9D9] text-black hover:bg-zinc-300" />
+        <div className="h-40 bg-gradient-to-b from-[#E9EDFF] to-[#FFF]" />
+        <RecruitProcess />
+        <div className="bg-whtie flex justify-center">
+          <RecruitLinkButton />
         </div>
-        <div className="bg-gradient-to-t from-[#F1F5F9] to-[#E9EDFF] py-20" />
+        <div className="bg-gradient-to-t from-[#F1F5F9] to-white py-20" />
       </div>
       <Footer />
     </main>

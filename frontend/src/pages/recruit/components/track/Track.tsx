@@ -24,7 +24,7 @@ export const RecruitTrack = () => {
   }, [])
 
   return (
-    <div className="flex flex-col items-center bg-[#E9EDFF] pb-20">
+    <div className="flex flex-col items-center bg-[#E9EDFF]">
       <div className="text-4xl font-bold lg:text-5xl">트랙 & 소모임</div>
       <div className="flex flex-col gap-4 pt-10">
         <DescriptionCard

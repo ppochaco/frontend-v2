@@ -55,7 +55,7 @@ export const BootcampAccordionCard = () => {
         </Accordion>
       </Card>
       <Card className="w-80 bg-[#84869F] px-4 py-10 text-white sm:w-96">
-        <div className="text-2xl font-semibold lg:text-3xl">응용반</div>
+        <div className="text-2xl font-semibold lg:text-3xl">심화반</div>
         <div className="py-6">
           프로젝트에 활용할 수 있도록 프레임워크를 다뤄보고 싶은 준회원분들이
           선택할 수 있습니다.
