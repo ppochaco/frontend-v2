@@ -28,7 +28,11 @@ export default function RecruitPage() {
         <RecruitTrack />
         <div className="h-40 bg-gradient-to-b from-[#E9EDFF] to-[#FFF]" />
         <RecruitProcess />
-        <div className="bg-whtie flex justify-center">
+        <div
+          data-aos="fade-up"
+          data-aos-duration="600"
+          className="bg-whtie flex justify-center"
+        >
           <RecruitLinkButton />
         </div>
         <div className="bg-gradient-to-t from-[#F1F5F9] to-white py-20" />

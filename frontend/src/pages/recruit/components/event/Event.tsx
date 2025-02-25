@@ -3,15 +3,27 @@ import { DescriptionCard } from './description-card'
 export const RecruitEvent = () => {
   return (
     <div className="flex flex-col items-center bg-black py-20">
-      <div className="text-4xl font-bold text-white lg:text-5xl">주요 행사</div>
+      <div
+        className="text-4xl font-bold text-white lg:text-5xl"
+        data-aos="fade-up"
+        data-aos-duration="600"
+      >
+        주요 행사
+      </div>
       <div className="grid w-full min-w-0 max-w-screen-lg grid-flow-row grid-cols-2 gap-2 px-5 py-10 sm:grid-cols-3 sm:px-10 md:gap-4 md:px-20 lg:px-32">
         {EVENTS_DETAIL.map(({ id, title, description, backgroundColor }) => (
-          <DescriptionCard
+          <div
             key={id}
-            title={title}
-            description={description}
-            backgroundColor={backgroundColor}
-          />
+            data-aos="fade-up"
+            data-aos-duration="600"
+            data-aos-delay={`${id * 100}`}
+          >
+            <DescriptionCard
+              title={title}
+              description={description}
+              backgroundColor={backgroundColor}
+            />
+          </div>
         ))}
       </div>
     </div>
