@@ -39,7 +39,7 @@ const RECRUIT_PROCESS = [
   },
   {
     title: '오프라인 면접',
-    detail: '03.06.(목) ~ 03.9.(일)',
+    detail: '03.06.(목) ~ 03.09.(일)',
   },
   {
     title: '최종 발표',
