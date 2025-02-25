@@ -70,7 +70,7 @@ const CLASS_SCHEDULE: ClassSchedule[] = [
     },
   },
   {
-    level: '응용반',
+    level: '심화반',
     schedule: {
       월: ['', 'React', 'ANS'],
       화: ['', '', ''],
