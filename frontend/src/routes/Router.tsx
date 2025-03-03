@@ -22,12 +22,10 @@ import {
   NotFoundPage,
   NoticePage,
   NoticePostPage,
-  RecruitPage,
   SemesterRedirectPage,
   SignupPage,
 } from '@/pages'
-
-// import RecruitCommingSoonPage from '@/pages/recruit/CommingSoonPage'
+import RecruitCommingSoonPage from '@/pages/recruit/CommingSoonPage'
 
 import {
   ActivityRoute,
@@ -107,12 +105,9 @@ export const Router = () => {
             }
           />
         </Route>
-
         <Route path="/" element={<MainPage />} />
         <Route path="/recruit">
-          <Route index element={<RecruitPage />} />
-          {/* <Route index element={<RecruitCommingSoonPage />} /> */}
-          <Route path="2025-1" element={<RecruitPage />} />
+          <Route index element={<RecruitCommingSoonPage />} />
         </Route>
         <Route path="/*" element={<NotFoundPage />} />
       </Routes>
