@@ -6,9 +6,9 @@ import { useMyInfoStore } from '@/store'
 
 import {
   DeleteAccountForm,
+  EditProfileForm,
   ProfileImage,
   ProfileInfo,
-  UserSocialInfoSection,
 } from './_components'
 
 export default function MyPage() {
@@ -27,7 +27,7 @@ export default function MyPage() {
         <ProfileInfo profile={profile} />
         <Separator className="my-5 sm:my-10 md:hidden" />
       </section>
-      <UserSocialInfoSection profile={profile} userId={userId} />
+      <EditProfileForm profile={profile} userId={userId} />
       <DeleteAccountForm />
     </div>
   )

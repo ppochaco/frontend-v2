@@ -25,15 +25,12 @@ import {
   UpdateProfileInfoSchema,
 } from '@/service/schema/mypage'
 
-interface UserSocialInfoSectionProps {
+interface EditProfileFormProps {
   profile: ProfileResponseDto
   userId: string
 }
 
-export const UserSocialInfoSection = ({
-  profile,
-  userId,
-}: UserSocialInfoSectionProps) => {
+export const EditProfileForm = ({ profile, userId }: EditProfileFormProps) => {
   const [isEditing, setIsEditing] = useState(false)
 
   const { mutate: updateProfileInfo, isPending } = useMutation({

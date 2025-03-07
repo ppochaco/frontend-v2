@@ -1,4 +1,4 @@
 export * from './profile-image'
-export * from './user-social-info'
+export * from './edit-profile-form'
 export * from './profile-info'
 export * from './delete-account-form'
