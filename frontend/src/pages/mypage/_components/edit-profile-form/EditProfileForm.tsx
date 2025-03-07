@@ -73,7 +73,7 @@ export const EditProfileForm = ({ profile, userId }: EditProfileFormProps) => {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="flex h-full w-full flex-col pb-10"
+        className="flex h-full w-full flex-col"
       >
         <div className="flex items-center justify-between">
           <div className="text-xl font-bold sm:text-2xl">프로필 정보</div>

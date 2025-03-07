@@ -1,3 +1,4 @@
+import { Separator } from '@/components/ui'
 import { ProfileResponseDto } from '@/service/model'
 import { convertRoleName } from '@/utils'
 
@@ -7,7 +8,8 @@ interface ProfileInfoProps {
 
 export const ProfileInfo = ({ profile }: ProfileInfoProps) => {
   return (
-    <div className="mb-10 flex flex-col gap-3">
+    <div className="flex flex-col gap-3 pt-10 md:pt-4">
+      <Separator className="my-2 sm:my-3 md:hidden" />
       <div className="flex flex-row items-center gap-3">
         <div className="text-xl font-bold sm:text-2xl md:text-3xl">
           {profile.userName}
@@ -19,6 +21,7 @@ export const ProfileInfo = ({ profile }: ProfileInfoProps) => {
       <div className="text-base sm:text-lg md:text-xl">
         {profile.studentNumber}
       </div>
+      <Separator className="my-2 sm:my-3 md:hidden" />
     </div>
   )
 }
