@@ -1,2 +1,4 @@
-export * from './user-info'
-export * from './user-social-info'
+export * from './profile-image'
+export * from './edit-profile-form'
+export * from './profile-info'
+export * from './delete-account-form'
