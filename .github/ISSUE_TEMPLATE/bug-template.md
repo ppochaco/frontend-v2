@@ -3,7 +3,7 @@ name: Bug Template
 about: 버그 이슈 템플릿
 title: ''
 labels: ''
-assignees: ppochaco
+assignees: ''
 
 ---
 
@@ -13,7 +13,8 @@ assignees: ppochaco
 
 ## When does it happen?
 
-> (가능하면) Given-When-Then 형식으로 서술해주세요
+> 가능하면 Given-When-Then 형식으로 서술해주세요
+> 스크린샷이나 동영상을 첨부해주세요
 
 ## Expected result
 
