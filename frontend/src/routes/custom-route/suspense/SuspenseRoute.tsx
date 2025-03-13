@@ -3,11 +3,11 @@ import { ErrorBoundary } from 'react-error-boundary'
 import { Outlet } from 'react-router'
 
 import { Spinner } from '@/components/common'
-import { NoticeErrorFallback } from '@/components/feature/error-fallback/notice/NoticeErrorFallback'
+import { DefaultErrorFallback } from '@/components/feature'
 
-export const NoticeRoute = () => {
+export const SuspenseRoute = () => {
   return (
-    <ErrorBoundary FallbackComponent={NoticeErrorFallback}>
+    <ErrorBoundary FallbackComponent={DefaultErrorFallback}>
       <Suspense fallback={<Spinner />}>
         <Outlet />
       </Suspense>

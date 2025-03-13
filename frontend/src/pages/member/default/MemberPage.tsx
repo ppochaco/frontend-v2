@@ -1,9 +1,14 @@
+import { useNavigate } from 'react-router'
+
+import { ArrowRightIcon } from '@radix-ui/react-icons'
+
 import { IntersectionObserverLoader } from '@/components/common'
+import { MemberCard } from '@/components/feature'
+import { Button } from '@/components/ui'
 import { useProfileSuspensePaging } from '@/service/api'
 
-import { MemberCard } from './components'
-
 export default function MemberPage() {
+  const navigate = useNavigate()
   const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
 
   const {
@@ -74,6 +79,12 @@ export default function MemberPage() {
           멤버가 없습니다.
         </div>
       )}
+      <div className="flex w-full justify-end pt-10">
+        <Button variant="link" onClick={() => navigate('/member/maker')}>
+          <div>해달 홈페이지 Maker</div>
+          <ArrowRightIcon className="bg w-10" />
+        </Button>
+      </div>
     </main>
   )
 }

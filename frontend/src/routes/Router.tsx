@@ -1,4 +1,3 @@
-import { Suspense } from 'react'
 import { BrowserRouter, Route, Routes } from 'react-router'
 
 import { ScrollToTop } from '@/components/feature'
@@ -17,6 +16,7 @@ import {
   EditNoticePostPage,
   LoginPage,
   MainPage,
+  MakerPage,
   MemberPage,
   MyPage,
   NotFoundPage,
@@ -35,7 +35,7 @@ import {
   AdminRoute,
   AuthRoute,
   MyPageRoute,
-  NoticeRoute,
+  SuspenseRoute,
 } from './custom-route'
 import { MainRoute } from './custom-route/main'
 
@@ -80,7 +80,7 @@ export const Router = () => {
             </Route>
           </Route>
 
-          <Route path="/notice" element={<NoticeRoute />}>
+          <Route path="/notice" element={<SuspenseRoute />}>
             <Route index element={<NoticePage />} />
             <Route path="posts/:postId" element={<NoticePostPage />} />
             <Route element={<AdminNoticeRoute />}>
@@ -96,14 +96,10 @@ export const Router = () => {
             <Route index element={<MyPage />} />
           </Route>
 
-          <Route
-            path="/member"
-            element={
-              <Suspense>
-                <MemberPage />
-              </Suspense>
-            }
-          />
+          <Route path="member" element={<SuspenseRoute />}>
+            <Route index element={<MemberPage />} />
+            <Route path="maker" element={<MakerPage />} />
+          </Route>
         </Route>
         <Route path="/" element={<MainPage />} />
         <Route path="/recruit">

@@ -1,2 +1,2 @@
-export * from './notice'
+export * from './default'
 export * from './comment'

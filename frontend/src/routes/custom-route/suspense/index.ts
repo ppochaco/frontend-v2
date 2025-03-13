@@ -1,0 +1,1 @@
+export { SuspenseRoute } from './SuspenseRoute'
