@@ -1,1 +1,2 @@
-export { default as MemberPage } from './MemberPage'
+export * from './default'
+export * from './maker'

@@ -21,10 +21,10 @@ export const navigationLinks = [
     name: '공지',
     linkTo: '/notice',
   },
-  // {
-  //   name: '멤버',
-  //   linkTo: '/member',
-  // },
+  {
+    name: '멤버',
+    linkTo: '/member',
+  },
   {
     name: '모집',
     linkTo: '/recruit',
