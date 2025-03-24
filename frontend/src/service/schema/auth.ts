@@ -40,5 +40,15 @@ export const SignupSchema = z.object({
     }),
   }),
 })
-
 export type Signup = z.infer<typeof SignupSchema>
+
+export const FindSchema = z.object({
+  studentNumber: z.string().length(10, {
+    message: '학번은 10자여야 합니다.',
+  }),
+  userName: z
+    .string()
+    .min(2, { message: '이름은 2자 이상여야 합니다.' })
+    .max(5, { message: '이름은 5자 이하여야 합니다.' }),
+})
+export type Find = z.infer<typeof FindSchema>
