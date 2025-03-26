@@ -4,7 +4,7 @@ import { useSearchParams } from 'react-router'
 import { LinkButton } from '@/components/common'
 
 import { AuthCardLayout } from '../components'
-import { FindForm, FindType } from './components'
+import { FindForm, FindType, ResetPasswordForm } from './components'
 
 export default function FindPage() {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -25,7 +25,7 @@ export default function FindPage() {
     <div className="flex w-full flex-col items-center gap-2">
       <AuthCardLayout title="회원정보 찾기 to HAEDAL">
         <FindType onChange={handleFindType} />
-        {findType === 'id' ? <FindForm /> : <div>비밀번호 찾기</div>}
+        {findType === 'id' ? <FindForm /> : <ResetPasswordForm />}
       </AuthCardLayout>
       <LinkButton linkTo="/auth/login">
         <div>로그인하기</div>

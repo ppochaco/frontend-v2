@@ -52,3 +52,17 @@ export const FindSchema = z.object({
     .max(5, { message: '이름은 5자 이하여야 합니다.' }),
 })
 export type Find = z.infer<typeof FindSchema>
+
+export const ResetSchema = z.object({
+  userId: z
+    .string()
+    .min(6, { message: 'ID는 6자 이상여야 합니다.' })
+    .max(12, { message: 'ID는 12자 이하여야 합니다.' })
+    .regex(/^[A-Za-z0-9]+$/, {
+      message: 'ID는 영어와 숫자만 입력할 수 있습니다.',
+    }),
+  studentNumber: z.string().length(10, {
+    message: '학번은 10자여야 합니다.',
+  }),
+})
+export type Reset = z.infer<typeof ResetSchema>
