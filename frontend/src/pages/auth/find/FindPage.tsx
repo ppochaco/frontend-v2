@@ -19,13 +19,18 @@ export default function FindPage() {
     setSearchParams({ findType: type }, { replace: true })
   }
 
-  const findType = searchParams.get('findType') || 'id'
-
   return (
     <div className="flex w-full flex-col items-center gap-2">
       <AuthCardLayout title="회원정보 찾기 to HAEDAL">
-        <FindType onChange={handleFindType} />
-        {findType === 'id' ? <FindForm /> : <ResetPasswordForm />}
+        <FindType
+          onChange={handleFindType}
+          findType={searchParams.get('findType') || 'id'}
+        />
+        {searchParams.get('findType') === 'id' ? (
+          <FindForm />
+        ) : (
+          <ResetPasswordForm />
+        )}
       </AuthCardLayout>
       <LinkButton linkTo="/auth/login">
         <div>로그인하기</div>

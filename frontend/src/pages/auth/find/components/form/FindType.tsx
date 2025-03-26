@@ -2,9 +2,10 @@ import { Input, Label } from '@/components/ui'
 
 interface FindTypeProps {
   onChange: (value: 'id' | 'password') => void
+  findType: string
 }
 
-export const FindType = ({ onChange }: FindTypeProps) => {
+export const FindType = ({ onChange, findType }: FindTypeProps) => {
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     onChange(e.target.value as 'id' | 'password')
   }
@@ -18,7 +19,7 @@ export const FindType = ({ onChange }: FindTypeProps) => {
           id="id"
           name="findType"
           value="id"
-          defaultChecked
+          defaultChecked={findType === 'id'}
           onChange={handleChange}
         />
         <Label className="hover:cursor-pointer" htmlFor="id">
@@ -32,6 +33,7 @@ export const FindType = ({ onChange }: FindTypeProps) => {
           id="password"
           name="findType"
           value="password"
+          defaultChecked={findType === 'password'}
           onChange={handleChange}
         />
         <Label className="hover:cursor-pointer" htmlFor="password">
