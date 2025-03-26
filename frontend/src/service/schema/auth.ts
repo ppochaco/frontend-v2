@@ -66,3 +66,8 @@ export const ResetSchema = z.object({
   }),
 })
 export type Reset = z.infer<typeof ResetSchema>
+
+export const VerifyCodeSchema = z.object({
+  code: z.string().length(6, { message: '코드 형식이 올바르지 않습니다.' }),
+})
+export type VerifyCode = z.infer<typeof VerifyCodeSchema>
