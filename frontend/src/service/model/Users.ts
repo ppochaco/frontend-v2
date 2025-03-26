@@ -15,6 +15,7 @@ import {
   GetProfileData,
   GetProfilesData,
   GetUserData,
+  GetUserIdData,
   GetUsersData,
   ProfileRequestDto,
   UpdateProfileData,
@@ -201,6 +202,32 @@ export class Users<
         ...query,
         roles: query.roles.join(', '),
       },
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 유저 API
+   * @name GetUserId
+   * @summary 아이디 찾기
+   * @request GET:/users/find-id
+   * @secure
+   * @response `200` `GetUserIdData` OK
+   * @response `404` `void`
+   */
+  getUserId = (
+    query: {
+      /** @format int32 */
+      studentNumber: number
+      name: string
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<GetUserIdData, void>({
+      path: `/users/find-id`,
+      method: 'GET',
+      query: query,
       secure: true,
       ...params,
     })

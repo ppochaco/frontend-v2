@@ -2,13 +2,28 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
+import { useMutation } from '@tanstack/react-query'
+import { AxiosError } from 'axios'
 
 import { Button, Input, Label } from '@/components/ui'
+import { API_ERROR_MESSAGES } from '@/constant'
+import { findApi } from '@/service/api'
 import { Find, FindSchema } from '@/service/schema'
 
 import { FindErrorMessage } from './ErrorMessageBox'
+import { FindSuccessMessage } from './SuccessMessageBox'
 
 export const FindForm = () => {
+  const { mutate: find, isPending } = useMutation({
+    mutationFn: findApi,
+    onSuccess: (data) => {
+      setUserId(data.userId + '')
+    },
+    onError: (error) => {
+      onErrorFind(error)
+    },
+  })
+
   const form = useForm<Find>({
     resolver: zodResolver(FindSchema),
     mode: 'onSubmit',
@@ -18,14 +33,16 @@ export const FindForm = () => {
     },
   })
 
+  const [userId, setUserId] = useState('')
   const [message, setMessage] = useState('')
-  const [studentNumber, setStudentNumber] = useState('')
-  const [userName, setUserName] = useState('')
 
   const onSubmit = form.handleSubmit(
     (values) => {
-      setStudentNumber(values.studentNumber)
-      setUserName(values.userName)
+      find({
+        studentNumber: parseInt(values.studentNumber),
+        name: values.userName,
+      })
+      setMessage('')
     },
     (errors) => {
       const errorMessage =
@@ -33,6 +50,19 @@ export const FindForm = () => {
       setMessage(errorMessage)
     },
   )
+
+  const onErrorFind = (error: Error) => {
+    if (error instanceof AxiosError) {
+      const res = error.response
+
+      if (res?.status === 404) {
+        setMessage(res.data.message)
+        return
+      }
+    }
+
+    setMessage(API_ERROR_MESSAGES.UNKNOWN_ERROR)
+  }
 
   return (
     <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
@@ -43,10 +73,11 @@ export const FindForm = () => {
       <div className="flex flex-col gap-2">
         <Label htmlFor="userName">이름</Label>
         <Input {...form.register('userName')} name="userName" />
-        <Button className="mt-8" type="submit">
+        <Button className="mt-8" disabled={isPending} type="submit">
           확인
         </Button>
       </div>
+      <FindSuccessMessage userId={userId} />
       <FindErrorMessage message={message} />
     </form>
   )

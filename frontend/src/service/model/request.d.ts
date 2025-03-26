@@ -234,3 +234,8 @@ export type UpdateCommentRequest = {
   commentId: number
   data: CommentRequestDto
 }
+
+export type GetUserIdRequest = {
+  studentNumber: number
+  name: string
+}

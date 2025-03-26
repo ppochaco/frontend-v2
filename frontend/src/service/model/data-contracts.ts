@@ -370,6 +370,14 @@ export interface ActivityResponseDto {
   semesterId: number
 }
 
+export interface FindUserIdResponseDto {
+  /**
+   * 유저 아이디
+   * @example "haedal12"
+   */
+  userId?: string
+}
+
 export interface CommentResponseDto {
   /**
    * 댓글 id
@@ -832,3 +840,5 @@ export type RejectUserData = any
 export type RemoveSemesterData = any
 
 export type RemoveActivityData = any
+
+export type GetUserIdData = FindUserIdResponseDto
