@@ -4,9 +4,9 @@ import { useSearchParams } from 'react-router'
 import { LinkButton } from '@/components/common'
 
 import { AuthCardLayout } from '../components'
-import { FindForm, FindType, ResetPasswordForm } from './components'
+import { FindType, FindUserIdForm, ResetPasswordForm } from './components'
 
-export default function FindPage() {
+export default function FindAccountPage() {
   const [searchParams, setSearchParams] = useSearchParams()
 
   useEffect(() => {
@@ -27,7 +27,7 @@ export default function FindPage() {
           findType={searchParams.get('findType') || 'id'}
         />
         {searchParams.get('findType') === 'id' ? (
-          <FindForm />
+          <FindUserIdForm />
         ) : (
           <ResetPasswordForm />
         )}

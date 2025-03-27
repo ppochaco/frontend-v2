@@ -3,9 +3,6 @@ import { CheckCircledIcon } from '@radix-ui/react-icons'
 interface FindSuccessMessageProps {
   userId: string
 }
-interface SendCodeMessageProps {
-  sendCode: boolean
-}
 
 export const FindSuccessMessage = ({ userId }: FindSuccessMessageProps) => {
   if (!userId) return null
@@ -21,6 +18,10 @@ export const FindSuccessMessage = ({ userId }: FindSuccessMessageProps) => {
       </div>
     </div>
   )
+}
+
+interface SendCodeMessageProps {
+  sendCode: boolean
 }
 
 export const SendCodeMessage = ({ sendCode }: SendCodeMessageProps) => {

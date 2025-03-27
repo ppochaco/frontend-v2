@@ -7,15 +7,15 @@ import { AxiosError } from 'axios'
 
 import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant'
-import { findApi } from '@/service/api'
+import { findUserIdApi } from '@/service/api'
 import { Find, FindSchema } from '@/service/schema'
 
 import { FindErrorMessage } from './ErrorMessageBox'
 import { FindSuccessMessage } from './SuccessMessageBox'
 
-export const FindForm = () => {
+export const FindUserIdForm = () => {
   const { mutate: find, isPending } = useMutation({
-    mutationFn: findApi,
+    mutationFn: findUserIdApi,
     onSuccess: (data) => {
       setUserId(data.userId + '')
     },

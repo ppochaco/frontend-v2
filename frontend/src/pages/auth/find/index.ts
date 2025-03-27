@@ -1,1 +1,1 @@
-export { default as FindPage } from './FindPage'
+export { default as FindAccountPage } from './FindAccountPage'
