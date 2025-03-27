@@ -15,12 +15,17 @@ import {
   GetProfileData,
   GetProfilesData,
   GetUserData,
+  GetUserIdData,
   GetUsersData,
   ProfileRequestDto,
+  ResetPasswordData,
+  ResetPasswordEmailCodeRequestDto,
+  ResetPasswordRequestDto,
   UpdateProfileData,
   UpdateProfileImage1Data,
   UpdateProfileImageData,
   UpdateProfileImagePayload,
+  VerifyResetPasswordCodeData,
 } from './data-contracts'
 
 export class Users<
@@ -202,6 +207,79 @@ export class Users<
         roles: query.roles.join(', '),
       },
       secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 유저 API
+   * @name GetUserId
+   * @summary 아이디 찾기
+   * @request GET:/users/find-id
+   * @secure
+   * @response `200` `GetUserIdData` OK
+   * @response `404` `void`
+   */
+  getUserId = (
+    query: {
+      /** @format int32 */
+      studentNumber: number
+      name: string
+    },
+    params: RequestParams = {},
+  ) =>
+    this.request<GetUserIdData, void>({
+      path: `/users/find-id`,
+      method: 'GET',
+      query: query,
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 유저 API
+   * @name ResetPassword
+   * @summary 비밀번호 찾기 (인증코드 전송)
+   * @request POST:/users/password/reset
+   * @secure
+   * @response `200` `ResetPasswordData` OK
+   * @response `201` `void`
+   * @response `404` `void`
+   * @response `429` `void`
+   */
+  resetPassword = (data: ResetPasswordRequestDto, params: RequestParams = {}) =>
+    this.request<ResetPasswordData, void>({
+      path: `/users/password/reset`,
+      method: 'POST',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 유저 API
+   * @name VerifyResetPasswordCode
+   * @summary 비밀번호 찾기 (인증코드 확인 및 랜덤 비밀번호 전송)
+   * @request PATCH:/users/password/verify
+   * @secure
+   * @response `200` `VerifyResetPasswordCodeData`
+   * @response `400` `void`
+   * @response `404` `void`
+   */
+  verifyResetPasswordCode = (
+    data: ResetPasswordEmailCodeRequestDto,
+    params: RequestParams = {},
+  ) =>
+    this.request<VerifyResetPasswordCodeData, void>({
+      path: `/users/password/verify`,
+      method: 'PATCH',
+      body: data,
+      secure: true,
+      type: ContentType.Json,
+      format: 'json',
       ...params,
     })
 }

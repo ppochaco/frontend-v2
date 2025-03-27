@@ -9,9 +9,14 @@ export default function LoginPage() {
       <AuthCardLayout title="Sign in to HAEDAL">
         <LoginForm />
       </AuthCardLayout>
-      <LinkButton linkTo="/auth/signup">
-        <div>회원가입</div>
-      </LinkButton>
+      <div className="flex w-full items-center justify-center gap-28">
+        <LinkButton linkTo="/auth/signup">
+          <div>회원가입</div>
+        </LinkButton>
+        <LinkButton linkTo="/auth/find">
+          <div>회원정보 찾기</div>
+        </LinkButton>
+      </div>
     </div>
   )
 }

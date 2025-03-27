@@ -14,6 +14,7 @@ import {
   EditActivityPostPage,
   EditBoardPage,
   EditNoticePostPage,
+  FindAccountPage,
   LoginPage,
   MainPage,
   MakerPage,
@@ -47,6 +48,7 @@ export const Router = () => {
         <Route path="/auth" element={<AuthRoute />}>
           <Route path="login" element={<LoginPage />} />
           <Route path="signup" element={<SignupPage />} />
+          <Route path="find" element={<FindAccountPage />} />
         </Route>
 
         <Route path="/admin" element={<AdminRoute />}>

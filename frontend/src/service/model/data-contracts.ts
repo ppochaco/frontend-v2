@@ -124,6 +124,25 @@ export interface BoardRequestDto {
   participants: string[]
 }
 
+export interface ResetPasswordRequestDto {
+  /**
+   * 유저 아이디
+   * @minLength 6
+   * @maxLength 12
+   * @pattern ^[A-Za-z0-9]+$
+   * @example "haedal12"
+   */
+  userId?: string
+  /**
+   * 유저 학번
+   * @format int32
+   * @min 1900000000
+   * @max 2100000000
+   * @example 2024111234
+   */
+  studentNumber?: number
+}
+
 export interface PostImageResponseDto {
   /**
    * 게시글 이미지 id
@@ -238,6 +257,24 @@ export interface ActivityRequestDto {
    * @example "트랙"
    */
   activityName: string
+}
+
+export interface ResetPasswordEmailCodeRequestDto {
+  /**
+   * 유저 아이디
+   * @minLength 6
+   * @maxLength 12
+   * @pattern ^[A-Za-z0-9]+$
+   * @example "haedal12"
+   */
+  userId?: string
+  /**
+   * 인증 코드
+   * @minLength 6
+   * @maxLength 6
+   * @example "ABcD12"
+   */
+  code: string
 }
 
 export interface UpdateRoleRequestDto {
@@ -368,6 +405,14 @@ export interface ActivityResponseDto {
    * @format int64
    */
   semesterId: number
+}
+
+export interface FindUserIdResponseDto {
+  /**
+   * 유저 아이디
+   * @example "haedal12"
+   */
+  userId?: string
 }
 
 export interface CommentResponseDto {
@@ -832,3 +877,9 @@ export type RejectUserData = any
 export type RemoveSemesterData = any
 
 export type RemoveActivityData = any
+
+export type GetUserIdData = FindUserIdResponseDto
+
+export type ResetPasswordData = SuccessResponse
+
+export type VerifyResetPasswordCodeData = any

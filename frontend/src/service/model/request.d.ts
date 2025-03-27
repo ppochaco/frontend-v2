@@ -234,3 +234,18 @@ export type UpdateCommentRequest = {
   commentId: number
   data: CommentRequestDto
 }
+
+export type GetUserIdRequest = {
+  studentNumber: number
+  name: string
+}
+
+export type ResetPasswordRequest = {
+  userId: string
+  studentNumber: number
+}
+
+export type VerifyResetPasswordCodeRequest = {
+  userId: string
+  code: string
+}
