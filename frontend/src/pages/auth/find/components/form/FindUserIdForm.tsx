@@ -8,7 +8,7 @@ import { AxiosError } from 'axios'
 import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant'
 import { findUserIdApi } from '@/service/api'
-import { Find, FindSchema } from '@/service/schema'
+import { FindUserId, FindUserIdSchema } from '@/service/schema'
 
 import { FindErrorMessage } from './ErrorMessageBox'
 import { FindSuccessMessage } from './SuccessMessageBox'
@@ -24,8 +24,8 @@ export const FindUserIdForm = () => {
     },
   })
 
-  const form = useForm<Find>({
-    resolver: zodResolver(FindSchema),
+  const form = useForm<FindUserId>({
+    resolver: zodResolver(FindUserIdSchema),
     mode: 'onSubmit',
     defaultValues: {
       studentNumber: '',

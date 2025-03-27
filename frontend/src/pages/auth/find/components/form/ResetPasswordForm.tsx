@@ -8,7 +8,7 @@ import { AxiosError } from 'axios'
 import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant'
 import { resetPasswordApi } from '@/service/api'
-import { Reset, ResetSchema } from '@/service/schema'
+import { ResetPassword, ResetPasswordSchema } from '@/service/schema'
 
 import { FindErrorMessage } from './ErrorMessageBox'
 import { SendCodeMessage } from './SuccessMessageBox'
@@ -25,8 +25,8 @@ export const ResetPasswordForm = () => {
     },
   })
 
-  const form = useForm<Reset>({
-    resolver: zodResolver(ResetSchema),
+  const form = useForm<ResetPassword>({
+    resolver: zodResolver(ResetPasswordSchema),
     mode: 'onSubmit',
     defaultValues: {
       userId: '',
