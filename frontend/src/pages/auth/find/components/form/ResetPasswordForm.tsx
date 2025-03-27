@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FormProvider, useForm } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation } from '@tanstack/react-query'
@@ -68,7 +68,7 @@ export const ResetPasswordForm = () => {
   }
 
   return (
-    <FormProvider {...form}>
+    <>
       <form onSubmit={onSubmit} className="flex w-full flex-col gap-4">
         <div className="flex flex-col gap-2">
           <Label htmlFor="userId">아이디</Label>
@@ -89,6 +89,6 @@ export const ResetPasswordForm = () => {
         <SendCodeMessage sendCode={sendCode} />
       </form>
       {sendCode && <VerifyCodeForm userId={sendUserId} />}
-    </FormProvider>
+    </>
   )
 }
