@@ -15,6 +15,7 @@ import {
   CheckUserIdField,
   SignupCheckboxField,
   SignupInputField,
+  SignupSelectField,
   VerifyUserEmailField,
 } from './field'
 import { SignupSuccessDialog } from './success-dialog'
@@ -44,6 +45,8 @@ export const SignupForm = () => {
       studentNumber: '',
       userName: '',
       checked: false,
+      year: '',
+      term: undefined,
     },
   })
 
@@ -61,8 +64,9 @@ export const SignupForm = () => {
         throw new Error('이메일 인증을 진행해주세요.')
       }
 
-      const { userId, password, email, studentNumber, userName } =
+      const { userId, password, email, studentNumber, userName, year, term } =
         form.getValues()
+      const joinSemester = 'SEMESTER_' + year + '_' + term
 
       signup({
         data: {
@@ -71,6 +75,7 @@ export const SignupForm = () => {
           email,
           studentNumber: Number(studentNumber),
           userName,
+          joinSemester,
         },
       })
     } catch (error) {
@@ -119,6 +124,24 @@ export const SignupForm = () => {
             formLabel="이름"
             placeholder="호반우"
           />
+        </div>
+        <div className="flex justify-center gap-2">
+          <div className="flex-1">
+            <SignupInputField
+              name="year"
+              formLabel="해달 가입 연도"
+              placeholder="2025"
+              formDescription="- 연도는 4자리 숫자만 작성해주세요."
+            />
+          </div>
+          <div className="flex-1">
+            <SignupSelectField
+              name="term"
+              formLabel="해달 가입 학기"
+              placeholder="학기"
+              selectItem={{ '1': '1학기', '2': '2학기' }}
+            />
+          </div>
         </div>
         <div className="space-y-2">
           <CheckUserEmailField

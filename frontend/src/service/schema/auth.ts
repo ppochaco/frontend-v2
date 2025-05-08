@@ -39,6 +39,14 @@ export const SignupSchema = z.object({
       message: '안내 문구를 확인해주세요.',
     }),
   }),
+  year: z.string().regex(/^20[0-9]{2}$/, {
+    message: '잘못된 연도 입력입니다.',
+  }),
+  term: z.enum(['1', '2'], {
+    errorMap: () => ({
+      message: '1학기, 2학기 중에 하나를 입력해주세요.',
+    }),
+  }),
 })
 export type Signup = z.infer<typeof SignupSchema>
 
