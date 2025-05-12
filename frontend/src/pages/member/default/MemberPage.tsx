@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useNavigate } from 'react-router'
 
 import { ArrowRightIcon } from '@radix-ui/react-icons'
@@ -11,24 +12,41 @@ export default function MemberPage() {
   const navigate = useNavigate()
   const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
 
+  const [year, setYear] = useState('2025')
+  const [semester, setSemester] = useState('1')
+
   const {
     data: member,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
-  } = useProfileSuspensePaging({ roles: ['ROLE_MEMBER'] })
+  } = useProfileSuspensePaging({
+    roles: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_WEB_MASTER', 'ROLE_TEAM_LEADER'],
+    joinSemester: `SEMESTER_${year}_${semester}`,
+  })
 
+  const handleLeftSemester = () => {
+    if (semester === '1') {
+      setSemester('2')
+      setYear((prev) => String(Number(prev) - 1))
+    } else {
+      setSemester('1')
+    }
+  }
+  const handleRightSemester = () => {
+    if (semester === '2') {
+      setSemester('1')
+      setYear((prev) => String(Number(prev) + 1))
+    } else {
+      setSemester('2')
+    }
+  }
   const adminProfiles = admin?.pages.flatMap((page) => page.profiles)
   const memberProfiles = member?.pages.flatMap((page) => page.profiles)
 
   return (
     <main className="flex h-full w-full flex-col items-center pb-20">
-      <div className="text-xl font-semibold">2025-1 멤버</div>
-      <div className="text-md text-primary/60">
-        해달과 {adminProfiles.length + memberProfiles.length}명의 부원들이 함께
-        하고 있어요
-      </div>
-      <div className="w-full max-w-[920px] pb-4 pt-10 text-xl font-semibold">
+      <div className="w-full max-w-[920px] pb-4 text-xl font-semibold">
         해구르르
       </div>
       <div className="grid w-full max-w-[320px] grid-cols-2 place-items-center gap-6 sm:max-w-[520px] sm:grid-cols-3 md:max-w-[680px] lg:max-w-[920px] lg:grid-cols-4">
@@ -44,6 +62,20 @@ export default function MemberPage() {
             />
           )
         })}
+      </div>
+      <div className="pt-10 text-xl font-semibold">
+        <button
+          onClick={handleLeftSemester}
+          className={year === '2024' && semester === '1' ? 'invisible' : ''}
+        >{`< `}</button>{' '}
+        {`${year}-${semester}`} 멤버{' '}
+        <button
+          onClick={handleRightSemester}
+          className={year === '2029' && semester === '2' ? 'invisible' : ''}
+        >{` >`}</button>
+      </div>
+      <div className="text-md text-primary/60">
+        해달과 {memberProfiles.length}명의 부원들이 함께 하고 있어요
       </div>
       <div className="w-full max-w-[920px] pb-4 pt-10 text-xl font-semibold">
         정회원 & 준회원
