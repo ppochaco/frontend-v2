@@ -107,6 +107,7 @@ export type GetProfilePagingRequest = {
   page?: string
   size?: number
   roles: Role[]
+  joinSemester?: string
 }
 
 export type ProfilePagingProps = {

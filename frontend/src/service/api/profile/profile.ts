@@ -11,20 +11,21 @@ import {
   UpdateProfileRequest,
   Users,
 } from '@/service/model'
-import { Role } from '@/types'
+import { Role, SemesterCode } from '@/types'
 
 export const getProfilePaging = async ({
   page = '0',
   size = 24,
   roles = ['ROLE_ADMIN', 'ROLE_MEMBER', 'ROLE_TEAM_LEADER'],
+  joinSemester,
 }: GetProfilePagingRequest): Promise<ProfilePagingResponse> => {
   const userClient = new Users(BACKEND_API)
   const response = await userClient.getProfiles({
     page: Number(page),
     size,
     roles,
+    joinSemester: joinSemester as SemesterCode,
   })
-
   const { data } = response
 
   return {
@@ -50,11 +51,13 @@ const getUserProfile = async ({ userId }: GetUserProfileRequest) => {
 
 export const profileQuries = {
   all: () => ['profile'],
-  lists: ({ roles }: { roles: Role[] }) => [
-    ...profileQuries.all(),
-    'lists',
-    ...roles,
-  ],
+  lists: ({
+    roles,
+    joinSemester,
+  }: {
+    roles: Role[]
+    joinSemester?: string
+  }) => [...profileQuries.all(), 'lists', ...roles, joinSemester],
   profiles: ({ userId }: GetUserProfileRequest) => [
     ...profileQuries.all(),
     userId,
@@ -71,11 +74,12 @@ export const useProfileSuspensePaging = ({
   size = 24,
   initPageToken,
   roles,
+  joinSemester,
 }: ProfilePagingProps) => {
   return useSuspenseInfiniteQuery({
-    queryKey: [...profileQuries.lists({ roles }), initPageToken],
+    queryKey: [...profileQuries.lists({ roles, joinSemester }), initPageToken],
     queryFn: ({ pageParam = initPageToken }) =>
-      getProfilePaging({ page: pageParam, size, roles }),
+      getProfilePaging({ page: pageParam, size, roles, joinSemester }),
     initialPageParam: initPageToken,
     getNextPageParam: (lastPage) => lastPage.nextPageToken,
   })
