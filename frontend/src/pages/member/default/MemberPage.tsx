@@ -12,8 +12,11 @@ export default function MemberPage() {
   const navigate = useNavigate()
   const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
 
-  const [year, setYear] = useState('2025')
-  const [semester, setSemester] = useState('1')
+  const nowYear = String(new Date().getFullYear())
+  const nowSemester = new Date().getMonth() < 9 ? '1' : '2'
+
+  const [year, setYear] = useState(nowYear)
+  const [semester, setSemester] = useState(nowSemester)
 
   const {
     data: member,
@@ -74,7 +77,9 @@ export default function MemberPage() {
         <Pagination
           onClick={handleRightSemester}
           className={
-            year === '2029' && semester === '2' ? 'invisible' : 'cursor-pointer'
+            year === nowYear && semester === nowSemester
+              ? 'invisible'
+              : 'cursor-pointer'
           }
         >{` >`}</Pagination>
       </div>
