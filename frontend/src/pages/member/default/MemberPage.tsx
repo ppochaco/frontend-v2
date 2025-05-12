@@ -13,7 +13,7 @@ export default function MemberPage() {
   const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
 
   const nowYear = String(new Date().getFullYear())
-  const nowSemester = new Date().getMonth() < 9 ? '1' : '2'
+  const nowSemester = new Date().getMonth() < 8 ? '1' : '2'
 
   const [year, setYear] = useState(nowYear)
   const [semester, setSemester] = useState(nowSemester)
