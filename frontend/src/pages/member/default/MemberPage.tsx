@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 
 import { IntersectionObserverLoader } from '@/components/common'
 import { MemberCard } from '@/components/feature'
-import { Button } from '@/components/ui'
+import { Button, Pagination } from '@/components/ui'
 import { useProfileSuspensePaging } from '@/service/api'
 
 export default function MemberPage() {
@@ -21,7 +21,7 @@ export default function MemberPage() {
     isFetchingNextPage,
     fetchNextPage,
   } = useProfileSuspensePaging({
-    roles: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_WEB_MASTER', 'ROLE_TEAM_LEADER'],
+    roles: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_TEAM_LEADER'],
     joinSemester: `SEMESTER_${year}_${semester}`,
   })
 
@@ -63,16 +63,20 @@ export default function MemberPage() {
           )
         })}
       </div>
-      <div className="pt-10 text-xl font-semibold">
-        <button
+      <div className="flex items-center gap-2 pt-10 text-xl font-semibold">
+        <Pagination
           onClick={handleLeftSemester}
-          className={year === '2024' && semester === '1' ? 'invisible' : ''}
-        >{`< `}</button>{' '}
-        {`${year}-${semester}`} 멤버{' '}
-        <button
+          className={
+            year === '2024' && semester === '1' ? 'invisible' : 'cursor-pointer'
+          }
+        >{`< `}</Pagination>
+        <span className="whitespace-nowrap">{`${year}-${semester}`} 멤버</span>
+        <Pagination
           onClick={handleRightSemester}
-          className={year === '2029' && semester === '2' ? 'invisible' : ''}
-        >{` >`}</button>
+          className={
+            year === '2029' && semester === '2' ? 'invisible' : 'cursor-pointer'
+          }
+        >{` >`}</Pagination>
       </div>
       <div className="text-md text-primary/60">
         해달과 {memberProfiles.length}명의 부원들이 함께 하고 있어요
