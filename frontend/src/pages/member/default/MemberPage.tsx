@@ -5,7 +5,7 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 
 import { IntersectionObserverLoader } from '@/components/common'
 import { MemberCard } from '@/components/feature'
-import { Button, Pagination } from '@/components/ui'
+import { Button, PaginationNext, PaginationPrevious } from '@/components/ui'
 import { useProfileSuspensePaging } from '@/service/api'
 
 export default function MemberPage() {
@@ -67,21 +67,19 @@ export default function MemberPage() {
         })}
       </div>
       <div className="flex items-center gap-2 pt-10 text-xl font-semibold">
-        <Pagination
+        <PaginationPrevious
+          to="#"
           onClick={handleLeftSemester}
-          className={
-            year === '2024' && semester === '1' ? 'invisible' : 'cursor-pointer'
-          }
-        >{`< `}</Pagination>
-        <span className="whitespace-nowrap">{`${year}-${semester}`} 멤버</span>
-        <Pagination
+          disabled={year === '2024' && semester === '1'}
+          className={'cursor-pointer'}
+        />
+        <span>{`${year}-${semester}`} 멤버</span>
+        <PaginationNext
+          to="#"
+          disabled={year === nowYear && semester === nowSemester}
           onClick={handleRightSemester}
-          className={
-            year === nowYear && semester === nowSemester
-              ? 'invisible'
-              : 'cursor-pointer'
-          }
-        >{` >`}</Pagination>
+          className={'cursor-pointer'}
+        />
       </div>
       <div className="text-md text-primary/60">
         해달과 {memberProfiles.length}명의 부원들이 함께 하고 있어요
