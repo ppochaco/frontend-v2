@@ -12,6 +12,7 @@ import { ContentType, RequestParams } from '@/lib/http-client'
 
 import { CustomHttpClient } from '../config'
 import {
+  GetJoinSemestersData,
   GetProfileData,
   GetProfilesData,
   GetUserData,
@@ -220,6 +221,23 @@ export class Users<
         ...query,
         roles: query.roles.join(', '),
       },
+      secure: true,
+      ...params,
+    })
+  /**
+   * No description
+   *
+   * @tags 유저 API
+   * @name GetJoinSemesters
+   * @summary 유저 가입 학기 목록 조회
+   * @request GET:/users/join-semesters
+   * @secure
+   * @response `200` `GetJoinSemestersData` OK
+   */
+  getJoinSemesters = (params: RequestParams = {}) =>
+    this.request<GetJoinSemestersData, any>({
+      path: `/users/join-semesters`,
+      method: 'GET',
       secure: true,
       ...params,
     })

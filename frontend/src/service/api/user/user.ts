@@ -32,3 +32,10 @@ export const UserQuries = {
       queryFn: async () => getUser({ userId }),
     }),
 }
+
+export const getJoinSemestersApi = async () => {
+  const userClient = new Users(AUTHORIZATION_API)
+  const response = await userClient.getJoinSemesters()
+
+  return response.data
+}
