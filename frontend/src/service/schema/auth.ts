@@ -39,14 +39,27 @@ export const SignupSchema = z.object({
       message: '안내 문구를 확인해주세요.',
     }),
   }),
-  year: z.string().regex(/^20[0-9]{2}$/, {
-    message: '잘못된 연도 입력입니다.',
-  }),
-  term: z.enum(['1', '2'], {
-    errorMap: () => ({
-      message: '1학기, 2학기 중에 하나를 입력해주세요.',
-    }),
-  }),
+  joinSemester: z.enum(
+    [
+      'SEMESTER_2024_1',
+      'SEMESTER_2024_2',
+      'SEMESTER_2025_1',
+      'SEMESTER_2025_2',
+      'SEMESTER_2026_1',
+      'SEMESTER_2026_2',
+      'SEMESTER_2027_1',
+      'SEMESTER_2027_2',
+      'SEMESTER_2028_1',
+      'SEMESTER_2028_2',
+      'SEMESTER_2029_1',
+      'SEMESTER_2029_2',
+    ],
+    {
+      errorMap: () => ({
+        message: '가입 학기를 선택해주세요.',
+      }),
+    },
+  ),
 })
 export type Signup = z.infer<typeof SignupSchema>
 

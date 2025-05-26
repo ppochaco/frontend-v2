@@ -407,6 +407,21 @@ export interface ActivityResponseDto {
   semesterId: number
 }
 
+export type GetJoinSemestersData = (
+  | 'SEMESTER_2024_1'
+  | 'SEMESTER_2024_2'
+  | 'SEMESTER_2025_1'
+  | 'SEMESTER_2025_2'
+  | 'SEMESTER_2026_1'
+  | 'SEMESTER_2026_2'
+  | 'SEMESTER_2027_1'
+  | 'SEMESTER_2027_2'
+  | 'SEMESTER_2028_1'
+  | 'SEMESTER_2028_2'
+  | 'SEMESTER_2029_1'
+  | 'SEMESTER_2029_2'
+)[]
+
 export interface FindUserIdResponseDto {
   /**
    * 유저 아이디
@@ -702,7 +717,6 @@ export interface AdminUserResponseDto {
    */
   regDate: string
 }
-
 export interface BoardResponseDto {
   /**
    * 게시판 id

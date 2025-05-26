@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useForm } from 'react-hook-form'
 
 import { zodResolver } from '@hookform/resolvers/zod'
@@ -6,7 +6,7 @@ import { useMutation } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
 import { Button, Form } from '@/components/ui'
-import { signupApi } from '@/service/api'
+import { getJoinSemestersApi, signupApi } from '@/service/api'
 import { Signup, SignupSchema } from '@/service/schema'
 
 import {
@@ -25,6 +25,28 @@ export const SignupForm = () => {
     mutationFn: signupApi,
     onSuccess: () => setOpen(true),
   })
+
+  const [joinSemesterData, setJoinSemesterData] = useState<string[]>([])
+
+  useEffect(() => {
+    getJoinSemestersApi().then(setJoinSemesterData)
+  }, [])
+
+  const generateSemesterLabel = () => {
+    const selectItem: Record<string, string> = {}
+    joinSemesterData.map((joinSemester, i) => {
+      const year = joinSemester.split('_')[1]
+      const semester = joinSemester.split('_')[2]
+      if (i === 0) {
+        selectItem[`${joinSemester}`] =
+          `${year}년 ${semester === '1' ? '1학기 이전' : '2학기'}`
+      } else {
+        selectItem[`${joinSemester}`] =
+          `${year}년 ${semester === '1' ? '1학기' : '2학기'}`
+      }
+    })
+    return selectItem
+  }
 
   const [isValid, setIsValid] = useState({
     userId: false,
@@ -45,8 +67,7 @@ export const SignupForm = () => {
       studentNumber: '',
       userName: '',
       checked: false,
-      year: '',
-      term: undefined,
+      joinSemester: undefined,
     },
   })
 
@@ -64,9 +85,8 @@ export const SignupForm = () => {
         throw new Error('이메일 인증을 진행해주세요.')
       }
 
-      const { userId, password, email, studentNumber, userName, year, term } =
+      const { userId, password, email, studentNumber, userName, joinSemester } =
         form.getValues()
-      const joinSemester = 'SEMESTER_' + year + '_' + term
 
       signup({
         data: {
@@ -125,23 +145,13 @@ export const SignupForm = () => {
             placeholder="호반우"
           />
         </div>
-        <div className="flex justify-center gap-2">
-          <div className="flex-1">
-            <SignupInputField
-              name="year"
-              formLabel="해달 가입 연도"
-              placeholder="2025"
-              formDescription="- 연도는 4자리 숫자만 작성해주세요."
-            />
-          </div>
-          <div className="flex-1">
-            <SignupSelectField
-              name="term"
-              formLabel="해달 가입 학기"
-              placeholder="학기"
-              selectItem={{ '1': '1학기', '2': '2학기' }}
-            />
-          </div>
+        <div className="space-y-2">
+          <SignupSelectField
+            name="joinSemester"
+            formLabel="해달 가입 학기"
+            placeholder="가입 학기를 선택해주세요"
+            selectItem={generateSemesterLabel()}
+          />
         </div>
         <div className="space-y-2">
           <CheckUserEmailField
