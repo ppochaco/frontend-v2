@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
 
 import { ArrowRightIcon } from '@radix-ui/react-icons'
@@ -6,17 +6,21 @@ import { ArrowRightIcon } from '@radix-ui/react-icons'
 import { IntersectionObserverLoader } from '@/components/common'
 import { MemberCard } from '@/components/feature'
 import { Button, PaginationNext, PaginationPrevious } from '@/components/ui'
-import { useProfileSuspensePaging } from '@/service/api'
+import { getJoinSemestersApi, useProfileSuspensePaging } from '@/service/api'
 
 export default function MemberPage() {
   const navigate = useNavigate()
   const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
 
-  const nowYear = String(new Date().getFullYear())
-  const nowSemester = new Date().getMonth() < 8 ? '1' : '2'
+  const [joinSemesterData, setJoinSemesterData] = useState<string[]>([])
+  const [semesterIndex, setSemesterIndex] = useState<number>(0)
 
-  const [year, setYear] = useState(nowYear)
-  const [semester, setSemester] = useState(nowSemester)
+  useEffect(() => {
+    getJoinSemestersApi().then((data) => {
+      setJoinSemesterData(data)
+      setSemesterIndex(data.length - 1)
+    })
+  }, [])
 
   const {
     data: member,
@@ -25,25 +29,29 @@ export default function MemberPage() {
     fetchNextPage,
   } = useProfileSuspensePaging({
     roles: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_TEAM_LEADER'],
-    joinSemester: `SEMESTER_${year}_${semester}`,
+    joinSemester: joinSemesterData[semesterIndex],
   })
 
   const handleLeftSemester = () => {
-    if (semester === '1') {
-      setSemester('2')
-      setYear((prev) => String(Number(prev) - 1))
-    } else {
-      setSemester('1')
+    if (semesterIndex > 0) {
+      setSemesterIndex(semesterIndex - 1)
     }
   }
   const handleRightSemester = () => {
-    if (semester === '2') {
-      setSemester('1')
-      setYear((prev) => String(Number(prev) + 1))
-    } else {
-      setSemester('2')
+    if (semesterIndex < joinSemesterData.length - 1) {
+      setSemesterIndex(semesterIndex + 1)
     }
   }
+
+  const semesterTitle = () => {
+    if (!joinSemesterData[semesterIndex]) return ''
+    const [, year, semester] = joinSemesterData[semesterIndex].split('_')
+    if (semesterIndex === 0) {
+      return `${year}-${semester} 이전 멤버`
+    }
+    return `${year}-${semester} 멤버`
+  }
+
   const adminProfiles = admin?.pages.flatMap((page) => page.profiles)
   const memberProfiles = member?.pages.flatMap((page) => page.profiles)
 
@@ -70,13 +78,13 @@ export default function MemberPage() {
         <PaginationPrevious
           to="#"
           onClick={handleLeftSemester}
-          disabled={year === '2024' && semester === '1'}
+          disabled={semesterIndex === 0}
           className={'cursor-pointer'}
         />
-        <span>{`${year}-${semester}`} 멤버</span>
+        <span>{semesterTitle()}</span>
         <PaginationNext
           to="#"
-          disabled={year === nowYear && semester === nowSemester}
+          disabled={semesterIndex === joinSemesterData.length - 1}
           onClick={handleRightSemester}
           className={'cursor-pointer'}
         />
