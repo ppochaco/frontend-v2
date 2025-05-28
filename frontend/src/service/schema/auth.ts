@@ -11,8 +11,8 @@ export const SignupSchema = z.object({
     .string()
     .min(6, { message: 'ID는 6자 이상여야 합니다.' })
     .max(12, { message: 'ID는 12자 이하여야 합니다.' })
-    .regex(/^[A-Za-z0-9]+$/, {
-      message: 'ID는 영어와 숫자만 입력할 수 있습니다.',
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]+$/, {
+      message: 'ID는 영어와 숫자를 혼용하여 설정해야 합니다.',
     }),
   password: z
     .string()
@@ -79,8 +79,8 @@ export const ResetPasswordSchema = z.object({
     .string()
     .min(6, { message: 'ID는 6자 이상여야 합니다.' })
     .max(12, { message: 'ID는 12자 이하여야 합니다.' })
-    .regex(/^[A-Za-z0-9]+$/, {
-      message: 'ID는 영어와 숫자만 입력할 수 있습니다.',
+    .regex(/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z0-9]+$/, {
+      message: 'ID는 영어와 숫자를 혼용하여 설정해야 합니다.',
     }),
   studentNumber: z.string().length(10, {
     message: '학번은 10자여야 합니다.',
