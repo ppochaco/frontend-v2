@@ -5,7 +5,6 @@ import { Outlet } from 'react-router'
 import {
   ActivityErrorFallback,
   ActivityHero,
-  SemesterListSkeleton,
 } from '@/pages/activity/components'
 
 export const ActivityRoute = () => {
@@ -15,7 +14,6 @@ export const ActivityRoute = () => {
         fallback={
           <div className="flex w-full flex-col items-center gap-2">
             <ActivityHero />
-            <SemesterListSkeleton />
           </div>
         }
       >

@@ -5,8 +5,12 @@ import { useSuspenseQuery } from '@tanstack/react-query'
 import { NotFoundError } from '@/components/common'
 import { activityQueries, semesterQueries } from '@/service/api'
 
-import { ActivityHero, ActivityList, SemesterList } from '../components'
-import { ActivityBoardList, CreateBoardButton } from './components'
+import { ActivityHero, ActivityList } from '../components'
+import {
+  ActivityBoardList,
+  CreateBoardButton,
+  SemesterList,
+} from './components'
 
 export default function ActivityPage() {
   const params = useParams()
