@@ -3,7 +3,7 @@ import { useLocation } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { NotFound, PaginationButtons, Spinner } from '@/components/common'
+import { NetworkError, PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { queryClient } from '@/lib/query-client'
 import { NoticePostQuries } from '@/service/api'
@@ -27,7 +27,7 @@ export const NoticePostListSection = () => {
 
   if (status === 'pending') return <Spinner />
 
-  if (!data) return <NotFound />
+  if (!data) return <NetworkError />
 
   if (!data.posts.length) {
     return (

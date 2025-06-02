@@ -2,7 +2,7 @@ import { useLocation } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { NotFound, PaginationButtons, Spinner } from '@/components/common'
+import { NetworkError, PaginationButtons, Spinner } from '@/components/common'
 import { PostTable } from '@/components/feature'
 import { activityPostQuries } from '@/service/api'
 
@@ -28,7 +28,7 @@ export const ActivityPostListSection = ({
       </div>
     )
 
-  if (!data) return <NotFound />
+  if (!data) return <NetworkError />
 
   if (!data.posts.length) {
     return (

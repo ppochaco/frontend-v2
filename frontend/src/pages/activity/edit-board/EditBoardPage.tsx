@@ -2,7 +2,7 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { Separator } from '@/components/ui'
 import { activityQueries, boardQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -36,7 +36,7 @@ export default function EditBoardPage() {
     }),
   )
 
-  if (!boardDetail) return <NotFound />
+  if (!boardDetail) return <NetworkError />
 
   return (
     <div className="w-full pb-20">

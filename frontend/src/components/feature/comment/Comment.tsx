@@ -3,7 +3,7 @@ import { useLocation } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { NotFound, PaginationButtons } from '@/components/common'
+import { NetworkError, PaginationButtons } from '@/components/common'
 import { Label, Skeleton } from '@/components/ui'
 import { commentQueries } from '@/service/api/comment'
 
@@ -36,7 +36,7 @@ export const Comment = ({ postId }: CommentProps) => {
       </div>
     )
 
-  if (error) return <NotFound />
+  if (error) return <NetworkError />
 
   return (
     <ErrorBoundary fallbackRender={CommentErrorFallback}>

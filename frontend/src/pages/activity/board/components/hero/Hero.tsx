@@ -4,7 +4,7 @@ import { Pencil1Icon, TrashIcon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { NameLabel, NotFound } from '@/components/common'
+import { NameLabel, NetworkError } from '@/components/common'
 import { Button, Separator } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant'
 import { queryClient } from '@/lib/query-client'
@@ -45,7 +45,7 @@ export const BoardHero = ({ boardId, activityId }: BoardHeroProps) => {
 
   if (status === 'pending') return <BoardHeroSkeleton />
 
-  if (!boardDetail) return <NotFound />
+  if (!boardDetail) return <NetworkError />
 
   return (
     <div className="flex flex-col">

@@ -2,7 +2,7 @@ import { Cross2Icon } from '@radix-ui/react-icons'
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { queryClient } from '@/lib/query-client'
 import { activityQueries, deleteActivityApi } from '@/service/api'
 import { Semester } from '@/types'
@@ -31,7 +31,7 @@ export const ActivityList = ({ semester }: ActivityListProps) => {
 
   if (status === 'pending') return <ActivityListSkeleton />
 
-  if (fetchError) return <NotFound />
+  if (fetchError) return <NetworkError />
 
   if (!activities.length)
     return <div className="text-muted-foreground">활동이 없습니다.</div>

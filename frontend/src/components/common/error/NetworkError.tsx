@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router'
 
 import { Button } from '@/components/ui'
 
-export const NotFound = () => {
+export const NetworkError = () => {
   const navigate = useNavigate()
 
   return (
