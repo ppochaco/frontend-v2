@@ -57,7 +57,7 @@ export const Router = () => {
 
         <Route element={<MainRoute />}>
           <Route path="/activity" element={<ActivityRoute />}>
-            <Route index element={<RedirectActivityPage />} />
+            <Route path=":semesterId" element={<RedirectActivityPage />} />
             <Route path=":semesterId/:activityId">
               <Route index element={<ActivityPage />} />
               <Route path="create-board" element={<CreateBoardPage />} />

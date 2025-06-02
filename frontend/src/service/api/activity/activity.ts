@@ -26,20 +26,28 @@ const getActivityDetail = async ({
 
 export const activityQueries = {
   all: () => ['activities'],
-  lists: () => [...activityQueries.all(), 'list'],
+  lists: ({ semesterId }: GetActivitiesRequest) => [
+    ...activityQueries.all(),
+    'list',
+    semesterId,
+  ],
   list: ({ semesterId }: GetActivitiesRequest) =>
     queryOptions({
-      queryKey: [...activityQueries.lists(), semesterId],
+      queryKey: [...activityQueries.lists({ semesterId })],
       queryFn: async () => getActivities({ semesterId }),
       enabled: !!semesterId,
-      staleTime: 1000 * 60 * 5,
     }),
+  listAll: ({ semesterIds }: { semesterIds: number[] }) =>
+    semesterIds.map((semesterId) => ({
+      queryKey: activityQueries.lists({ semesterId }),
+      queryFn: () => getActivities({ semesterId }),
+      enabled: !!semesterId,
+    })),
   details: () => [...activityQueries.all(), 'detail'],
   detail: ({ semesterId, activityId }: GetActivityDetailRequest) =>
     queryOptions({
       queryKey: [...activityQueries.details(), semesterId, activityId],
       queryFn: async () => getActivityDetail({ semesterId, activityId }),
       enabled: !!semesterId,
-      staleTime: 1000 * 60 * 5,
     }),
 }
