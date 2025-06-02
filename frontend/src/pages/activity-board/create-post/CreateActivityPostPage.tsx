@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { ActivityPageSkeleton } from '@/components/feature'
 import { ACCESS_ERROR_MESSAGE } from '@/constant'
 import { boardQueries } from '@/service/api'
@@ -30,7 +30,7 @@ const CreateActivityPost = () => {
     }
   }, [role])
 
-  if (!board) return <NotFound />
+  if (!board) return <NetworkError />
 
   return (
     <div className="flex w-full flex-col gap-6 pb-10">

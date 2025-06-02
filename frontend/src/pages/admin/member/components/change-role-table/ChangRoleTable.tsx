@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import {
   MemberTable,
   MemberTableSkeleton,
@@ -61,7 +61,7 @@ export const ChangeRoleTable = () => {
   if (status === 'pending')
     return <MemberTableSkeleton columns={changeRoleColumn} />
 
-  if (error) return <NotFound />
+  if (error) return <NetworkError />
 
   if (!activeUsers.length) {
     return (

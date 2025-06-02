@@ -10,9 +10,11 @@ interface NavigationItemProps {
 export const NavigationItem = ({ name, linkTo }: NavigationItemProps) => {
   const { pathname } = useLocation()
 
+  const normalizedLinkTo = linkTo === '/activity/-1' ? '/activity' : linkTo
+
   const isActive =
-    pathname.startsWith(`${linkTo}`) ||
-    (pathname.startsWith('/boards') && linkTo === '/activity')
+    pathname.startsWith(normalizedLinkTo) ||
+    (pathname.startsWith('/boards') && normalizedLinkTo === '/activity')
 
   return (
     <Link

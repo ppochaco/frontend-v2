@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import {
   ActivityPageSkeleton,
   BoardNavigationButton,
@@ -31,7 +31,7 @@ const ActivityPostPage = () => {
     }),
   )
 
-  if (!post) return <NotFound />
+  if (!post) return <NetworkError />
 
   return (
     <div className="flex w-full flex-col">

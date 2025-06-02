@@ -5,7 +5,6 @@ import {
   ActivityBoardPage,
   ActivityPage,
   ActivityPostPage,
-  ActivityRedirectPage,
   AdminMemberPage,
   AdminSemesterPage,
   CreateActivityPostPage,
@@ -23,7 +22,7 @@ import {
   NotFoundPage,
   NoticePage,
   NoticePostPage,
-  SemesterRedirectPage,
+  RedirectActivityPage,
   SignupPage,
 } from '@/pages'
 import RecruitCommingSoonPage from '@/pages/recruit/CommingSoonPage'
@@ -58,8 +57,7 @@ export const Router = () => {
 
         <Route element={<MainRoute />}>
           <Route path="/activity" element={<ActivityRoute />}>
-            <Route index element={<SemesterRedirectPage />} />
-            <Route path=":semesterId" element={<ActivityRedirectPage />} />
+            <Route path=":semesterId" element={<RedirectActivityPage />} />
             <Route path=":semesterId/:activityId">
               <Route index element={<ActivityPage />} />
               <Route path="create-board" element={<CreateBoardPage />} />

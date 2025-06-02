@@ -6,7 +6,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useMutation, useSuspenseQuery } from '@tanstack/react-query'
 import { toast } from 'sonner'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { PostContentFieldEditor } from '@/components/feature'
 import {
   Button,
@@ -78,7 +78,7 @@ export const EditNoticePostForm = ({ postId }: EditNoticePostFormProps) => {
     navigate(basePath)
   }
 
-  if (!postInfo) return <NotFound />
+  if (!postInfo) return <NetworkError />
 
   return (
     <Form {...form}>

@@ -3,7 +3,7 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { ACCESS_ERROR_MESSAGE } from '@/constant'
 import { activityPostQuries, boardQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -37,7 +37,7 @@ export default function EditActivityPostPage() {
     }
   }, [userId, postInfo])
 
-  if (!board || !postInfo) return <NotFound />
+  if (!board || !postInfo) return <NetworkError />
 
   return (
     <div className="flex w-full flex-col gap-6 pb-10">

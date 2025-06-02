@@ -1,1 +1,0 @@
-export { SemesterRedirectSection } from './RedirectSection'

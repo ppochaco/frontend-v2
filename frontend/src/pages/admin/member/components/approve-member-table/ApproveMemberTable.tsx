@@ -2,7 +2,7 @@ import { useQuery } from '@tanstack/react-query'
 import { ColumnDef } from '@tanstack/react-table'
 import { kstFormat } from '@toss/date'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import {
   MemberTable,
   MemberTableSkeleton,
@@ -69,7 +69,7 @@ export const ApproveMemberTable = () => {
   if (status === 'pending')
     return <MemberTableSkeleton columns={approveMemberColumn} />
 
-  if (error) return <NotFound />
+  if (error) return <NetworkError />
 
   if (!inActiveUsers.length)
     return (

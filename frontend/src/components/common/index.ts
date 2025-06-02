@@ -1,6 +1,6 @@
 export * from './logo'
 export * from './link-button'
-export * from './not-found'
+export * from './error'
 export * from './content'
 export * from './page-breadcrumb'
 export * from './name-label'

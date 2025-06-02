@@ -2,7 +2,7 @@ import { useParams } from 'react-router'
 
 import { useQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { ActivityPageSkeleton } from '@/components/feature'
 import { activityQueries, semesterQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
@@ -11,7 +11,7 @@ import {
   CreateBoardDetail,
   CreateBoardForm,
   CreateBoardHero,
-} from './_components'
+} from './components'
 
 export default function CreateBoardPage() {
   const params = useParams()
@@ -44,7 +44,7 @@ export default function CreateBoardPage() {
     return (
       <div className="w-full">
         <CreateBoardHero />
-        <NotFound />
+        <NetworkError />
       </div>
     )
 

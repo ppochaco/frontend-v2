@@ -3,7 +3,7 @@ import { ErrorBoundary } from 'react-error-boundary'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
-import { NotFound } from '@/components/common'
+import { NetworkError } from '@/components/common'
 import { semesterQueries } from '@/service/api'
 
 import { AdminErrorFallback, AdminSectionWithTitle } from '../components'
@@ -16,7 +16,7 @@ import {
 const AdminSemesterPage = () => {
   const { data: semesters, error } = useSuspenseQuery(semesterQueries.list())
 
-  if (error) return <NotFound />
+  if (error) return <NetworkError />
 
   return (
     <div className="flex w-full flex-col items-center">

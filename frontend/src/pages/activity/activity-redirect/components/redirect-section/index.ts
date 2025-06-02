@@ -1,1 +1,0 @@
-export { ActivityRedirectSection } from './RedirectSection'
