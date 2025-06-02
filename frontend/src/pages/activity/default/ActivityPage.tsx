@@ -2,6 +2,7 @@ import { useParams } from 'react-router'
 
 import { useSuspenseQuery } from '@tanstack/react-query'
 
+import { NotFoundError } from '@/components/common'
 import { activityQueries, semesterQueries } from '@/service/api'
 
 import { ActivityHero, ActivityList, SemesterList } from '../components'
@@ -17,6 +18,10 @@ export default function ActivityPage() {
   const { data: activities } = useSuspenseQuery(
     activityQueries.list({ semesterId: Number(params.semesterId) }),
   )
+
+  if (activities.length === 0 && Number(params.activityId) !== -1) {
+    return <NotFoundError />
+  }
 
   if (activities.length === 0) {
     return (

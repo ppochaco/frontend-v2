@@ -3,6 +3,7 @@ import { useNavigate, useParams } from 'react-router'
 
 import { useSuspenseQueries, useSuspenseQuery } from '@tanstack/react-query'
 
+import { NotFoundError } from '@/components/common'
 import { activityQueries, semesterQueries } from '@/service/api'
 
 import { ActivityHero } from '../components'
@@ -20,12 +21,12 @@ export default function RedirectActivityPage() {
     }),
   })
 
-  useEffect(() => {
-    const index =
-      semesterId === -1
-        ? semesters.length - 1
-        : semesters.findIndex((s) => s.semesterId === semesterId)
+  const index =
+    semesterId === -1
+      ? semesters.length - 1
+      : semesters.findIndex((s) => s.semesterId === semesterId)
 
+  useEffect(() => {
     if (index === -1 || !results[index]) return
 
     const activities = results[index].data
@@ -37,10 +38,12 @@ export default function RedirectActivityPage() {
     }
 
     navigate(`/activity/${targetSemesterId}/${activities[0].activityId}`)
-  }, [results, semesters, navigate, semesterId])
+  }, [results, semesters, navigate, index])
 
   if (semesters.length === 0)
     return <div>학기가 없습니다. 해구르르에 문의해주세요.</div>
+
+  if (index === -1 || !results[index]) return <NotFoundError />
 
   return (
     <div className="w-full">
