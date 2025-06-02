@@ -1,6 +1,5 @@
-export * from './activity-redirect'
 export * from './board'
 export * from './create-board'
 export * from './default'
 export * from './edit-board'
-export * from './semester-redirect'
+export * from './redirect'
