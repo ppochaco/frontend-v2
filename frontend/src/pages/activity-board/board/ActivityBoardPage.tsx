@@ -1,7 +1,10 @@
 import { useParams } from 'react-router'
 
-import { ActivityPostListSection, BoardHero } from './components'
-import { CreatePostButton } from './components/create-post-button'
+import {
+  ActivityPostListSection,
+  BoardHero,
+  CreatePostButton,
+} from './components'
 
 export default function ActivityBoardPage() {
   const params = useParams()

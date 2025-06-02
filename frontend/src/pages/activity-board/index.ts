@@ -1,3 +1,6 @@
 export * from './post'
 export * from './create-post'
 export * from './edit-post'
+export * from './board'
+export * from './create-board'
+export * from './edit-board'

@@ -11,7 +11,7 @@ import {
   CreateBoardDetail,
   CreateBoardForm,
   CreateBoardHero,
-} from './_components'
+} from './components'
 
 export default function CreateBoardPage() {
   const params = useParams()
