@@ -1,3 +1,4 @@
+// Legacy: 현재 사용하지 않는 페이지입니다.
 import { useNavigate } from 'react-router'
 
 import { ArrowLeftIcon, ChatBubbleIcon, Link2Icon } from '@radix-ui/react-icons'

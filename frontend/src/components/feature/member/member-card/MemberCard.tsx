@@ -49,7 +49,9 @@ export const MemberCard = ({
       </div>
       <div className="h-16 overflow-y-scroll text-sm md:h-24 [&::-webkit-scrollbar]:hidden">
         {userDetail ? (
-          <div className="text-primary/80">{userDetail}</div>
+          <div className="flex h-full items-center text-primary/80">
+            {userDetail}
+          </div>
         ) : (
           <div className="flex h-full items-center text-primary/30">
             한 줄 소개가 없습니다

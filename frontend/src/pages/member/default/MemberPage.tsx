@@ -1,15 +1,11 @@
 import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
-
-import { ArrowRightIcon } from '@radix-ui/react-icons'
 
 import { IntersectionObserverLoader } from '@/components/common'
 import { MemberCard } from '@/components/feature'
-import { Button, PaginationNext, PaginationPrevious } from '@/components/ui'
+import { PaginationNext, PaginationPrevious } from '@/components/ui'
 import { getJoinSemestersApi, useProfileSuspensePaging } from '@/service/api'
 
 export default function MemberPage() {
-  const navigate = useNavigate()
   const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
 
   const [joinSemesterData, setJoinSemesterData] = useState<string[]>([])
@@ -126,12 +122,6 @@ export default function MemberPage() {
           멤버가 없습니다.
         </div>
       )}
-      <div className="flex w-full justify-end pt-10">
-        <Button variant="link" onClick={() => navigate('/member/maker')}>
-          <div>해달 홈페이지 Maker</div>
-          <ArrowRightIcon className="bg w-10" />
-        </Button>
-      </div>
     </main>
   )
 }

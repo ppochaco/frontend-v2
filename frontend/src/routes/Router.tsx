@@ -16,7 +16,6 @@ import {
   FindAccountPage,
   LoginPage,
   MainPage,
-  MakerPage,
   MemberPage,
   MyPage,
   NotFoundPage,
@@ -98,7 +97,6 @@ export const Router = () => {
 
           <Route path="member" element={<SuspenseRoute />}>
             <Route index element={<MemberPage />} />
-            <Route path="maker" element={<MakerPage />} />
           </Route>
         </Route>
         <Route path="/" element={<MainPage />} />
