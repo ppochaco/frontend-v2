@@ -3,11 +3,10 @@ import { useEffect, useState } from 'react'
 import { IntersectionObserverLoader } from '@/components/common'
 import { MemberCard } from '@/components/feature'
 import { PaginationNext, PaginationPrevious } from '@/components/ui'
-import { getJoinSemestersApi, useProfileSuspensePaging } from '@/service/api'
+import { useMemberProfiles, useSortedAdminProfiles } from '@/hooks'
+import { getJoinSemestersApi } from '@/service/api'
 
 export default function MemberPage() {
-  const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
-
   const [joinSemesterData, setJoinSemesterData] = useState<string[]>([])
   const [semesterIndex, setSemesterIndex] = useState<number>(0)
 
@@ -18,15 +17,9 @@ export default function MemberPage() {
     })
   }, [])
 
-  const {
-    data: member,
-    hasNextPage,
-    isFetchingNextPage,
-    fetchNextPage,
-  } = useProfileSuspensePaging({
-    roles: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_TEAM_LEADER'],
-    joinSemester: joinSemesterData[semesterIndex],
-  })
+  const { memberProfiles, hasNextPage, fetchNextPage, isFetchingNextPage } =
+    useMemberProfiles(joinSemesterData[semesterIndex])
+  const { adminProfiles } = useSortedAdminProfiles()
 
   const handleLeftSemester = () => {
     if (semesterIndex > 0) {
@@ -48,11 +41,8 @@ export default function MemberPage() {
     return `${year}-${semester} 멤버`
   }
 
-  const adminProfiles = admin?.pages.flatMap((page) => page.profiles)
-  const memberProfiles = member?.pages.flatMap((page) => page.profiles)
-
   return (
-    <main className="flex h-full w-full flex-col items-center pb-20">
+    <main className="flex flex-col items-center pb-20 w-full h-full">
       <div className="w-full max-w-[920px] pb-4 text-xl font-semibold">
         해구르르
       </div>
@@ -70,7 +60,7 @@ export default function MemberPage() {
           )
         })}
       </div>
-      <div className="flex items-center gap-2 pt-10 text-xl font-semibold">
+      <div className="flex gap-2 items-center pt-10 text-xl font-semibold">
         <PaginationPrevious
           to="#"
           onClick={handleLeftSemester}
