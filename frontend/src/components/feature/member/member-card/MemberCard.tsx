@@ -2,7 +2,7 @@ import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons'
 
 import { IconButton } from '@/components/common'
 import { Avatar, AvatarImage, Card } from '@/components/ui'
-import { BASE_URL } from '@/service/config'
+import { useMemberCard } from '@/hooks'
 
 interface MemberCardProps {
   userName: string
@@ -19,57 +19,49 @@ export const MemberCard = ({
   githubId,
   instagramId,
 }: MemberCardProps) => {
-  const onClickGithubIcon = () => {
-    if (!githubId) return
-
-    window.open(
-      `https://github.com/${githubId}`,
-      '_blank',
-      'noopener,noreferrer',
-    )
-  }
-
-  const onClickInstagramIcon = () => {
-    if (!instagramId) return
-
-    window.open(
-      `https://www.instagram.com/${instagramId}`,
-      '_blank',
-      'noopener,noreferrer',
-    )
-  }
+  const {
+    imageSrc,
+    handleGithubClick,
+    handleInstagramClick,
+    showGithubButton,
+    showInstagramButton,
+  } = useMemberCard({
+    userImageUrl,
+    githubId,
+    instagramId,
+  })
 
   return (
-    <Card className="flex h-auto w-40 flex-col items-center justify-evenly p-4 md:w-52">
-      <Avatar className="h-20 w-20 bg-slate-100">
-        <AvatarImage src={`${BASE_URL}${userImageUrl}`} />
+    <Card className="flex flex-col justify-evenly items-center p-4 w-40 h-auto md:w-52">
+      <Avatar className="w-20 h-20 bg-slate-100">
+        <AvatarImage src={imageSrc} />
       </Avatar>
-      <div className="w-full py-2 text-center text-lg font-semibold">
+      <div className="py-2 w-full text-lg font-semibold text-center">
         {userName}
       </div>
       <div className="h-16 overflow-y-scroll text-sm md:h-24 [&::-webkit-scrollbar]:hidden">
         {userDetail ? (
-          <div className="flex h-full items-center text-primary/80">
+          <div className="flex items-center h-full text-primary/80">
             {userDetail}
           </div>
         ) : (
-          <div className="flex h-full items-center text-primary/30">
+          <div className="flex items-center h-full text-primary/30">
             한 줄 소개가 없습니다
           </div>
         )}
       </div>
-      <div className="flex w-full items-center justify-end pt-2">
-        <div className="flex h-5 gap-2">
-          {githubId && (
+      <div className="flex justify-end items-center pt-2 w-full">
+        <div className="flex gap-2 h-5">
+          {showGithubButton && (
             <IconButton
-              icon={<GitHubLogoIcon className="h-auto w-5" />}
-              onClick={onClickGithubIcon}
+              icon={<GitHubLogoIcon className="w-5 h-auto" />}
+              onClick={handleGithubClick}
             />
           )}
-          {instagramId && (
+          {showInstagramButton && (
             <IconButton
-              icon={<InstagramLogoIcon className="h-auto w-5" />}
-              onClick={onClickInstagramIcon}
+              icon={<InstagramLogoIcon className="w-5 h-auto" />}
+              onClick={handleInstagramClick}
             />
           )}
         </div>
