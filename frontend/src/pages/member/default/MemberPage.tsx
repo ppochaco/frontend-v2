@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react'
 import { IntersectionObserverLoader } from '@/components/common'
 import { MemberCard } from '@/components/feature'
 import { PaginationNext, PaginationPrevious } from '@/components/ui'
-import { useMemberProfiles, useSortedAdminProfiles } from '@/hooks'
+import { useMemberProfiles } from '@/hooks'
+import { ADMIN_PROFILE_MOCK } from '@/mock'
 import { getJoinSemestersApi } from '@/service/api'
 
 export default function MemberPage() {
@@ -19,7 +20,6 @@ export default function MemberPage() {
 
   const { memberProfiles, hasNextPage, fetchNextPage, isFetchingNextPage } =
     useMemberProfiles(joinSemesterData[semesterIndex])
-  const { adminProfiles } = useSortedAdminProfiles()
 
   const handleLeftSemester = () => {
     if (semesterIndex > 0) {
@@ -47,7 +47,7 @@ export default function MemberPage() {
         해구르르
       </div>
       <div className="grid w-full max-w-[320px] grid-cols-2 place-items-center gap-6 sm:max-w-[520px] sm:grid-cols-3 md:max-w-[680px] lg:max-w-[920px] lg:grid-cols-4">
-        {adminProfiles?.map((user) => {
+        {ADMIN_PROFILE_MOCK.map((user) => {
           return (
             <MemberCard
               key={user.userId}
