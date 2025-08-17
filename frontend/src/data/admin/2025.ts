@@ -1,6 +1,12 @@
-import { Admin2025 } from '@/types'
+import { Admin, BasePosition } from '@/types'
 
-export const admins2025: Admin2025[] = [
+export type Position2025 =
+  | BasePosition
+  | '트랙조직위원장'
+  | '홍보부장'
+  | '기술관리부장'
+
+export const admins2025: Admin<Position2025>[] = [
   {
     position: '회장',
     userId: 'haedal2025',
