@@ -18,7 +18,7 @@ import {
   Separator,
 } from '@/components/ui'
 import { queryClient } from '@/lib/query-client'
-import { profileQuries, updateProfileInfoApi } from '@/service/api'
+import { profileQueries, updateProfileInfoApi } from '@/service/api'
 import { ProfileResponseDto } from '@/service/model'
 import {
   UpdateProfileInfo,
@@ -52,7 +52,7 @@ export const EditProfileForm = ({ profile, userId }: EditProfileFormProps) => {
 
     queryClient
       .invalidateQueries({
-        queryKey: profileQuries.all(),
+        queryKey: profileQueries.all(),
       })
       .then(() => {
         form.reset(form.getValues())

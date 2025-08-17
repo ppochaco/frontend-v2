@@ -1,7 +1,7 @@
 import { useSuspenseQuery } from '@tanstack/react-query'
 
 import { Separator } from '@/components/ui'
-import { profileQuries } from '@/service/api'
+import { profileQueries } from '@/service/api'
 import { useMyInfoStore } from '@/store'
 
 import {
@@ -15,7 +15,7 @@ export default function MyPage() {
   const { userId } = useMyInfoStore((state) => state.myInfo)
 
   const { data: profile } = useSuspenseQuery(
-    profileQuries.profile({ userId: userId }),
+    profileQueries.profile({ userId: userId }),
   )
 
   return (

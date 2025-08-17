@@ -6,8 +6,6 @@ import { PaginationNext, PaginationPrevious } from '@/components/ui'
 import { getJoinSemestersApi, useProfileSuspensePaging } from '@/service/api'
 
 export default function MemberPage() {
-  const { data: admin } = useProfileSuspensePaging({ roles: ['ROLE_ADMIN'] })
-
   const [joinSemesterData, setJoinSemesterData] = useState<string[]>([])
   const [semesterIndex, setSemesterIndex] = useState<number>(0)
 
@@ -48,7 +46,6 @@ export default function MemberPage() {
     return `${year}-${semester} 멤버`
   }
 
-  const adminProfiles = admin?.pages.flatMap((page) => page.profiles)
   const memberProfiles = member?.pages.flatMap((page) => page.profiles)
 
   return (

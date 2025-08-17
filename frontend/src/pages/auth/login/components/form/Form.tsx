@@ -9,7 +9,7 @@ import { AxiosError } from 'axios'
 import { Button, Input, Label } from '@/components/ui'
 import { API_ERROR_MESSAGES } from '@/constant'
 import { queryClient } from '@/lib/query-client'
-import { loginApi, profileQuries } from '@/service/api'
+import { loginApi, profileQueries } from '@/service/api'
 import { Login, LoginSchema } from '@/service/schema'
 import { useAuthStore, useMyInfoStore } from '@/store'
 
@@ -58,7 +58,7 @@ export const LoginForm = () => {
 
     try {
       const myInfo = await queryClient.fetchQuery(
-        profileQuries.profile({ userId: form.getValues('userId') }),
+        profileQueries.profile({ userId: form.getValues('userId') }),
       )
 
       if (myInfo) {
