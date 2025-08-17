@@ -1,7 +1,7 @@
 import { useQuery } from '@tanstack/react-query'
 
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui'
-import { profileQuries } from '@/service/api'
+import { profileQueries } from '@/service/api'
 import { BASE_URL } from '@/service/config'
 
 interface ProfileAvatarProps {
@@ -13,7 +13,7 @@ export const ProfileAvatar = ({ userId }: ProfileAvatarProps) => {
     data: profile,
     status,
     error,
-  } = useQuery(profileQuries.profile({ userId }))
+  } = useQuery(profileQueries.profile({ userId }))
 
   if (status === 'pending' || error)
     return (

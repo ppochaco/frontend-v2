@@ -24,3 +24,9 @@ export type SemesterCode =
   | 'SEMESTER_2029_1'
   | 'SEMESTER_2029_2'
   | undefined
+
+export type BasePosition = '회장' | '부회장' | '총무' | '교육운영진장'
+export type Admin<Position extends string = BasePosition> = {
+  position: Position
+  userId: string
+}

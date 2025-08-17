@@ -49,7 +49,7 @@ const getUserProfile = async ({ userId }: GetUserProfileRequest) => {
   return response.data
 }
 
-export const profileQuries = {
+export const profileQueries = {
   all: () => ['profile'],
   lists: ({
     roles,
@@ -57,14 +57,14 @@ export const profileQuries = {
   }: {
     roles: Role[]
     joinSemester?: string
-  }) => [...profileQuries.all(), 'lists', ...roles, joinSemester],
+  }) => [...profileQueries.all(), 'lists', ...roles, joinSemester],
   profiles: ({ userId }: GetUserProfileRequest) => [
-    ...profileQuries.all(),
+    ...profileQueries.all(),
     userId,
   ],
   profile: ({ userId }: GetUserProfileRequest) =>
     queryOptions({
-      queryKey: [...profileQuries.profiles({ userId })],
+      queryKey: [...profileQueries.profiles({ userId })],
       enabled: !!userId,
       queryFn: async () => getUserProfile({ userId }),
     }),
@@ -77,7 +77,7 @@ export const useProfileSuspensePaging = ({
   joinSemester,
 }: ProfilePagingProps) => {
   return useSuspenseInfiniteQuery({
-    queryKey: [...profileQuries.lists({ roles, joinSemester }), initPageToken],
+    queryKey: [...profileQueries.lists({ roles, joinSemester }), initPageToken],
     queryFn: ({ pageParam = initPageToken }) =>
       getProfilePaging({ page: pageParam, size, roles, joinSemester }),
     initialPageParam: initPageToken,

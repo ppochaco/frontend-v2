@@ -19,7 +19,7 @@ import {
 import { queryClient } from '@/lib/query-client'
 import {
   deleteProfileImageApi,
-  profileQuries,
+  profileQueries,
   updateProfileImageApi,
 } from '@/service/api/profile'
 import { BASE_URL } from '@/service/config'
@@ -61,11 +61,11 @@ export const ProfileImage = ({ profile, userId }: ProfileImageProps) => {
     toast.success(message, { duration: 2000 })
 
     queryClient.invalidateQueries({
-      queryKey: profileQuries.all(),
+      queryKey: profileQueries.all(),
     })
 
     const { profileImageUrl: profileImage } = await queryClient.fetchQuery(
-      profileQuries.profile({ userId }),
+      profileQueries.profile({ userId }),
     )
 
     setMyInfo({ profileImage })
