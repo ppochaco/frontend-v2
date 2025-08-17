@@ -1,3 +1,5 @@
+import { useMemo } from 'react'
+
 import { GitHubLogoIcon, InstagramLogoIcon } from '@radix-ui/react-icons'
 
 import { IconButton } from '@/components/common'
@@ -19,7 +21,17 @@ export const MemberCard = ({
   githubId,
   instagramId,
 }: MemberCardProps) => {
-  const onClickGithubIcon = () => {
+  // 이미지 URL 처리
+  const imageSrc = useMemo(() => {
+    if (!userImageUrl) return undefined
+
+    return userImageUrl.startsWith('https')
+      ? userImageUrl
+      : `${BASE_URL}${userImageUrl}`
+  }, [userImageUrl])
+
+  // GitHub 링크 처리
+  const handleGithubClick = () => {
     if (!githubId) return
 
     window.open(
@@ -29,7 +41,8 @@ export const MemberCard = ({
     )
   }
 
-  const onClickInstagramIcon = () => {
+  // Instagram 링크 처리
+  const handleInstagramClick = () => {
     if (!instagramId) return
 
     window.open(
@@ -39,10 +52,14 @@ export const MemberCard = ({
     )
   }
 
+  // 소셜 미디어 버튼 표시 여부
+  const showGithubButton = !!githubId
+  const showInstagramButton = !!instagramId
+
   return (
     <Card className="flex h-auto w-40 flex-col items-center justify-evenly p-4 md:w-52">
       <Avatar className="h-20 w-20 bg-slate-100">
-        <AvatarImage src={`${BASE_URL}${userImageUrl}`} />
+        <AvatarImage src={imageSrc} />
       </Avatar>
       <div className="w-full py-2 text-center text-lg font-semibold">
         {userName}
@@ -60,16 +77,16 @@ export const MemberCard = ({
       </div>
       <div className="flex w-full items-center justify-end pt-2">
         <div className="flex h-5 gap-2">
-          {githubId && (
+          {showGithubButton && (
             <IconButton
               icon={<GitHubLogoIcon className="h-auto w-5" />}
-              onClick={onClickGithubIcon}
+              onClick={handleGithubClick}
             />
           )}
-          {instagramId && (
+          {showInstagramButton && (
             <IconButton
               icon={<InstagramLogoIcon className="h-auto w-5" />}
-              onClick={onClickInstagramIcon}
+              onClick={handleInstagramClick}
             />
           )}
         </div>

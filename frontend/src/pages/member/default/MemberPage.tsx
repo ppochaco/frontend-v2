@@ -43,12 +43,12 @@ export default function MemberPage() {
   }))
 
   const {
-    data: member,
+    data: memberData,
     hasNextPage,
     isFetchingNextPage,
     fetchNextPage,
   } = useProfileSuspensePaging({
-    roles: ['ROLE_MEMBER', 'ROLE_ADMIN', 'ROLE_TEAM_LEADER'],
+    roles: ['ROLE_WEB_MASTER', 'ROLE_TEAM_LEADER', 'ROLE_MEMBER'],
     joinSemester: joinSemesterData[semesterIndex],
   })
 
@@ -72,7 +72,7 @@ export default function MemberPage() {
     return `${year}-${semester} 멤버`
   }
 
-  const memberProfiles = member?.pages.flatMap((page) => page.profiles)
+  const memberProfiles = memberData?.pages.flatMap((page) => page.profiles)
 
   return (
     <main className="flex h-full w-full flex-col items-center pb-20">
@@ -80,7 +80,7 @@ export default function MemberPage() {
         해구르르
       </div>
       <div className="grid w-full max-w-[320px] grid-cols-2 place-items-center gap-6 sm:max-w-[520px] sm:grid-cols-3 md:max-w-[680px] lg:max-w-[920px] lg:grid-cols-4">
-        {adminProfiles?.map((user) => {
+        {adminProfiles.map((user) => {
           return (
             <div>
               <Label className="text-md flex justify-center pb-1">
