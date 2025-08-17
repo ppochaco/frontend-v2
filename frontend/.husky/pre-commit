@@ -1,0 +1,5 @@
+echo "let's check the code! =^ . ｡.^="
+
+npx lint-staged
+
+echo "✅ Pre-commit checks completed!"
