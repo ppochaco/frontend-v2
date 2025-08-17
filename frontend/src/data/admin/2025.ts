@@ -13,11 +13,11 @@ export const admins2025: Admin<Position2025>[] = [
   },
   {
     position: '부회장',
-    userId: 'ezzkim1',
+    userId: 'song123',
   },
   {
     position: '총무',
-    userId: 'song123',
+    userId: 'ezzkim1',
   },
   {
     position: '교육운영진장',
