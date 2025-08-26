@@ -2,4 +2,10 @@ echo "let's check the code! =^ . ｡.^="
 
 npx lint-staged
 
-echo "✅ Pre-commit checks completed!"
+npm run lint:fix
+
+echo "🎉 Formatting Test completed!"
+
+npm run tsc
+
+echo "✅ Type Check completed!"
