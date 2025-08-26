@@ -90,7 +90,7 @@ export const EditBoardForm = ({
   return (
     <Form {...form}>
       <form
-        className="flex flex-col gap-4 w-full max-w-lg"
+        className="flex w-full max-w-lg flex-col gap-4"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <BoardFormField name="boardName" label="게시판 제목">
@@ -122,7 +122,7 @@ export const EditBoardForm = ({
             />
           )}
         </BoardFormField>
-        <div className="flex gap-2 justify-end pt-2">
+        <div className="flex justify-end gap-2 pt-2">
           <Button
             type="button"
             variant="outline"
