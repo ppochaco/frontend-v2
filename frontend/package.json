@@ -8,14 +8,17 @@
     "start": "vite start",
     "build": "tsc -b && vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "prettier --write .",
+    "tsc": "tsc -p tsconfig.json --noEmit",
     "swagger-typescript-api": "swagger-typescript-api -p https://www.knu-haedal.com/api/v3/api-docs -r -o ./src/models --modular -d --extract-request-body --extract-response-body --extract-response-error --axios",
     "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "npx prettier --write",
-      "npx eslint --cache --fix",
-      "npx tsc -p tsconfig.json --noEmit"
+      "npm run format",
+      "npm run lint:fix",
+      "npm run tsc"
     ]
   },
   "dependencies": {
