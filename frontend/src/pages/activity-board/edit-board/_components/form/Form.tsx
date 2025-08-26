@@ -90,7 +90,7 @@ export const EditBoardForm = ({
   return (
     <Form {...form}>
       <form
-        className="flex w-full max-w-lg flex-col gap-4"
+        className="flex flex-col gap-4 w-full max-w-lg"
         onSubmit={form.handleSubmit(onSubmit)}
       >
         <BoardFormField name="boardName" label="게시판 제목">
@@ -105,6 +105,7 @@ export const EditBoardForm = ({
         <BoardFormField name="boardIntro" label="게시판 소개">
           {(field) => (
             <Textarea
+              className="h-24"
               value={field.value}
               onChange={field.onChange}
               placeholder="게시판 소개글을 작성해주세요"
@@ -121,7 +122,7 @@ export const EditBoardForm = ({
             />
           )}
         </BoardFormField>
-        <div className="flex justify-end gap-2 pt-2">
+        <div className="flex gap-2 justify-end pt-2">
           <Button
             type="button"
             variant="outline"
