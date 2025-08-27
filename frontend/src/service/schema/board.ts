@@ -4,10 +4,10 @@ export const CreateBoardSchema = z.object({
   boardName: z
     .string()
     .min(1, { message: '게시판 제목을 입력해주세요.' })
-    .max(15, { message: '게시판 제목은 15자 이내여야 합니다.' }),
+    .max(30, { message: '게시판 제목은 30자 이내여야 합니다.' }),
   boardIntro: z
     .string()
-    .max(50, { message: '게시판 소개글은 50자 이내여야 합니다.' }),
+    .max(255, { message: '게시판 소개글은 255자 이내여야 합니다.' }),
   file: z
     .instanceof(File)
     .refine((f) => f.size < 5000000, {
@@ -27,10 +27,10 @@ export const UpdateBoardSchema = z.object({
   boardName: z
     .string()
     .min(1, { message: '게시판 제목을 입력해주세요.' })
-    .max(15, { message: '게시판 제목은 15자 이내여야 합니다.' }),
+    .max(30, { message: '게시판 제목은 30자 이내여야 합니다.' }),
   boardIntro: z
     .string()
-    .max(50, { message: '게시판 소개글은 50자 이내여야 합니다.' }),
+    .max(255, { message: '게시판 소개글은 255자 이내여야 합니다.' }),
   participants: z
     .string()
     .array()

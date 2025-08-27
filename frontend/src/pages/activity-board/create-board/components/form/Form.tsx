@@ -85,6 +85,7 @@ export const CreateBoardForm = ({ activityId }: CreateBoardFromProps) => {
             <Textarea
               value={field.value}
               onChange={field.onChange}
+              className="h-24"
               placeholder="게시판 소개글을 작성해주세요"
             />
           )}
