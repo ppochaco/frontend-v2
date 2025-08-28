@@ -32,7 +32,12 @@ export const BootcampScheduleTable = () => {
                   className="whitespace-nowrap border border-b-black align-top text-sm font-light sm:text-base"
                 >
                   {group.schedule[day].map((subject, index) => (
-                    <div key={index} className={cn(index < 2 && 'border-b')}>
+                    <div
+                      key={index}
+                      className={cn(
+                        index < group.schedule[day].length - 1 && 'border-b',
+                      )}
+                    >
                       &nbsp;{subject}&nbsp;
                     </div>
                   ))}
@@ -42,9 +47,6 @@ export const BootcampScheduleTable = () => {
           ))}
         </tbody>
       </table>
-      <div className="pl-2 pt-1 text-xs text-zinc-400 sm:text-sm">
-        ∙ ANS: Android Studio
-      </div>
     </div>
   )
 }
@@ -62,21 +64,21 @@ const CLASS_SCHEDULE: ClassSchedule[] = [
   {
     level: '기초반',
     schedule: {
-      월: ['', '파이썬', ''],
-      화: ['C언어', '', '웹 기초'],
-      수: ['', '파이썬', ''],
-      목: ['C 언어', '', '웹 기초'],
-      금: ['', '', ''],
+      월: ['C언어', '', '웹 기초', ''],
+      화: ['', '파이썬', '', '자바'],
+      수: ['C언어', '', '웹 기초', ''],
+      목: ['', '파이썬', '', '자바'],
+      금: ['', '', '', ''],
     },
   },
   {
     level: '심화반',
     schedule: {
-      월: ['', 'React', 'ANS'],
-      화: ['', '', ''],
-      수: ['Spring', 'React', ''],
-      목: ['', '', 'ANS'],
-      금: ['Spring', '', ''],
+      월: ['Spring', '', ''],
+      화: ['', 'React', 'Flutter'],
+      수: ['Spring', '', ''],
+      목: ['', 'React', 'Flutter'],
+      금: ['', '', ''],
     },
   },
 ] as const
