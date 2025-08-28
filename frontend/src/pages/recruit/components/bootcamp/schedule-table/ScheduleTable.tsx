@@ -32,7 +32,12 @@ export const BootcampScheduleTable = () => {
                   className="whitespace-nowrap border border-b-black align-top text-sm font-light sm:text-base"
                 >
                   {group.schedule[day].map((subject, index) => (
-                    <div key={index} className={cn(index < 2 && 'border-b')}>
+                    <div
+                      key={index}
+                      className={cn(
+                        index < group.schedule[day].length - 1 && 'border-b',
+                      )}
+                    >
                       &nbsp;{subject}&nbsp;
                     </div>
                   ))}
