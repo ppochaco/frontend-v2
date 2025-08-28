@@ -1,0 +1,11 @@
+echo "let's check the code! =^ . ｡.^="
+
+npx lint-staged
+
+npm run lint:fix
+
+echo "🎉 Formatting Test completed!"
+
+npm run tsc
+
+echo "✅ Type Check completed!"

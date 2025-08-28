@@ -6,7 +6,7 @@ export type Position2025 =
   | '홍보부장'
   | '기술관리부장'
 
-export const admins2025: Admin<Position2025>[] = [
+export const ADMIN_2025: Admin<Position2025>[] = [
   {
     position: '회장',
     userId: 'haedal2025',
@@ -35,4 +35,4 @@ export const admins2025: Admin<Position2025>[] = [
     position: '기술관리부장',
     userId: 'rnjs5540',
   },
-]
+] as const

@@ -105,6 +105,7 @@ export const EditBoardForm = ({
         <BoardFormField name="boardIntro" label="게시판 소개">
           {(field) => (
             <Textarea
+              className="h-24"
               value={field.value}
               onChange={field.onChange}
               placeholder="게시판 소개글을 작성해주세요"
