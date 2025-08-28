@@ -52,6 +52,17 @@ export const BootcampAccordionCard = () => {
               개발 툴인 Figma 실습까지
             </AccordionContent>
           </AccordionItem>
+          <AccordionItem
+            value="item-4"
+            className="my-2 rounded-xl border-none bg-white px-2"
+          >
+            <AccordionTrigger className="py-3 font-semibold">
+              자바
+            </AccordionTrigger>
+            <AccordionContent>
+              간단한 텍스트rpg 만들기로 배우는 자바와 객체지향
+            </AccordionContent>
+          </AccordionItem>
         </Accordion>
       </Card>
       <Card className="w-80 bg-[#84869F] px-4 py-10 text-white sm:w-96">
@@ -69,7 +80,6 @@ export const BootcampAccordionCard = () => {
               Spring
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2">
-              <div>요건: java로 입부 테스트 통과</div>
               <div>
                 API를 이용하여 애플리케이션의 필수 기능 구현 후 배포까지
               </div>
@@ -83,7 +93,6 @@ export const BootcampAccordionCard = () => {
               React
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2">
-              <div>요건: js로 입부 테스트 통과</div>
               <div>{`HTML, CSS, JS와 함께 <해달그램> 제작 후 배포까지`}</div>
             </AccordionContent>
           </AccordionItem>
@@ -92,11 +101,12 @@ export const BootcampAccordionCard = () => {
             className="my-2 rounded-xl border-none bg-white px-2"
           >
             <AccordionTrigger className="py-3 font-semibold">
-              ANS
+              Flutter
             </AccordionTrigger>
             <AccordionContent className="flex flex-col gap-2">
-              <div>요건: java로 입부 테스트 통과</div>
-              <div>{`<해달 그램>을 제작하면서 리스트뷰 구현, 파이어베이스 연동까지`}</div>
+              <div>
+                종합 프로젝트로 어플을 제작하면서 파이어베이스와 API연동까지
+              </div>
             </AccordionContent>
           </AccordionItem>
         </Accordion>
