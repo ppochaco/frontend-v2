@@ -11,7 +11,7 @@ interface RecruitLinkButtonProps {
 export const RecruitLinkButton = ({ className }: RecruitLinkButtonProps) => {
   const handleClick = () => {
     window.location.href =
-      'https://docs.google.com/forms/d/e/1FAIpQLSdhvW34Cscw1XceELYSccDKgBeAOw26D7wviNw9hsC3TMCYvw/viewform'
+      'https://docs.google.com/forms/d/e/1FAIpQLScdj0yHEl91sTmzIWjAGWj87AiAItrAoCC4xrO_IEzKk7PWKQ/viewform'
   }
 
   return (
