@@ -31,18 +31,22 @@ export const RecruitProcess = () => {
 const RECRUIT_PROCESS = [
   {
     title: '서류접수',
-    detail: '02.26.(화) ~ 03.03.(월)',
+    detail: '08.30.(토) ~ 09.05.(금)',
   },
   {
     title: '서류 발표',
-    detail: '03.05.(수)',
+    detail: '09.07.(일)',
   },
   {
     title: '오프라인 면접',
-    detail: '03.06.(목) ~ 03.09.(일)',
+    detail: '09.08.(월) ~ 09.10.(수)',
   },
   {
     title: '최종 발표',
-    detail: '03.11.(화) ~ 03.12.(수)',
+    detail: '09.12.(금)',
+  },
+  {
+    title: '신규 부원 OT',
+    detail: '09.16.(화)',
   },
 ]
