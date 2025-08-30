@@ -121,7 +121,7 @@ const shootingStarAnimation = {
     transition: {
       duration: 10,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: 'easeInOut' as const,
       repeatDelay: 2,
     },
   },
@@ -135,7 +135,7 @@ const shootingStarAnimation2 = {
     transition: {
       duration: 6,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: 'easeInOut' as const,
       repeatDelay: 3,
     },
   },
@@ -148,7 +148,7 @@ const starBlinkAnimation = (delay: number) => ({
       duration: 1.5,
       delay,
       repeat: Infinity,
-      ease: 'easeInOut',
+      ease: 'easeInOut' as const,
     },
   },
 })
